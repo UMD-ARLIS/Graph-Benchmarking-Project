@@ -11,8 +11,11 @@ TBC but plan on:
 ## Useful Links:
 
 [Project Github](https://github.com/osullik)
+
 [Project Google Drive](https://drive.google.com/drive/folders/10K8nWKxSedpFT5xDhuE1rQwi8QrLSdPT?usp=share_link)
+
 [Project Jira Board](https://osullik.atlassian.net/jira/software/projects/HIVE/boards/1)
+
 [Project Slack - TBC](https://slack.com)
 
 
