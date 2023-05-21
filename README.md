@@ -8,7 +8,15 @@ TBC but plan on:
 - Routine Comms through Slack
 - Formal Meetings through Teams
 
-## Project Structure:
+## Useful Links:
+
+[Project Github](https://github.com/osullik)
+[Project Google Drive](https://drive.google.com/drive/folders/10K8nWKxSedpFT5xDhuE1rQwi8QrLSdPT?usp=share_link)
+[Project Jira Board](https://osullik.atlassian.net/jira/software/projects/HIVE/boards/1)
+[Project Slack - TBC](https://slack.com)
+
+
+## Repo Structure:
 
 ### Papers
  Contains all files relevant to papers, presentations etc. Primarily LaTeX. Included the bibliography file.
@@ -18,7 +26,6 @@ TBC but plan on:
 
 ### Data 
  Contains TRIVIAL code examples for testing code only. All large data files are stored externally. 
-
 
 ## Initial Setup
 
