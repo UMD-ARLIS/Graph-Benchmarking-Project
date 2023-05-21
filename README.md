@@ -1,4 +1,4 @@
-# summer2023
+# Overview
 Repo for Summer 2023 Graph Benchmarking Project
 
 ## Battle Rhythm: 
@@ -30,14 +30,16 @@ TBC but plan on:
 ### Data 
  Contains TRIVIAL code examples for testing code only. All large data files are stored externally. 
 
-## Initial Setup
+# Initial Setup
 
+## Cloning the Repo
 assuming you have git installed locally, you should be able to just clone the repo with something like
 
 `git clone https://github.com/osullik/summer2023.git`
 
 check that the .gitignore comes down with it. And you should be right to go.
 
+## Getting Jabref [Optional]
 For JABREF, you can grab it at the following link: https://www.jabref.org/
 To import the library.
 
@@ -50,11 +52,13 @@ Easiest way is to go go google scholar, hit cite and save the .bib file.
 Drag and drop that into the interface. 
 To update, just edit it in the jabref editor and save (ctrl+s)
 
+# Ways of Work
+
 ## Writing
 
-We'll cover in more detail when we get to it.
+We'll cover in more detail if/when we get to it.
 
-If you're new to LaTeX we can use Overleaf to get started (Link Here)
+If you're new to LaTeX we can use Overleaf to get started: [Link to Overleaf](https://overleaf.com)
 
 ## Coding
 
@@ -69,15 +73,15 @@ We should aim for Test-Driven development. In general:
 
 If not fully test-driven, we should at least produce a unit test for each function that we write. As we mature we can add regression testing, integration testing etc. 
 
+## Reference Management 
+Update the reference details in the Project .bib file for now. If things get out of hand we can split to seperate ones. 
+
+Add any paper of use to the google drive with the naming convention <FirstAuthorLastName><year>.*** eg osullivan2023.pdf
+
 ## Data management 
 
-We'll use Google Drive Initially, with a TO-DO of finding a better version control system for datasets. 
+We'll use Google Drive at the link above Initially, with a TO-DO of finding a better version control system for datasets. 
 
 ## Task Tracking
 
-We'll use Jira at this link: 
-
-
-# TO DO
-
-Add in big-hands things to-do here for our visibility and tracking. Primary task management is through Jira. 
+Use Jira at the link above
