@@ -46,7 +46,36 @@ Alternately, you can just copy and paste raw BibTeX into JabRef and it'll work i
 
 ## Problem Domain
 
+### HIVE
+The [DARPA HIVE](https://www.darpa.mil/program/hierarchical-identify-verify-exploit) (Hierarchical Identify Verify Exploit) project is looking to build a graph analytics processor that can process streaming graphs 1000X faster and at much lower power than current processing technology. 
+
+The [GraphChallenge](https://graphchallenge.mit.edu/darpa-hive) is run by MIT and AWS towards the DARPA HIVE program. There are many useful papers, datasets and other useful resources here. 
+
 ### Graph Data Structures
+
+[Geeks4Geeks Introduction to Graphs](https://www.geeksforgeeks.org/introduction-to-graphs-data-structure-and-algorithm-tutorials/)
+
+[Neo4j Graph Database Overview](https://neo4j.com/developer/graph-database/)
+
+[NVIDIA Graph Analytics Introduction](https://www.nvidia.com/en-us/glossary/data-science/graph-analytics/#:~:text=Graph%20analytics%2C%20or%20Graph%20algorithms,the%20graph%20as%20a%20whole.)
+
+### Graph Datasets
+
+[Graph500 Website](https://graph500.org/). Useful overview of the project, including the kind of sizes that exist in the problem domain. 
+
+[Graph500 Codebase](https://github.com/graph500/graph500). This will be the startpoint for generating our own graphs for testing. 
+
+### Knowledge Graphs
+
+A knowledge graph is an interconnected dataset enriched with semantics so we can reason about the underlying data and use it confidently for complex decision-making
+
+[Neo4j Primer on Knowledge Graphs](https://neo4j.com/blog/from-graph-to-knowledge-graph-how-a-graph-becomes-a-knowledge-graph/)
+
+[University of Southern California's Knowledge Graph Class Syllabus](https://classes.usc.edu/term-20203/course/dsci-558/)
+
+### Community Detection
+
+### Subgraph Matching
 
 ### High Performance & Parallel Computing
 
@@ -55,6 +84,10 @@ Alternately, you can just copy and paste raw BibTeX into JabRef and it'll work i
 [UMD Parallel Computing Course](http://www.cs.umd.edu/class/spring2023/cmsc416/Lectures/lectures.shtml)
 
 [Introduction to Parallel Algorithms: Belloch, Dhulipapa & Sun (2023)](https://www.cs.umd.edu/~laxman/notes/parallel.pdf)
+
+### Telemetry and Measuring performance
+
+[Intel Overview of Telemetry for Graph Analytics](https://www.intel.com/content/www/us/en/developer/articles/technical/measuring-graph-analytics-performance.html#gs.ygy868)
 
 ## Development
 
