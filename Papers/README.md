@@ -15,6 +15,8 @@ The Figures Directory contains any relevant figures. Prefer the use of .svg figu
 
 The Style Directory contains relevant style files for the construction of the paper. 
 
+the bibliography directory contails the .bib file for the project, and the reference_papers directory. The directory will hold the PDF copies of useful papers we come across in our travels. 
+
 ## Compilation Instructions
 
 ### Environment
