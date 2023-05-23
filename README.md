@@ -68,12 +68,10 @@ Update the reference details in the Project .bib file for now. If things get out
 
 Add any paper of use to the google drive with the naming convention <FirstAuthorLastName><year>.*** eg osullivan2023.pdf
 
-We'll use Jira at this link: [Jira Board](https://osullik.atlassian.net/jira/software/projects/HIVE/boards/1) 
-
 ## Data management 
 
 We'll use Google Drive at the link above Initially, with a TO-DO of finding a better version control system for datasets. 
 
 ## Task Tracking
 
-Reserved space
+We'll use Jira at this link: [Jira Board](https://osullik.atlassian.net/jira/software/projects/HIVE/boards/1) 
