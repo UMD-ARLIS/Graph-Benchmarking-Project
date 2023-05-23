@@ -5,7 +5,7 @@ Repo for Summer 2023 Graph Benchmarking Project
 TBC but plan on: 
 - 2 x Weekly meeting with faculty mentor
 - 1 x Daily standup with Kent
-- Routine Comms through Slack in the [HIVE2023 Workspace](https://join.slack.com/t/hive2023workspace/shared_invite/zt-1vleu4e07-xrSi57M7ZrCtWKc6VMnQbA)
+- Routine Comms through Slack in the 
 - Formal Meetings through Teams
 
 ## Useful Links:
@@ -16,7 +16,7 @@ TBC but plan on:
 
 [Project Jira Board](https://osullik.atlassian.net/jira/software/projects/HIVE/boards/1)
 
-[Project Slack - TBC](https://join.slack.com/t/hive2023workspace/shared_invite/zt-1vleu4e07-xrSi57M7ZrCtWKc6VMnQbA)
+[Project Slack - HIVE2023 Workspace](https://join.slack.com/t/hive2023workspace/shared_invite/zt-1vleu4e07-xrSi57M7ZrCtWKc6VMnQbA)
 
 
 ## Repo Structure:
