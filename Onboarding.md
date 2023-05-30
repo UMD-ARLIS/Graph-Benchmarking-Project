@@ -96,6 +96,8 @@ A knowledge graph is an interconnected dataset enriched with semantics so we can
 
 [The Scrum Guide](https://scrumguides.org/scrum-guide.html). The Handbook for how to do scrum. Good high-level context.
 
+[Introduction to Scrum in 7 Minutes](https://www.youtube.com/watch?v=9TycLR0TqFA)
+
 ### Software Testing and Test Driven Development
 
 [Atlassian Software Testing Primer ~5 Min Read](https://www.atlassian.com/continuous-delivery/software-testing/types-of-software-testing)
