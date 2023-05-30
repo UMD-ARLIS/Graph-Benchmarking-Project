@@ -12,7 +12,7 @@ TBC but plan on:
 
 [Project Github](https://github.com/osullik)
 
-[Project Google Drive](https://drive.google.com/drive/folders/10K8nWKxSedpFT5xDhuE1rQwi8QrLSdPT?usp=share_link)
+[Project Google Drive](https://drive.google.com/drive/folders/19-CboH6ZahDUuIYqDbroJ4DJIftPY_6s?usp=sharing)
 
 [Project Jira Board](https://osullik.atlassian.net/jira/software/projects/HIVE/boards/1)
 
