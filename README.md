@@ -16,7 +16,7 @@ TBC but plan on:
 
 [Project Jira Board](https://osullik.atlassian.net/jira/software/projects/HIVE/boards/1)
 
-[Project Slack - HIVE2023 Workspace](https://join.slack.com/t/hive2023workspace/shared_invite/zt-1vleu4e07-xrSi57M7ZrCtWKc6VMnQbA)
+[Project Slack - RISC Minnesota 2023 Workspace](https://riscminnesota2023.slack.com)
 
 
 ## Repo Structure:
