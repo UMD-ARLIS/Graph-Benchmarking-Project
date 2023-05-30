@@ -18,6 +18,8 @@ TBC but plan on:
 
 [Project Slack - RISC Minnesota 2023 Workspace](https://riscminnesota2023.slack.com)
 
+[Project Calendar](https://calendar.google.com/calendar/u/1?cid=Y19kMmQwNDUxY2RjYmFlNWUxOTgxY2JkMDc4Y2NjNjhkZGQ0NDUyMmFhNzMzZmFkMzQzNjUwZGVlOWEzMWM5MTFiQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20)
+
 
 ## Repo Structure:
 
