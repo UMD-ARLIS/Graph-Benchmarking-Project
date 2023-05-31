@@ -4,8 +4,11 @@ A first attempt at a 'hello world' in C using a Test Driven Development approach
 
 ## Structure
 makefile 		- provides the compiler instructions on how to make the file. 
+
 helloworld.c 	- defines the function for the hello world program
+
 test.c 			- defines the test for the hello world program
+
 helloworld.h 	- header file for helloworld, defines functions. 
 
 
