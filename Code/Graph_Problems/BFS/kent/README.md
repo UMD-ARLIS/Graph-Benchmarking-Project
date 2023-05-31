@@ -45,3 +45,5 @@ to:
 when you try to compile the test file, you should see something like: 
 
 	Assertion failed: ((strcmp(helloWorldOutput, "hello world")) == 0), function test_hello_world, file test.c, line 27. "helloworld"
+
+This helps us find the error in our code - returning the wrong value. Not a syntax or logic error, but also not what we want the program to do!
