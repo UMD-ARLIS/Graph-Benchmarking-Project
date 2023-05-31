@@ -1,0 +1,73 @@
+% Original Code source: https://tex.stackexchange.com/questions/17700/quadrants-in-slides-using-lyx-and-beamer
+
+\documentclass[usenames,dvipsnames]{beamer}
+
+% % % % % % % % % % %
+%Package Imports
+% % % % % % % % % % %
+\usepackage{caption}
+\usepackage{xcolor}
+
+% % % % % % % % % % %
+% Custom Commands
+% % % % % % % % % % %
+\newcommand\FourQuad[4]{%
+    \begin{minipage}[b][.35\textheight][t]{.47\textwidth}#1\end{minipage}\hfill%
+    \begin{minipage}[b][.35\textheight][t]{.47\textwidth}#2\end{minipage}\\[0.5em]
+    \begin{minipage}[b][.35\textheight][t]{.47\textwidth}#3\end{minipage}\hfill
+    \begin{minipage}[b][.35\textheight][t]{.47\textwidth}#4\end{minipage}\\
+    \includegraphics[scale=0.05]{Papers/Presentations/Figures/arlis.png}
+}
+
+% % % % % % % % % % %
+% Document Content
+% % % % % % % % % % %
+
+\begin{document}
+    \begin{frame}
+        \frametitle{\textcolor{Mahogany}{Week 1 Template}}
+        \FourQuad%
+        %Top Left
+        {
+            \tiny{
+                \textbf{High Level Project Goal}  
+                \begin{itemize}
+                    \item EXAMPLE: Create a report consisting of a minimum of  3 to 4 recommendations
+                    \item relating to mitigation and  implementation strategies against unauthorized  disclosures to the media for our sponsors, OUSDIS 
+                \end{itemize} 
+            }
+        }%
+        %Top Right
+        {
+            \tiny{
+                \textbf{Project Approach - how will you accomplish the goal?} 
+                \begin{itemize}
+                    \item EXAMPLE: Research and identify the causes and  motivations behind intentional disclosures to the media 
+                    \item EXAMPLE: Brainstorm and narrow down mitigation  strategies that can be realistically implemented Using research findings plus interviews 
+                    \item EXAMPLE: Provide recommendations and implementation strategies to prevent intentional unauthorized disclosures  
+                \end{itemize}
+            }
+        }%
+        %Bottom Left
+        {
+            \tiny{
+                \textbf{Initial Steps - what are you doing next week?}
+                \begin{itemize}
+                    \item EXAMPLE: Reviewing literature 
+                    \item EXAMPLE: Set up GitLab
+                \end{itemize}   
+            }
+        }%
+        %Bottom Right
+        {
+            \tiny{
+                \textbf{Significance if project is successful}
+                \begin{itemize}
+                    \item EXAMPLE: Risk is becoming more and more prevalent as  media becomes such a vital part of and influence on  society  
+                    \item EXAMPLE: Proactive approach to UD before it becomes  an even bigger issue 
+                \end{itemize} 
+            }
+        }
+    \end{frame}
+    
+\end{document}
