@@ -20,6 +20,7 @@ TBC but plan on:
 
 [Project Calendar](https://calendar.google.com/calendar/u/1?cid=Y19kMmQwNDUxY2RjYmFlNWUxOTgxY2JkMDc4Y2NjNjhkZGQ0NDUyMmFhNzMzZmFkMzQzNjUwZGVlOWEzMWM5MTFiQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20)
 
+[Project Overlead (LaTeX)](https://www.overleaf.com/5589556986bvqfbthdvdjc)
 
 ## Repo Structure:
 
@@ -50,7 +51,7 @@ For JABREF, you can grab it at the following link: https://www.jabref.org/
 
 We'll cover in more detail if/when we get to it.
 
-If you're new to LaTeX we can use Overleaf to get started: [Link to Overleaf](https://overleaf.com)
+If you're new to LaTeX we can use Overleaf to get started: [Link to Overleaf]([https://overleaf.com](https://www.overleaf.com/5589556986bvqfbthdvdjc))
 
 ## Coding
 
