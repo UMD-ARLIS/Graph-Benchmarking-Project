@@ -3,7 +3,9 @@
 Uses Multiple Lists
 
 // u and v are nodes; 
+
 // (u,v) is an edge between u and v;
+
 // s is the source of the BFS
 
 	BFS(s)
@@ -27,9 +29,13 @@ Uses Multiple Lists
 ## BFS Algorithm (From Berkley AI CS188 GraphSearch)
 
 // problem is the graph
+
 // fringe is a queue
+
 // remove-front is a pop operation
+
 // goal-test is checking if the search target is found
+
 // state of a node doesn't really apply here, but in general is the name of the node. 
 
 	function BFS (problem, fringe) return a solution, or failure
