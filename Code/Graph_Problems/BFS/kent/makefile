@@ -2,15 +2,15 @@
 
 # format is the command: instructions
 
-CFLAGS=-Wall -g
+CFLAGS= -Wall -g
 
-all: clean helloworld test							# Run all commands
+all: clean test										# Run all commands
+
+#helloworld: 										# Compile the hello world file
+#	cc helloworld.c -o helloworld
 
 test:												# Compile the test file
 	cc test.c -o test
-
-helloworld: 										# Compile the hello world file
-	cc helloworld.c -o helloworld
 
 clean: 												# Clean the compiled files
 	rm -f helloworld test
