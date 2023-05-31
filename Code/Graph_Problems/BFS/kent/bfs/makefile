@@ -7,10 +7,10 @@ CFLAGS= -Wall -g
 all: clean test						# Run all commands
 
 #bfs: 								# Compile the bfs file
-#	cc bfs.c -o bfs
+#	cc bfs.c -o bfs.o
 
 test:								# Compile the test file
-	cc test.c -o test
+	cc test.c -o test.o
 
 clean: 								# Clean the compiled files
-	rm -f bfs test
+	rm -f bfs.o test.o
