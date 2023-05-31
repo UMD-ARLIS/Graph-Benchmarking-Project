@@ -1,6 +1,6 @@
 % Original Code source: https://tex.stackexchange.com/questions/17700/quadrants-in-slides-using-lyx-and-beamer
 
-\documentclass[usenames,dvipsnames]{beamer}
+\documentclass[usenames,dvipsnames]{beamer} %usenames and dvipsnames are extra parameters to allow for use of the extended colour pallet in xcolors
 
 % % % % % % % % % % %
 %Package Imports
@@ -11,6 +11,8 @@
 % % % % % % % % % % %
 % Custom Commands
 % % % % % % % % % % %
+
+%make a quadslide
 \newcommand\FourQuad[4]{%
     \begin{minipage}[b][.35\textheight][t]{.47\textwidth}#1\end{minipage}\hfill%
     \begin{minipage}[b][.35\textheight][t]{.47\textwidth}#2\end{minipage}\\[0.5em]
