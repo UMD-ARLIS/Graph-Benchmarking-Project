@@ -108,6 +108,8 @@ A knowledge graph is an interconnected dataset enriched with semantics so we can
 
 [Test Driven Development in C - Bowling Game Kata ~20 Min read](https://www.slideshare.net/amritayan/test-driven-development-in-c). Useful little presentation about how to do TDD in C
 
+[Troubleshooting: Compiling Seperate Test Files](https://muizidn.medium.com/error-ld-symbol-not-found-for-architecture-x86-64-a5e5b648ffc)
+
 ### C Programming
 
 [Learn C the Hard Way](https://shop.learncodethehardway.org/access/buy/3/); [Alternate Link](https://github.com/XWHQSJ/ebooks/blob/master/Cpp/C/Learn%20C%20the%20Hard%20Way.pdf). I like Zed's books for picking up new languages. Lost of repetition and just working with code to get across the line. 
