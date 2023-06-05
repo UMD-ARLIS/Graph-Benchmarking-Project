@@ -586,55 +586,269 @@ MU_TEST(test_queue_single_item) {
 
     //Cleanup
     q_free(test_queue); 
-
 }
 
-// Unit Tests for BFS Primitives
-
-static void test_get_node_children(){
-
-}
-
-static void test_add_child_to_queue(){
-
-}
 
 // BFS Integration Tests
 
-static void test_bfs_single_vertex(){
+MU_TEST(test_bfs_single_vertex) {
+	printf("Testing that BFS on a single vertex returns that vertex\n");
+
+	//Init 
+	graph_t test_graph = g_init();						//create Test Graph
+	g_vertex_add(test_graph, "1"); //0
+	char *startNode = 0;
+	char *searchTarget = 0;
+
+	//test 
+	char *traversalList = breadthFirstSearch(test_graph, startNode, searchTarget);
+	mu_assert_string_eq("1",traversalList);
+
+	//cleanuo\p
+	free(traversalList);
+	g_free_alt(test_graph, false);
 
 }
 
-static void test_bfs_single_vertex_with_loop(){
+MU_TEST(test_bfs_single_vertex_with_loop) {
+	printf("Testing that BFS on a single vertex with a self edge returns the vertex\n");
+	//Init 
+	graph_t test_graph = g_init();						//create Test Graph
+	g_vertex_add(test_graph, "1"); //0
+	g_edge_add(test_graph, 0, 0, "A"); // (1,1)
+
+	char *startNode = 0;
+	char *searchTarget = 0;
+
+	//test 
+	char *traversalList = breadthFirstSearch(test_graph, startNode, searchTarget);
+	mu_assert_string_eq("1",traversalList);
+
+	//cleanuo\p
+	free(traversalList);
+	g_free_alt(test_graph, false);	
+}
+
+MU_TEST(test_bfs_two_verticies_no_path) {
+	printf("Testing that BFS on two vertexes with no edge returns only the first vertex\n");
+
+	//Init 
+	graph_t test_graph = g_init();						//create Test Graph
+	g_vertex_add(test_graph, "1"); //0
+	g_vertex_add(test_graph, "2"); //1
+
+	char *startNode = 0;
+	char *searchTarget = 1;
+
+	//test 
+	char *traversalList = breadthFirstSearch(test_graph, startNode, searchTarget);
+	mu_assert_string_eq("1,FAIL",traversalList);
+
+	//cleanup
+	free(traversalList);
+	g_free_alt(test_graph, false);		
+}
+
+MU_TEST(test_bfs_two_verticies_with_simple_path) {
+	printf("Testing that BFS on a two vertexes with a simple path returns both verticies\n");
+
+	//Init 
+	graph_t test_graph = g_init();						//create Test Graph
+	g_vertex_add(test_graph, "1"); //0
+	g_vertex_add(test_graph, "2"); //1
+	g_edge_add(test_graph, 0, 1, "A"); // (1,1)
+
+	char *startNode = 0;
+	char *searchTarget = 1;
+
+	//test 
+	char *traversalList = breadthFirstSearch(test_graph, startNode, searchTarget);
+	mu_assert_string_eq("1,2",traversalList);
+
+	//cleanup
+	free(traversalList);
+	g_free_alt(test_graph, false);		
 
 }
 
-static void test_bfs_two_verticies_no_path(){
+MU_TEST(test_bfs_complete_graph) {
+	printf("Testing that BFS on a complete acyclic graph executes correctly\n");	
 
+	//Init 
+	graph_t test_graph = g_init();						//create Test Graph
+	g_vertex_add(test_graph, "1"); //0
+	g_vertex_add(test_graph, "2"); //1
+	g_vertex_add(test_graph, "3"); //2
+	g_vertex_add(test_graph, "4"); //3
+	g_vertex_add(test_graph, "5"); //4
+	g_vertex_add(test_graph, "6"); //5
+	g_vertex_add(test_graph, "7"); //6
+	g_vertex_add(test_graph, "8"); //7
+	g_vertex_add(test_graph, "9"); //8
+
+	g_edge_add(test_graph, 0, 1, "A"); // (1,2)
+	g_edge_add(test_graph, 1, 2, "B"); // (2,3)
+	g_edge_add(test_graph, 1, 3, "C"); // (2,4)
+	g_edge_add(test_graph, 0, 4, "D"); // (1,5)
+	g_edge_add(test_graph, 4, 5, "E"); // (5,6)
+	g_edge_add(test_graph, 0, 6, "F"); // (1,7)
+	g_edge_add(test_graph, 6, 7, "G"); // (7,8)
+	g_edge_add(test_graph, 6, 8, "H"); // (7,9)
+
+	char *startNode = 0;
+	char *searchTarget = 10;
+
+	//test 
+	char *traversalList = breadthFirstSearch(test_graph, startNode, searchTarget);
+	mu_assert_string_eq("1,2,5,7,3,4,6,8,9,FAIL",traversalList);
+
+	//cleanup
+	free(traversalList);
+	g_free_alt(test_graph, false);
 }
 
-static void test_bfs_two_verticies_with_simple_path(){
+MU_TEST(test_bfs_complete_graph_start_at_end) {
+	printf("Testing that BFS on a complete directed acyclic graph executes correctly starting from different location\n");	
 
+	//Init 
+	graph_t test_graph = g_init();						//create Test Graph
+	g_vertex_add(test_graph, "1"); //0
+	g_vertex_add(test_graph, "2"); //1
+	g_vertex_add(test_graph, "3"); //2
+	g_vertex_add(test_graph, "4"); //3
+	g_vertex_add(test_graph, "5"); //4
+	g_vertex_add(test_graph, "6"); //5
+	g_vertex_add(test_graph, "7"); //6
+	g_vertex_add(test_graph, "8"); //7
+	g_vertex_add(test_graph, "9"); //8
+
+	g_edge_add(test_graph, 0, 1, "A"); // (1,2)
+	g_edge_add(test_graph, 1, 2, "B"); // (2,3)
+	g_edge_add(test_graph, 1, 3, "C"); // (2,4)
+	g_edge_add(test_graph, 0, 4, "D"); // (1,5)
+	g_edge_add(test_graph, 4, 5, "E"); // (5,6)
+	g_edge_add(test_graph, 0, 6, "F"); // (1,7)
+	g_edge_add(test_graph, 6, 7, "G"); // (7,8)
+	g_edge_add(test_graph, 6, 8, "H"); // (7,9)
+
+	char *startNode = 6;
+	char *searchTarget = 9;
+
+	//test 
+	char *traversalList = breadthFirstSearch(test_graph, startNode, searchTarget);
+	mu_assert_string_eq("7,8,9,FAIL",traversalList);
+
+	//cleanup
+	free(traversalList);
+	g_free_alt(test_graph, false);
 }
 
-static void test_bfs_complete_graph(){
+MU_TEST(test_bfs_complete_graph_early_stopping) {
+	printf("Testing that BFS on a complete acyclic graph stops early when finding target\n");	
 
+	//Init 
+	graph_t test_graph = g_init();						//create Test Graph
+	g_vertex_add(test_graph, "1"); //0
+	g_vertex_add(test_graph, "2"); //1
+	g_vertex_add(test_graph, "3"); //2
+	g_vertex_add(test_graph, "4"); //3
+	g_vertex_add(test_graph, "5"); //4
+	g_vertex_add(test_graph, "6"); //5
+	g_vertex_add(test_graph, "7"); //6
+	g_vertex_add(test_graph, "8"); //7
+	g_vertex_add(test_graph, "9"); //8
+
+	g_edge_add(test_graph, 0, 1, "A"); // (1,2)
+	g_edge_add(test_graph, 1, 2, "B"); // (2,3)
+	g_edge_add(test_graph, 1, 3, "C"); // (2,4)
+	g_edge_add(test_graph, 0, 4, "D"); // (1,5)
+	g_edge_add(test_graph, 4, 5, "E"); // (5,6)
+	g_edge_add(test_graph, 0, 6, "F"); // (1,7)
+	g_edge_add(test_graph, 6, 7, "G"); // (7,8)
+	g_edge_add(test_graph, 6, 8, "H"); // (7,9)
+
+	char *startNode = 0;
+	char *searchTarget = 5;
+
+	//test 
+	char *traversalList = breadthFirstSearch(test_graph, startNode, searchTarget);
+	mu_assert_string_eq("1,2,5,7,3,4,6",traversalList);
+
+	//cleanup
+	free(traversalList);
+	g_free_alt(test_graph, false);
 }
 
-static void test_bfs_cycle(){
 
+
+MU_TEST(test_bfs_cycle) {
+	printf("Testing that BFS on a graph with a cycle executes correctly\n");
+
+	//Init 
+	graph_t test_graph = g_init();						//create Test Graph based on Klienberg fig 3.2
+	g_vertex_add(test_graph, "1"); //0
+	g_vertex_add(test_graph, "2"); //1
+	g_vertex_add(test_graph, "3"); //2
+	g_vertex_add(test_graph, "4"); //3
+	g_vertex_add(test_graph, "5"); //4
+	g_vertex_add(test_graph, "6"); //5
+	g_vertex_add(test_graph, "7"); //6
+	g_vertex_add(test_graph, "8"); //7
+	g_vertex_add(test_graph, "9"); //8
+	g_vertex_add(test_graph, "10"); //9
+	g_vertex_add(test_graph, "11"); //10
+	g_vertex_add(test_graph, "12"); //11
+	g_vertex_add(test_graph, "13"); //12
+
+	g_edge_add(test_graph, 0, 1, "A"); // (1,2)
+	g_edge_add(test_graph, 0, 2, "B"); // (1,3)
+	g_edge_add(test_graph, 1, 2, "C"); // (2,3)
+	g_edge_add(test_graph, 1, 3, "D"); // (2,4)
+	g_edge_add(test_graph, 1, 4, "E"); // (2,5)
+	g_edge_add(test_graph, 2, 4, "F"); // (3,5)
+	g_edge_add(test_graph, 2, 6, "G"); // (3,7)
+	g_edge_add(test_graph, 2, 7, "H"); // (3,8)
+	g_edge_add(test_graph, 3, 4, "I"); // (4,5)
+	g_edge_add(test_graph, 4, 5, "J"); // (5,6)
+	g_edge_add(test_graph, 6, 7, "K"); // (7,8)
+	g_edge_add(test_graph, 8, 9, "L"); // (9,10)
+	g_edge_add(test_graph, 10, 11, "M"); // (11,12)
+	g_edge_add(test_graph, 11, 12, "N"); // (12,13)
+
+	char *startNode = 0;
+	char *searchTarget = 10;
+
+	//test 
+	char *traversalList = breadthFirstSearch(test_graph, startNode, searchTarget);
+	mu_assert_string_eq("1,2,3,4,5,7,8,6,FAIL",traversalList);
+
+	//cleanup
+	free(traversalList);
+	g_free_alt(test_graph, false);	
 }
 
 
 // Test infrastructure
 
-
-MU_TEST_SUITE(test_suite) {
+MU_TEST_SUITE(queue_tests) {
 	printf("\n\n==== Test for Queues ====\n");
 
     MU_RUN_TEST(test_queue_empty);
     MU_RUN_TEST(test_queue_single_item);
 }
+
+MU_TEST_SUITE(bfs_tests) {
+	printf("\n\n==== Tests for BFS ====\n");
+	MU_RUN_TEST(test_bfs_single_vertex);
+	MU_RUN_TEST(test_bfs_single_vertex_with_loop);
+	MU_RUN_TEST(test_bfs_two_verticies_no_path);
+	MU_RUN_TEST(test_bfs_two_verticies_with_simple_path);
+	MU_RUN_TEST(test_bfs_complete_graph);
+	MU_RUN_TEST(test_bfs_complete_graph_start_at_end);
+	MU_RUN_TEST(test_bfs_complete_graph_early_stopping);
+	MU_RUN_TEST(test_bfs_cycle);
+}
+
 
 //Main Function
 int main(){
@@ -649,7 +863,8 @@ int main(){
 	test_set_single_item();
 	test_set_no_duplicates_added();
 
-	MU_RUN_SUITE(test_suite);
+	MU_RUN_SUITE(queue_tests);
+	MU_RUN_SUITE(bfs_tests);
     MU_REPORT();
     printf("Number failed tests: %d\n", minunit_fail);
     return minunit_fail;
