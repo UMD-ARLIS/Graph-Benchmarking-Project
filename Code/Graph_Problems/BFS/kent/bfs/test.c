@@ -9,6 +9,7 @@
 
 //Util Imports
 # include "../../../../Utilities/c-utils/src/graph.h"
+# include "../../../../Utilities/sets/src/set.h"
 
 //User defined imports
 #include "bfs.h"
@@ -282,8 +283,6 @@ static void test_get_adjacent_nodes(){
 
 	graph_t test_graph = g_init();
 
-	printf("Graph Initalized\n");
-
 	g_vertex_add(test_graph, "1"); //0
 	g_vertex_add(test_graph, "2"); //1
 	g_vertex_add(test_graph, "3"); //2
@@ -294,8 +293,6 @@ static void test_get_adjacent_nodes(){
 	g_vertex_add(test_graph, "8"); //7
 	g_vertex_add(test_graph, "9"); //8
 
-	printf("Nodes Initalized\n");
-
 	g_edge_add(test_graph, 0, 1, "A"); // (1,2)
 	g_edge_add(test_graph, 1, 2, "B"); // (2,3)
 	g_edge_add(test_graph, 1, 3, "C"); // (2,4)
@@ -305,11 +302,9 @@ static void test_get_adjacent_nodes(){
 	g_edge_add(test_graph, 6, 7, "G"); // (7,8)
 	g_edge_add(test_graph, 6, 8, "H"); // (7,9)
 
-	printf("Edges Initalized\n");
-
 	//Test
 
-	printf("Node 1 should have neighbours 2, 5 and 7: ");
+	printf("Node 1 should have directed neighbours 2, 5 and 7: ");
 
 	vertex_t node_1 = g_vertex_get(test_graph, 0);
 	int num_edges = (g_vertex_num_edges_out(node_1)+g_vertex_num_edges_in(node_1));
@@ -341,18 +336,6 @@ static void test_get_adjacent_nodes(){
 
 	*/
 
-	printf("Node 2 should have neighbours 1, 3 and 4: ");
-
-	vertex_t node_2 = g_vertex_get(test_graph, 1);
-
-	edge_t e2;
-	unsigned int j;
-	g_iterate_edges(node_2, e2, j) {
-        vertex_t dest = g_vertex_get(test_graph, g_edge_dest(e2));
-        printf("%s ", g_vertex_metadata(dest));
-    }
-
-
 	//cleanup
 
 	g_free_alt(test_graph, false);
@@ -365,6 +348,53 @@ static void test_get_adjacent_nodes(){
 
 
 static void test_set_empty(){
+
+	printf("\n\n==== Test Empty Set ====\n");
+
+
+	//Init 
+	graph_t test_graph = g_init();
+	g_vertex_add(test_graph, "1"); //0
+	g_vertex_add(test_graph, "2"); //1
+	g_vertex_add(test_graph, "3"); //2
+	g_vertex_add(test_graph, "4"); //3
+	g_vertex_add(test_graph, "5"); //4
+	g_vertex_add(test_graph, "6"); //5
+	g_vertex_add(test_graph, "7"); //6
+	g_vertex_add(test_graph, "8"); //7
+	g_vertex_add(test_graph, "9"); //8
+
+	g_edge_add(test_graph, 0, 1, "A"); // (1,2)
+	g_edge_add(test_graph, 1, 2, "B"); // (2,3)
+	g_edge_add(test_graph, 1, 3, "C"); // (2,4)
+	g_edge_add(test_graph, 0, 4, "D"); // (1,5)
+	g_edge_add(test_graph, 4, 5, "E"); // (5,6)
+	g_edge_add(test_graph, 0, 6, "F"); // (1,7)
+	g_edge_add(test_graph, 6, 7, "G"); // (7,8)
+	g_edge_add(test_graph, 6, 8, "H"); // (7,9)
+
+	SimpleSet set;
+    set_init(&set);
+
+    // Test
+
+	printf("Empty set should have length of 0: ");
+
+    int setLength = set_length(&set);
+
+    if (setLength == 0){
+    	success_or_failure(1);
+    }
+    else{
+    	success_or_failure(0);
+    }
+
+
+
+    // Cleanup
+    set_destroy(&set);
+   	g_free_alt(test_graph, false);
+
 
 
 }
@@ -443,4 +473,6 @@ int main(){
 	test_two_node_graph();
 	test_get_all_edges_from_node();
 	test_get_adjacent_nodes();
+	// Set tests
+	test_set_empty();
 }

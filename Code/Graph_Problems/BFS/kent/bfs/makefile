@@ -10,7 +10,7 @@ all: clean test						# Run all commands
 #	cc bfs.c -o bfs.o
 
 test:								# Compile the test file
-	cc test.c ../../../../Utilities/c-utils/src/graph.c -o test.o
+	cc test.c ../../../../Utilities/c-utils/src/graph.c ../../../../Utilities/sets/src/set.c -o test.o
 
 clean: 								# Clean the compiled files
 	rm -f bfs.o test.o
