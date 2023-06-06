@@ -51,7 +51,7 @@ char *breadthFirstSearch(graph_t g, int startNode, int searchTarget){
 
     while (q_num_elements(fringe) != 0){ 						//While fringe not empty
     	vertex_t current = g_vertex_get(g, q_pop(fringe)); 		//Pop the head
-    	printf("%d\n", g_vertex_id(current)); 					//Get the associated vertex
+    	//printf("%d\n", g_vertex_id(current)); 				//Get the associated vertex
 
     	if (g_vertex_id(current) == searchTarget){ 				//Case where current is the target
     		strcat(traversalList, g_vertex_metadata(current));
