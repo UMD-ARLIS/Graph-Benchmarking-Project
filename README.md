@@ -1,5 +1,5 @@
 # Overview
-Repo for Summer 2023 Graph Benchmarking Project
+Repo for Summer 2023 Graph Benchmarking Project.
 
 ## Battle Rhythm: 
 TBC but plan on: 
