@@ -42,7 +42,7 @@ MU_TEST(test_multi_line){
 	*/
 
 MU_TEST(test_single_vertex){
-	printf("Test that a single vertex can be created from file");
+	printf("Test that a single vertex can be created from file\n");
 
 	//init
 	char* inputFile; 
@@ -54,7 +54,7 @@ MU_TEST(test_single_vertex){
 }
 
 MU_TEST(test_single_vertex_single_edge){
-	printf("Test that a single vertex with self-pointing edge can be created from file");
+	printf("Test that a single vertex with self-pointing edge can be created from file\n");
 
 	//init
 	char* inputFile; 
@@ -62,6 +62,30 @@ MU_TEST(test_single_vertex_single_edge){
 
 	char* output = loadGraph(inputFile);
 	mu_assert_string_eq("NODES CREATED: 1, EDGES CREATED: 1",output);
+
+}
+
+MU_TEST(test_two_vertex_single_edge){
+	printf("Test that two verticies with simple edge can be created from file\n");
+
+	//init
+	char* inputFile; 
+	inputFile = "files_for_tests/05_twoVertexSingleEdge.in";
+
+	char* output = loadGraph(inputFile);
+	mu_assert_string_eq("NODES CREATED: 2, EDGES CREATED: 1",output);
+
+}
+
+MU_TEST(full_acyclic_graph){
+	printf("Test that full acyclic graph can be created from file\n");
+
+	//init
+	char* inputFile; 
+	inputFile = "files_for_tests/06_fullAcyclicGraph.in";
+
+	char* output = loadGraph(inputFile);
+	mu_assert_string_eq("NODES CREATED: 9, EDGES CREATED: 8",output);
 
 }
 
@@ -73,6 +97,8 @@ MU_TEST_SUITE(suite_in_file) {
    	//MU_RUN_TEST(test_multi_line);
     MU_RUN_TEST(test_single_vertex);
     MU_RUN_TEST(test_single_vertex_single_edge);
+    MU_RUN_TEST(test_two_vertex_single_edge);
+    MU_RUN_TEST(full_acyclic_graph); 
 }
 
 

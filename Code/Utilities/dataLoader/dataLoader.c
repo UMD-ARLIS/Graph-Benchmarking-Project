@@ -62,26 +62,24 @@ char *loadGraph(char *fileName){
     														//Depending on mode, create edges or nodes
     	else{
     		if (nodeMode == true && strcmp(lines[i],"") !=0 && strcmp(lines[i]," ") !=0 && strcmp(lines[i],"\n") !=0 && lines[i]!= NULL){
-    			//printf("ADDING NODE: %s\n",lines[i]);
+    			printf("ADDING NODE: %s\n",lines[i]);
     			g_vertex_add(g, lines[i]);
     		}
     		if (edgeMode == true && strcmp(lines[i],"") !=0 && strcmp(lines[i]," ") !=0 && strcmp(lines[i],"\n") !=0 && lines[i]!= NULL){
     			int num = 0;
     			printf("\nADDING EDGE: %s\n",lines[i]);
     			s_remove_unwanted_chars(lines[i], "()");
-    			printf("\nCHANGED TO: %s\n",lines[i]);
+    			//printf("\nCHANGED TO: %s\n",lines[i]);
     			char **res = s_split_string_c(lines[i],',',&num);
-    			
-    			printf("\nFINALLY: %s and %s\n",res[0],res[1]);
-
-    			g_edge_add(g, atoi(res[0]), atoi(res[1]), edgeCounter);
+    			//printf("\nFINALLY: %s and %s\n",res[0],res[1]);
+    			g_edge_add(g, atoi(res[0]), atoi(res[1]), edgeCounter);		//res[0] is source, res[1] is dest
     			edgeCounter++;
     		}
 
      }
     }
 
-    char results[200];  										//Hold the results
+    char results[300];  										//Hold the results
 
     sprintf(results, "NODES CREATED: %d, EDGES CREATED: %d", g_num_vertices(g), g_num_edges(g));
 
