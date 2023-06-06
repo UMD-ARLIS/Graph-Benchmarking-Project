@@ -1,6 +1,8 @@
-# Directed cyclic graph with three disjoint subgraphs
-# Source: Kleinberg & Tardos, Algorithm Design (2014), Fig 3.2
-NODES
+#TITLE:
+Directed cyclic graph with three disjoint subgraphs
+#SOURCE: 
+Kleinberg & Tardos, Algorithm Design (2014), Fig 3.2
+#NODES:
 1
 2
 3
@@ -14,7 +16,7 @@ NODES
 11
 12
 13
-EDGES
+#EDGES:
 (1,2)
 (1,3)
 (2,3)

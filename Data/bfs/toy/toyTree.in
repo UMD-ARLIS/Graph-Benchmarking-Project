@@ -1,6 +1,8 @@
-# Directed Acyclic Graph (tree)
-# Source: Kleinberg & Tardos, Algorithm Design (2014), Fig 3.1
-NODES:
+#TITLE: 
+Directed Acyclic Graph (tree)
+#SOURCE: 
+Kleinberg & Tardos, Algorithm Design (2014), Fig 3.1
+#NODES:
 1
 2
 3
@@ -10,7 +12,7 @@ NODES:
 7
 8
 9
-EDGES:
+#EDGES:
 (1,2)
 (2,3)
 (2,4)

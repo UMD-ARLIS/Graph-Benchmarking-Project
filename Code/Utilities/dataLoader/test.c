@@ -53,6 +53,18 @@ MU_TEST(test_single_vertex){
 
 }
 
+MU_TEST(test_single_vertex_single_edge){
+	printf("Test that a single vertex with self-pointing edge can be created from file");
+
+	//init
+	char* inputFile; 
+	inputFile = "files_for_tests/04_singleVertexSingleEdge.in";
+
+	char* output = loadGraph(inputFile);
+	mu_assert_string_eq("NODES CREATED: 1, EDGES CREATED: 1",output);
+
+}
+
 // Test from in memory
 MU_TEST_SUITE(suite_in_file) {
 	printf("\n\n==========Test Suite - Load from File==========\n");
@@ -60,6 +72,7 @@ MU_TEST_SUITE(suite_in_file) {
     //MU_RUN_TEST(test_single_line);
    	//MU_RUN_TEST(test_multi_line);
     MU_RUN_TEST(test_single_vertex);
+    MU_RUN_TEST(test_single_vertex_single_edge);
 }
 
 
