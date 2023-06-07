@@ -99,7 +99,11 @@ If in doubt, check the status with:
 My rule of thumb is to commit whenever you have a new unit-test passing, so that you've got it as a working 'checkpoint'. But more often is better than not often enough.
 
 ## Getting Jabref [Optional]
-For JABREF, you can grab it at the following link: https://www.jabref.org/
+For JABREF, you can install it with homebrew using: 
+
+      brew install --cask jabref 
+      
+
 
 # Ways of Work
 
