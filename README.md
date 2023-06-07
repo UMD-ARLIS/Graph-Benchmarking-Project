@@ -108,6 +108,25 @@ We'll cover in more detail if/when we get to it.
 
 If you're new to LaTeX we can use Overleaf to get started: [Link to Overleaf]([https://overleaf.com](https://www.overleaf.com/5589556986bvqfbthdvdjc))
 
+If you want to use LaTeX locally and get access to all the cool editing scripts I've acquired (read: took directly from Prof Boyd-Graber) you can set up the environment using homebrew:
+
+      brew install mactex
+
+it should give you the warning, but in case not you'll need to either restart your terminal or run the following command: 
+
+      eval "$(/usr/libexec/path_helper)"
+
+Then, to compile the vector graphics that look much nicer in rendered pdfs we need to install inkscape: 
+
+      brew install inkscape
+
+then you should be good to go by navigating to the directory with the .tex file in question and adding in a makefile (ask kent for the makefile and the scripts directory)
+
+with the makefile in the directory, you can then compile your pdf using: 
+
+      make <myFile>.pdf
+
+
 ## Coding
 
 We'll use git to our advantage, but will work through how we want to handle branching, merges etc and document here. 
