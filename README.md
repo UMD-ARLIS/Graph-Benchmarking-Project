@@ -38,62 +38,62 @@ TBC but plan on:
 ## Working with git
 check if you have it installed:
 
-   git --version
+      git --version
 
 if you don't then install it (I recommend using homebrew, since we're all of the superior Mac User subspecies)
 
-   brew install git
+      brew install git
 
 If you don't have homebrew then install it with:
 
-   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 Once you have git up and running you want to use the git clone command to get the repo on your local system:
 
-   git clone https://github.com/osullik/summer2023.git
+      git clone https://github.com/osullik/summer2023.git
 
 Once you've got it replicated on your local you can get to work.
 
 You can add single files, multiple files or directories all at once. ( I caution against using the * wildcard operator). for example if we were working on test.c and code.c we might use
 
-   git add code.c 
-   git add test.c
+      git add code.c 
+      git add test.c
 
 or, we could also do
 
-   git add code.c test.c
+      git add code.c test.c
 
 or assuming that they are the only two files in the directory
 
-   git add .
+      git add .
 
 Once you have added the file to the staging area you need to commit it (that is, on your local system, you create an entry in the version control system). I recommend using the -m tag to add a comment to the commit. The comments should be descriptive and meaningful (imagine you, in a panic at 3am before a demo sorting through 100 commit messages that say "updated code" trying to find the one you actually want)
 
-   git commit -m "Added the hello_world unit test to test.c and the hello_world function to code.c. The unit test passes"
+      git commit -m "Added the hello_world unit test to test.c and the hello_world function to code.c. The unit test passes"
 
 To make those changes to the github page itself use:
 
-   git push 
+      git push 
 
 Sometimes you may get an error when running the push command saying that there are changes you don't yet have on your local machine and that you need to reconcile those first. something like this:
    
-   ! [rejected]        main -> main (fetch first)
-   error: failed to push some refs to 'https://github.com/osullik/summer2023.git'
-   hint: Updates were rejected because the remote contains work that you do
-   hint: not have locally. This is usually caused by another repository pushing
-   hint: to the same ref. You may want to first integrate the remote changes
-   hint: (e.g., 'git pull ...') before pushing again.
-   hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+      ! [rejected]        main -> main (fetch first)
+      error: failed to push some refs to 'https://github.com/osullik/summer2023.git'
+      hint: Updates were rejected because the remote contains work that you do
+      hint: not have locally. This is usually caused by another repository pushing
+      hint: to the same ref. You may want to first integrate the remote changes
+      hint: (e.g., 'git pull ...') before pushing again.
+      hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 
 This means that someone else (or you) has modified the github repo and it no longer matches yours. To reconcile those you want to use:
 
-   git pull
+      git pull
 
 All going well, it should not have any merge conflict (i.e. two people editing the same file at the same time). If you manage to hit a merge conflict ping me on here and I'll come help you. It might ask you to add a merge message, if so, just use the same comment you used for your git commit.
 
 If in doubt, check the status with:
 
-   git status
+      git status
 
 My rule of thumb is to commit whenever you have a new unit-test passing, so that you've got it as a working 'checkpoint'. But more often is better than not often enough.
 
