@@ -2,11 +2,12 @@
 Repo for Summer 2023 Graph Benchmarking Project.
 
 ## Battle Rhythm: 
-TBC but plan on: 
-- 2 x Weekly meeting with faculty mentor
-- 1 x Daily standup with Kent
-- Routine Comms through Slack in the 
-- Formal Meetings through Teams
+See [Project Calendar](https://calendar.google.com/calendar/u/1?cid=Y19kMmQwNDUxY2RjYmFlNWUxOTgxY2JkMDc4Y2NjNjhkZGQ0NDUyMmFhNzMzZmFkMzQzNjUwZGVlOWEzMWM5MTFiQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20) for details, but in general: 
+ 
+- 1 x Weekly meeting with faculty mentors @ 1600 (EDT) on Wednesdays. 
+- 1 x Daily scrum with Kent @ 1145. 
+- Routine Comms through Slack. 
+- Formal Meetings / Workshops for RISC through Teams. 
 
 ## Useful Links:
 
