@@ -140,6 +140,26 @@ We should aim for Test-Driven development. In general:
 
 If not fully test-driven, we should at least produce a unit test for each function that we write. As we mature we can add regression testing, integration testing etc. 
 
+## Collaborative Coding
+
+We will use VSCode liveshare to conduct pair programming. 
+
+To install VSCode I recommend (as always) using homebrew with: 
+
+      brew install --cask visual-studio-code
+
+note that specifying --case indicates to homebrew that this will be a standalone app, usually with a GUI. 
+
+Once installed you can launch VSCODE from the command line with: 
+
+      code 
+
+Once opened, you'll need to install two extensions to VSCODE by navigating to the extensions menu (or use COMD + SHIFT + X) and searching for: 
+- C/C++ for VSCODE
+- Live Share
+
+To share a file, open your file of interest in the editor and look in the bottom left of the VSCode screen. There will be an option to "live share". Click it. You may need to sign in using github. You then have a link you can send to people to start collaborating!
+
 ## Reference Management 
 Update the reference details in the Project .bib file for now. If things get out of hand we can split to seperate ones. 
 
