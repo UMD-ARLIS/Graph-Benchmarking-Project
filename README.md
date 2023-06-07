@@ -107,7 +107,7 @@ For JABREF, you can grab it at the following link: https://www.jabref.org/
 
 We'll cover in more detail if/when we get to it.
 
-If you're new to LaTeX we can use Overleaf to get started: [Link to Overleaf]([https://overleaf.com](https://www.overleaf.com/5589556986bvqfbthdvdjc))
+If you're new to LaTeX we can use Overleaf to get started: [Link to Overleaf](https://www.overleaf.com/5589556986bvqfbthdvdjc).
 
 If you want to use LaTeX locally and get access to all the cool editing scripts I've acquired (read: took directly from Prof Boyd-Graber) you can set up the environment using homebrew:
 
