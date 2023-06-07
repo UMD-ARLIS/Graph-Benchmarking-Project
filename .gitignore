@@ -51,3 +51,8 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+
+## TEAM CUSTOM ADDITIONS: 
+
+*.DS_Store

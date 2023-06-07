@@ -2,11 +2,12 @@
 Repo for Summer 2023 Graph Benchmarking Project.
 
 ## Battle Rhythm: 
-TBC but plan on: 
-- 2 x Weekly meeting with faculty mentor
-- 1 x Daily standup with Kent
-- Routine Comms through Slack in the 
-- Formal Meetings through Teams
+See [Project Calendar](https://calendar.google.com/calendar/u/1?cid=Y19kMmQwNDUxY2RjYmFlNWUxOTgxY2JkMDc4Y2NjNjhkZGQ0NDUyMmFhNzMzZmFkMzQzNjUwZGVlOWEzMWM5MTFiQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20) for details, but in general: 
+ 
+- 1 x Weekly meeting with faculty mentors @ 1600 (EDT) on Wednesdays. 
+- 1 x Daily scrum with Kent @ 1145. 
+- Routine Comms through Slack. 
+- Formal Meetings / Workshops for RISC through Teams. 
 
 ## Useful Links:
 
@@ -98,7 +99,11 @@ If in doubt, check the status with:
 My rule of thumb is to commit whenever you have a new unit-test passing, so that you've got it as a working 'checkpoint'. But more often is better than not often enough.
 
 ## Getting Jabref [Optional]
-For JABREF, you can grab it at the following link: https://www.jabref.org/
+For JABREF, you can install it with homebrew using: 
+
+      brew install --cask jabref 
+      
+
 
 # Ways of Work
 
@@ -106,7 +111,7 @@ For JABREF, you can grab it at the following link: https://www.jabref.org/
 
 We'll cover in more detail if/when we get to it.
 
-If you're new to LaTeX we can use Overleaf to get started: [Link to Overleaf]([https://overleaf.com](https://www.overleaf.com/5589556986bvqfbthdvdjc))
+If you're new to LaTeX we can use Overleaf to get started: [Link to Overleaf](https://www.overleaf.com/5589556986bvqfbthdvdjc).
 
 If you want to use LaTeX locally and get access to all the cool editing scripts I've acquired (read: took directly from Prof Boyd-Graber) you can set up the environment using homebrew:
 
@@ -139,6 +144,26 @@ We should aim for Test-Driven development. In general:
 - refactor the code to solve the general case. 
 
 If not fully test-driven, we should at least produce a unit test for each function that we write. As we mature we can add regression testing, integration testing etc. 
+
+## Collaborative Coding
+
+We will use VSCode liveshare to conduct pair programming. 
+
+To install VSCode I recommend (as always) using homebrew with: 
+
+      brew install --cask visual-studio-code
+
+note that specifying --cask indicates to homebrew that this will be a standalone app, usually with a GUI. 
+
+Once installed you can launch VSCODE from the command line with: 
+
+      code 
+
+Once opened, you'll need to install two extensions to VSCODE by navigating to the extensions menu (or use COMD + SHIFT + X) and searching for: 
+- C/C++ for VSCODE
+- Live Share
+
+To share a file, open your file of interest in the editor and look in the bottom left of the VSCode screen. There will be an option to "live share". Click it. You may need to sign in using github. You then have a link you can send to people to start collaborating!
 
 ## Reference Management 
 Update the reference details in the Project .bib file for now. If things get out of hand we can split to seperate ones. 
