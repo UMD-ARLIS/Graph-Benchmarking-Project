@@ -7,7 +7,7 @@
 #include <pthread.h>
 
 //Util Imports
-#include "/Users/nani/Documents/GitHub/summer2023/Code/Utilities/c-utils/src/string_builder.h"
+#include "../../../../Utilities/c-utils/src/minunit.h"
 
 //User Imports
 #include "bfs.h"
@@ -45,3 +45,19 @@ static void test_one(){
 
 }
 
+MU_TEST(first_test){
+  printf("first test checks if 5+5 is equal to 10");
+  int x = 5+6;
+  mu_assert_int_eq(10, x);
+}
+
+MU_TEST_SUITE(first_test_suite){
+  printf("========== TEST SUITE 1 ==========");
+  MU_RUN_TEST(first_test);
+}
+
+int main(){
+  test_one();
+  MU_RUN_SUITE(first_test_suite);
+  MU_REPORT();
+}
