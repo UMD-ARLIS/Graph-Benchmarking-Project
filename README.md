@@ -149,7 +149,7 @@ To install VSCode I recommend (as always) using homebrew with:
 
       brew install --cask visual-studio-code
 
-note that specifying --case indicates to homebrew that this will be a standalone app, usually with a GUI. 
+note that specifying --cask indicates to homebrew that this will be a standalone app, usually with a GUI. 
 
 Once installed you can launch VSCODE from the command line with: 
 
