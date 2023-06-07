@@ -99,7 +99,11 @@ If in doubt, check the status with:
 My rule of thumb is to commit whenever you have a new unit-test passing, so that you've got it as a working 'checkpoint'. But more often is better than not often enough.
 
 ## Getting Jabref [Optional]
-For JABREF, you can grab it at the following link: https://www.jabref.org/
+For JABREF, you can install it with homebrew using: 
+
+      brew install --cask jabref 
+      
+
 
 # Ways of Work
 
@@ -107,7 +111,7 @@ For JABREF, you can grab it at the following link: https://www.jabref.org/
 
 We'll cover in more detail if/when we get to it.
 
-If you're new to LaTeX we can use Overleaf to get started: [Link to Overleaf]([https://overleaf.com](https://www.overleaf.com/5589556986bvqfbthdvdjc))
+If you're new to LaTeX we can use Overleaf to get started: [Link to Overleaf](https://www.overleaf.com/5589556986bvqfbthdvdjc).
 
 If you want to use LaTeX locally and get access to all the cool editing scripts I've acquired (read: took directly from Prof Boyd-Graber) you can set up the environment using homebrew:
 
@@ -149,7 +153,7 @@ To install VSCode I recommend (as always) using homebrew with:
 
       brew install --cask visual-studio-code
 
-note that specifying --case indicates to homebrew that this will be a standalone app, usually with a GUI. 
+note that specifying --cask indicates to homebrew that this will be a standalone app, usually with a GUI. 
 
 Once installed you can launch VSCODE from the command line with: 
 
