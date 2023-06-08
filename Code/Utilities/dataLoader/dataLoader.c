@@ -12,7 +12,7 @@
 # include "../c-utils/src/fileutils.h"
 # include "../c-utils/src/stringlib.h"
 
-char *loadGraph(char *fileName){
+graph_t loadGraph(char *fileName, graph_t g){
 	/*
 	loadGraph takes in a file in our standard input and creates a graph base on the file
 	INPUT ARGS: 
@@ -24,13 +24,20 @@ char *loadGraph(char *fileName){
 		When the Node mode is started, assume all following lines are nodes
 		When the edge mode is started, assume all following lines are edges
 	OUTPUT: 
-		results 	- 	string	- The report on the number of nodes and edges created
+		g 	- 	graph_t	- The graph created based on the input
+
+	TODO / ISSUES: 
+		ISSUE1: 	Currently only able to create edges based on the index of the node, rather than its metadata 'name'
+		TODO1: 		Implement searching for node by Metadata for edge creation. 
+		ISSUE2: 	Minimal input sanitization, very brittle to expected file format
+		TODO2: 		Implement input sanitization 
+		ISSUE3: 	Only able to create directed graphs
+		TODO3: 		Add support for createing undirected graphs
 	*/
 
-	graph_t g = g_init();
 
 	if (fileName == NULL || strcmp(fileName,"")==0 || strcmp(fileName," ")==0 || strcmp(fileName,"\n")==0){
-		return(NULL);	
+		return(g);	
 	}
 
 	file_t f = f_init(fileName);							//Load the file
@@ -79,11 +86,11 @@ char *loadGraph(char *fileName){
      }
     }
 
-    char *results = malloc(300*sizeof(char));  										//Hold the results
+    //char *results = malloc(300*sizeof(char));  										//Hold the results
 
 	//printf("NODES CREATED: %d, EDGES CREATED: %d", g_num_vertices(g), g_num_edges(g));
 
-    sprintf(results, "NODES CREATED: %d, EDGES CREATED: %d", g_num_vertices(g), g_num_edges(g));
+    //sprintf(results, "NODES CREATED: %d, EDGES CREATED: %d", g_num_vertices(g), g_num_edges(g));
 
-    return(results);
+    return(g);
 	}

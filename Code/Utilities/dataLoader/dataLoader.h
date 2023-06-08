@@ -2,5 +2,5 @@
 
 //User Inclusions
 
-char *loadGraph(char *fileName);
+graph_t loadGraph(char *fileName, graph_t g);
 	

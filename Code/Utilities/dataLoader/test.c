@@ -3,6 +3,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
+# include <string.h>
 
 # include "../c-utils/src/minunit.h"
 # include "../c-utils/src/graph.h"
@@ -10,8 +11,16 @@
 
 MU_TEST(test_no_input) {
     printf("Test that no input triggers a no input error\n");
-    char* output = loadGraph("");
-    mu_assert_string_eq("<null pointer>", output);
+	
+	//init
+	char* inputFile; 
+	inputFile = "";
+
+    graph_t output = g_init();
+	output = loadGraph(inputFile, output);
+    mu_assert_int_eq(0, g_num_vertices(output));
+
+	g_free_alt(output, FALSE);
 }
 
 
@@ -47,13 +56,15 @@ MU_TEST(test_single_vertex){
 	//init
 	char* inputFile; 
 	inputFile = "files_for_tests/03_singleVertex.in";
+	graph_t output = g_init();
+	output = loadGraph(inputFile, output);											//return a graph generated from the input file to the output variable
 
-	char* output = loadGraph(inputFile);
-	mu_assert_string_eq("NODES CREATED: 1, EDGES CREATED: 0",output);
+	//tests 
+	mu_assert_int_eq(1, g_num_vertices(output));
+	mu_assert_int_eq(0,g_num_edges(output));
 
 	//cleanup
-	//free(inputFile);
-	free(output);
+	g_free_alt(output, FALSE);
 
 }
 
@@ -63,13 +74,15 @@ MU_TEST(test_single_vertex_single_edge){
 	//init
 	char* inputFile; 
 	inputFile = "files_for_tests/04_singleVertexSingleEdge.in";
+	graph_t output = g_init();
+	output = loadGraph(inputFile, output);											//return a graph generated from the input file to the output variable
 
-	char* output = loadGraph(inputFile);
-	mu_assert_string_eq("NODES CREATED: 1, EDGES CREATED: 1",output);
+	//tests 
+	mu_assert_int_eq(1, g_num_vertices(output));
+	mu_assert_int_eq(1,g_num_edges(output));
 
 	//cleanup
-	//free(inputFile);
-	free(output);
+	g_free_alt(output, FALSE);
 
 }
 
@@ -79,13 +92,15 @@ MU_TEST(test_two_vertex_single_edge){
 	//init
 	char* inputFile; 
 	inputFile = "files_for_tests/05_twoVertexSingleEdge.in";
+	graph_t output = g_init();
+	output = loadGraph(inputFile, output);											//return a graph generated from the input file to the output variable
 
-	char* output = loadGraph(inputFile);
-	mu_assert_string_eq("NODES CREATED: 2, EDGES CREATED: 1",output);
-	
+	//tests 
+	mu_assert_int_eq(2, g_num_vertices(output));
+	mu_assert_int_eq(1,g_num_edges(output));
+
 	//cleanup
-	//free(inputFile);
-	free(output);
+	g_free_alt(output, FALSE);
 
 }
 
@@ -95,13 +110,15 @@ MU_TEST(full_acyclic_graph){
 	//init
 	char* inputFile; 
 	inputFile = "files_for_tests/06_fullAcyclicGraph.in";
+	graph_t output = g_init();
+	output = loadGraph(inputFile, output);											//return a graph generated from the input file to the output variable
 
-	char* output = loadGraph(inputFile);
-	mu_assert_string_eq("NODES CREATED: 9, EDGES CREATED: 8",output);
+	//tests 
+	mu_assert_int_eq(9, g_num_vertices(output));
+	mu_assert_int_eq(8,g_num_edges(output));
 
 	//cleanup
-	//free(inputFile);
-	free(output);
+	g_free_alt(output, FALSE);
 
 }
 
@@ -111,13 +128,15 @@ MU_TEST(hard_graph){
 	//init
 	char* inputFile; 
 	inputFile = "files_for_tests/07_hardGraph.in";
+	graph_t output = g_init();
+	output = loadGraph(inputFile, output);											//return a graph generated from the input file to the output variable
 
-	char* output = loadGraph(inputFile);
-	mu_assert_string_eq("NODES CREATED: 13, EDGES CREATED: 14",output);
+	//tests 
+	mu_assert_int_eq(13, g_num_vertices(output));
+	mu_assert_int_eq(14,g_num_edges(output));
 
 	//cleanup
-	//free(inputFile);
-	free(output);
+	g_free_alt(output, FALSE);
 }
 
 // Test from file
