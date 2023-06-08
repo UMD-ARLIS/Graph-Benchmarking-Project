@@ -62,12 +62,12 @@ char *loadGraph(char *fileName){
     														//Depending on mode, create edges or nodes
     	else{
     		if (nodeMode == true && strcmp(lines[i],"") !=0 && strcmp(lines[i]," ") !=0 && strcmp(lines[i],"\n") !=0 && lines[i]!= NULL){
-    			printf("ADDING NODE: %s\n",lines[i]);
     			g_vertex_add(g, lines[i]);
+				//printf("\nADDED NODE: %s\n",lines[i]);
+
     		}
     		if (edgeMode == true && strcmp(lines[i],"") !=0 && strcmp(lines[i]," ") !=0 && strcmp(lines[i],"\n") !=0 && lines[i]!= NULL){
     			int num = 0;
-    			printf("\nADDING EDGE: %s\n",lines[i]);
     			s_remove_unwanted_chars(lines[i], "()");
     			//printf("\nCHANGED TO: %s\n",lines[i]);
     			char **res = s_split_string_c(lines[i],',',&num);
@@ -79,7 +79,9 @@ char *loadGraph(char *fileName){
      }
     }
 
-    char results[300];  										//Hold the results
+    char *results = malloc(300*sizeof(char));  										//Hold the results
+
+	//printf("NODES CREATED: %d, EDGES CREATED: %d", g_num_vertices(g), g_num_edges(g));
 
     sprintf(results, "NODES CREATED: %d, EDGES CREATED: %d", g_num_vertices(g), g_num_edges(g));
 

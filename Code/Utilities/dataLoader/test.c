@@ -51,6 +51,10 @@ MU_TEST(test_single_vertex){
 	char* output = loadGraph(inputFile);
 	mu_assert_string_eq("NODES CREATED: 1, EDGES CREATED: 0",output);
 
+	//cleanup
+	//free(inputFile);
+	free(output);
+
 }
 
 MU_TEST(test_single_vertex_single_edge){
@@ -63,6 +67,10 @@ MU_TEST(test_single_vertex_single_edge){
 	char* output = loadGraph(inputFile);
 	mu_assert_string_eq("NODES CREATED: 1, EDGES CREATED: 1",output);
 
+	//cleanup
+	//free(inputFile);
+	free(output);
+
 }
 
 MU_TEST(test_two_vertex_single_edge){
@@ -74,6 +82,10 @@ MU_TEST(test_two_vertex_single_edge){
 
 	char* output = loadGraph(inputFile);
 	mu_assert_string_eq("NODES CREATED: 2, EDGES CREATED: 1",output);
+	
+	//cleanup
+	//free(inputFile);
+	free(output);
 
 }
 
@@ -87,9 +99,28 @@ MU_TEST(full_acyclic_graph){
 	char* output = loadGraph(inputFile);
 	mu_assert_string_eq("NODES CREATED: 9, EDGES CREATED: 8",output);
 
+	//cleanup
+	//free(inputFile);
+	free(output);
+
 }
 
-// Test from in memory
+MU_TEST(hard_graph){
+	printf("Test that the data loader can create a graph with disjoint subgraphs and cycles from file");
+	
+	//init
+	char* inputFile; 
+	inputFile = "files_for_tests/07_hardGraph.in";
+
+	char* output = loadGraph(inputFile);
+	mu_assert_string_eq("NODES CREATED: 13, EDGES CREATED: 14",output);
+
+	//cleanup
+	//free(inputFile);
+	free(output);
+}
+
+// Test from file
 MU_TEST_SUITE(suite_in_file) {
 	printf("\n\n==========Test Suite - Load from File==========\n");
     MU_RUN_TEST(test_no_input);
@@ -99,6 +130,7 @@ MU_TEST_SUITE(suite_in_file) {
     MU_RUN_TEST(test_single_vertex_single_edge);
     MU_RUN_TEST(test_two_vertex_single_edge);
     MU_RUN_TEST(full_acyclic_graph); 
+	MU_RUN_TEST(hard_graph);
 }
 
 
