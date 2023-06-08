@@ -78,7 +78,7 @@ MU_TEST(test_bfs_empty_graph){
     struct Graph* graph = createGraph(NULL, 0);
 
     const char * test_bfs_start_0 = bfs(graph, 0);
-    mu_assert_int_eq(strcmp(test_bfs_start_0, ""),0);
+    mu_assert_string_eq(test_bfs_start_0, "0 ");
 
     // Cleanup and exit
     free(graph);
