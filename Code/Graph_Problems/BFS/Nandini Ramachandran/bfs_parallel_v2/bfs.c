@@ -143,14 +143,15 @@ const char* bfs(struct Graph* graph, int startVertex) {
         pthread_join(threads[i], NULL);
     }
     
+    //NEED TO ADDRESS THE WAY I AM ALLOCATING SPACE FOR THE PATH
     printf("\nBFS Traversal Path: %s\n", str_builder_peek(bfsData.path));
-    const char* path = str_builder_peek(bfsData.path);
+    //const char* path = str_builder_peek(bfsData.path);
     
     // Clean up
-    str_builder_destroy(bfsData.path);
+    //str_builder_destroy(bfsData.path); 
     free(bfsData.visited);
     free(bfsData.queue);
-    return path;
+    return str_builder_peek(bfsData.path);
 }
 
 
