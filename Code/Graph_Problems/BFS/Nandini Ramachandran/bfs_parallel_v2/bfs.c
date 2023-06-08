@@ -116,7 +116,7 @@ void* bfsThread(void* arg) {
 
 // Function to perform BFS traversal
 const char* bfs(struct Graph* graph, int startVertex) {
-    printf("BFS Traversal - Start Vertex: %d\n", startVertex);
+    //printf("BFS Traversal - Start Vertex: %d\n", startVertex);
 
     // Initialize BFS data structure
     struct BFSData bfsData;
@@ -145,16 +145,14 @@ const char* bfs(struct Graph* graph, int startVertex) {
     }
     
     printf("\nBFS Traversal Path: %s\n", str_builder_peek(bfsData.path));
-
+    const char* path = str_builder_peek(bfsData.path);
+    
     // Clean up
-    //str_builder_destroy(bfsData.path);
+    str_builder_destroy(bfsData.path);
     free(bfsData.visited);
     free(bfsData.queue);
-    return str_builder_peek(bfsData.path);
+    return path;
 }
 
-// int main(void) {
-//     printf("HERE");
-//     return 0;
-// }
+
 
