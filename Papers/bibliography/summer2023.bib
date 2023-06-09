@@ -5,7 +5,7 @@
   year    = {2010},
   pages   = {45--74},
   volume  = {19},
-  groups  = {HIVE},
+  groups  = {graph_datasets},
   url     = {http://www.richardmurphy.net/archive/cug-may2010.pdf},
 }
 
@@ -16,4 +16,305 @@
   year    = {2020},
   groups  = {HIVE},
   url     = {https://arxiv.org/pdf/2010.06277},
+}
+
+@inproceedings{Chakrabarti2004,
+  title={R-MAT: A recursive model for graph mining},
+  author={Chakrabarti, Deepayan and Zhan, Yiping and Faloutsos, Christos},
+  booktitle={Proceedings of the 2004 SIAM International Conference on Data Mining},
+  pages={442--446},
+  year={2004},
+  groups  = {graph_datasets},
+  organization={SIAM}
+}
+
+@misc{Leskovec2014,
+  author       = {Jure Leskovec and Andrej Krevl},
+  title        = {{SNAP Datasets}: {Stanford} Large Network Dataset Collection},
+  howpublished = {\url{http://snap.stanford.edu/data}},
+  month        = {jun},
+  groups       = {graph_datasets},
+  year         = {2014}
+}
+
+@article{Ahmed2011,
+  title={Network sampling via edge-based node selection with graph induction},
+  author={Ahmed, Nesreen and Neville, Jennifer and Kompella, Ramana Rao},
+  groups={graph_datasets},
+  year={2011}
+}
+
+@article{Brinkmann2007,
+  title={Fast generation of planar graphs},
+  author={Brinkmann, Gunnar and McKay, Brendan D and others},
+  journal={MATCH Commun. Math. Comput. Chem},
+  volume={58},
+  number={2},
+  pages={323--357},
+  groups={graph_datasets},
+  year={2007}
+}
+
+
+@article{Purohit2022,
+  title = {Synthetic Data and Graph Generation for Modeling Adversarial Activity (Final Project Report)},
+  author = {Purohit, Sumit and Mackey, Patrick S. and Cottam, Joseph A. and Dunning, Madelyn P. and Chin, George},
+  abstractNote = {The Data and Graph Generation for Modeling Adversary Activity (MAA) project developed a methodology along with scalable graph modeling and generation tools to produce realistic large-scale background activity graphs with embedded adversarial activity pathways. The technical report presents PNNL methodology, released datasets, lessons learned, and recommendations to develop graph analytic algorithms for structure-only and attributed knowledge graphs.},
+  doi = {10.2172/1871012},
+  url = {https://www.osti.gov/biblio/1871012}, 
+  journal = {},
+  number = ,
+  volume = ,
+  place = {United States},
+  year = {2022},
+  month = {2},
+  groups = {graph_datasets}
+}
+
+@inproceedings{Haller2022,
+  title={A Comparative Study of Graph Matching Algorithms in Computer Vision},
+  author={Haller, Stefan and Feineis, Lorenz and Hutschenreiter, Lisa and Bernard, Florian and Rother, Carsten and Kainm\"uller, Dagmar and Swoboda, Paul and Savchynskyy, Bogdan},
+  booktitle={Proceedings of the European Conference on Computer Vision},
+  year={2022},
+  groups = {graph_matching}
+}
+
+@article{Ullman1976,
+  author = {Ullmann, J. R.},
+  title = {An Algorithm for Subgraph Isomorphism},
+  year = {1976},
+  issue_date = {Jan. 1976},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+  volume = {23},
+  number = {1},
+  issn = {0004-5411},
+  url = {https://doi.org/10.1145/321921.321925},
+  doi = {10.1145/321921.321925},
+  abstract = {Subgraph isomorphism can be determined by means of a brute-force tree-search enumeration procedure. In this paper a new algorithm is introduced that attains efficiency by inferentially eliminating successor nodes in the tree search. To assess the time actually taken by the new algorithm, subgraph isomorphism, clique detection, graph isomorphism, and directed graph isomorphism experiments have been carried out with random and with various nonrandom graphs.A parallel asynchronous logic-in-memory implementation of a vital part of the algorithm is also described, although this hardware has not actually been built. The hardware implementation would allow very rapid determination of isomorphism.},
+  journal = {J. ACM},
+  month = {jan},
+  pages = {31–42},
+  numpages = {12},
+  groups={graph_matching}
+}
+
+@article{Zampelli2010,
+  title={Solving subgraph isomorphism problems with constraint programming},
+  author={Zampelli, St{\'e}phane and Deville, Yves and Solnon, Christine},
+  journal={Constraints},
+  volume={15},
+  pages={327--353},
+  year={2010},
+  publisher={Springer},
+  groups={graph_matching},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Zampelli2010.pdf},
+  abstract={The subgraph isomorphism problem consists in deciding if there exists a copy of a pattern graph in a target graph. We introduce in this paper a global constraint and an associated filtering algorithm to solve this problem within the context of constraint programming. The main idea of the filtering algorithm is to label every node with respect to its relationships with other nodes of the graph, and to define a partial order on these labels in order to express compatibility of labels for subgraph isomorphism. This partial order over labels is used to filter domains. Labelings can also be strengthened by adding information from the labels of neighbors. Such a strengthening can be applied iteratively until a fixpoint is reached. Practical experiments illustrate that our new filtering approach is more effective on difficult instances of scale free graphs than state-of-the-art algorithms and other constraint programming approaches.}
+}
+
+@article{Moorman2021,
+  title={Subgraph matching on multiplex networks},
+  author={Moorman, Jacob D and Tu, Thomas K and Chen, Qinyi and He, Xie and Bertozzi, Andrea L},
+  journal={IEEE Transactions on Network Science and Engineering},
+  volume={8},
+  number={2},
+  pages={1367--1384},
+  year={2021},
+  publisher={IEEE},
+  groups={graph_matching},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Moorman2021.pdf},
+  abstract={Abstract—An active area of research in computational science is the design of algorithms for solving the subgraph matching problem to find copies of a given template graph in a larger world graph. Prior works have largely addressed single-channel networks using a variety of approaches. We present a suite of filtering methods for subgraph isomorphisms for multiplex networks (with different types of edges between nodes and more than one edge within each channel type). We aim to understand the entire solution space rather than focusing on finding one isomorphism. Results are shown on several classes of datasets: (a) Sudoku puzzles mapped to the subgraph isomorphism problem, (b) Erdos-R  ̋ enyi multigraphs, (c) real-world datasets from Twitter and transportation networks, (d) synthetic data  ́ created for the DARPA MAA program.}
+}
+
+@article{Dahm2015,
+  title={Efficient subgraph matching using topological node feature constraints},
+  author={Dahm, Nicholas and Bunke, Horst and Caelli, Terry and Gao, Yongsheng},
+  journal={Pattern Recognition},
+  volume={48},
+  number={2},
+  pages={317--330},
+  year={2015},
+  publisher={Elsevier},
+  groups={graph_matching},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Dahm2015.pdf},
+  abstract={This paper presents techniques designed to minimise the number of states which are explored during subgraph isomorphism detection. A set of advanced topological node features, calculated from n-neighbourhood graphs, is presented and shown to outperform existing features. Further, the pruning effectiveness of both the new and existing topological node features is significantly improved through the introduction of strengthening techniques. In addition to topological node features, these strengthening techniques can also be used to enhance application-specific node labels using a proposed novel extension to existing pruning algorithms. Through the combination of these techniques, the number of explored search states can be reduced to near-optimal levels.}
+}
+
+@article{Shang2008,
+  title={Taming verification hardness: an efficient algorithm for testing subgraph isomorphism},
+  author={Shang, Haichuan and Zhang, Ying and Lin, Xuemin and Yu, Jeffrey Xu},
+  journal={Proceedings of the VLDB Endowment},
+  volume={1},
+  number={1},
+  pages={364--375},
+  year={2008},
+  publisher={VLDB Endowment},
+  groups={graph_matching},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Shang2008.pdf},
+  abstract={Graphs are widely used to model complicated data semantics in many applications. In this paper, we aim to develop efficient techniques to retrieve graphs, containing a  given query graph, from a large set of graphs. Considering the problem of testing subgraph isomorphism is generally NP-hard, most of the existing techniques are based on the framework of filtering-and-verification to reduce the precise computation costs; consequently various novel feature-based indexes have been developed. While the existing techniques work well for small query graphs, the verification phase becomes a bottleneck when the query graph size increases. Motivated by this, in the paper we firstly propose a novel and efficient algorithm for testing subgraph isomorphism, QuickSI. Secondly, we develop a new feature-based index technique to accommodate QuickSI in the filtering phase. Our extensive experiments on real and synthetic data demonstrate the efficiency and scalability of the proposed techniques, which significantly improve the existing techniques.}
+}
+
+@article{Zeng2020,
+  title={Deep analysis on subgraph isomorphism},
+  author={Zeng, Li and Jiang, Yan and Lu, Weixin and Zou, Lei},
+  journal={arXiv preprint arXiv:2012.06802},
+  year={2020},
+  groups={graph_matching},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Zeng2020.pdf},
+  abstract={Abstract—Subgraph isomorphism is a well-known NP-hard problem which is widely used in many applications, such as social network analysis and knowledge graph query. Its performance is often limited by the inherent hardness. Several insightful works have been done since 2012, mainly optimizing pruning rules and matching orders to accelerate enumerating all isomorphic subgraphs. Nevertheless, their correctness and performance are  not well studied. First, different languages are used in implemen- tation with different compilation flags. Second, experiments are not done on the same platform and the same datasets. Third, some ideas of different works are even complementary. Last but not least, there exist errors when applying some algorithms. In this paper, we address these problems by re-implementing seven representative subgraph isomorphism algorithms as well as their improved versions, and conducting comprehensive experiments on various graphs. The results show pros and cons of state-of- the-art solutions and explore new approaches to optimization.}
+}
+
+@article{Mckay2014,
+  title={Practical graph isomorphism, II},
+  author={McKay, Brendan D and Piperno, Adolfo},
+  journal={Journal of symbolic computation},
+  volume={60},
+  pages={94--112},
+  year={2014},
+  publisher={Elsevier},
+  groups={graph_matching},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Mckay2014.pdf},
+  abstract={We report the current state of the graph isomorphism problem from the practical point of view. After describing the general principles of the refinement-individualization paradigm and pro- ving its validity, we explain how it is implemented in several of the key implementations. In particular, we bring the description of the best known program nauty up to date and describe an innovative approach called Traces that outperforms the competitors for many difficult graph classes. Detailed comparisons against saucy, Bliss and conauto are presented.}
+}
+
+@article{Lai2019,
+  title={Distributed subgraph matching on timely dataflow},
+  author={Lai, Longbin and Qing, Zhu and Yang, Zhengyi and Jin, Xin and Lai, Zhengmin and Wang, Ran and Hao, Kongzhang and Lin, Xuemin and Qin, Lu and Zhang, Wenjie and others},
+  journal={Proceedings of the VLDB Endowment},
+  volume={12},
+  number={10},
+  pages={1099--1112},
+  year={2019},
+  publisher={VLDB Endowment},
+  groups={graph_matching},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Lai2019.pdf},
+  abstract={Recently there emerge many distributed algorithms that aim at solving subgraph matching at scale. Existing algorithm- level comparisons failed to provide a systematic view of dis- tributed subgraph matching mainly due to the intertwining of strategy and optimization. In this paper, we identify four strategies and three general-purpose optimizations from rep- resentative state-of-the-art algorithms. We implement the four strategies with the optimizations based on the com- mon Timely dataflow system for systematic strategy-level comparison. Our implementation covers all representative algorithms. We conduct extensive experiments for both unlabelled matching and labelled matching to analyze the per- formance of distributed subgraph matching under various settings, which is finally summarized as a practical guide.}
+}
+
+@article{Demeyer2013,
+  title={The index-based subgraph matching algorithm (ISMA): fast subgraph enumeration in large networks using optimized search trees},
+  author={Demeyer, Sofie and Michoel, Tom and Fostier, Jan and Audenaert, Pieter and Pickavet, Mario and Demeester, Piet},
+  journal={PloS one},
+  volume={8},
+  number={4},
+  pages={e61183},
+  year={2013},
+  publisher={Public Library of Science San Francisco, USA},
+  groups={graph_matching},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Demeyer2013.pdf},
+  abstract={Subgraph matching algorithms are designed to find all instances of predefined subgraphs in a large graph or network and play an important role in the discovery and analysis of so-called network motifs, subgraph patterns which occur more often than expected by chance. We present the index-based subgraph matching algorithm (ISMA), a novel tree-based algorithm. ISMA realizes a speedup compared to existing algorithms by carefully selecting the order in which the nodes of a query subgraph are investigated. In order to achieve this, we developed a number of data structures and maximally exploited symmetry characteristics of the subgraph. We compared ISMA to a naive recursive tree-based algorithm and to a number of well-known subgraph matching algorithms. Our algorithm outperforms the other algorithms, especially on large networks and with large query subgraphs. An implementation of ISMA in Java is freely available at http://sourceforge.net/projects/ isma.}
+}
+
+@inproceedings{Tu2020,
+  title={Inexact attributed subgraph matching},
+  author={Tu, Thomas K and Moorman, Jacob D and Yang, Dominic and Chen, Qinyi and Bertozzi, Andrea L},
+  booktitle={2020 IEEE international conference on big data (big data)},
+  pages={2575--2582},
+  year={2020},
+  organization={IEEE},
+  groups={graph_matching},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Tu2020.pdf},
+  abstract={Abstract—We present an approach for inexact subgraph matching on attributed graphs optimizing the graph edit distance. By combining lower bounds on the cost of individ- ual assignments, we obtain a heuristic for a backtracking tree search to identify optimal solutions. We evaluate our algorithm on a knowledge graph dataset derived from real- world data, and analyze the space of optimal solutions.}
+}
+
+@article{Shahrivari2015,
+  title={Fast parallel all-subgraph enumeration using multicore machines},
+  author={Shahrivari, Saeed and Jalili, Saeed},
+  journal={Scientific Programming},
+  volume={2015},
+  pages={6--6},
+  year={2015},
+  publisher={Hindawi Limited London, UK, United Kingdom},
+  groups={graph_matching},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Shahrivari2015.pdf},
+  abstract={Enumerating all subgraphs of an input graph is an important task for analyzing complex networks. Valuable information can be extracted about the characteristics of the input graph using all-subgraph enumeration. Notwithstanding, the number of subgraphs grows exponentially with growth of the input graph or by increasing the size of the subgraphs to be enumerated. Hence, all-subgraph enumeration is very time consuming when the size of the subgraphs or the input graph is big. We propose a parallel solution named Subenum which in contrast to available solutions can perform much faster. Subenum enumerates subgraphs using edges instead of vertices, and this approach leads to a parallel and load-balanced enumeration algorithm that can have efficient execution on current multicore and multiprocessor machines. Also, Subenum uses a fast heuristic which can effectively accelerate non-isomorphism subgraph enumeration. Subenum can efficiently use external memory, and unlike other subgraph enumeration methods, it is not associated with the main memory limits of the used machine. Hence, Subenum can handle large input graphs and subgraph sizes that other solutions cannot handle. Several experiments are done using real-world input graphs. Compared to the available solutions, Subenum can enumerate subgraphs several orders of magnitude faster and the experimental results show that the performance of Subenum scales almost linearly by using additional processor cores.}
+}
+
+@inproceedings{Jin2021,
+  title={Fast: Fpga-based subgraph matching on massive graphs},
+  author={Jin, Xin and Yang, Zhengyi and Lin, Xuemin and Yang, Shiyu and Qin, Lu and Peng, You},
+  booktitle={2021 IEEE 37th international conference on data engineering (ICDE)},
+  pages={1452--1463},
+  year={2021},
+  organization={IEEE},
+  groups={graph_matching},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Jin2021.pdf},
+  abstract={Abstract—Subgraph matching is a basic operation widely used in many applications. However, due to its NP-hardness and the explosive growth of graph data, it is challenging to compute subgraph matching, especially in large graphs. In this paper, we aim at scaling up subgraph matching on a single machine using FPGAs. Specifically, we propose a CPU-FPGA co-designed framework. On the CPU side, we first develop a novel auxiliary data structure called candidate search tree (CST) which serves as a complete search space of subgraph matching. CST can be partitioned and fully loaded into FPGAs on-chip memory. Then, a workload estimation technique is proposed to balance the load between the CPU and FPGA. On the FPGA side, we design and implement the first FPGA-based subgraph matching algorithm, called FAST. To take full advantage of the pipeline mechanism on FPGAs, task parallelism optimization and task generator separation strategy are proposed for FAST, achieving massive parallelism. Moreover, we carefully develop a BRAM- only matching process to fully utilize FPGAs on-chip memory, which avoids the expensive intermediate data transfer between FPGAs BRAM and DRAM. Comprehensive experiments show that FAST achieves up to 462.0x and 150.0x speedup compared with the state-of-the-art algorithm DAF and CECI, respectively. In addition, FAST is the only algorithm that can handle the billion-scale graph using one machine in our experiments.}
+}
+
+@inproceedings{Han2019,
+  title={Efficient subgraph matching: Harmonizing dynamic programming, adaptive matching order, and failing set together},
+  author={Han, Myoungji and Kim, Hyunjoon and Gu, Geonmo and Park, Kunsoo and Han, Wook-Shin},
+  booktitle={Proceedings of the 2019 International Conference on Management of Data},
+  pages={1429--1446},
+  year={2019},
+  groups={graph_matching},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Han2019.pdf},
+  abstract={Subgraph matching (or subgraph isomorphism) is one of the fundamental problems in graph analysis. Extensive re- search has been done to develop practical solutions for sub- graph matching. The state-of-the-art algorithms such as CFL-Match and Turboiso convert a query graph into a span- ning tree for obtaining candidates for each query vertex and obtaining a good matching order with the spanning tree. However, by using the spanning tree instead of the original query graph, it could lead to lower pruning power and a sub-optimal matching order. Another limitation is that they perform redundant computation in search without utilizing the knowledge learned from past computation. In this paper, we introduce three novel concepts to address these inherent limitations: 1) dynamic programming between a directed acyclic graph (DAG) and a graph, 2) adaptive matching order with DAG ordering, and 3) pruning by failing sets, which together lead to a much faster algorithm DAF for subgraph matching. Extensive experiments with real datasets show that DAF outperforms the fastest existing solution by up to orders of magnitude in terms of recursive calls as well as in terms of the elapsed time.}
+}
+
+@INPROCEEDINGS{Ghosh2018,
+  author={Ghosh, Sayan and Halappanavar, Mahantesh and Tumeo, Antonino and Kalyanaraman, Ananth and Lu, Hao and Chavarrià-Miranda, Daniel and Khan, Arif and Gebremedhin, Assefaw},
+  booktitle={2018 IEEE International Parallel and Distributed Processing Symposium (IPDPS)}, 
+  title={Distributed Louvain Algorithm for Graph Community Detection}, 
+  year={2018},
+  volume={},
+  number={},
+  pages={885-895},
+  doi={10.1109/IPDPS.2018.00098},
+  groups={community_detection},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Ghosh2018.pdf},
+  abstract={In most real-world networks, the nodes/vertices tend to be organized into tightly-knit modules known as communities or clusters, such that nodes within a community are more likely to be "related" to one another than they are to the rest of the network. The goodness of partitioning into communities is typically measured using a well known measure called modularity. However, modularity optimization is an NP-complete problem. In 2008, Blondel, et al. introduced a multi-phase, iterative heuristic for modularity optimization, called the Louvain method. Owing to its speed and ability to yield high quality communities, the Louvain method continues to be one of the most widely used tools for serial community detection. In this paper, we present the design of a distributed memory implementation of the Louvain algorithm for parallel community detection. Our approach begins with an arbitrarily partitioned distributed graph input, and employs several heuristics to speedup the computation of the different steps of the Louvain algorithm. We evaluate our implementation and its different variants using real-world networks from various application domains (including internet, biology, social networks). Our MPI+OpenMP implementation yields about 7x speedup (on 4K processes) for soc-friendster network (1.8B edges) over a state-of-the-art shared memory multicore implementation (on 64 threads), without compromising output quality. Furthermore, our distributed implementation was able to process a larger graph (uk-2007; 3.3B edges) in 32 seconds on 1K cores (64 nodes) of NERSC Cori, when the state-of-the-art shared memory implementation failed to run due to insufficient memory on a single Cori node containing 128 GB of memory.}
+  }
+
+  @inproceedings{Ghosh2019,
+  title={Scaling and quality of modularity optimization methods for graph clustering},
+  author={Ghosh, Sayan and Halappanavar, Mahantesh and Tumeo, Antonino and Kalyanarainan, Ananth},
+  booktitle={2019 IEEE High Performance Extreme Computing Conference (HPEC)},
+  pages={1--6},
+  year={2019},
+  organization={IEEE},
+  groups={community_detection},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Ghosh2019.pdf},
+  abstract={Real-world graphs exhibit structures known as “communities” or “clusters” consisting of a group of vertices with relatively high connectivity between them, as compared to the rest of the vertices in the network. Graph clustering or community detection is a fundamental graph operation used to analyze real-world graphs occurring in the areas of computational biology, cybersecurity, electrical grids, etc. Similar to other graph algorithms, owing to irregular memory accesses and inherently sequential nature, current algorithms for community detection are challenging to parallelize. However, in order to analyze large networks, it is important to develop scalable parallel implementations of graph clustering that are capable of exploiting the architectural features of modern supercomputers. In response to the 2019 Streaming Graph Challenge, we present quality and performance analysis of our distributedmemory community detection using Vite, which is our distributed memory implementation of the popular Louvain method, on the ALCF Theta supercomputer. Clustering methods such as Louvain that rely on modularity maximization are known to suffer from the resolution limit problem, preventing identification of clusters of certain sizes. Hence, we also include quality analysis of our shared-memory implementation of the Fast-tracking Resistance method, in comparison with Louvain on the challenge datasets. Furthermore, we introduce an edge-balanced graph distribution for our distributed memory implementation, that significantly reduces communication, offering up to 80 percent improvement in the overall execution time. In addition to performance/ quality analysis, we also include details on the power/energy consumption, and memory traffic of the distributed-memory clustering implementation using real-world graphs with over a billion edges.}
+}
+
+@inproceedings{Ghosh2018a,
+  title={Scalable distributed memory community detection using vite},
+  author={Ghosh, Sayan and Halappanavar, Mahantesh and Tumeo, Antonino and Kalyanaraman, Ananth and Gebremedhin, Assefaw H},
+  booktitle={2018 IEEE High Performance extreme Computing Conference (HPEC)},
+  pages={1--7},
+  year={2018},
+  organization={IEEE},
+  groups={community_detection},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Ghosh2018a.pdf},
+  abstract={Graph clustering, popularly known as community detection, is a fundamental graph operation used in many applications related to network analysis and cybersecurity. The goal of community detection is to partition a network into “communities” such that each community consists of a tightly-knit group of nodes with relatively sparser connections to the rest of the nodes in the network. To compute clustering on large-scale networks, efficient parallel algorithms capable of fully exploiting features of modern architectures are needed. However, due to their irregular and inherently sequential nature, many of the current algorithms for community detection are challenging to parallelize. In response to the 2018 Streaming Graph Challenge, we present Vite—a distributed memory parallel implementation of the Louvain method, a widely used serial method for community detection. In addition to a baseline parallel implementation of the Louvain method, Vite also includes a number of heuristics that significantly improve performance while preserving solution quality. Using the datasets from the 2018 Graph Challenge (static and streaming), we demonstrate superior performance and high quality solutions.}
+}
+
+@article{Traag2019,
+  title={From Louvain to Leiden: guaranteeing well-connected communities},
+  author={Traag, Vincent A and Waltman, Ludo and Van Eck, Nees Jan},
+  journal={Scientific reports},
+  volume={9},
+  number={1},
+  pages={5233},
+  year={2019},
+  publisher={Nature Publishing Group UK London},
+  groups={community_detection},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Traag2019.pdf},
+  abstract={Community detection is often used to understand the structure of large and complex networks. One of the most popular algorithms for uncovering community structure is the so-called Louvain algorithm. We show that this algorithm has a major defect that largely went unnoticed until now: the Louvain algorithm may yield arbitrarily badly connected communities. In the worst case, communities may even be disconnected, especially when running the algorithm iteratively. In our experimental analysis, we observe that up to 25 percent of the communities are badly connected and up to 16 percent are disconnected. To address this problem, we introduce the Leiden algorithm. We prove that the Leiden algorithm yields communities that are guaranteed to be connected. In addition, we prove that, when the Leiden algorithm is applied iteratively, it converges to a partition in which all subsets of all communities are locally optimally assigned. Furthermore, by relying on a fast local move approach, the Leiden algorithm runs faster than the Louvain algorithm. We demonstrate the performance of the Leiden algorithm for several benchmark and real-world networks. We find that the Leiden algorithm is faster than the Louvain algorithm and uncovers better partitions, in addition to providing explicit guarantees.}
+}
+
+@article{Blondel2008,
+  title={Fast unfolding of communities in large networks},
+  author={Blondel, Vincent D and Guillaume, Jean-Loup and Lambiotte, Renaud and Lefebvre, Etienne},
+  journal={Journal of statistical mechanics: theory and experiment},
+  volume={2008},
+  number={10},
+  pages={P10008},
+  year={2008},
+  publisher={IOP Publishing},
+  groups={community_detection},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Blondel2008.pdf},
+  abstract={We propose a simple method to extract the community structure of large networks. Our method is a heuristic method that is based on modularity optimization. It is shown to outperform all other known community detection methods in terms of computation time. Moreover, the quality of the communities detected is very good, as measured by the so-called modularity. This is shown first by identifying language communities in a Belgian mobile phone network of 2 million customers and by analysing a web graph of 118 million nodes and more than one billion links. The accuracy of our algorithm is also verified on ad hoc modular networks.}
 }
