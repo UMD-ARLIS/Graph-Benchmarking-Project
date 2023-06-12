@@ -15,6 +15,7 @@ Add in links / descriptions of metrics we can / should use. Sourcing essential. 
 ## Survey of Tools, libraries and existing code. 
 
 **GNU GPROF**
+
 [The GNU Profiler (GPROF)](http://web.archive.org/web/20141129061523/http://www.cs.utah.edu/dept/old/texinfo/as/gprof.html#SEC2) can be used to determine which parts of a program are taking most of the execution time.
 
 To use it, all we do is add some additional flags to the compiler, whether we are using CC or GCC both should work. Assuming that we're working with a file called *myCode.c* we would use it as follows: 
