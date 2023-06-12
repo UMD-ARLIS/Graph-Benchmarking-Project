@@ -23,40 +23,59 @@ To use it, all we do is add some additional flags to the compiler, whether we ar
 
 1. Compile the code
 
-    gcc -g -c myCode.c -o myCode_profile.o -pg
+        gcc -g -c myCode.c -o myCode_profile.o -pg
     
 2. We then need to run the program that has been instrumented by GPROF: 
 
 
-    ./myCode_profile.o
+        ./myCode_profile.o
 
 3. Running the code should output a file called *gmon.out* to the directory that you ran the above code in. To analyze the outputs we would use something like the following (noting that routing the output to a file called report.txt is optional: 
 
-    gprof myCode_profile.o gmon.out > report.txt
+        gprof myCode_profile.o gmon.out > report.txt
     
 **SO WHAT?** Pending further experimentation, this looks like it will be useful for understanding the efficency of the code that we run, and some of the temporal aspects, but will be less useful for the memory and power analysis aspects of the code. 
     
-## VALGRIND
+### VALGRIND
 NOTE: Requires Linux to Run: 
 
-[VALGRIND](https://valgrind.org/docs/manual/quick-start.html) is a suite of debugging and profiling tools. The most popular of these tools is called Memcheck. It can detect many memory-related errors that are common in C and C++ programs and that can lead to crashes and unpredictable behaviour.
+[VALGRIND](https://valgrind.org/docs/manual/quick-start.html) is a suite of debugging and profiling tools. 
+
+**MEMCHECK**
+
+The most popular of the VALGRIND tools is called Memcheck. It can detect many memory-related errors that are common in C and C++ programs and that can lead to crashes and unpredictable behaviour.
 
 To use it on your linux machine, assuming we are working with *myCode.c*:
 
-1. Compile the code:
+1. Compile the code (note that the -g flag tells the compiler to compile with debugging information):
 
-    gcc -g -c myCode.c -o myCode.o
+        gcc -g -c myCode.c -o myCode.o
 
 2. Invoke Valgrind memCheck:
 
-    valgrind --leak-check=yes ./myCode.o
+        valgrind --leak-check=yes ./myCode.o
     
 3. Read through the results!
 
 There's plenty more information in the [Valgrind Manual](https://valgrind.org/docs/manual/manual.html)
 
+**CACHEGRIND**
 
+[Cachegrind and cgannotate](https://valgrind.org/docs/manual/cg-manual.html) Cachegrind is a high-precision tracing profiler. It runs slowly, but collects precise and reproducible profiling data. It can merge and diff data from different runs.
 
+To use Cachegrind, assuming we are interested in the file myCode.c:
+
+1. Compile the code (note that the -g flag tells the compiler to compile with debugging information):
+
+        gcc -g -c myCode.c -o myCode.o
+
+2. Invoke Valgrind CacheGrind:
+
+        valgrind --tool=cachegrind --cachegrind-out-file=myCode_cg.out ./myCode.o
+    
+3. Feed the results into cg_annotate and read the report:
+
+        cg_annotate myCode_cg.out
 
 ### GASCT
 Intel's Gather, Apply, Scatter,  Compute-on-Target performance model extends the Bulk Synchronous Parallel (BSP) model of computation to support both pull and push based algorithms. It is what intel uses in their projections of PiUMA performance. [Source: HIVE Workload Analysis Report pg 18](https://drive.google.com/file/d/1qM5POYo0vB9p-QKb88oNzzED2a7cJdW_/view?usp=drive_link)
