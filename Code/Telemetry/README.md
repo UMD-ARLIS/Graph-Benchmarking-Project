@@ -20,4 +20,4 @@ Intel's Gather, Apply, Scatter,  Compute-on-Target performance model extends the
 
 ### Piuma Analytic Performance Model
 
-T~estimate~ = $MAX(T~mem~,T~comp~,T~net~) + T~barrier~
+$$T<sub>estimate</sub> = MAX(T<sub>mem</sub>,T<sub>comp</sub>,T<sub>net</sub>) + T<sub>barrier</sub>$$
