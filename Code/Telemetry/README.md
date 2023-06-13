@@ -12,7 +12,7 @@ Populate once we decide what to do
 ## Survey of Metrics
 Add in links / descriptions of metrics we can / should use. Sourcing essential. You can add a hyperlink in Markdown by using squarebrackets and parentheses: "\[\]\(\)" Where the text to display is in the brackets and the link is in the parentheses. 
 
-## Survey of Tools, libraries and existing code. 
+## Telemetry Tools
 
 ### PERF
 NOTE: Requires Linux to run:
@@ -107,6 +107,34 @@ To use Cachegrind, assuming we are interested in the file myCode.c:
 3. Feed the results into cg_annotate and read the report:
 
         cg_annotate myCode_cg.out
+
+### OPROFILE
+[OPROFILE](https://oprofile.sourceforge.io/faq/) is an open source project that includes a statistical profiler for Linux systems, capable of profiling all running code at low overhead. 
+
+OProfile leverages the hardware performance counters of the CPU to enable profiling of a wide variety of interesting statistics, which can also be used for basic time-spent profiling. All code is profiled: hardware and software interrupt handlers, kernel modules, the kernel, shared libraries, and applications. Several post-profiling tools for turning profile data into human readable information are available. 
+
+OProfile is one of the tools google reported that they use in their datacentre performance profiling in [Their 2010 Paper](https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Ren2010.pd)
+
+Kent has not yet tested OPROFILE
+
+### Intel VTUNE Profiler
+Requires Linux to Run
+
+[VTUNE](https://www.intel.com/content/www/us/en/developer/tools/oneapi/vtune-profiler.html#gs.11c0nr) Profiler optimizes application performance, system performance, and system configuration across CPU, GPU, and FPGA. It is capable of profiling SYCL*, C, C++, C#, Fortran, OpenCL™ code, Python*, Google Go* programming language, Java*, .NET, Assembly, or any combination of languages. It can be used for System or Application settings to get coarse-grained system data for an extended period or detailed results mapped to source code. it can be used to optimize performance while avoiding power and thermal-related throttling.
+
+It appears to have a GUI and some pretty hefty monitoring functions, this one will be worth exploring further. 
+
+Kent has not yet tested VTUNE
+
+## Simulators
+
+[SNIPER](https://snipersim.org/w/The_Sniper_Multi-Core_Simulator) is a next generation parallel, high-speed and accurate x86 simulator allowing for fast and accurate simulation and for trading off simulation speed for accuracy to allow a range of flexible simulation options when exploring  architectures.
+
+The Sniper simulator allows one to perform timing simulations for both multi-program workloads and multi-threaded, shared-memory applications with 10s to 100+ cores, at a high speed when compared to existing simulators. Sniper has been validated against multi-socket Intel Core2 and Nehalem systems and provides average performance prediction errors within 25% at a simulation speed of up to several MIPS.
+
+This simulator, and the interval core model, is useful for uncore and system-level studies that require more detail than the typical one-IPC models, but for which cycle-accurate simulators are too slow to allow workloads of meaningful sizes to be simulated. As an added benefit, the interval core model allows the generation of CPI stacks, which show the number of cycles lost due to different characteristics of the system, like the cache hierarchy or branch predictor, and leads to a better understanding of each component's effect on total system performance. This extends the use for Sniper to application characterization and hardware/software co-design.
+
+## Other (PiUMA Specific)
 
 ### GASCT
 Intel's Gather, Apply, Scatter,  Compute-on-Target performance model extends the Bulk Synchronous Parallel (BSP) model of computation to support both pull and push based algorithms. It is what intel uses in their projections of PiUMA performance. [Source: HIVE Workload Analysis Report pg 18](https://drive.google.com/file/d/1qM5POYo0vB9p-QKb88oNzzED2a7cJdW_/view?usp=drive_link)
