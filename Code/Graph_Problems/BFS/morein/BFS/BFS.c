@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <assert.h>
-#include "string_builder.h"
+#include "/Users/moreinibrahim/Desktop/summer2023/Code/Utilities/c-utils/src/string_builder.h"
 
 // Define the maximum number of vertices in the graph
 #define NUM_VERTICES 6
