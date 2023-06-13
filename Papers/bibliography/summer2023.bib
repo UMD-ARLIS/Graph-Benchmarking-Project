@@ -406,3 +406,52 @@ abstract={Both static and streaming graph processing are central in data analyti
   url = {https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Villa2021.pdf},
 	abstract={Binary instrumentation frameworks are widely used to implement profilers, performance evaluation, error checking, and bug detection tools. While dynamic binary instrumentation tools such as PIN and DynamoRio are supported on CPUs, GPU architectures currently only have limited support for similar capabilities through static compile-time tools, which prohibits instrumentation of dynamically loaded libraries that are foundations for modern high-performance applications. This work presents NVBit, a fast, dynamic, and portable, binary instrumentation framework, that allows users to write instrumentation tools in CUDA/C/C++ and selectively apply that functionality to pre-compiled binaries and libraries executing on NVIDIA GPUs. Using dynamic recompilation at the SASS level, NVBit analyzes GPU kernel register requirements to generate efficient ABI compliant instrumented code without requiring the tool developer to have detailed knowledge of the underlying GPU architecture. NVBit allows basic-block instrumentation, multiple function injections to the same location, inspection of all ISA visible state, dynamic selection of instrumented or uninstrumented code, permanent modification of register state, source code correlation, and instruction removal. NVBit supports all recent NVIDIA GPU architecture families including Kepler, Maxwell, Pascal and Volta and works on any pre-compiled CUDA, OpenACC, OpenCL, or CUDA-Fortran application.}
 }
+
+@inproceedings{Basak2019,
+  title={Analysis and optimization of the memory hierarchy for graph processing workloads},
+  author={Basak, Abanti and Li, Shuangchen and Hu, Xing and Oh, Sang Min and Xie, Xinfeng and Zhao, Li and Jiang, Xiaowei and Xie, Yuan},
+  booktitle={2019 IEEE International Symposium on High Performance Computer Architecture (HPCA)},
+  pages={373--386},
+  year={2019},
+  organization={IEEE},
+  groups={telemetry},
+  url = {https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Basak2019.pdf},
+	abstract={Graph processing is an important analysis technique for a wide range of big data applications. The ability to explicitly represent relationships between entities gives graph analytics a significant performance advantage over traditional relational databases. However, at the microarchitecture level, performance is bounded by the inefficiencies in the memory subsystem for single-machine in-memory graph analytics. This paper consists of two contributions in which we analyze and optimize the memory hierarchy for graph processing workloads. First, we perform an in-depth data-type-aware characterization of graph processing workloads on a simulated multi-core architecture. We analyze 1) the memory-level parallelism in an out-of-order core and 2) the request reuse distance in the cache hierarchy. We find that the load-load dependency chains involving different application data types form the primary bottleneck in achieving a high memory-level parallelism. We also observe that different graph data types exhibit heterogeneous reuse distances. As a result, the private L2 cache has negligible contribution to performance, whereas the shared L3 cache shows higher performance sensitivity.}
+
+}
+
+@inproceedings{Zhuo2019,
+  title={Graphq: Scalable pim-based graph processing},
+  author={Zhuo, Youwei and Wang, Chao and Zhang, Mingxing and Wang, Rui and Niu, Dimin and Wang, Yanzhi and Qian, Xuehai},
+  booktitle={Proceedings of the 52nd Annual IEEE/ACM International Symposium on Microarchitecture},
+  pages={712--725},
+  year={2019},
+  groups={HIVE},
+  url = {https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Zhuo2019.pdf},
+	abstract={Processing-In-Memory (PIM) architectures based on recent technology advances (e.g., Hybrid Memory Cube) demonstrate great potential for graph processing. However, existing solutions did not address the key challenge of graph processing---irregular data movements. This paper proposes GraphQ, an improved PIM-based graph processing architecture over recent architecture Tesseract, that fundamentally eliminates irregular data movements. GraphQ is inspired by ideas from distributed graph processing and irregular applications to enable static and structured communication with runtime and architecture co-design. Specifically, GraphQ realizes: 1) batched and overlapped inter-cube communication by reordering vertex processing order; 2) streamlined inter-cube communication by using heterogeneous cores for different access types. Moreover, to tackle the discrepancy between inter-cube and inter-node bandwidth, we propose a hybrid execution model that performs additional local computation during the inter-node communication. This model is general enough and applicable to asynchronous iterative algorithms that can tolerate bounded stale values. Putting all together, GraphQ simultaneously maximizes intra-cube, inter-cube, and inter-node communication throughput. In a zSim-based simulator with five real-world graphs and four algorithms, GraphQ achieves on average 3.3× and maximum 13.9× speedup, 81 percent energy saving compared with Tesseract. We show that increasing memory size in PIM also proportionally increases compute capability: a 4-node GraphQ achieves 98.34× speedup compared with a single node with the same memory size and conventional memory hierarchy.}
+}
+
+@inproceedings{Talati2022,
+  title={Ndminer: accelerating graph pattern mining using near data processing},
+  author={Talati, Nishil and Ye, Haojie and Yang, Yichen and Belayneh, Leul and Chen, Kuan-Yu and Blaauw, David and Mudge, Trevor and Dreslinski, Ronald},
+  booktitle={Proceedings of the 49th Annual International Symposium on Computer Architecture},
+  pages={146--159},
+  year={2022},
+  groups={telemetry},
+  url = {https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Talati2022.pdf},
+	abstract={Graph Pattern Mining (GPM) algorithms mine structural patterns in graphs. The performance of GPM workloads is bottlenecked by control flow and memory stalls. This is because of data-dependent branches used in set intersection and difference operations that dominate the execution time. This paper first conducts a systematic GPM workload analysis and uncovers four new observations to inform the optimization effort. First, GPM workloads mostly fetch inputs of costly set operations from different memory banks. Second, to avoid redundant computation, modern GPM workloads employ symmetry breaking that discards several data reads, resulting in cache pollution and wasted DRAM bandwidth. Third, sparse pattern mining algorithms perform redundant memory reads and computations. Fourth, GPM workloads do not fully utilize the in-DRAM data parallelism. Based on these observations, this paper presents NDMiner, a Near Data Processing (NDP) architecture that improves the performance of GPM workloads. To reduce in-memory data transfer of fetching data from different memory banks, NDMiner integrates compute units to offload set operations in the buffer chip of DRAM. To alleviate the wasted memory bandwidth caused by symmetry breaking, NDMiner integrates a load elision unit in hardware that detects the satisfiability of symmetry breaking constraints and terminates unnecessary loads. To optimize the performance of sparse pattern mining, NDMiner employs compiler optimizations and maps reduced reads and composite computation to NDP hardware that improves algorithmic efficiency of sparse GPM. Finally, NDMiner proposes a new graph remapping scheme in memory and a hardware-based set operation reordering technique to best optimize bank, rank, and channel-level parallelism in DRAM. To orchestrate NDP computation, this paper presents design modifications at the host ISA, compiler, and memory controller. We compare the performance of NDMiner with state-of-the-art software and hardware baselines using a mix of dense and sparse GPM algorithms. Our evaluation shows that NDMiner significantly outperforms software and hardware baselines by 6.4X and 2.5X, on average, while incurring a negligible area overhead on CPU and DRAM.}
+}
+
+@article{Chen2020,
+  title={Pangolin: An efficient and flexible graph mining system on cpu and gpu},
+  author={Chen, Xuhao and Dathathri, Roshan and Gill, Gurbinder and Pingali, Keshav},
+  journal={Proceedings of the VLDB Endowment},
+  volume={13},
+  number={8},
+  pages={1190--1205},
+  year={2020},
+  publisher={VLDB Endowment},
+  groups={HIVE},
+  url = {https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Chen2020.pdf},
+	abstract={There is growing interest in graph pattern mining (GPM) problems such as motif counting. GPM systems have been developed to provide unified interfaces for programming algorithms for these problems and for running them on parallel systems. However, existing systems may take hours to mine even simple patterns in moderate-sized graphs, which significantly limits their real-world usability. We present Pangolin, an efficient and flexible in-memory GPM framework targeting shared-memory CPUs and GPUs. Pangolin is the first GPM system that provides high-level abstractions for GPU processing. It provides a simple programming interface based on the extend-reduce-filter model, which allows users to specify application specific knowledge for search space pruning and isomorphism test elimination. We describe novel optimizations that exploit locality, reduce memory consumption, and mitigate the overheads of dynamic memory allocation and synchronization. Evaluation on a 28-core CPU demonstrates that Pangolin outperforms existing GPM frameworks Arabesque, RStream, and Fractal by 49×, 88×, and 80× on average, respectively. Acceleration on a V100 GPU further improves performance of Pangolin by 15× on average. Compared to state-of-the-art hand-optimized GPM applications, Pangolin provides competitive performance with less programming effort.}
+}
