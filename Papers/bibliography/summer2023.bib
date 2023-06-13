@@ -510,3 +510,23 @@ abstract={Both static and streaming graph processing are central in data analyti
   url = {https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Beamer2017.pdf},
 	abstract={We present a graph processing benchmark suite with the goal of helping to standardize graph processing evaluations. Fewer differences between graph processing evaluations will make it easier to compare different research efforts and quantify improvements. The benchmark not only specifies graph kernels, input graphs, and evaluation methodologies, but it also provides optimized baseline implementations. These baseline implementations are representative of state-of-the-art performance, and thus new contributions should outperform them to demonstrate an improvement. The input graphs are sized appropriately for shared memory platforms, but any implementation on any platform that conforms to the benchmark's specifications could be compared. This benchmark suite can be used in a variety of settings. Graph framework developers can demonstrate the generality of their programming model by implementing all of the benchmark's kernels and delivering competitive performance on all of the benchmark's graphs. Algorithm designers can use the input graphs and the baseline implementations to demonstrate their contribution. Platform designers and performance analysts can use the suite as a workload representative of graph processing.}
 }
+
+@inproceedings{Zhou2020,
+author = {Zhou, Keren and Krentel, Mark W. and Mellor-Crummey, John},
+title = {Tools for Top-down Performance Analysis of GPU-Accelerated Applications},
+year = {2020},
+isbn = {9781450379830},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+doi = {10.1145/3392717.3392752},
+abstract = {This paper describes extensions to Rice University's HPCToolkit performance tools to support measurement and analysis of GPU-accelerated applications. To help developers understand the performance of accelerated applications as a whole, HPCToolkit's measurement and analysis tools attribute metrics to calling contexts that span both CPUs and GPUs. To measure GPU-accelerated applications efficiently, HPCToolkit employs a novel wait-free data structure to coordinate monitoring and attribution of GPU performance metrics. To help developers understand the performance of complex GPU code generated from high-level programming models, HPCToolkit's hpcprof constructs sophisticated approximations of call path profiles for GPU computations. To support fine-grain analysis and tuning, HPCToolkit attributes GPU performance metrics to source lines and loops. Also, HPCToolkit uses GPU PC samples to derive and attribute a collection of useful GPU performance metrics. We illustrate HPCToolkit's new capabilities for analyzing GPU- accelerated applications with three case studies.},
+booktitle = {Proceedings of the 34th ACM International Conference on Supercomputing},
+articleno = {26},
+numpages = {12},
+keywords = {calling context tree, wait-free, profiler, GPU, roofline, HPC},
+location = {Barcelona, Spain},
+series = {ICS '20},
+groups={graph_datasets},
+url = {https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Zhou2020.pdf},
+abstract={This paper describes extensions to Rice University's HPCToolkit performance tools to support measurement and analysis of GPU-accelerated applications. To help developers understand the performance of accelerated applications as a whole, HPCToolkit's measurement and analysis tools attribute metrics to calling contexts that span both CPUs and GPUs. To measure GPU-accelerated applications efficiently, HPCToolkit employs a novel wait-free data structure to coordinate monitoring and attribution of GPU performance metrics. To help developers understand the performance of complex GPU code generated from high-level programming models, HPCToolkit's hpcprof constructs sophisticated approximations of call path profiles for GPU computations. To support fine-grain analysis and tuning, HPCToolkit attributes GPU performance metrics to source lines and loops. Also, HPCToolkit uses GPU PC samples to derive and attribute a collection of useful GPU performance metrics. We illustrate HPCToolkit's new capabilities for analyzing GPU- accelerated applications with three case studies.}
+}
