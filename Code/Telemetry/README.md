@@ -14,6 +14,37 @@ Add in links / descriptions of metrics we can / should use. Sourcing essential. 
 
 ## Survey of Tools, libraries and existing code. 
 
+### PERF
+NOTE: Requires Linux to run:
+
+[perf](https://perf.wiki.kernel.org/index.php/Main_Page) is powerful: it can instrument CPU performance counters, tracepoints, kprobes, and uprobes (dynamic tracing). It is capable of lightweight profiling. 
+
+Performance counters are CPU hardware registers that count hardware events such as instructions executed, cache-misses suffered, or branches mispredicted. They form a basis for profiling applications to trace dynamic control flow and identify hotspots. *perf* provides rich generalized abstractions over hardware specific capabilities. Among others, it provides per task, per CPU and per-workload counters, sampling on top of these and source code event annotation.
+
+Tracepoints are instrumentation points placed at logical locations in code, such as for system calls, TCP/IP events, file system operations, etc. These have negligible overhead when not in use, and can be enabled by the perf command to collect information including timestamps and stack traces. perf can also dynamically create tracepoints using the kprobes and uprobes frameworks, for kernel and userspace dynamic tracing
+
+To use perf on your linux machine, assuming we are working with *myCode.c*:
+
+1. Compile the code (note that the -g flag tells the compiler to compile with debugging information):
+
+        gcc -g -c myCode.c -o myCode.o
+
+2. Invoke perf to instrument the code:
+
+        perf record ./myCode.o
+    
+3. Access the report in the directory that you ran perf record (accesses the outputted *perf.data* file):
+
+        perf report
+
+4. More can be viewed using the annotated viewer in the same directory with
+
+        perf annotate
+        
+If in doubt, use the included manual to figure out what to do, from the command line run:
+
+        man perf
+
 ### GNU GPROF
 NOTE: Requires Linux to Run
 
