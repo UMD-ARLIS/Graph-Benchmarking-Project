@@ -327,3 +327,82 @@ groups={telemetry},
 url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Basak2021.pdf},
 abstract={Both static and streaming graph processing are central in data analytics scenarios such as recommendation systems, financial fraud detection, and social network analysis. The rich space of graph applications poses several challenges for the computer architecture community. First, standard static graph algorithm performance is sub-optimal on today's general-purpose architectures such as CPUs due to inefficiencies in the memory subsystem. It is currently increasingly difficult to rely on relative compute/memory technology scaling for continued performance improvement for a given optimized static graph algorithm on a general-purpose CPU. Second, while a large body of research in the computer architecture community focuses on static graph workloads, streaming graphs remain completely unexplored. The primary practical barriers for computer architecture researchers toward studying streaming graphs are immature software, a lack of systematic software analysis, and an absence of open-source benchmarks. This dissertation seeks to solve these challenges for both static and streaming graph workloads through benchmarking, performance analysis, and CPU-centric domain-specific architectures using software/hardware co-design. For static graph workloads, this thesis highlights novel performance bottleneck insights such as 1) the factors limiting memory-level parallelism, 2) the heterogeneous reuse distances of different application data types, and 3) the difference in the performance sensitivities of the different levels of the cache hierarchy. Guided by the workload characterization, a domain-specific prefetcher called DROPLET is proposed to solve the memory access bottleneck. DROPLET is a physically decoupled but functionally cooperative prefetcher co-located at the L2 cache and at the memory controller. Moreover, DROPLET is data-aware because it prefetches different graph data types differently according to their intrinsic reuse distances. DROPLET achieves 19 percent -102 percent performance improvement over a no-prefetch baseline and 14 percent -74 percent performance improvement over a Variable Length Delta Prefetcher (VLDP). DROPLET also performs 4 percent-12.5 percent better than a monolithic L1 prefetcher similar to the state-of-the-art prefetcher for graphs. For streaming graph workloads, this thesis develops a performance analysis framework called SAGA-Bench and performs workload characterization at both the software and the architecture levels. The findings include 1) the performance limitation of the graph update phase, 2) the input-dependent software performance trade-offs in graph updates, and 3) the difference in architecture resource utilization (core counts, memory bandwidth, and cache hierarchy) between the graph update and the graph compute phases. In addition, the thesis proposes the SPRING approach to demonstrate that input knowledge-driven software and hardware co-design is critical to optimize the performance of streaming graph processing. Evaluated across 260 workloads, our input-aware techniques provide on average 4.55x and 2.6x improvement in graph update performance for different input types. The graph compute performance is improved by 1.26x (up to 2.7x).}
 }
+
+@INPROCEEDINGS{Weinberg2005,
+  author={Weinberg, J. and McCracken, M.O. and Strohmaier, E. and Snavely, A.},
+  booktitle={SC '05: Proceedings of the 2005 ACM/IEEE Conference on Supercomputing}, 
+  title={Quantifying Locality In The Memory Access Patterns of HPC Applications}, 
+  year={2005},
+  volume={},
+  number={},
+  pages={50-50},
+  doi={10.1109/SC.2005.59},
+  groups={telemetry},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Weinberg2005.pdf},
+  abstract={Several benchmarks for measuring the memory performance of HPC systems along dimensions of spatial and temporal memory locality have recently been proposed. However, little is understood about the relationships of these benchmarks to real applications and to each other. We propose a methodology for producing architecture-neutral characterizations of the spatial and temporal locality exhibited by the memory access patterns of applications. We demonstrate that the results track intuitive notions of locality on several synthetic and application benchmarks. We employ the methodology to analyze the memory performance components of the HPC Challenge Benchmarks, the Apex-MAP benchmark, and their relationships to each other and other benchmarks and applications. We show that this analysis can be used to both increase understanding of the benchmarks and enhance their usefulness by mapping them, along with applications, to a 2-D space along axes of spatial and temporal locality.}
+  }
+
+
+@inbook{Mutlu2023,
+	abstract = {Modern computing systems are overwhelmingly designed to move data to computation. This design choice goes directly against at least three key trends in computing that cause performance, scalability and energy bottlenecks: (1) data access is a key bottleneck as many important applications are increasingly data-intensive, and memory bandwidth and energy do not scale well, (2) energy consumption is a key limiter in almost all computing platforms, especially server and mobile systems, (3) data movement, especially off-chip to on-chip, is very expensive in terms of bandwidth, energy and latency, much more so than computation. These trends are especially severely-felt in the data-intensive server and energy-constrained mobile systems of today. At the same time, conventional memory technology is facing many technology scaling challenges in terms of reliability, energy, and performance. As a result, memory system architects are open to organizing memory in different ways and making it more intelligent, at the expense of higher cost. The emergence of 3D-stacked memory plus logic, the adoption of error correcting codes inside the latest DRAM chips, proliferation of different main memory standards and chips, specialized for different purposes (e.g., graphics, low-power, high bandwidth, low latency), and the necessity of designing new solutions to serious reliability and security issues, such as the RowHammer phenomenon, are an evidence of this trend. This chapter discusses recent research that aims to practically enable computation close to data, an approach we call processing-in-memory (PIM). PIM places computation mechanisms in or near where the data is stored (i.e., inside the memory chips, in the logic layer of 3D-stacked memory, or in the memory controllers), so that data movement between the computation units and memory is reduced or eliminated. While the general idea of PIM is not new, we discuss motivating trends in applications as well as memory circuits/technology that greatly exacerbate the need for enabling it in modern computing systems. We examine at least two promising new approaches to designing PIM systems to accelerate important data-intensive applications: (1) processing using memory by exploiting analog operational properties of DRAM chips to perform massively-parallel operations in memory, with low-cost changes, (2) processing near memory by exploiting 3D-stacked memory technology design to provide high memory bandwidth and low memory latency to in-memory logic. In both approaches, we describe and tackle relevant cross-layer research, design, and adoption challenges in devices, architecture, systems, and programming models. Our focus is on the development of in-memory processing designs that can be adopted in real computing platforms at low cost. We conclude by discussing work on solving key challenges to the practical adoption of PIM.},
+	address = {Singapore},
+	author = {Mutlu, Onur and Ghose, Saugata and G{\'o}mez-Luna, Juan and Ausavarungnirun, Rachata},
+	booktitle = {Emerging Computing: From Devices to Systems: Looking Beyond Moore and Von Neumann},
+	doi = {10.1007/978-981-16-7487-7_7},
+	editor = {Aly, Mohamed M. Sabry and Chattopadhyay, Anupam},
+	isbn = {978-981-16-7487-7},
+	pages = {171--243},
+	publisher = {Springer Nature Singapore},
+	title = {A Modern Primer on Processing in Memory},
+	url = {https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Mutlu2023.pdf},
+	year = {2023},
+	bdsk-url-1 = {https://doi.org/10.1007/978-981-16-7487-7_7},
+  groups={telemetry},
+  }
+
+@article{Ren2010,
+  title={Google-wide profiling: A continuous profiling infrastructure for data centers},
+  author={Ren, Gang and Tune, Eric and Moseley, Tipp and Shi, Yixin and Rus, Silvius and Hundt, Robert},
+  journal={IEEE micro},
+  volume={30},
+  number={4},
+  pages={65--79},
+  year={2010},
+  publisher={IEEE},
+  groups={telemetry},
+  url = {https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Ren2010.pdf},
+	abstract={Google-Wide Profiling (GWP), a continuous profiling infrastructure for data centers, provides performance insights for cloud applications. With negligible overhead, GWP provides stable, accurate profiles and a datacenter-scale tool for traditional performance analyses. Furthermore, GWP introduces novel applications of its profiles, such as application-platform affinity measurements and identification of platform-specific, microarchitectural peculiarities.}
+}
+
+@inproceedings{Kanev2015,
+  title={Profiling a warehouse-scale computer},
+  author={Kanev, Svilen and Darago, Juan Pablo and Hazelwood, Kim and Ranganathan, Parthasarathy and Moseley, Tipp and Wei, Gu-Yeon and Brooks, David},
+  booktitle={Proceedings of the 42nd Annual International Symposium on Computer Architecture},
+  pages={158--169},
+  year={2015},
+  groups={telemetry},
+  url = {https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Kanev2015.pdf},
+	abstract={With the increasing prevalence of warehouse-scale (WSC) and cloud computing, understanding the interactions of server applications with the underlying microarchitecture becomes ever more important in order to extract maximum performance out of server hardware. To aid such understanding, this paper presents a detailed microarchitectural analysis of live datacenter jobs, measured on more than 20,000 Google machines over a three year period, and comprising thousands of different applications. We first find that WSC workloads are extremely diverse, breeding the need for architectures that can tolerate application variability without performance loss. However, some patterns emerge, offering opportunities for co-optimization of hardware and software. For example, we identify common building blocks in the lower levels of the software stack. This "datacenter tax" can comprise nearly 30 percent of cycles across jobs running in the fleet, which makes its constituents prime candidates for hardware specialization in future server systems-on-chips. We also uncover opportunities for classic microarchitectural optimizations for server processors, especially in the cache hierarchy. Typical workloads place significant stress on instruction caches and prefer memory latency over bandwidth. They also stall cores often, but compute heavily in bursts. These observations motivate several interesting directions for future warehouse-scale computers.}
+}
+
+@inproceedings{Peng2021,
+  title={A holistic view of memory utilization on hpc systems: Current and future trends},
+  author={Peng, Ivy and Karlin, Ian and Gokhale, Maya and Shoga, Kathleen and Legendre, Matthew and Gamblin, Todd},
+  booktitle={The International Symposium on Memory Systems},
+  pages={1--11},
+  year={2021},
+  groups={telemetry},
+  url = {https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Peng2021.pdf},
+	abstract={Memory subsystem is one crucial component of a computing system. Co-designing memory subsystems becomes increasingly challenging as workloads continue evolving on HPC facilities and new architectural options emerge. This work provides the first large-scale study of memory utilization with system-level, job-level, temporal and spatial patterns on a CPU-only and a GPU-accelerated leadership supercomputer. From system-level monitoring data that spans three years, we identify a continuous increase in memory intensity in workloads over recent years. Our job-level characterization reveals different hotspots in memory usage on the two systems. Furthermore, we introduce two metrics, ’spatial imbalance’ and ’temporal imbalance’, to quantify the imbalanced memory usage across compute nodes and throughout time in jobs. We identify representative temporal and spatial patterns from real jobs, providing quantitative guidance for research on efficient resource configurations and novel architectural options. Finally, we showcase the impact of our study in informing system configurations through an upcoming NNSA CTS procurement.}
+}
+
+@inproceedings{Villa2019,
+  title={Nvbit: A dynamic binary instrumentation framework for nvidia gpus},
+  author={Villa, Oreste and Stephenson, Mark and Nellans, David and Keckler, Stephen W},
+  booktitle={Proceedings of the 52nd Annual IEEE/ACM International Symposium on Microarchitecture},
+  pages={372--383},
+  year={2019},
+  groups={telemetry},
+  url = {https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Villa2021.pdf},
+	abstract={Binary instrumentation frameworks are widely used to implement profilers, performance evaluation, error checking, and bug detection tools. While dynamic binary instrumentation tools such as PIN and DynamoRio are supported on CPUs, GPU architectures currently only have limited support for similar capabilities through static compile-time tools, which prohibits instrumentation of dynamically loaded libraries that are foundations for modern high-performance applications. This work presents NVBit, a fast, dynamic, and portable, binary instrumentation framework, that allows users to write instrumentation tools in CUDA/C/C++ and selectively apply that functionality to pre-compiled binaries and libraries executing on NVIDIA GPUs. Using dynamic recompilation at the SASS level, NVBit analyzes GPU kernel register requirements to generate efficient ABI compliant instrumented code without requiring the tool developer to have detailed knowledge of the underlying GPU architecture. NVBit allows basic-block instrumentation, multiple function injections to the same location, inspection of all ISA visible state, dynamic selection of instrumented or uninstrumented code, permanent modification of register state, source code correlation, and instruction removal. NVBit supports all recent NVIDIA GPU architecture families including Kepler, Maxwell, Pascal and Volta and works on any pre-compiled CUDA, OpenACC, OpenCL, or CUDA-Fortran application.}
+}
