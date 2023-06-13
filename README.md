@@ -145,6 +145,148 @@ We should aim for Test-Driven development. In general:
 
 If not fully test-driven, we should at least produce a unit test for each function that we write. As we mature we can add regression testing, integration testing etc. 
 
+### Test Driven Development and Using MinUnit testing library.
+
+Writing unit tests is important for ensuring that our code functions as intended. In a mature state, we should aim to write our tests first and then use the tests to guide how we write our code!
+
+I've found a good little library for testing that I'll step you through how to use. This assumes that we're working in a directory *CodeDir* following our common directory structure, that is, with the files: *myCode.c, myCode.h, test.c, makefile* 
+
+      CodeDir/
+         myCode.c
+         myCode.h
+         test.c
+         makefile
+         
+So, to do our unit testing, we need a testing approach. The easiest way to do it is to use the *<assert.h>* library from a raw C implementation, but we're going to use an external library, [Barrust's Fork of the MinUnit library](https://github.com/barrust/c-utils).
+
+To get started we need to add the following line to our test.c file (changing the path prior to Utilities appropriately) to allow us to import the functions of our file: 
+
+      # include "<PATH_TO_THIS_FOLDER_FROM_CURRENT_DIR>/Utilities/c-utils/src/minunit.h"
+
+but if we try to compile this code as it is with something like:
+
+      cc test.c -o test.o
+      
+and then run it with
+
+      ./test.o
+     
+We'll see that our code doesn't do anything yet, so we need to create a main function, test suite, test runner and test in the test file. let's go with updating the test.c file to look like:
+
+      # include "<PATH_TO_THIS_FOLDER_FROM_CURRENT_DIR>/Utilities/c-utils/src/minunit.h"
+      
+      //Main Function
+      int main(){
+         MU_RUN_SUITE(my_first_test_suite);
+         MU_REPORT();
+         printf("Number failed tests: %d\n", minunit_fail);
+         return minunit_fail;
+         }
+         
+Here we're telling the main code of the test to run the test suite called "my_first_test_suite", report the results and return the number of failed tests (i.e. any number not 0 will be a 'failed' execution)
+
+So we need to tell it what tests to run, which means updating our file to run our test suite, it should look something like: 
+
+      # include "<PATH_TO_THIS_FOLDER_FROM_CURRENT_DIR>/Utilities/c-utils/src/minunit.h"
+      
+      //Test suite
+      
+      MU_TEST_SUITE(my_first_test_suite) {
+	        printf("\n\n==== My First Test Suite ====\n");     //Can delete this if you don't want a noisy output
+	        MU_RUN_TEST(my_first_test);
+         MU_RUN_TEST(my_second_test);
+         }
+      
+      //Main Function
+      int main(){
+         MU_RUN_SUITE(my_first_test_suite);
+         MU_REPORT();
+         printf("Number failed tests: %d\n", minunit_fail);
+         return minunit_fail;
+         }
+
+Note that the parameter passed to the test suite is just the name we want to give it (and hence is how we invoke that test suite with the MU_SUITE_RUN command later. So we now tell our test suite what tests it needs to run, but it doesn't yet know what those tests are, so we need to define some tests. Updating our code will look like:
+
+      # include "<PATH_TO_THIS_FOLDER_FROM_CURRENT_DIR>/Utilities/c-utils/src/minunit.h"
+      # include "myCode.h"
+      
+      //Test Functions
+      MU_TEST(my_first_test) {
+	        printf("Test 1\n");
+
+	        //Init 
+           // No init required here, but could be things like loading data, creating data structures etc
+	       
+         //Test 
+         char *helloMessage = getHello("hello");
+         mu_assert_string_eq("hello world", helloMessage);
+
+         //Cleanup
+            // No cleanup required here, but usually looks like destroying whatever you built in the Init step
+         }
+         
+      MU_TEST(my_second_test) {
+	        printf("Test 1\n");
+
+	        //Init 
+           // No init required here, but could be things like loading data, creating data structures etc
+	       
+         //Test 
+         char *helloMessage = getHello("hi");
+         mu_assert_string_eq("go away", helloMessage);
+
+         //Cleanup
+            // No cleanup required here, but usually looks like destroying whatever you built in the Init step
+         }
+              
+     //Test suite
+      MU_TEST_SUITE(my_first_test_suite) {
+	        printf("\n\n==== My First Test Suite ====\n");     //Can delete this if you don't want a noisy output
+	        MU_RUN_TEST(my_first_test);
+         MU_RUN_TEST(my_second_test);
+         }
+      
+      //Main Function
+      int main(){
+         MU_RUN_SUITE(my_first_test_suite);
+         MU_REPORT();
+         printf("Number failed tests: %d\n", minunit_fail);
+         return minunit_fail;
+         }
+
+What we built here has added a reference to the headerFile of the myCode code and two tests of our program, which is a simple program that just returns "<var> world", with var equal to whatever parameter is passed to it. We have seperated out our tests from our code because they should be used to prove the integrity of the file itself, but not bloat the code to be compiled when it's not needed. At our relatively small size this isn't an issue but when we get bigger this becomes more problematic. Further, having things in different files helps us with version control and making the testing process more transparent. We basically want to have tests that call each function we write that cover, at a minimum - A test for when it executes properly and a test for when it fails.
+ 
+But we need code to run, so let's make some in the *myCode.h* and *myCode.c* files. 
+ 
+So, the myCode.h might look something like: 
+ 
+       //mycode.h
+       char *getHello(char *message);
+ 
+ and the myCode.c might look something like: 
+ 
+       //myCode.c
+       # include <string.h>
+ 
+       char *getHello(char *message){
+          if(strcmp(message,"hello") == 0){
+            return("hello world");
+          }
+          else{
+             return("go away");
+          }
+       }
+ 
+ To compile the code, we need to pass the compiler both the test.c and myCode.c files. We don't need to specify the minutils.c because it doesn't exist! All functions are contained in the header! A compilation instruction might look something like: 
+ 
+       cc test.c myCode.c -o test.o
+ 
+ To run it you use something like: 
+ 
+       ./test.o
+ 
+ And you should be able to see the report! If a test is failing, you know that there's something wrong with your code!
+
 ## Collaborative Coding
 
 We will use VSCode liveshare to conduct pair programming. 
