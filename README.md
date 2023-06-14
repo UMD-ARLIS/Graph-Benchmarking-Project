@@ -145,6 +145,61 @@ We should aim for Test-Driven development. In general:
 
 If not fully test-driven, we should at least produce a unit test for each function that we write. As we mature we can add regression testing, integration testing etc. 
 
+### Coding for GPUs: 
+
+We need to be able to write code to run on GPUs, and as a result we need GPUs to run it on and compilers to translate our code into something that the GPU can understand. 
+
+For ease, we're going to limit our use to NVIDIA GPUs. There are three reasons. First is that NVIDIA GPUs are the defacto industry standard. Second is that I have ready access to NVIDIA GPUs and third is that the [CUDA programming frameword](https://docs.nvidia.com/cuda/cuda-c-programming-guide/) provides us with a lot of abstraction so that we don't have to worry about the low-level implementation details. 
+
+So, assuming that we will be accessing this on the [UMIACS Cluster](https://wiki.umiacs.umd.edu/umiacs/index.php/Main_Page) insturctions to access it are as follows: 
+
+First, connect to the cluster:
+
+      ssh <username>@nexus<labName><hostNumber>.umiacs.umd.edu
+
+so for kent, it would be: 
+
+      ssh osullik@nexuscfar00.umiacs.umd.edu
+
+Then, activate the [CUDA module](https://wiki.umiacs.umd.edu/umiacs/index.php/CUDA): 
+
+       module load cuda
+
+Get a copy of the CUDA Samples: 
+
+      rsync -a /opt/common/cuda/$CUDA Version/samples/ ~/cuda_samples
+
+Build and run the device query: 
+
+      cd ~/cuda_samples/1_Utilities/deviceQuery/ && make && ./deviceQuery
+
+
+Then, we can use the CUDA Toolkit to compile our code into a GPU compatible format by invoking the compiler **nvcc**
+
+E.g. assuming a directory that contains *myCode.c* and *test.c* and we want to compile the tests for myCode we would use something like: 
+
+      nvcc test.c myCode.c -o test_cuda.o
+
+we can then run our code locally with 
+
+      ./test_cuda.o
+
+Or for bigger work, we can push it to the HPC Module using [SLURM (Detailed Instructions)](https://wiki.umiacs.umd.edu/umiacs/index.php/Nexus). As an example of how we might run it we could use: 
+
+      srun --qos=medium --mem=1gb --gres=gpu:gpu:rtxa4000:2 --time=1:00:00 ./test_cuda.o
+
+which is basically saying:
+- sbatch: invoke the sbatch program, which runs your provided file as a batch program
+- qos=medium: the parameter qos (qualityOfService) determines how many resources you can request. Medium is the parameter passed to qos allows you to use 2GPUs. Default, High and Scavenger also permitted arguments.
+- mem=1gb: Mem refers to the allocation of ram, 1GB is the parameter passed to it asking to allocate 1GB of RAM
+- gres=gpu:gpu:rtxa4000:2 gres refers to the allocations of GPUs. gpu:rtxa4000:2 says Allocate 2 x GPUs to my job of type rtxa4000
+- time=1:00:00: how long before the job auto-cancells, here 1 hour. 
+- ./test_cuda.o: the file you want to run on the GPU
+
+
+
+      
+
 ### Test Driven Development and Using MinUnit testing library.
 
 Writing unit tests is important for ensuring that our code functions as intended. In a mature state, we should aim to write our tests first and then use the tests to guide how we write our code!
