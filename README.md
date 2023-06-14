@@ -145,7 +145,13 @@ We should aim for Test-Driven development. In general:
 
 If not fully test-driven, we should at least produce a unit test for each function that we write. As we mature we can add regression testing, integration testing etc. 
 
+### High Performance Computing
+
+[DIT RESOURCES](https://hpcc.umd.edu/hpcc/help/basics.html#compiling) FOR USING HPC CLUSTER AT UMD TO COMPILE CODE. 
+
+
 ### Coding for GPUs: 
+
 
 We need to be able to write code to run on GPUs, and as a result we need GPUs to run it on and compilers to translate our code into something that the GPU can understand. 
 
