@@ -53,6 +53,12 @@ Mkfile.old
 dkms.conf
 
 
-## TEAM CUSTOM ADDITIONS: 
+## TEAM CUSTOM ADDITIONS: ## 
 
 *.DS_Store
+
+#Bibtex
+.bak 
+
+#VSCODE
+.vscode

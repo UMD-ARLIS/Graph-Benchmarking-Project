@@ -5,7 +5,7 @@
   year    = {2010},
   pages   = {45--74},
   volume  = {19},
-  groups  = {HIVE},
+  groups  = {graph_datasets},
   url     = {http://www.richardmurphy.net/archive/cug-may2010.pdf},
 }
 
@@ -17,3 +17,517 @@
   groups  = {HIVE},
   url     = {https://arxiv.org/pdf/2010.06277},
 }
+
+@inproceedings{Chakrabarti2004,
+  title={R-MAT: A recursive model for graph mining},
+  author={Chakrabarti, Deepayan and Zhan, Yiping and Faloutsos, Christos},
+  booktitle={Proceedings of the 2004 SIAM International Conference on Data Mining},
+  pages={442--446},
+  year={2004},
+  groups  = {graph_datasets},
+  organization={SIAM}
+}
+
+@misc{Leskovec2014,
+  author       = {Jure Leskovec and Andrej Krevl},
+  title        = {{SNAP Datasets}: {Stanford} Large Network Dataset Collection},
+  howpublished = {\url{http://snap.stanford.edu/data}},
+  month        = {jun},
+  groups       = {graph_datasets},
+  year         = {2014}
+}
+
+@article{Ahmed2011,
+  title={Network sampling via edge-based node selection with graph induction},
+  author={Ahmed, Nesreen and Neville, Jennifer and Kompella, Ramana Rao},
+  groups={graph_datasets},
+  year={2011}
+}
+
+@article{Brinkmann2007,
+  title={Fast generation of planar graphs},
+  author={Brinkmann, Gunnar and McKay, Brendan D and others},
+  journal={MATCH Commun. Math. Comput. Chem},
+  volume={58},
+  number={2},
+  pages={323--357},
+  groups={graph_datasets},
+  year={2007}
+}
+
+
+@article{Purohit2022,
+  title = {Synthetic Data and Graph Generation for Modeling Adversarial Activity (Final Project Report)},
+  author = {Purohit, Sumit and Mackey, Patrick S. and Cottam, Joseph A. and Dunning, Madelyn P. and Chin, George},
+  abstractNote = {The Data and Graph Generation for Modeling Adversary Activity (MAA) project developed a methodology along with scalable graph modeling and generation tools to produce realistic large-scale background activity graphs with embedded adversarial activity pathways. The technical report presents PNNL methodology, released datasets, lessons learned, and recommendations to develop graph analytic algorithms for structure-only and attributed knowledge graphs.},
+  doi = {10.2172/1871012},
+  url = {https://www.osti.gov/biblio/1871012}, 
+  journal = {},
+  number = ,
+  volume = ,
+  place = {United States},
+  year = {2022},
+  month = {2},
+  groups = {graph_datasets}
+}
+
+@inproceedings{Haller2022,
+  title={A Comparative Study of Graph Matching Algorithms in Computer Vision},
+  author={Haller, Stefan and Feineis, Lorenz and Hutschenreiter, Lisa and Bernard, Florian and Rother, Carsten and Kainm\"uller, Dagmar and Swoboda, Paul and Savchynskyy, Bogdan},
+  booktitle={Proceedings of the European Conference on Computer Vision},
+  year={2022},
+  groups = {graph_matching}
+}
+
+@article{Ullman1976,
+  author = {Ullmann, J. R.},
+  title = {An Algorithm for Subgraph Isomorphism},
+  year = {1976},
+  issue_date = {Jan. 1976},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+  volume = {23},
+  number = {1},
+  issn = {0004-5411},
+  url = {https://doi.org/10.1145/321921.321925},
+  doi = {10.1145/321921.321925},
+  abstract = {Subgraph isomorphism can be determined by means of a brute-force tree-search enumeration procedure. In this paper a new algorithm is introduced that attains efficiency by inferentially eliminating successor nodes in the tree search. To assess the time actually taken by the new algorithm, subgraph isomorphism, clique detection, graph isomorphism, and directed graph isomorphism experiments have been carried out with random and with various nonrandom graphs.A parallel asynchronous logic-in-memory implementation of a vital part of the algorithm is also described, although this hardware has not actually been built. The hardware implementation would allow very rapid determination of isomorphism.},
+  journal = {J. ACM},
+  month = {jan},
+  pages = {31–42},
+  numpages = {12},
+  groups={graph_matching}
+}
+
+@article{Zampelli2010,
+  title={Solving subgraph isomorphism problems with constraint programming},
+  author={Zampelli, St{\'e}phane and Deville, Yves and Solnon, Christine},
+  journal={Constraints},
+  volume={15},
+  pages={327--353},
+  year={2010},
+  publisher={Springer},
+  groups={graph_matching},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Zampelli2010.pdf},
+  abstract={The subgraph isomorphism problem consists in deciding if there exists a copy of a pattern graph in a target graph. We introduce in this paper a global constraint and an associated filtering algorithm to solve this problem within the context of constraint programming. The main idea of the filtering algorithm is to label every node with respect to its relationships with other nodes of the graph, and to define a partial order on these labels in order to express compatibility of labels for subgraph isomorphism. This partial order over labels is used to filter domains. Labelings can also be strengthened by adding information from the labels of neighbors. Such a strengthening can be applied iteratively until a fixpoint is reached. Practical experiments illustrate that our new filtering approach is more effective on difficult instances of scale free graphs than state-of-the-art algorithms and other constraint programming approaches.}
+}
+
+@article{Moorman2021,
+  title={Subgraph matching on multiplex networks},
+  author={Moorman, Jacob D and Tu, Thomas K and Chen, Qinyi and He, Xie and Bertozzi, Andrea L},
+  journal={IEEE Transactions on Network Science and Engineering},
+  volume={8},
+  number={2},
+  pages={1367--1384},
+  year={2021},
+  publisher={IEEE},
+  groups={graph_matching},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Moorman2021.pdf},
+  abstract={Abstract—An active area of research in computational science is the design of algorithms for solving the subgraph matching problem to find copies of a given template graph in a larger world graph. Prior works have largely addressed single-channel networks using a variety of approaches. We present a suite of filtering methods for subgraph isomorphisms for multiplex networks (with different types of edges between nodes and more than one edge within each channel type). We aim to understand the entire solution space rather than focusing on finding one isomorphism. Results are shown on several classes of datasets: (a) Sudoku puzzles mapped to the subgraph isomorphism problem, (b) Erdos-R  ̋ enyi multigraphs, (c) real-world datasets from Twitter and transportation networks, (d) synthetic data  ́ created for the DARPA MAA program.}
+}
+
+@article{Dahm2015,
+  title={Efficient subgraph matching using topological node feature constraints},
+  author={Dahm, Nicholas and Bunke, Horst and Caelli, Terry and Gao, Yongsheng},
+  journal={Pattern Recognition},
+  volume={48},
+  number={2},
+  pages={317--330},
+  year={2015},
+  publisher={Elsevier},
+  groups={graph_matching},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Dahm2015.pdf},
+  abstract={This paper presents techniques designed to minimise the number of states which are explored during subgraph isomorphism detection. A set of advanced topological node features, calculated from n-neighbourhood graphs, is presented and shown to outperform existing features. Further, the pruning effectiveness of both the new and existing topological node features is significantly improved through the introduction of strengthening techniques. In addition to topological node features, these strengthening techniques can also be used to enhance application-specific node labels using a proposed novel extension to existing pruning algorithms. Through the combination of these techniques, the number of explored search states can be reduced to near-optimal levels.}
+}
+
+@article{Shang2008,
+  title={Taming verification hardness: an efficient algorithm for testing subgraph isomorphism},
+  author={Shang, Haichuan and Zhang, Ying and Lin, Xuemin and Yu, Jeffrey Xu},
+  journal={Proceedings of the VLDB Endowment},
+  volume={1},
+  number={1},
+  pages={364--375},
+  year={2008},
+  publisher={VLDB Endowment},
+  groups={graph_matching},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Shang2008.pdf},
+  abstract={Graphs are widely used to model complicated data semantics in many applications. In this paper, we aim to develop efficient techniques to retrieve graphs, containing a  given query graph, from a large set of graphs. Considering the problem of testing subgraph isomorphism is generally NP-hard, most of the existing techniques are based on the framework of filtering-and-verification to reduce the precise computation costs; consequently various novel feature-based indexes have been developed. While the existing techniques work well for small query graphs, the verification phase becomes a bottleneck when the query graph size increases. Motivated by this, in the paper we firstly propose a novel and efficient algorithm for testing subgraph isomorphism, QuickSI. Secondly, we develop a new feature-based index technique to accommodate QuickSI in the filtering phase. Our extensive experiments on real and synthetic data demonstrate the efficiency and scalability of the proposed techniques, which significantly improve the existing techniques.}
+}
+
+@article{Zeng2020,
+  title={Deep analysis on subgraph isomorphism},
+  author={Zeng, Li and Jiang, Yan and Lu, Weixin and Zou, Lei},
+  journal={arXiv preprint arXiv:2012.06802},
+  year={2020},
+  groups={graph_matching},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Zeng2020.pdf},
+  abstract={Abstract—Subgraph isomorphism is a well-known NP-hard problem which is widely used in many applications, such as social network analysis and knowledge graph query. Its performance is often limited by the inherent hardness. Several insightful works have been done since 2012, mainly optimizing pruning rules and matching orders to accelerate enumerating all isomorphic subgraphs. Nevertheless, their correctness and performance are  not well studied. First, different languages are used in implemen- tation with different compilation flags. Second, experiments are not done on the same platform and the same datasets. Third, some ideas of different works are even complementary. Last but not least, there exist errors when applying some algorithms. In this paper, we address these problems by re-implementing seven representative subgraph isomorphism algorithms as well as their improved versions, and conducting comprehensive experiments on various graphs. The results show pros and cons of state-of- the-art solutions and explore new approaches to optimization.}
+}
+
+@article{Mckay2014,
+  title={Practical graph isomorphism, II},
+  author={McKay, Brendan D and Piperno, Adolfo},
+  journal={Journal of symbolic computation},
+  volume={60},
+  pages={94--112},
+  year={2014},
+  publisher={Elsevier},
+  groups={graph_matching},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Mckay2014.pdf},
+  abstract={We report the current state of the graph isomorphism problem from the practical point of view. After describing the general principles of the refinement-individualization paradigm and pro- ving its validity, we explain how it is implemented in several of the key implementations. In particular, we bring the description of the best known program nauty up to date and describe an innovative approach called Traces that outperforms the competitors for many difficult graph classes. Detailed comparisons against saucy, Bliss and conauto are presented.}
+}
+
+@article{Lai2019,
+  title={Distributed subgraph matching on timely dataflow},
+  author={Lai, Longbin and Qing, Zhu and Yang, Zhengyi and Jin, Xin and Lai, Zhengmin and Wang, Ran and Hao, Kongzhang and Lin, Xuemin and Qin, Lu and Zhang, Wenjie and others},
+  journal={Proceedings of the VLDB Endowment},
+  volume={12},
+  number={10},
+  pages={1099--1112},
+  year={2019},
+  publisher={VLDB Endowment},
+  groups={graph_matching},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Lai2019.pdf},
+  abstract={Recently there emerge many distributed algorithms that aim at solving subgraph matching at scale. Existing algorithm- level comparisons failed to provide a systematic view of dis- tributed subgraph matching mainly due to the intertwining of strategy and optimization. In this paper, we identify four strategies and three general-purpose optimizations from rep- resentative state-of-the-art algorithms. We implement the four strategies with the optimizations based on the com- mon Timely dataflow system for systematic strategy-level comparison. Our implementation covers all representative algorithms. We conduct extensive experiments for both unlabelled matching and labelled matching to analyze the per- formance of distributed subgraph matching under various settings, which is finally summarized as a practical guide.}
+}
+
+@article{Demeyer2013,
+  title={The index-based subgraph matching algorithm (ISMA): fast subgraph enumeration in large networks using optimized search trees},
+  author={Demeyer, Sofie and Michoel, Tom and Fostier, Jan and Audenaert, Pieter and Pickavet, Mario and Demeester, Piet},
+  journal={PloS one},
+  volume={8},
+  number={4},
+  pages={e61183},
+  year={2013},
+  publisher={Public Library of Science San Francisco, USA},
+  groups={graph_matching},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Demeyer2013.pdf},
+  abstract={Subgraph matching algorithms are designed to find all instances of predefined subgraphs in a large graph or network and play an important role in the discovery and analysis of so-called network motifs, subgraph patterns which occur more often than expected by chance. We present the index-based subgraph matching algorithm (ISMA), a novel tree-based algorithm. ISMA realizes a speedup compared to existing algorithms by carefully selecting the order in which the nodes of a query subgraph are investigated. In order to achieve this, we developed a number of data structures and maximally exploited symmetry characteristics of the subgraph. We compared ISMA to a naive recursive tree-based algorithm and to a number of well-known subgraph matching algorithms. Our algorithm outperforms the other algorithms, especially on large networks and with large query subgraphs. An implementation of ISMA in Java is freely available at http://sourceforge.net/projects/ isma.}
+}
+
+@inproceedings{Tu2020,
+  title={Inexact attributed subgraph matching},
+  author={Tu, Thomas K and Moorman, Jacob D and Yang, Dominic and Chen, Qinyi and Bertozzi, Andrea L},
+  booktitle={2020 IEEE international conference on big data (big data)},
+  pages={2575--2582},
+  year={2020},
+  organization={IEEE},
+  groups={graph_matching},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Tu2020.pdf},
+  abstract={Abstract—We present an approach for inexact subgraph matching on attributed graphs optimizing the graph edit distance. By combining lower bounds on the cost of individ- ual assignments, we obtain a heuristic for a backtracking tree search to identify optimal solutions. We evaluate our algorithm on a knowledge graph dataset derived from real- world data, and analyze the space of optimal solutions.}
+}
+
+@article{Shahrivari2015,
+  title={Fast parallel all-subgraph enumeration using multicore machines},
+  author={Shahrivari, Saeed and Jalili, Saeed},
+  journal={Scientific Programming},
+  volume={2015},
+  pages={6--6},
+  year={2015},
+  publisher={Hindawi Limited London, UK, United Kingdom},
+  groups={graph_matching},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Shahrivari2015.pdf},
+  abstract={Enumerating all subgraphs of an input graph is an important task for analyzing complex networks. Valuable information can be extracted about the characteristics of the input graph using all-subgraph enumeration. Notwithstanding, the number of subgraphs grows exponentially with growth of the input graph or by increasing the size of the subgraphs to be enumerated. Hence, all-subgraph enumeration is very time consuming when the size of the subgraphs or the input graph is big. We propose a parallel solution named Subenum which in contrast to available solutions can perform much faster. Subenum enumerates subgraphs using edges instead of vertices, and this approach leads to a parallel and load-balanced enumeration algorithm that can have efficient execution on current multicore and multiprocessor machines. Also, Subenum uses a fast heuristic which can effectively accelerate non-isomorphism subgraph enumeration. Subenum can efficiently use external memory, and unlike other subgraph enumeration methods, it is not associated with the main memory limits of the used machine. Hence, Subenum can handle large input graphs and subgraph sizes that other solutions cannot handle. Several experiments are done using real-world input graphs. Compared to the available solutions, Subenum can enumerate subgraphs several orders of magnitude faster and the experimental results show that the performance of Subenum scales almost linearly by using additional processor cores.}
+}
+
+@inproceedings{Jin2021,
+  title={Fast: Fpga-based subgraph matching on massive graphs},
+  author={Jin, Xin and Yang, Zhengyi and Lin, Xuemin and Yang, Shiyu and Qin, Lu and Peng, You},
+  booktitle={2021 IEEE 37th international conference on data engineering (ICDE)},
+  pages={1452--1463},
+  year={2021},
+  organization={IEEE},
+  groups={graph_matching},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Jin2021.pdf},
+  abstract={Abstract—Subgraph matching is a basic operation widely used in many applications. However, due to its NP-hardness and the explosive growth of graph data, it is challenging to compute subgraph matching, especially in large graphs. In this paper, we aim at scaling up subgraph matching on a single machine using FPGAs. Specifically, we propose a CPU-FPGA co-designed framework. On the CPU side, we first develop a novel auxiliary data structure called candidate search tree (CST) which serves as a complete search space of subgraph matching. CST can be partitioned and fully loaded into FPGAs on-chip memory. Then, a workload estimation technique is proposed to balance the load between the CPU and FPGA. On the FPGA side, we design and implement the first FPGA-based subgraph matching algorithm, called FAST. To take full advantage of the pipeline mechanism on FPGAs, task parallelism optimization and task generator separation strategy are proposed for FAST, achieving massive parallelism. Moreover, we carefully develop a BRAM- only matching process to fully utilize FPGAs on-chip memory, which avoids the expensive intermediate data transfer between FPGAs BRAM and DRAM. Comprehensive experiments show that FAST achieves up to 462.0x and 150.0x speedup compared with the state-of-the-art algorithm DAF and CECI, respectively. In addition, FAST is the only algorithm that can handle the billion-scale graph using one machine in our experiments.}
+}
+
+@inproceedings{Han2019,
+  title={Efficient subgraph matching: Harmonizing dynamic programming, adaptive matching order, and failing set together},
+  author={Han, Myoungji and Kim, Hyunjoon and Gu, Geonmo and Park, Kunsoo and Han, Wook-Shin},
+  booktitle={Proceedings of the 2019 International Conference on Management of Data},
+  pages={1429--1446},
+  year={2019},
+  groups={graph_matching},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Han2019.pdf},
+  abstract={Subgraph matching (or subgraph isomorphism) is one of the fundamental problems in graph analysis. Extensive re- search has been done to develop practical solutions for sub- graph matching. The state-of-the-art algorithms such as CFL-Match and Turboiso convert a query graph into a span- ning tree for obtaining candidates for each query vertex and obtaining a good matching order with the spanning tree. However, by using the spanning tree instead of the original query graph, it could lead to lower pruning power and a sub-optimal matching order. Another limitation is that they perform redundant computation in search without utilizing the knowledge learned from past computation. In this paper, we introduce three novel concepts to address these inherent limitations: 1) dynamic programming between a directed acyclic graph (DAG) and a graph, 2) adaptive matching order with DAG ordering, and 3) pruning by failing sets, which together lead to a much faster algorithm DAF for subgraph matching. Extensive experiments with real datasets show that DAF outperforms the fastest existing solution by up to orders of magnitude in terms of recursive calls as well as in terms of the elapsed time.}
+}
+
+@INPROCEEDINGS{Ghosh2018,
+  author={Ghosh, Sayan and Halappanavar, Mahantesh and Tumeo, Antonino and Kalyanaraman, Ananth and Lu, Hao and Chavarrià-Miranda, Daniel and Khan, Arif and Gebremedhin, Assefaw},
+  booktitle={2018 IEEE International Parallel and Distributed Processing Symposium (IPDPS)}, 
+  title={Distributed Louvain Algorithm for Graph Community Detection}, 
+  year={2018},
+  volume={},
+  number={},
+  pages={885-895},
+  doi={10.1109/IPDPS.2018.00098},
+  groups={community_detection},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Ghosh2018.pdf},
+  abstract={In most real-world networks, the nodes/vertices tend to be organized into tightly-knit modules known as communities or clusters, such that nodes within a community are more likely to be "related" to one another than they are to the rest of the network. The goodness of partitioning into communities is typically measured using a well known measure called modularity. However, modularity optimization is an NP-complete problem. In 2008, Blondel, et al. introduced a multi-phase, iterative heuristic for modularity optimization, called the Louvain method. Owing to its speed and ability to yield high quality communities, the Louvain method continues to be one of the most widely used tools for serial community detection. In this paper, we present the design of a distributed memory implementation of the Louvain algorithm for parallel community detection. Our approach begins with an arbitrarily partitioned distributed graph input, and employs several heuristics to speedup the computation of the different steps of the Louvain algorithm. We evaluate our implementation and its different variants using real-world networks from various application domains (including internet, biology, social networks). Our MPI+OpenMP implementation yields about 7x speedup (on 4K processes) for soc-friendster network (1.8B edges) over a state-of-the-art shared memory multicore implementation (on 64 threads), without compromising output quality. Furthermore, our distributed implementation was able to process a larger graph (uk-2007; 3.3B edges) in 32 seconds on 1K cores (64 nodes) of NERSC Cori, when the state-of-the-art shared memory implementation failed to run due to insufficient memory on a single Cori node containing 128 GB of memory.}
+  }
+
+  @inproceedings{Ghosh2019,
+  title={Scaling and quality of modularity optimization methods for graph clustering},
+  author={Ghosh, Sayan and Halappanavar, Mahantesh and Tumeo, Antonino and Kalyanarainan, Ananth},
+  booktitle={2019 IEEE High Performance Extreme Computing Conference (HPEC)},
+  pages={1--6},
+  year={2019},
+  organization={IEEE},
+  groups={community_detection},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Ghosh2019.pdf},
+  abstract={Real-world graphs exhibit structures known as “communities” or “clusters” consisting of a group of vertices with relatively high connectivity between them, as compared to the rest of the vertices in the network. Graph clustering or community detection is a fundamental graph operation used to analyze real-world graphs occurring in the areas of computational biology, cybersecurity, electrical grids, etc. Similar to other graph algorithms, owing to irregular memory accesses and inherently sequential nature, current algorithms for community detection are challenging to parallelize. However, in order to analyze large networks, it is important to develop scalable parallel implementations of graph clustering that are capable of exploiting the architectural features of modern supercomputers. In response to the 2019 Streaming Graph Challenge, we present quality and performance analysis of our distributedmemory community detection using Vite, which is our distributed memory implementation of the popular Louvain method, on the ALCF Theta supercomputer. Clustering methods such as Louvain that rely on modularity maximization are known to suffer from the resolution limit problem, preventing identification of clusters of certain sizes. Hence, we also include quality analysis of our shared-memory implementation of the Fast-tracking Resistance method, in comparison with Louvain on the challenge datasets. Furthermore, we introduce an edge-balanced graph distribution for our distributed memory implementation, that significantly reduces communication, offering up to 80 percent improvement in the overall execution time. In addition to performance/ quality analysis, we also include details on the power/energy consumption, and memory traffic of the distributed-memory clustering implementation using real-world graphs with over a billion edges.}
+}
+
+@inproceedings{Ghosh2018a,
+  title={Scalable distributed memory community detection using vite},
+  author={Ghosh, Sayan and Halappanavar, Mahantesh and Tumeo, Antonino and Kalyanaraman, Ananth and Gebremedhin, Assefaw H},
+  booktitle={2018 IEEE High Performance extreme Computing Conference (HPEC)},
+  pages={1--7},
+  year={2018},
+  organization={IEEE},
+  groups={community_detection},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Ghosh2018a.pdf},
+  abstract={Graph clustering, popularly known as community detection, is a fundamental graph operation used in many applications related to network analysis and cybersecurity. The goal of community detection is to partition a network into “communities” such that each community consists of a tightly-knit group of nodes with relatively sparser connections to the rest of the nodes in the network. To compute clustering on large-scale networks, efficient parallel algorithms capable of fully exploiting features of modern architectures are needed. However, due to their irregular and inherently sequential nature, many of the current algorithms for community detection are challenging to parallelize. In response to the 2018 Streaming Graph Challenge, we present Vite—a distributed memory parallel implementation of the Louvain method, a widely used serial method for community detection. In addition to a baseline parallel implementation of the Louvain method, Vite also includes a number of heuristics that significantly improve performance while preserving solution quality. Using the datasets from the 2018 Graph Challenge (static and streaming), we demonstrate superior performance and high quality solutions.}
+}
+
+@article{Traag2019,
+  title={From Louvain to Leiden: guaranteeing well-connected communities},
+  author={Traag, Vincent A and Waltman, Ludo and Van Eck, Nees Jan},
+  journal={Scientific reports},
+  volume={9},
+  number={1},
+  pages={5233},
+  year={2019},
+  publisher={Nature Publishing Group UK London},
+  groups={community_detection},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Traag2019.pdf},
+  abstract={Community detection is often used to understand the structure of large and complex networks. One of the most popular algorithms for uncovering community structure is the so-called Louvain algorithm. We show that this algorithm has a major defect that largely went unnoticed until now: the Louvain algorithm may yield arbitrarily badly connected communities. In the worst case, communities may even be disconnected, especially when running the algorithm iteratively. In our experimental analysis, we observe that up to 25 percent of the communities are badly connected and up to 16 percent are disconnected. To address this problem, we introduce the Leiden algorithm. We prove that the Leiden algorithm yields communities that are guaranteed to be connected. In addition, we prove that, when the Leiden algorithm is applied iteratively, it converges to a partition in which all subsets of all communities are locally optimally assigned. Furthermore, by relying on a fast local move approach, the Leiden algorithm runs faster than the Louvain algorithm. We demonstrate the performance of the Leiden algorithm for several benchmark and real-world networks. We find that the Leiden algorithm is faster than the Louvain algorithm and uncovers better partitions, in addition to providing explicit guarantees.}
+}
+
+@article{Blondel2008,
+  title={Fast unfolding of communities in large networks},
+  author={Blondel, Vincent D and Guillaume, Jean-Loup and Lambiotte, Renaud and Lefebvre, Etienne},
+  journal={Journal of statistical mechanics: theory and experiment},
+  volume={2008},
+  number={10},
+  pages={P10008},
+  year={2008},
+  publisher={IOP Publishing},
+  groups={community_detection},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Blondel2008.pdf},
+  abstract={We propose a simple method to extract the community structure of large networks. Our method is a heuristic method that is based on modularity optimization. It is shown to outperform all other known community detection methods in terms of computation time. Moreover, the quality of the communities detected is very good, as measured by the so-called modularity. This is shown first by identifying language communities in a Belgian mobile phone network of 2 million customers and by analysing a web graph of 118 million nodes and more than one billion links. The accuracy of our algorithm is also verified on ad hoc modular networks.}
+}
+
+@dissertation{Basak2021,
+title={Benchmarking, Performance Analysis, and Domain-Specific Architectures for Graph Processing Applications},
+author={Basak, Abanti},
+year={2021},
+groups={telemetry},
+url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Basak2021.pdf},
+abstract={Both static and streaming graph processing are central in data analytics scenarios such as recommendation systems, financial fraud detection, and social network analysis. The rich space of graph applications poses several challenges for the computer architecture community. First, standard static graph algorithm performance is sub-optimal on today's general-purpose architectures such as CPUs due to inefficiencies in the memory subsystem. It is currently increasingly difficult to rely on relative compute/memory technology scaling for continued performance improvement for a given optimized static graph algorithm on a general-purpose CPU. Second, while a large body of research in the computer architecture community focuses on static graph workloads, streaming graphs remain completely unexplored. The primary practical barriers for computer architecture researchers toward studying streaming graphs are immature software, a lack of systematic software analysis, and an absence of open-source benchmarks. This dissertation seeks to solve these challenges for both static and streaming graph workloads through benchmarking, performance analysis, and CPU-centric domain-specific architectures using software/hardware co-design. For static graph workloads, this thesis highlights novel performance bottleneck insights such as 1) the factors limiting memory-level parallelism, 2) the heterogeneous reuse distances of different application data types, and 3) the difference in the performance sensitivities of the different levels of the cache hierarchy. Guided by the workload characterization, a domain-specific prefetcher called DROPLET is proposed to solve the memory access bottleneck. DROPLET is a physically decoupled but functionally cooperative prefetcher co-located at the L2 cache and at the memory controller. Moreover, DROPLET is data-aware because it prefetches different graph data types differently according to their intrinsic reuse distances. DROPLET achieves 19 percent -102 percent performance improvement over a no-prefetch baseline and 14 percent -74 percent performance improvement over a Variable Length Delta Prefetcher (VLDP). DROPLET also performs 4 percent-12.5 percent better than a monolithic L1 prefetcher similar to the state-of-the-art prefetcher for graphs. For streaming graph workloads, this thesis develops a performance analysis framework called SAGA-Bench and performs workload characterization at both the software and the architecture levels. The findings include 1) the performance limitation of the graph update phase, 2) the input-dependent software performance trade-offs in graph updates, and 3) the difference in architecture resource utilization (core counts, memory bandwidth, and cache hierarchy) between the graph update and the graph compute phases. In addition, the thesis proposes the SPRING approach to demonstrate that input knowledge-driven software and hardware co-design is critical to optimize the performance of streaming graph processing. Evaluated across 260 workloads, our input-aware techniques provide on average 4.55x and 2.6x improvement in graph update performance for different input types. The graph compute performance is improved by 1.26x (up to 2.7x).}
+}
+
+@INPROCEEDINGS{Weinberg2005,
+  author={Weinberg, J. and McCracken, M.O. and Strohmaier, E. and Snavely, A.},
+  booktitle={SC '05: Proceedings of the 2005 ACM/IEEE Conference on Supercomputing}, 
+  title={Quantifying Locality In The Memory Access Patterns of HPC Applications}, 
+  year={2005},
+  volume={},
+  number={},
+  pages={50-50},
+  doi={10.1109/SC.2005.59},
+  groups={telemetry},
+  url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Weinberg2005.pdf},
+  abstract={Several benchmarks for measuring the memory performance of HPC systems along dimensions of spatial and temporal memory locality have recently been proposed. However, little is understood about the relationships of these benchmarks to real applications and to each other. We propose a methodology for producing architecture-neutral characterizations of the spatial and temporal locality exhibited by the memory access patterns of applications. We demonstrate that the results track intuitive notions of locality on several synthetic and application benchmarks. We employ the methodology to analyze the memory performance components of the HPC Challenge Benchmarks, the Apex-MAP benchmark, and their relationships to each other and other benchmarks and applications. We show that this analysis can be used to both increase understanding of the benchmarks and enhance their usefulness by mapping them, along with applications, to a 2-D space along axes of spatial and temporal locality.}
+  }
+
+
+@inbook{Mutlu2023,
+	abstract = {Modern computing systems are overwhelmingly designed to move data to computation. This design choice goes directly against at least three key trends in computing that cause performance, scalability and energy bottlenecks: (1) data access is a key bottleneck as many important applications are increasingly data-intensive, and memory bandwidth and energy do not scale well, (2) energy consumption is a key limiter in almost all computing platforms, especially server and mobile systems, (3) data movement, especially off-chip to on-chip, is very expensive in terms of bandwidth, energy and latency, much more so than computation. These trends are especially severely-felt in the data-intensive server and energy-constrained mobile systems of today. At the same time, conventional memory technology is facing many technology scaling challenges in terms of reliability, energy, and performance. As a result, memory system architects are open to organizing memory in different ways and making it more intelligent, at the expense of higher cost. The emergence of 3D-stacked memory plus logic, the adoption of error correcting codes inside the latest DRAM chips, proliferation of different main memory standards and chips, specialized for different purposes (e.g., graphics, low-power, high bandwidth, low latency), and the necessity of designing new solutions to serious reliability and security issues, such as the RowHammer phenomenon, are an evidence of this trend. This chapter discusses recent research that aims to practically enable computation close to data, an approach we call processing-in-memory (PIM). PIM places computation mechanisms in or near where the data is stored (i.e., inside the memory chips, in the logic layer of 3D-stacked memory, or in the memory controllers), so that data movement between the computation units and memory is reduced or eliminated. While the general idea of PIM is not new, we discuss motivating trends in applications as well as memory circuits/technology that greatly exacerbate the need for enabling it in modern computing systems. We examine at least two promising new approaches to designing PIM systems to accelerate important data-intensive applications: (1) processing using memory by exploiting analog operational properties of DRAM chips to perform massively-parallel operations in memory, with low-cost changes, (2) processing near memory by exploiting 3D-stacked memory technology design to provide high memory bandwidth and low memory latency to in-memory logic. In both approaches, we describe and tackle relevant cross-layer research, design, and adoption challenges in devices, architecture, systems, and programming models. Our focus is on the development of in-memory processing designs that can be adopted in real computing platforms at low cost. We conclude by discussing work on solving key challenges to the practical adoption of PIM.},
+	address = {Singapore},
+	author = {Mutlu, Onur and Ghose, Saugata and G{\'o}mez-Luna, Juan and Ausavarungnirun, Rachata},
+	booktitle = {Emerging Computing: From Devices to Systems: Looking Beyond Moore and Von Neumann},
+	doi = {10.1007/978-981-16-7487-7_7},
+	editor = {Aly, Mohamed M. Sabry and Chattopadhyay, Anupam},
+	isbn = {978-981-16-7487-7},
+	pages = {171--243},
+	publisher = {Springer Nature Singapore},
+	title = {A Modern Primer on Processing in Memory},
+	url = {https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Mutlu2023.pdf},
+	year = {2023},
+	bdsk-url-1 = {https://doi.org/10.1007/978-981-16-7487-7_7},
+  groups={telemetry},
+  }
+
+@article{Ren2010,
+  title={Google-wide profiling: A continuous profiling infrastructure for data centers},
+  author={Ren, Gang and Tune, Eric and Moseley, Tipp and Shi, Yixin and Rus, Silvius and Hundt, Robert},
+  journal={IEEE micro},
+  volume={30},
+  number={4},
+  pages={65--79},
+  year={2010},
+  publisher={IEEE},
+  groups={telemetry},
+  url = {https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Ren2010.pdf},
+	abstract={Google-Wide Profiling (GWP), a continuous profiling infrastructure for data centers, provides performance insights for cloud applications. With negligible overhead, GWP provides stable, accurate profiles and a datacenter-scale tool for traditional performance analyses. Furthermore, GWP introduces novel applications of its profiles, such as application-platform affinity measurements and identification of platform-specific, microarchitectural peculiarities.}
+}
+
+@inproceedings{Kanev2015,
+  title={Profiling a warehouse-scale computer},
+  author={Kanev, Svilen and Darago, Juan Pablo and Hazelwood, Kim and Ranganathan, Parthasarathy and Moseley, Tipp and Wei, Gu-Yeon and Brooks, David},
+  booktitle={Proceedings of the 42nd Annual International Symposium on Computer Architecture},
+  pages={158--169},
+  year={2015},
+  groups={telemetry},
+  url = {https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Kanev2015.pdf},
+	abstract={With the increasing prevalence of warehouse-scale (WSC) and cloud computing, understanding the interactions of server applications with the underlying microarchitecture becomes ever more important in order to extract maximum performance out of server hardware. To aid such understanding, this paper presents a detailed microarchitectural analysis of live datacenter jobs, measured on more than 20,000 Google machines over a three year period, and comprising thousands of different applications. We first find that WSC workloads are extremely diverse, breeding the need for architectures that can tolerate application variability without performance loss. However, some patterns emerge, offering opportunities for co-optimization of hardware and software. For example, we identify common building blocks in the lower levels of the software stack. This "datacenter tax" can comprise nearly 30 percent of cycles across jobs running in the fleet, which makes its constituents prime candidates for hardware specialization in future server systems-on-chips. We also uncover opportunities for classic microarchitectural optimizations for server processors, especially in the cache hierarchy. Typical workloads place significant stress on instruction caches and prefer memory latency over bandwidth. They also stall cores often, but compute heavily in bursts. These observations motivate several interesting directions for future warehouse-scale computers.}
+}
+
+@inproceedings{Peng2021,
+  title={A holistic view of memory utilization on hpc systems: Current and future trends},
+  author={Peng, Ivy and Karlin, Ian and Gokhale, Maya and Shoga, Kathleen and Legendre, Matthew and Gamblin, Todd},
+  booktitle={The International Symposium on Memory Systems},
+  pages={1--11},
+  year={2021},
+  groups={telemetry},
+  url = {https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Peng2021.pdf},
+	abstract={Memory subsystem is one crucial component of a computing system. Co-designing memory subsystems becomes increasingly challenging as workloads continue evolving on HPC facilities and new architectural options emerge. This work provides the first large-scale study of memory utilization with system-level, job-level, temporal and spatial patterns on a CPU-only and a GPU-accelerated leadership supercomputer. From system-level monitoring data that spans three years, we identify a continuous increase in memory intensity in workloads over recent years. Our job-level characterization reveals different hotspots in memory usage on the two systems. Furthermore, we introduce two metrics, ’spatial imbalance’ and ’temporal imbalance’, to quantify the imbalanced memory usage across compute nodes and throughout time in jobs. We identify representative temporal and spatial patterns from real jobs, providing quantitative guidance for research on efficient resource configurations and novel architectural options. Finally, we showcase the impact of our study in informing system configurations through an upcoming NNSA CTS procurement.}
+}
+
+@inproceedings{Villa2019,
+  title={Nvbit: A dynamic binary instrumentation framework for nvidia gpus},
+  author={Villa, Oreste and Stephenson, Mark and Nellans, David and Keckler, Stephen W},
+  booktitle={Proceedings of the 52nd Annual IEEE/ACM International Symposium on Microarchitecture},
+  pages={372--383},
+  year={2019},
+  groups={telemetry},
+  url = {https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Villa2021.pdf},
+	abstract={Binary instrumentation frameworks are widely used to implement profilers, performance evaluation, error checking, and bug detection tools. While dynamic binary instrumentation tools such as PIN and DynamoRio are supported on CPUs, GPU architectures currently only have limited support for similar capabilities through static compile-time tools, which prohibits instrumentation of dynamically loaded libraries that are foundations for modern high-performance applications. This work presents NVBit, a fast, dynamic, and portable, binary instrumentation framework, that allows users to write instrumentation tools in CUDA/C/C++ and selectively apply that functionality to pre-compiled binaries and libraries executing on NVIDIA GPUs. Using dynamic recompilation at the SASS level, NVBit analyzes GPU kernel register requirements to generate efficient ABI compliant instrumented code without requiring the tool developer to have detailed knowledge of the underlying GPU architecture. NVBit allows basic-block instrumentation, multiple function injections to the same location, inspection of all ISA visible state, dynamic selection of instrumented or uninstrumented code, permanent modification of register state, source code correlation, and instruction removal. NVBit supports all recent NVIDIA GPU architecture families including Kepler, Maxwell, Pascal and Volta and works on any pre-compiled CUDA, OpenACC, OpenCL, or CUDA-Fortran application.}
+}
+
+@inproceedings{Basak2019,
+  title={Analysis and optimization of the memory hierarchy for graph processing workloads},
+  author={Basak, Abanti and Li, Shuangchen and Hu, Xing and Oh, Sang Min and Xie, Xinfeng and Zhao, Li and Jiang, Xiaowei and Xie, Yuan},
+  booktitle={2019 IEEE International Symposium on High Performance Computer Architecture (HPCA)},
+  pages={373--386},
+  year={2019},
+  organization={IEEE},
+  groups={telemetry},
+  url = {https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Basak2019.pdf},
+	abstract={Graph processing is an important analysis technique for a wide range of big data applications. The ability to explicitly represent relationships between entities gives graph analytics a significant performance advantage over traditional relational databases. However, at the microarchitecture level, performance is bounded by the inefficiencies in the memory subsystem for single-machine in-memory graph analytics. This paper consists of two contributions in which we analyze and optimize the memory hierarchy for graph processing workloads. First, we perform an in-depth data-type-aware characterization of graph processing workloads on a simulated multi-core architecture. We analyze 1) the memory-level parallelism in an out-of-order core and 2) the request reuse distance in the cache hierarchy. We find that the load-load dependency chains involving different application data types form the primary bottleneck in achieving a high memory-level parallelism. We also observe that different graph data types exhibit heterogeneous reuse distances. As a result, the private L2 cache has negligible contribution to performance, whereas the shared L3 cache shows higher performance sensitivity.}
+
+}
+
+@inproceedings{Zhuo2019,
+  title={Graphq: Scalable pim-based graph processing},
+  author={Zhuo, Youwei and Wang, Chao and Zhang, Mingxing and Wang, Rui and Niu, Dimin and Wang, Yanzhi and Qian, Xuehai},
+  booktitle={Proceedings of the 52nd Annual IEEE/ACM International Symposium on Microarchitecture},
+  pages={712--725},
+  year={2019},
+  groups={HIVE},
+  url = {https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Zhuo2019.pdf},
+	abstract={Processing-In-Memory (PIM) architectures based on recent technology advances (e.g., Hybrid Memory Cube) demonstrate great potential for graph processing. However, existing solutions did not address the key challenge of graph processing---irregular data movements. This paper proposes GraphQ, an improved PIM-based graph processing architecture over recent architecture Tesseract, that fundamentally eliminates irregular data movements. GraphQ is inspired by ideas from distributed graph processing and irregular applications to enable static and structured communication with runtime and architecture co-design. Specifically, GraphQ realizes: 1) batched and overlapped inter-cube communication by reordering vertex processing order; 2) streamlined inter-cube communication by using heterogeneous cores for different access types. Moreover, to tackle the discrepancy between inter-cube and inter-node bandwidth, we propose a hybrid execution model that performs additional local computation during the inter-node communication. This model is general enough and applicable to asynchronous iterative algorithms that can tolerate bounded stale values. Putting all together, GraphQ simultaneously maximizes intra-cube, inter-cube, and inter-node communication throughput. In a zSim-based simulator with five real-world graphs and four algorithms, GraphQ achieves on average 3.3× and maximum 13.9× speedup, 81 percent energy saving compared with Tesseract. We show that increasing memory size in PIM also proportionally increases compute capability: a 4-node GraphQ achieves 98.34× speedup compared with a single node with the same memory size and conventional memory hierarchy.}
+}
+
+@inproceedings{Talati2022,
+  title={Ndminer: accelerating graph pattern mining using near data processing},
+  author={Talati, Nishil and Ye, Haojie and Yang, Yichen and Belayneh, Leul and Chen, Kuan-Yu and Blaauw, David and Mudge, Trevor and Dreslinski, Ronald},
+  booktitle={Proceedings of the 49th Annual International Symposium on Computer Architecture},
+  pages={146--159},
+  year={2022},
+  groups={telemetry},
+  url = {https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Talati2022.pdf},
+	abstract={Graph Pattern Mining (GPM) algorithms mine structural patterns in graphs. The performance of GPM workloads is bottlenecked by control flow and memory stalls. This is because of data-dependent branches used in set intersection and difference operations that dominate the execution time. This paper first conducts a systematic GPM workload analysis and uncovers four new observations to inform the optimization effort. First, GPM workloads mostly fetch inputs of costly set operations from different memory banks. Second, to avoid redundant computation, modern GPM workloads employ symmetry breaking that discards several data reads, resulting in cache pollution and wasted DRAM bandwidth. Third, sparse pattern mining algorithms perform redundant memory reads and computations. Fourth, GPM workloads do not fully utilize the in-DRAM data parallelism. Based on these observations, this paper presents NDMiner, a Near Data Processing (NDP) architecture that improves the performance of GPM workloads. To reduce in-memory data transfer of fetching data from different memory banks, NDMiner integrates compute units to offload set operations in the buffer chip of DRAM. To alleviate the wasted memory bandwidth caused by symmetry breaking, NDMiner integrates a load elision unit in hardware that detects the satisfiability of symmetry breaking constraints and terminates unnecessary loads. To optimize the performance of sparse pattern mining, NDMiner employs compiler optimizations and maps reduced reads and composite computation to NDP hardware that improves algorithmic efficiency of sparse GPM. Finally, NDMiner proposes a new graph remapping scheme in memory and a hardware-based set operation reordering technique to best optimize bank, rank, and channel-level parallelism in DRAM. To orchestrate NDP computation, this paper presents design modifications at the host ISA, compiler, and memory controller. We compare the performance of NDMiner with state-of-the-art software and hardware baselines using a mix of dense and sparse GPM algorithms. Our evaluation shows that NDMiner significantly outperforms software and hardware baselines by 6.4X and 2.5X, on average, while incurring a negligible area overhead on CPU and DRAM.}
+}
+
+@article{Chen2020,
+  title={Pangolin: An efficient and flexible graph mining system on cpu and gpu},
+  author={Chen, Xuhao and Dathathri, Roshan and Gill, Gurbinder and Pingali, Keshav},
+  journal={Proceedings of the VLDB Endowment},
+  volume={13},
+  number={8},
+  pages={1190--1205},
+  year={2020},
+  publisher={VLDB Endowment},
+  groups={HIVE},
+  url = {https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Chen2020.pdf},
+	abstract={There is growing interest in graph pattern mining (GPM) problems such as motif counting. GPM systems have been developed to provide unified interfaces for programming algorithms for these problems and for running them on parallel systems. However, existing systems may take hours to mine even simple patterns in moderate-sized graphs, which significantly limits their real-world usability. We present Pangolin, an efficient and flexible in-memory GPM framework targeting shared-memory CPUs and GPUs. Pangolin is the first GPM system that provides high-level abstractions for GPU processing. It provides a simple programming interface based on the extend-reduce-filter model, which allows users to specify application specific knowledge for search space pruning and isomorphism test elimination. We describe novel optimizations that exploit locality, reduce memory consumption, and mitigate the overheads of dynamic memory allocation and synchronization. Evaluation on a 28-core CPU demonstrates that Pangolin outperforms existing GPM frameworks Arabesque, RStream, and Fractal by 49×, 88×, and 80× on average, respectively. Acceleration on a V100 GPU further improves performance of Pangolin by 15× on average. Compared to state-of-the-art hand-optimized GPM applications, Pangolin provides competitive performance with less programming effort.}
+}
+
+
+@article{Adhianto2010,
+	abstract = {Abstract HPCTOOLKIT is an integrated suite of tools that supports measurement, analysis, attribution, and presentation of application performance for both sequential and parallel programs. HPCTOOLKIT can pinpoint and quantify scalability bottlenecks in fully optimized parallel programs with a measurement overhead of only a few percent. Recently, new capabilities were added to HPCTOOLKIT for collecting call path profiles for fully optimized codes without any compiler support, pinpointing and quantifying bottlenecks in multithreaded programs, exploring performance information and source code using a new user interface, and displaying hierarchical space--time diagrams based on traces of asynchronous call path samples. This paper provides an overview of HPCTOOLKIT and illustrates its utility for performance analysis of parallel applications. Copyright {\copyright} 2009 John Wiley \& Sons, Ltd.},
+	author = {Adhianto, L. and Banerjee, S. and Fagan, M. and Krentel, M. and Marin, G. and Mellor-Crummey, J. and Tallent, N. R.},
+	doi = {https://doi.org/10.1002/cpe.1553},
+	eprint = {https://onlinelibrary.wiley.com/doi/pdf/10.1002/cpe.1553},
+	journal = {Concurrency and Computation: Practice and Experience},
+	keywords = {performance tools, call path profiling, tracing, binary analysis, execution monitoring},
+	number = {6},
+	pages = {685-701},
+	title = {HPCTOOLKIT: tools for performance analysis of optimized parallel programs},
+	url = {https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Adhianto2010.pdf},
+	volume = {22},
+	year = {2010},
+	bdsk-url-1 = {https://onlinelibrary.wiley.com/doi/abs/10.1002/cpe.1553},
+	bdsk-url-2 = {https://doi.org/10.1002/cpe.1553},
+  groups={telemetry},
+  abstract={HPCTOOLKIT is an integrated suite of tools that supports measurement, analysis, attribution, and presentation of application performance for both sequential and parallel programs. HPCTOOLKIT can pinpoint and quantify scalability bottlenecks in fully optimized parallel programs with a measurement overhead of only a few percent. Recently, new capabilities were added to HPCTOOLKIT for collecting call path profiles for fully optimized codes without any compiler support, pinpointing and quantifying bottlenecks in multithreaded programs, exploring performance information and source code using a new user interface, and displaying hierarchical space–time diagrams based on traces of asynchronous call path samples. This paper provides an overview of HPCTOOLKIT and illustrates its utility for performance analysis of parallel applications. Copyright © 2009 John Wiley & Sons, Ltd.}
+  }
+
+@article{Dally2021,
+  title={Evolution of the graphics processing unit (GPU)},
+  author={Dally, William J and Keckler, Stephen W and Kirk, David B},
+  journal={IEEE Micro},
+  volume={41},
+  number={6},
+  pages={42--51},
+  year={2021},
+  publisher={IEEE},
+  groups={telemetry},
+  url = {https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Dally2021.pdf},
+	abstract={Graphics processing units (GPUs) power today’s fastest supercomputers, are the dominant platform for deep learning, and provide the intelligence for devices ranging from self-driving cars to robots and smart cameras. They also generate compelling photorealistic images at real-time frame rates. GPUs have evolved by adding features to support new use cases. NVIDIA’s GeForce 256, the first GPU, was a dedicated processor for real-time graphics, an application that demands large amounts of floating-point arithmetic for vertex and fragment shading computations and high memory bandwidth. As real-time graphics advanced, GPUs became programmable. The combination of programmability and floating-point performance made GPUs attractive for running scientific applications. Scientists found ways to use early programmable GPUs by casting their calculations as vertex and fragment shaders. GPUs evolved to meet the needs of scientific users by adding hardware for simpler programming, double-precision floating-point arithmetic, and resilience.}
+}
+
+@inproceedings{Lee2010,
+  title={Debunking the 100X GPU vs. CPU myth: an evaluation of throughput computing on CPU and GPU},
+  author={Lee, Victor W and Kim, Changkyu and Chhugani, Jatin and Deisher, Michael and Kim, Daehyun and Nguyen, Anthony D and Satish, Nadathur and Smelyanskiy, Mikhail and Chennupaty, Srinivas and Hammarlund, Per and others},
+  booktitle={Proceedings of the 37th annual international symposium on Computer architecture},
+  pages={451--460},
+  year={2010},
+  groups={telemetry},
+  url = {https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Lee2010.pdf},
+	abstract={Recent advances in computing have led to an explosion in the amount of data being generated. Processing the ever-growing data in a timely manner has made throughput computing an important aspect for emerging applications. Our analysis of a set of important throughput computing kernels shows that there is an ample amount of parallelism in these kernels which makes them suitable for today's multi-core CPUs and GPUs. In the past few years there have been many studies claiming GPUs deliver substantial speedups (between 10X and 1000X) over multi-core CPUs on these kernels. To understand where such large performance difference comes from, we perform a rigorous performance analysis and find that after applying optimizations appropriate for both CPUs and GPUs the performance gap between an Nvidia GTX280 processor and the Intel Core i7-960 processor narrows to only 2.5x on average. In this paper, we discuss optimization techniques for both CPU and GPU, analyze what architecture features contributed to performance differences between the two architectures, and recommend a set of architectural features which provide significant improvement in architectural efficiency for throughput kernels.}
+}
+
+@article{Beamer2017,
+  title={The GAP benchmark suite},
+  author={Beamer, Scott and Asanovi{\'c}, Krste and Patterson, David},
+  journal={arXiv preprint arXiv:1508.03619},
+  year={2017},
+  groups={graph_datasets},
+  url = {https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Beamer2017.pdf},
+	abstract={We present a graph processing benchmark suite with the goal of helping to standardize graph processing evaluations. Fewer differences between graph processing evaluations will make it easier to compare different research efforts and quantify improvements. The benchmark not only specifies graph kernels, input graphs, and evaluation methodologies, but it also provides optimized baseline implementations. These baseline implementations are representative of state-of-the-art performance, and thus new contributions should outperform them to demonstrate an improvement. The input graphs are sized appropriately for shared memory platforms, but any implementation on any platform that conforms to the benchmark's specifications could be compared. This benchmark suite can be used in a variety of settings. Graph framework developers can demonstrate the generality of their programming model by implementing all of the benchmark's kernels and delivering competitive performance on all of the benchmark's graphs. Algorithm designers can use the input graphs and the baseline implementations to demonstrate their contribution. Platform designers and performance analysts can use the suite as a workload representative of graph processing.}
+}
+
+@inproceedings{Zhou2020,
+author = {Zhou, Keren and Krentel, Mark W. and Mellor-Crummey, John},
+title = {Tools for Top-down Performance Analysis of GPU-Accelerated Applications},
+year = {2020},
+isbn = {9781450379830},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+doi = {10.1145/3392717.3392752},
+abstract = {This paper describes extensions to Rice University's HPCToolkit performance tools to support measurement and analysis of GPU-accelerated applications. To help developers understand the performance of accelerated applications as a whole, HPCToolkit's measurement and analysis tools attribute metrics to calling contexts that span both CPUs and GPUs. To measure GPU-accelerated applications efficiently, HPCToolkit employs a novel wait-free data structure to coordinate monitoring and attribution of GPU performance metrics. To help developers understand the performance of complex GPU code generated from high-level programming models, HPCToolkit's hpcprof constructs sophisticated approximations of call path profiles for GPU computations. To support fine-grain analysis and tuning, HPCToolkit attributes GPU performance metrics to source lines and loops. Also, HPCToolkit uses GPU PC samples to derive and attribute a collection of useful GPU performance metrics. We illustrate HPCToolkit's new capabilities for analyzing GPU- accelerated applications with three case studies.},
+booktitle = {Proceedings of the 34th ACM International Conference on Supercomputing},
+articleno = {26},
+numpages = {12},
+keywords = {calling context tree, wait-free, profiler, GPU, roofline, HPC},
+location = {Barcelona, Spain},
+series = {ICS '20},
+groups={graph_datasets},
+url = {https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Zhou2020.pdf},
+abstract={This paper describes extensions to Rice University's HPCToolkit performance tools to support measurement and analysis of GPU-accelerated applications. To help developers understand the performance of accelerated applications as a whole, HPCToolkit's measurement and analysis tools attribute metrics to calling contexts that span both CPUs and GPUs. To measure GPU-accelerated applications efficiently, HPCToolkit employs a novel wait-free data structure to coordinate monitoring and attribution of GPU performance metrics. To help developers understand the performance of complex GPU code generated from high-level programming models, HPCToolkit's hpcprof constructs sophisticated approximations of call path profiles for GPU computations. To support fine-grain analysis and tuning, HPCToolkit attributes GPU performance metrics to source lines and loops. Also, HPCToolkit uses GPU PC samples to derive and attribute a collection of useful GPU performance metrics. We illustrate HPCToolkit's new capabilities for analyzing GPU- accelerated applications with three case studies.}
+}
+

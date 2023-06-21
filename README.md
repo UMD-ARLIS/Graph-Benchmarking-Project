@@ -145,6 +145,209 @@ We should aim for Test-Driven development. In general:
 
 If not fully test-driven, we should at least produce a unit test for each function that we write. As we mature we can add regression testing, integration testing etc. 
 
+### High Performance Computing
+
+[DIT RESOURCES](https://hpcc.umd.edu/hpcc/help/basics.html#compiling) FOR USING HPC CLUSTER AT UMD TO COMPILE CODE. 
+
+
+### Coding for GPUs: 
+
+
+We need to be able to write code to run on GPUs, and as a result we need GPUs to run it on and compilers to translate our code into something that the GPU can understand. 
+
+For ease, we're going to limit our use to NVIDIA GPUs. There are three reasons. First is that NVIDIA GPUs are the defacto industry standard. Second is that I have ready access to NVIDIA GPUs and third is that the [CUDA programming frameword](https://docs.nvidia.com/cuda/cuda-c-programming-guide/) provides us with a lot of abstraction so that we don't have to worry about the low-level implementation details. 
+
+So, assuming that we will be accessing this on the [UMIACS Cluster](https://wiki.umiacs.umd.edu/umiacs/index.php/Main_Page) insturctions to access it are as follows: 
+
+First, connect to the cluster:
+
+      ssh <username>@nexus<labName><hostNumber>.umiacs.umd.edu
+
+so for kent, it would be: 
+
+      ssh osullik@nexuscfar00.umiacs.umd.edu
+
+Then, activate the [CUDA module](https://wiki.umiacs.umd.edu/umiacs/index.php/CUDA): 
+
+       module load cuda
+
+Get a copy of the CUDA Samples: 
+
+      rsync -a /opt/common/cuda/$CUDA Version/samples/ ~/cuda_samples
+
+Build and run the device query: 
+
+      cd ~/cuda_samples/1_Utilities/deviceQuery/ && make && ./deviceQuery
+
+
+Then, we can use the CUDA Toolkit to compile our code into a GPU compatible format by invoking the compiler **nvcc**
+
+E.g. assuming a directory that contains *myCode.c* and *test.c* and we want to compile the tests for myCode we would use something like: 
+
+      nvcc test.c myCode.c -o test_cuda.o
+
+we can then run our code locally with 
+
+      ./test_cuda.o
+
+Or for bigger work, we can push it to the HPC Module using [SLURM (Detailed Instructions)](https://wiki.umiacs.umd.edu/umiacs/index.php/Nexus). As an example of how we might run it we could use: 
+
+      srun --qos=medium --mem=1gb --gres=gpu:gpu:rtxa4000:2 --time=1:00:00 ./test_cuda.o
+
+which is basically saying:
+- sbatch: invoke the sbatch program, which runs your provided file as a batch program
+- qos=medium: the parameter qos (qualityOfService) determines how many resources you can request. Medium is the parameter passed to qos allows you to use 2GPUs. Default, High and Scavenger also permitted arguments.
+- mem=1gb: Mem refers to the allocation of ram, 1GB is the parameter passed to it asking to allocate 1GB of RAM
+- gres=gpu:gpu:rtxa4000:2 gres refers to the allocations of GPUs. gpu:rtxa4000:2 says Allocate 2 x GPUs to my job of type rtxa4000
+- time=1:00:00: how long before the job auto-cancells, here 1 hour. 
+- ./test_cuda.o: the file you want to run on the GPU
+
+
+
+      
+
+### Test Driven Development and Using MinUnit testing library.
+
+Writing unit tests is important for ensuring that our code functions as intended. In a mature state, we should aim to write our tests first and then use the tests to guide how we write our code!
+
+I've found a good little library for testing that I'll step you through how to use. This assumes that we're working in a directory *CodeDir* following our common directory structure, that is, with the files: *myCode.c, myCode.h, test.c, makefile* 
+
+      CodeDir/
+         myCode.c
+         myCode.h
+         test.c
+         makefile
+         
+So, to do our unit testing, we need a testing approach. The easiest way to do it is to use the *<assert.h>* library from a raw C implementation, but we're going to use an external library, [Barrust's Fork of the MinUnit library](https://github.com/barrust/c-utils).
+
+To get started we need to add the following line to our test.c file (changing the path prior to Utilities appropriately) to allow us to import the functions of our file: 
+
+      # include "<PATH_TO_THIS_FOLDER_FROM_CURRENT_DIR>/Utilities/c-utils/src/minunit.h"
+
+but if we try to compile this code as it is with something like:
+
+      cc test.c -o test.o
+      
+and then run it with
+
+      ./test.o
+     
+We'll see that our code doesn't do anything yet, so we need to create a main function, test suite, test runner and test in the test file. let's go with updating the test.c file to look like:
+
+      # include "<PATH_TO_THIS_FOLDER_FROM_CURRENT_DIR>/Utilities/c-utils/src/minunit.h"
+      
+      //Main Function
+      int main(){
+         MU_RUN_SUITE(my_first_test_suite);
+         MU_REPORT();
+         printf("Number failed tests: %d\n", minunit_fail);
+         return minunit_fail;
+         }
+         
+Here we're telling the main code of the test to run the test suite called "my_first_test_suite", report the results and return the number of failed tests (i.e. any number not 0 will be a 'failed' execution)
+
+So we need to tell it what tests to run, which means updating our file to run our test suite, it should look something like: 
+
+      # include "<PATH_TO_THIS_FOLDER_FROM_CURRENT_DIR>/Utilities/c-utils/src/minunit.h"
+      
+      //Test suite
+      
+      MU_TEST_SUITE(my_first_test_suite) {
+	        printf("\n\n==== My First Test Suite ====\n");     //Can delete this if you don't want a noisy output
+	        MU_RUN_TEST(my_first_test);
+         MU_RUN_TEST(my_second_test);
+         }
+      
+      //Main Function
+      int main(){
+         MU_RUN_SUITE(my_first_test_suite);
+         MU_REPORT();
+         printf("Number failed tests: %d\n", minunit_fail);
+         return minunit_fail;
+         }
+
+Note that the parameter passed to the test suite is just the name we want to give it (and hence is how we invoke that test suite with the MU_SUITE_RUN command later. So we now tell our test suite what tests it needs to run, but it doesn't yet know what those tests are, so we need to define some tests. Updating our code will look like:
+
+      # include "<PATH_TO_THIS_FOLDER_FROM_CURRENT_DIR>/Utilities/c-utils/src/minunit.h"
+      # include "myCode.h"
+      
+      //Test Functions
+      MU_TEST(my_first_test) {
+	        printf("Test 1\n");
+
+	        //Init 
+           // No init required here, but could be things like loading data, creating data structures etc
+	       
+         //Test 
+         char *helloMessage = getHello("hello");
+         mu_assert_string_eq("hello world", helloMessage);
+
+         //Cleanup
+            // No cleanup required here, but usually looks like destroying whatever you built in the Init step
+         }
+         
+      MU_TEST(my_second_test) {
+	        printf("Test 1\n");
+
+	        //Init 
+           // No init required here, but could be things like loading data, creating data structures etc
+	       
+         //Test 
+         char *helloMessage = getHello("hi");
+         mu_assert_string_eq("go away", helloMessage);
+
+         //Cleanup
+            // No cleanup required here, but usually looks like destroying whatever you built in the Init step
+         }
+              
+     //Test suite
+      MU_TEST_SUITE(my_first_test_suite) {
+	        printf("\n\n==== My First Test Suite ====\n");     //Can delete this if you don't want a noisy output
+	        MU_RUN_TEST(my_first_test);
+         MU_RUN_TEST(my_second_test);
+         }
+      
+      //Main Function
+      int main(){
+         MU_RUN_SUITE(my_first_test_suite);
+         MU_REPORT();
+         printf("Number failed tests: %d\n", minunit_fail);
+         return minunit_fail;
+         }
+
+What we built here has added a reference to the headerFile of the myCode code and two tests of our program, which is a simple program that just returns "<var> world", with var equal to whatever parameter is passed to it. We have seperated out our tests from our code because they should be used to prove the integrity of the file itself, but not bloat the code to be compiled when it's not needed. At our relatively small size this isn't an issue but when we get bigger this becomes more problematic. Further, having things in different files helps us with version control and making the testing process more transparent. We basically want to have tests that call each function we write that cover, at a minimum - A test for when it executes properly and a test for when it fails.
+ 
+But we need code to run, so let's make some in the *myCode.h* and *myCode.c* files. 
+ 
+So, the myCode.h might look something like: 
+ 
+       //mycode.h
+       char *getHello(char *message);
+ 
+ and the myCode.c might look something like: 
+ 
+       //myCode.c
+       # include <string.h>
+ 
+       char *getHello(char *message){
+          if(strcmp(message,"hello") == 0){
+            return("hello world");
+          }
+          else{
+             return("go away");
+          }
+       }
+ 
+ To compile the code, we need to pass the compiler both the test.c and myCode.c files. We don't need to specify the minutils.c because it doesn't exist! All functions are contained in the header! A compilation instruction might look something like: 
+ 
+       cc test.c myCode.c -o test.o
+ 
+ To run it you use something like: 
+ 
+       ./test.o
+ 
+ And you should be able to see the report! If a test is failing, you know that there's something wrong with your code!
+
 ## Collaborative Coding
 
 We will use VSCode liveshare to conduct pair programming. 
