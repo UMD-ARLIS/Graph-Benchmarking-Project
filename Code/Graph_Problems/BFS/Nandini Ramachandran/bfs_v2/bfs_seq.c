@@ -22,6 +22,28 @@
 #include "bfs_seq.h"
 
 
+struct Graph* createGraph(struct Edge edges[], int numEdges){
+    struct Graph* graph = (struct Graph*)malloc(sizeof(struct Graph));
+    
+    //sets all the head references to null
+    for (int i = 0; i < NUM_VERTICES; i++){
+        graph->head[i] = NULL;
+    }
+    for (int i = 0; i < numEdges; i++){
+        //gets start and end vertices
+        int start = edges[i].start;
+        int end = edges[i].end;
+        
+        struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+        newNode->end = end;
+        
+        //points the new node to the current head
+        newNode->next = graph->head[start];
+        //points head to the new node
+        graph->head[start] = newNode;
+    }
+    return graph;
+}
 
 void printGraph(struct Graph* graph)
 {
@@ -85,69 +107,4 @@ const char * bfs(struct Graph* graph, int s){
     // return the completed BFS search path
     return str_builder_peek(path);
 }
-
-
-void test(struct Edge edges[], int numEdges){
-    struct Graph* graph = createGraph(edges, numEdges);
-    printGraph(graph);
-    
-    const char * test_bfs_start_0 = bfs(graph, 0);
-    assert(strcmp(test_bfs_start_0, "0 2 1 4 3 ")==0);
-    
-    const char * test_bfs_start_1 = bfs(graph, 1);
-    assert(strcmp(test_bfs_start_1, "1 3 4 ")==0);
-
-    const char * test_bfs_start_2 = bfs(graph, 2);
-    assert(strcmp(test_bfs_start_2, "2 4 1 3 ")==0);
-    
-    const char * test_bfs_start_3 = bfs(graph, 3);
-    assert(strcmp(test_bfs_start_3, "3 4 ")==0);
-    
-    const char * test_bfs_start_4 = bfs(graph, 4);
-    assert(strcmp(test_bfs_start_4, "4 3 ")==0);
-
-}
-
-void testOne(struct Edge edges[], int numEdges){
-    struct Graph* graph = createGraph(edges, numEdges);
-    printGraph(graph);
-    
-    const char * test_bfs_start_0 = bfs(graph, 0);
-    assert(strcmp(test_bfs_start_0, "0 3 2 1 5 4 ")==0);
-    
-    const char * test_bfs_start_1 = bfs(graph, 1);
-    assert(strcmp(test_bfs_start_1, "1 5 4 2 ")==0);
-
-    const char * test_bfs_start_2 = bfs(graph, 2);
-    assert(strcmp(test_bfs_start_2, "2 ")==0);
-
-    const char * test_bfs_start_3 = bfs(graph, 3);
-    assert(strcmp(test_bfs_start_3, "3 2 ")==0);
-
-    const char * test_bfs_start_4 = bfs(graph, 4);
-    assert(strcmp(test_bfs_start_4, "4 ")==0);
-    
-    const char * test_bfs_start_5 = bfs(graph, 5);
-    assert(strcmp(test_bfs_start_5, "5 ")==0);
-
-}
-
-int main(void) {
-    // testing BFS on first graph
-    struct Edge edges[] = {
-        {0, 1}, {0, 2}, {1, 3}, {2, 1}, {2, 4}, {3, 4}, {4, 3}
-    };
-    int numEdges = sizeof(edges)/sizeof(edges[0]);
-    test(edges, numEdges);
-    
-    //testing BFS on second graph
-    struct Edge edgesOne[] = {
-        {0, 1}, {0, 2}, {0, 3}, {3, 2}, {1, 2}, {1, 4}, {1, 5}
-    };
-    int numEdgesOne = sizeof(edgesOne)/sizeof(edgesOne[0]);
-    testOne(edgesOne, numEdgesOne);
-    
-  return 0;
-}
-
 
