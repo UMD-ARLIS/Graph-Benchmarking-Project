@@ -11,7 +11,7 @@ test:
 
 #BREAKDOWN OF THE test COMMAND:
 # gcc: specifices the compiler that we will use to compile the following c files (could also use cc) 
-# test.c : includes an input file for the compiler
+# test_louvian_sequential.c : includes an input file for the compiler
 # louvain_sequential.c : tells the compiler "compile louvain.c"
 # -o : tells the compiler we are going to specify the name of an output file. 
 # test.o : name of the output file
