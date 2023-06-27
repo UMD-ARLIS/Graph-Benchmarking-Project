@@ -386,6 +386,79 @@ MU_TEST(test_louvain_complete_graph){
 
 }
 
+MU_TEST(test_louvain_large_graph){
+       printf("Unit test for a large graph\n");
+
+    int numNodes = 8;
+    Graph* graph = createGraph(numNodes);
+
+    // Add edges to create a graph
+    addEdge(graph, 0, 1);
+    addEdge(graph, 0, 2);
+    addEdge(graph, 1, 2);
+    addEdge(graph, 1, 3);
+    addEdge(graph, 2, 3);
+    addEdge(graph, 3, 4);
+    addEdge(graph, 4, 5);
+    addEdge(graph, 4, 6);
+    addEdge(graph, 5, 6);
+    addEdge(graph, 5, 7);
+    addEdge(graph, 6, 7);
+
+    int numThreads = 2;  // Number of threads to use
+
+    // Initialize the mutex
+    pthread_mutex_init(&mutex, NULL);
+
+    // Create threads
+    pthread_t* threads = (pthread_t*)malloc(numThreads * sizeof(pthread_t));
+    ThreadArgs* threadArgs = (ThreadArgs*)malloc(numThreads * sizeof(ThreadArgs));
+    int nodesPerThread = graph->numNodes / numThreads;
+    int remainingNodes = graph->numNodes % numThreads;
+    int start = 0;
+
+    for (int i = 0; i < numThreads; i++) {
+        int end = start + nodesPerThread;
+
+        // Distribute remaining nodes among threads
+        if (remainingNodes > 0) {
+            end++;
+            remainingNodes--;
+        }
+
+        threadArgs[i].graph = graph;
+        threadArgs[i].start = start;
+        threadArgs[i].end = end;
+
+        pthread_create(&threads[i], NULL, parallelLouvain, (void*)&threadArgs[i]);
+
+        start = end;
+    }
+
+    // Wait for all threads to finish
+    for (int i = 0; i < numThreads; i++) {
+        pthread_join(threads[i], NULL);
+    }
+
+    // Cleanup
+    free(threads);
+    free(threadArgs);
+
+    // Destroy the mutex
+    pthread_mutex_destroy(&mutex);
+
+    // Ensure the nodes are assigned to the correct communities
+    // Assert the community assignments
+    assert(graph->nodes[0]->community == 0);
+    assert(graph->nodes[1]->community == 0);
+    assert(graph->nodes[2]->community == 0);
+    assert(graph->nodes[3]->community == 1);
+    assert(graph->nodes[4]->community == 2);
+    assert(graph->nodes[5]->community == 2);
+    assert(graph->nodes[6]->community == 2);
+    assert(graph->nodes[7]->community == 2);
+}
+
 
 MU_TEST_SUITE(louvain_tests){
   printf("========== TEST SUITE 1 ==========\n");
@@ -395,6 +468,7 @@ MU_TEST_SUITE(louvain_tests){
   MU_RUN_TEST(test_louvain_different_communities);
   MU_RUN_TEST(test_louvain_complete_graph);
   MU_RUN_TEST(test_louvain_triangle_graph);
+  MU_RUN_TEST(test_louvain_large_graph);
 }
 
 int main(){

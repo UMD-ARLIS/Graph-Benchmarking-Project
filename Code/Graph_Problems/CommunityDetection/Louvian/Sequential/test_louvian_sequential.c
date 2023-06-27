@@ -197,6 +197,46 @@ MU_TEST(test_louvain_triangle_graph){
     free(graph);
 }
 
+MU_TEST(test_louvain_large_graph){
+  printf("This test checks if Louvain algorithm works on a large graph\n");
+    int numNodes = 8;
+    Graph* graph = createGraph(numNodes);
+
+    // Add edges to create a graph
+    addEdge(graph, 0, 1);
+    addEdge(graph, 0, 2);
+    addEdge(graph, 1, 2);
+    addEdge(graph, 1, 3);
+    addEdge(graph, 2, 3);
+    addEdge(graph, 3, 4);
+    addEdge(graph, 4, 5);
+    addEdge(graph, 4, 6);
+    addEdge(graph, 5, 6);
+    addEdge(graph, 5, 7);
+    addEdge(graph, 6, 7);
+
+    // Perform Louvain algorithm
+    louvain(graph);
+
+    // Assert the community assignments
+    assert(graph->nodes[0]->community == 0);
+    assert(graph->nodes[1]->community == 0);
+    assert(graph->nodes[2]->community == 0);
+    assert(graph->nodes[3]->community == 1);
+    assert(graph->nodes[4]->community == 2);
+    assert(graph->nodes[5]->community == 2);
+    assert(graph->nodes[6]->community == 2);
+    assert(graph->nodes[7]->community == 2);
+
+    // Cleanup
+    for (int i = 0; i < numNodes; i++) {
+        free(graph->nodes[i]->neighbors);
+        free(graph->nodes[i]);
+    }
+    free(graph->nodes);
+    free(graph);
+}
+
 
 
 
@@ -210,6 +250,7 @@ MU_TEST_SUITE(louvain_tests){
   MU_RUN_TEST(test_louvain_disconnected_nodes);
   MU_RUN_TEST(test_louvain_different_communities);
   MU_RUN_TEST(test_louvain_triangle_graph);
+  MU_RUN_TEST(test_louvain_large_graph);
 
 }
 
