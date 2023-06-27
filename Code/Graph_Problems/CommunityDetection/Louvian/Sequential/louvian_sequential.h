@@ -1,6 +1,6 @@
 // Code/Graph_Problems/CommunityDetection/Louvian/Sequential/louvian_sequential.h
 
-// Structure to represent a node in the graph
+// Structure Definitions
 typedef struct Node {
     int id;
     int community;
@@ -8,22 +8,17 @@ typedef struct Node {
     struct Node** neighbors;
 } Node;
 
-// Structure to represent the graph
 typedef struct Graph {
     int numNodes;
     Node** nodes;
 } Graph;
 
+// Function Prototypes
 Node* createNode(int id);
-
 Graph* createGraph(int numNodes);
-
 void addEdge(Graph* graph, int src, int dest);
-
 double computeModularity(Graph* graph);
-
 void louvain(Graph* graph);
-
 void printCommunities(Graph* graph);
 
 
