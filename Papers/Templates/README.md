@@ -35,6 +35,9 @@ And delete all the noise after using
 
     make clean
 
+### Using Overleaf
+You can just upload the content of the tarball right up to [overleaf](https://www.overleaf.com/) and edit it in there. 
+
 ### Editing the files
 All of the content for your files that you need to change should be in MPR.tex, this is where you can edit the bits and pieces you need. You need to have preamble.tex in the same directory, but shouldn't need to edit it at all. 
 
