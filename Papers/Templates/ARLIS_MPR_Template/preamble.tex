@@ -1,0 +1,65 @@
+% % % % % % % % % % % % % %
+% Package Imports
+% % % % % % % % % % % % % %
+%\usepackage[paperheight=28cm, paperwidth=22cm, includehead,
+%nomarginpar, textwidth=18cm, headheight=20mm,footheight=20mm]{geometry}
+\usepackage[letterpaper,textwidth=180mm,top=40mm,textheight=210mm]{geometry}
+%\geometry{showframe=true}
+\usepackage{graphicx}   % Required for inserting images
+\usepackage{fancyhdr}   % Required for headers and footers
+\usepackage{titling}    % Required to reformat the title
+\usepackage{multicol}   % Required to use multiple columns in the doc
+\usepackage[dvipsnames]{xcolor}     % Required to change the color of section headings
+\usepackage{sectsty}    % Required to change the color of section headings
+\usepackage{lipsum}     % Lorem Ipsum generator, can be removed. 
+
+% % % % % % % % % % % % % %
+% Macros and Custom Commands
+% % % % % % % % % % % % % %
+
+%Update the title header. 
+\renewcommand\maketitlehooka{%
+  \setlength\parindent{0pt}%
+  %\begin{minipage}{\textwidth}
+    \begin{minipage}[b][.10\textheight][t]{\textwidth}
+        \centering \small{\textbf{SECURITY//LABELS//HERE}}\\
+    \begin{minipage}{.50\textwidth}
+      \includegraphics[width=\textwidth]{arlis}
+    \end{minipage}%
+    \begin{minipage}{.50\textwidth}
+      \raggedleft
+      \textbf{Research for Intelligence \& Security Challenges }\par
+      \textbf{Summer 2023 Internship Program}\par
+      \textbf{Midprogram Status Report }\par
+    \end{minipage}%
+  \end{minipage}
+  \par
+  }
+
+%Make header and footer hlines invisible
+\renewcommand{\headrulewidth}{0pt} 
+\renewcommand{\footrulewidth}{0pt}
+
+%Left-Align the Abstract
+\renewcommand*\abstractname{\flushleft{\textbf{Abstract} }}
+
+% % % % % % % % % % % % % %
+% Document Config
+% % % % % % % % % % % % % %
+
+%Tell LateX where to find images
+\graphicspath{ {./Figures/} }
+
+%Title Format
+\setlength{\droptitle}{-100pt}
+\pretitle{\begin{flushleft}\LARGE}
+\posttitle{\par\end{flushleft}\vspace{-1em}}
+\preauthor{\begin{flushleft}\large}
+\postauthor{\par\end{flushleft}\vspace{-1.5em}}
+\predate{\begin{flushleft}\large}
+\postdate{\par\end{flushleft}\vspace{-2em}}
+
+%Make the section and subsection headings red
+\sectionfont{\color{Mahogany}}  % sets colour of sections
+\subsectionfont{\color{Mahogany}}
+
