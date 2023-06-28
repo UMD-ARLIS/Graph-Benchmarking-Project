@@ -8,7 +8,7 @@ To use the ARLIS Mid Project Report Template
 
 To Use, first extract the template from the tarball: 
 
-    tar -xf ARLIS_MPR_Template
+    tar -xf ARLIS_MPR_Template.tar.gz
 
 Then navigate into the directory: 
 
@@ -61,4 +61,5 @@ To add references, you'll need to edit the .bib file to add those in. You can do
 
 ### Creating the Tarball
 use
+
     tar -czvf ARLIS_MPR_Template.tar.gz ARLIS_MPR_Template
