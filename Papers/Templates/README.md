@@ -58,3 +58,7 @@ To add references, you'll need to edit the .bib file to add those in. You can do
     ├── makefile
     └── preamble.tex
 ```
+
+### Creating the Tarball
+use
+    tar -czvf ARLIS_MPR_Template.tar.gz ARLIS_MPR_Template
