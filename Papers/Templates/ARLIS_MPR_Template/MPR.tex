@@ -8,16 +8,17 @@
 \input{./preamble.tex}
 
 \begin{document}
+\pagestyle{empty}
 
 %Make the title block
 \title{\color{arlisRed}{
     \LARGE{Project Title }\\ 
     \large{Team XX}}}
-\author{%
+\author{                                                            %Add as many authors as you like on new lines   
     \color{arlisRed}{
-        Author One$^{1}$ institution 1, email 1\\
-        Author 2$^{1}$ institution 2, email 2}\\
-    \small{\color{black}{
+        Author One, institution 1, email 1\\
+        Author Two, institution 2, email 2}\\
+    \small{\color{black}{                                           %Add as many POCs / mentors as you like on new lines
         \textbf{Sponsoring Agency:} Office name, Agency name \\
         \textbf{RISC Faculty Mentor 1:} Name, University, email \\
         \textbf{RISC Faculty Mentor 2:} Name, University, email \\ 
@@ -95,13 +96,14 @@
     \section{Challenges Ahead}
         \lipsum[9]
     \section{References}
-        \bibliographystyle{plain} 
-        \bibliography{RISC}
+        \printbibliography[heading=none]
+
     \section{Acronyms}
         [if useful to call out] \\
         \textbf{ARLIS} Applied Research Laboratory for Intelligence and Security.\\ 
         \textbf{MBE} model-based enterprise. \\
         \textbf{OUSD(I\&S)} Office of the Undersecretary of Defense for  Intelligence and Security. \\
         \textbf{UARC} University Affiliated Research Center.\\
-\end{multicols}
+    \end{multicols}
+    \newpage
 \end{document}
