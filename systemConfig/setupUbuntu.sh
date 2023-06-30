@@ -62,20 +62,34 @@ sudo apt-get -y install cuda
 
 sudo reboot
 
-export PATH=/usr/local/cuda-12.2/bin${PATH:+:${PATH}}
-export LD_LIBRARY_PATH=/usr/local/cuda-12.2/lib64\
-                         ${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+#To enable NVCC for all users need to update the system-wide bashrc file
+sudo nano /etc/bash.bashrc 
+    #Add the following lines to the bottom of the file
+    export PATH=/usr/local/cuda-12.2/bin${PATH:+:${PATH}}
+    export LD_LIBRARY_PATH=/usr/local/cuda-12.2/lib64\${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
+#Download and make the samples. 
 git clone https://github.com/NVIDIA/cuda-samples.git #Run from where you want the samples to be located. 
 cd cuda_samples
 make
 
 
-#sudo apt install libnvidia-compute-495
-sudo apt install libnvidia-compute-525
-tmux
-sudo apt install nvidia-cuda-toolkit
-    # crtl+b d (detach from the tmux session)
+
+# PIUMA SIMULATOR: 
+
+    #Upload the files, noting that the .pem and specific locations may be subject to change
+    scp -i osullik_mn.pem piuma-centos-v1.214-canfield-001.tgz osullik@54.84.25.80:/home/minnesota/piuma_sim/piuma-centos-v1.214-canfield-001.tgz
+    #Connect to the server then
+    cd ../minnesota/piuma_sim
+    #Is a docker file, so 
+    sudo apt install docker-io
+
+    sudo docker load piuma-centos-v1.214-canfield-001.tgz
+    sudo docker run -it --cap-add IPC_LOCK --ipc="host" -v /lib/modules:/lib/modules --privileged piuma-centos:v214-canfield
+
+    #Activate the environment
+    su piuma
+
 
 
 ##### DID NOT COMPLETE BELOW INSTALLATION - NEED TO UNINSTALL THE FOLLOWING #####
