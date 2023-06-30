@@ -50,16 +50,29 @@ spack install hpctoolkit +cuda
 PATH=$PATH:/home/ubuntu/spack/opt/spack/linux-ubuntu22.04-broadwell/gcc-12.1.0/hpctoolkit-2023.03.01-uwgqabsfbarmibgqvgfpr7sn6p2ujm3c/bin
 
 #CUDA TOOLKIT
+    # Derived from: https://docs.nvidia.com/cuda/cuda-quick-start-guide/index.html#ubuntu
 
-sudo apt-get install linux-headers-$(uname -r)
+sudo dpkg --install cuda-repo-<distro>-<version>.<architecture>.deb
 sudo apt-key del 7fa2af80
-
-wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
-sudo dpkg -i cuda-keyring_1.1-1_all.deb
+wget https://developer.download.nvidia.com/compute/cuda/repos/$distro/$arch/cuda-keyring_1.0-1_all.deb
+sudo dpkg -i cuda-keyring_1.0-1_all.deb
+sudo add-apt-repository contrib
 sudo apt-get update
-sudo apt-get install cuda
+sudo apt-get -y install cuda
 
-sudo apt install libnvidia-compute-495
+sudo reboot
+
+export PATH=/usr/local/cuda-12.2/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-12.2/lib64\
+                         ${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
+git clone https://github.com/NVIDIA/cuda-samples.git #Run from where you want the samples to be located. 
+cd cuda_samples
+make
+
+
+#sudo apt install libnvidia-compute-495
+sudo apt install libnvidia-compute-525
 tmux
 sudo apt install nvidia-cuda-toolkit
     # crtl+b d (detach from the tmux session)
