@@ -63,8 +63,6 @@
   doi = {10.2172/1871012},
   url = {https://www.osti.gov/biblio/1871012}, 
   journal = {},
-  number = ,
-  volume = ,
   place = {United States},
   year = {2022},
   month = {2},
@@ -371,7 +369,8 @@ abstract={Both static and streaming graph processing are central in data analyti
   publisher={IEEE},
   groups={telemetry},
   url = {https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Ren2010.pdf},
-	abstract={Google-Wide Profiling (GWP), a continuous profiling infrastructure for data centers, provides performance insights for cloud applications. With negligible overhead, GWP provides stable, accurate profiles and a datacenter-scale tool for traditional performance analyses. Furthermore, GWP introduces novel applications of its profiles, such as application-platform affinity measurements and identification of platform-specific, microarchitectural peculiarities.}
+	abstract={Google-Wide Profiling (GWP), a continuous profiling infrastructure for data centers, provides performance insights for cloud applications. With negligible overhead, GWP provides stable, accurate profiles and a datacenter-scale tool for traditional performance analyses. Furthermore, GWP introduces novel applications of its profiles, such as application-platform affinity measurements and identification of platform-specific, microarchitectural peculiarities.},
+  comment={A 2010 description of how Google implements system profiling across its data warehouses by Ren et. al. focuses on continuous monitoring rather than benchmarking. Their experience argues that sampling binaries during execution rather than fully instrumenting at compile time them is a superior approach that reduces memory usage and execution time. They sample events, which can include clock cycles, L1 and L2 cache misses and branch mispredictions. Their work provides a precedent for using profiling to compare different hadware implementations of the same application, supporting our evaluation of Graph Algorithms across CPU, GPU and PiUMA for the HIVE project. There appears to be a gap in defining what a standard 'profile' is for a graph algorithm.  Detemining what a standard 'profile', and further determining a method to effectively vizualize memory accesses for graph applications by time and locality will be a prosperous avenue of further research.}
 }
 
 @inproceedings{Kanev2015,
