@@ -33,10 +33,12 @@ cc DataSetCreationTool.c -o DataSetCreationTool.o
 
 ***
 ## <span style="color: blue;">Graph 1</span>
+    ./DataSetCreationTool.o 1000 1000 1234 > graph.txt
+
 ### Information: 
     Number Nodes - 1000  
     Number Edges - 1000  
-    Random Seed - 1234  
+    Random Seed - 1234 
 
 ### Results:  
     Number of levels: 5  
@@ -51,6 +53,7 @@ cc DataSetCreationTool.c -o DataSetCreationTool.o
     0.804371       
 ***
 ## <span style="color: blue;">Graph 2</span>
+    ./DataSetCreationTool.o 3 3 1 > graph.txt
 ### Information: 
     Number Nodes - 3  
     Number Edges - 3  
@@ -66,6 +69,7 @@ cc DataSetCreationTool.c -o DataSetCreationTool.o
     0      
 ***
 ## <span style="color: blue;">Graph 3</span>
+    ./DataSetCreationTool.o 100000 100000 2 > graph.txt
 ### Information: 
     Number Nodes - 100,000  
     Number Edges - 100,000  
