@@ -49,6 +49,13 @@
 %% Fonts used in the template cannot be substituted; margin 
 %% adjustments are not allowed.
 
+
+% % % % % % % % % % % % %
+% User Imported Packages
+% % % % % % % % % % % % %
+
+\usepackage{multirow}
+
 %%
 %% \BibTeX command to typeset BibTeX logo in the docs
 \AtBeginDocument{%
@@ -314,6 +321,39 @@ Their approach and toolkit exemplifies the measurement of perforance without ins
 
 \subsection{Graph Benchmarking}
 
+\par{In 2010 Richard Murphy and his team from Sandia National Labs introduce the Graph500 dataset as a corollary to the Top500 dataset that tests floating point operations per second (FLOPS) on high performance computers. 
+Graph500's inital goal focuses on creating benchmarks for the search, optimization and edge operations graph kernels (i.e. types of tasks).
+They specify the parameters to be used in RMAT to generate synthetic graphs, but are unclear on the actual metric they are benchmarking against. 
+In context it appears to be temporal (i.e. time to complete an operation), which they note in their initial experiments is already limited at large scales. 
+Graph 500 is a useful standard but relised on synthetically genrated data and focuses narrowly on a few problems, with simplistic metrics \cite{Murphy2010}.}
+
+\par{Beamer et. al. from UC Berkeley introduce the GAP Graph Benchmark in their 2017 paper in response to their percieved shortcomings with the Graph500 benchmark. 
+The authors assert that a benchmark suite should use real and diverse data wherever possible, and when synthetic data is used it must be standardized. 
+They note among the many views of a benchmark suite, that GAP is suited to comparing the performance of hardware on common graph problems.
+They provide reference implemenatations which is tested across multiple compilers. 
+While the GAP Benchmark paper makes reference to spatial locaility, they do not clearly explain how they mearure the effect of on execution time or traversed edges per second. 
+They address variation in execution time caused by differing start nodes by repeatedly running workloads with different start points. 
+The benchmark is designed to be wider-ranging than Graph500, and as a result has reference workloads for Breadth First Search, Single Source Shortest Path, Page Rank, Connected Components, Betweenness Centrality and Triangle Counting. 
+While Connected components and betweenness centrality have some relation to community detection, and triangle counting is related to subgraph matching none are exact matches for the problem domain that HIVE is specifically pursuing. 
+There is no mention at all of knowledge graph analytics. Given that overall system performance includes the loading and storage in memory of Graphs has it appears to be a gap that these parts of the process are not measured. 
+An examination of how a graph is stored in memory effects its spatial locality during execution appars to be under-explored and so may be worth analyzing further \cite{Beamer2017}.}
+
+\begin{table*}[t]
+  \begin{tabular}{ |c|c|c|c|c|c|c|c|c|c|c|c|c|}
+    \hline
+    {Benchmark Suite} & \multicolumn{9}{|c|}{Algorithm} & \multicolumn{3}{|c|}{Metrics} \\
+    \hline
+               & BFS & SSSP & PR & CC & BC & TC & CD & SGM & KGA & ET (Secs) & GETPS & SLS \\
+    \hline
+     Graph500 [2010]\cite{Murphy2010}  &  X  &      &    &    &    &    &    &     &     &    X      &       &     \\
+     GAP [2017]\cite{Beamer2017}       &  X  &   X  &  X &  X &  X &  X &    &     &     &    X      &       &     \\
+    \hline
+  \end{tabular}
+  \caption{Summary of Graph Benchmark Datasets}
+  \label{table:graphBenchmarks}
+\end{table*}
+
+
 \subsection{Graph Dataset Generation}
 
 \par{Chakrabarti, Zhan and Faloutsos' 2004 Recursive Matrix (R-MAT) remains a defacto standard in synthetic graph generation. 
@@ -324,11 +364,6 @@ They briefly explain how one could estimate the values of a, b, c and d but it i
 If it does not, this would be a useful contribution. 
 If it does, it will be worth examining their method to enable the generation of realistic datasets for the PiUMA experimentation \cite{Chakrabarti2004}.}
 
-\par{In 2010 Richard Murphy and his team from Sandia National Labs introduce the Graph500 dataset as a corollary to the Top500 dataset that tests floating point operations per second (FLOPS) on high performance computers. 
-Graph500's inital goal focuses on creating benchmarks for the search, optimization and edge operations graph kernels (i.e. types of tasks).
-They specify the parameters to be used in RMAT to generate synthetic graphs, but are unclear on the actual metric they are benchmarking against. 
-In context it appears to be temporal (i.e. time to complete an operation), which they note in their initial experiments is already limited at large scales. 
-Graph 500 is a useful standard but relised on synthetically genrated data and focuses narrowly on a few problems, with simplistic metrics \cite{Murphy2010}.}
 
 %%
 %% The acknowledgments section is defined using the "acks" environment
