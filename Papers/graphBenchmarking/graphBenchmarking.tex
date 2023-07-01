@@ -270,6 +270,13 @@
 
 \subsection{System Benchmarking}
 
+\par{A 2005 Study by Weinberg et. al. examines the measurement of spatial and temporal locality in high performance computing. 
+They define spatial locality as memeory addresses which are located close to each other, and temporal locality as the same memory addresses being accessed repeatedly over time. 
+They conduct their measurements by instrumenting their code using the MEMSIM platform, and use it to generate a spatial and temporal locality index with parameters L and K. 
+L is a measurement of the stride size, and K is a measure of the randomness of access. 
+They present these metrics despite earlier warnings in their own work about the reductive effects of generating an index to represent locality. 
+Their analysis suggests that a lack of locality degrades the execution time of applications and so it is interesting that neither Graph500 nor the newer graph benchmark suites account for the loading or structuring of graphs in memory in their measurement. 
+Chatacterising the shape of graphs in memory appears to be an under-explored dimension of the benchmarking space \cite{Weinberg2005}.}
 
 \par{A 2010 description of how Google implements system profiling across its data warehouses by Ren et. al. focuses on continuous monitoring rather than benchmarking.  
 Their experience argues that sampling binaries during execution rather than fully instrumenting at compile time them is a superior approach that reduces memory usage and execution time. 
@@ -278,13 +285,9 @@ Their work provides a precedent for using profiling to compare different hadware
 There appears to be a gap in defining what a standard 'profile' is for a graph algorithm. 
 Detemining what a standard 'profile', and further determining a method to effectively vizualize memory accesses for graph applications by time and locality will be a prosperous avenue of further research \cite{Ren2010}.}
 
-\par{A 2005 Study by Weinberg et. al. examines the measurement of spatial and temporal locality in high performance computing. 
-They define spatial locality as memeory addresses which are located close to each other, and temporal locality as the same memory addresses being accessed repeatedly over time. 
-They conduct their measurements by instrumenting their code using the MEMSIM platform, and use it to generate a spatial and temporal locality index with parameters L and K. 
-L is a measurement of the stride size, and K is a measure of the randomness of access. 
-They present these metrics despite earlier warnings in their own work about the reductive effects of generating an index to represent locality. 
-Their analysis suggests that a lack of locality degrades the execution time of applications and so it is interesting that neither Graph500 nor the newer graph benchmark suites account for the loading or structuring of graphs in memory in their measurement. 
-Chatacterising the shape of graphs in memory appears to be an under-explored dimension of the benchmarking space \cite{Weinberg2005}.}
+\par{In 2009 Adhianto et. al. from Rice University released the initial build of the High Performance Computing Toolkit (HPCToolkit). 
+The toolkit aims to profile the performance of code on high performance systems without needing to instrument the code, reducing the overheads imposed on the system under test. 
+Their approach and toolkit exemplifies the measurement of perforance without instrumentation, demonstrating the feasibility of profiling code without intrinsicly degrading its performance \cite{Adhianto2010}.}
 
 \subsection{Graph Benchmarking}
 
