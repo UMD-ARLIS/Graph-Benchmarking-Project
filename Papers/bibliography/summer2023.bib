@@ -25,7 +25,9 @@
   pages={442--446},
   year={2004},
   groups  = {graph_datasets},
-  organization={SIAM}
+  organization={SIAM},
+  comment={Chakrabati, Zhan and Faloutsos' 2004 Recursive Matrix (R-MAT) remains a defacto standard in synthetic graph generation. 
+R-MAT works by a simple mechanism, accepting parameters a, b, c and d, which are numbers between 0 and 1, that must add to 1. Each parameter reflects the probability that a node will be placed in a given quadrant of an adjacency matrix. The placement is done recursively, with each quadrant being subdivided into 4 regions until the base case is reached and the node is assigned. They briefly explain how one could estimate the values of a, b, c and d but it is not clear whether a tool that can analyse a graph and estimate the values of A, B C and D is available, or proven to work. If it does not, this would be a useful contribution. If it does, it will be worth examining their method to enable the generation of realistic datasets for the PiUMA experimentation}
 }
 
 @misc{Leskovec2014,
