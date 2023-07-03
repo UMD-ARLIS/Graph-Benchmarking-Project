@@ -28,6 +28,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <math.h>
 
 // User Imports
 #include "louvian_sequential.h"
@@ -82,36 +83,43 @@ double computeModularity(Graph* graph) {
                 modularity += 1.0;
             }
         }
-        modularity -= ((double)node->degree * (double)node->degree) / (2.0 * (double)graph->numNodes);
+        //modularity -= ((double)node->degree * (double)node->degree) / (2.0 * (double)graph->numNodes);
+        modularity += ((double)node->degree) / (2.0 * (double)graph->numNodes);
     }
-    return modularity / (2.0 * (double)graph->numNodes);
+    //return modularity / (2.0 * (double)graph->numNodes);
+    return modularity;
 }
 
 // Function to perform the Louvain algorithm
 void louvain(Graph* graph) {
     bool improvement = true;
-    while (improvement) {
+    while (improvement == true) {
         improvement = false;
         for (int i = 0; i < graph->numNodes; i++) {
             Node* node = graph->nodes[i];
+            //printf("NODE IS: %d\n", i);
             int originalCommunity = node->community;
             double maxDeltaQ = 0.0;
-            int bestCommunity = originalCommunity;
+            int bestCommunity = originalCommunity;                                                                      //Possible Problem source
 
             // Compute the modularity gain for moving the node to each neighbor's community
-            for (int j = 0; j < node->degree; j++) {
+            for (int j = 0; j < node->degree; j++) {                                                                    // Are neighbours indexed 0 .. n for each node, or are they indexed for whole graph? If latter, this won't work
                 Node* neighbor = node->neighbors[j];
+                //printf("NEIGHBOR IS: %d\n", j);
                 int neighborCommunity = neighbor->community;
                 double deltaQ = 0.0;
 
                 // Compute the change in modularity by moving the node to the neighbor's community
                 if (originalCommunity != neighborCommunity) {
                     deltaQ = ((double)neighbor->degree - (double)node->degree) / (2.0 * (double)graph->numNodes);
+                    printf("New DeltaQ: %f\n", deltaQ);
                 }
 
                 if (deltaQ > maxDeltaQ) {
                     maxDeltaQ = deltaQ;
                     bestCommunity = neighborCommunity;
+                    printf("MAX DeltaQ: %f\n", maxDeltaQ);
+                    //printf("bestCommunity %d\n", bestCommunity);
                 }
             }
 
@@ -121,6 +129,7 @@ void louvain(Graph* graph) {
                 improvement = true;
             }
         }
+        printf("Improvement is %d\n", improvement);
     }
 }
 

@@ -317,7 +317,8 @@ R-MAT works by a simple mechanism, accepting parameters a, b, c and d, which are
   publisher={IOP Publishing},
   groups={community_detection},
   url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Blondel2008.pdf},
-  abstract={We propose a simple method to extract the community structure of large networks. Our method is a heuristic method that is based on modularity optimization. It is shown to outperform all other known community detection methods in terms of computation time. Moreover, the quality of the communities detected is very good, as measured by the so-called modularity. This is shown first by identifying language communities in a Belgian mobile phone network of 2 million customers and by analysing a web graph of 118 million nodes and more than one billion links. The accuracy of our algorithm is also verified on ad hoc modular networks.}
+  abstract={We propose a simple method to extract the community structure of large networks. Our method is a heuristic method that is based on modularity optimization. It is shown to outperform all other known community detection methods in terms of computation time. Moreover, the quality of the communities detected is very good, as measured by the so-called modularity. This is shown first by identifying language communities in a Belgian mobile phone network of 2 million customers and by analysing a web graph of 118 million nodes and more than one billion links. The accuracy of our algorithm is also verified on ad hoc modular networks.},
+  comment={In 2008 Blondel et al characterize what in time becomes known as the Louvian Algorithm. The Louvian Algorithm is a heuristic algorithm to approximate community detection in graphs. It uses an interative 2-step algorithm to maximize the modularity score of communities in a hierarchical manner. The algorithm first assigns each node in the graph to a different community and calculates the improvement in modularity scores. Then it creates a new instance of the graph where changes to the communites increase the modulatiry score. The algorithm terminates when no changes to modularity score result from an iteration. They define community detection algorithms as belonging to one of three categories: (1) Divisive, (2) Agglomerative and (3) Optimization. The Louvian Algorithm is an agglomerative algorithm. They assert that their algorithm is bound by storage, not computation. Assuming that they mean memory when they write storage, it conforms to the expected behviour of graph platforms motivating the HIVE program. They observe that despite a minimal effect on the ending modularity scores, the starting node (and order of execition) has a varying effect on runtime. They were not able to determine why runtime is affected by start node. They assert a linear complexity for their algorithm, but do not present a formal proof, but show emprirically that they achieve superior modularity and runtime results compared to the other algprithms at the time. Runtime and Modularity appear to be suitable metrics for a community detection benchmark. Finally, they postulate further runtime improvements by introducing additional heuristics, like a 'good enough' threshold for modularity.}
 }
 
 @dissertation{Basak2021,
@@ -386,7 +387,8 @@ abstract={Both static and streaming graph processing are central in data analyti
   year={2015},
   groups={telemetry},
   url = {https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Kanev2015.pdf},
-	abstract={With the increasing prevalence of warehouse-scale (WSC) and cloud computing, understanding the interactions of server applications with the underlying microarchitecture becomes ever more important in order to extract maximum performance out of server hardware. To aid such understanding, this paper presents a detailed microarchitectural analysis of live datacenter jobs, measured on more than 20,000 Google machines over a three year period, and comprising thousands of different applications. We first find that WSC workloads are extremely diverse, breeding the need for architectures that can tolerate application variability without performance loss. However, some patterns emerge, offering opportunities for co-optimization of hardware and software. For example, we identify common building blocks in the lower levels of the software stack. This "datacenter tax" can comprise nearly 30 percent of cycles across jobs running in the fleet, which makes its constituents prime candidates for hardware specialization in future server systems-on-chips. We also uncover opportunities for classic microarchitectural optimizations for server processors, especially in the cache hierarchy. Typical workloads place significant stress on instruction caches and prefer memory latency over bandwidth. They also stall cores often, but compute heavily in bursts. These observations motivate several interesting directions for future warehouse-scale computers.}
+	abstract={With the increasing prevalence of warehouse-scale (WSC) and cloud computing, understanding the interactions of server applications with the underlying microarchitecture becomes ever more important in order to extract maximum performance out of server hardware. To aid such understanding, this paper presents a detailed microarchitectural analysis of live datacenter jobs, measured on more than 20,000 Google machines over a three year period, and comprising thousands of different applications. We first find that WSC workloads are extremely diverse, breeding the need for architectures that can tolerate application variability without performance loss. However, some patterns emerge, offering opportunities for co-optimization of hardware and software. For example, we identify common building blocks in the lower levels of the software stack. This "datacenter tax" can comprise nearly 30 percent of cycles across jobs running in the fleet, which makes its constituents prime candidates for hardware specialization in future server systems-on-chips. We also uncover opportunities for classic microarchitectural optimizations for server processors, especially in the cache hierarchy. Typical workloads place significant stress on instruction caches and prefer memory latency over bandwidth. They also stall cores often, but compute heavily in bursts. These observations motivate several interesting directions for future warehouse-scale computers.},
+  comment={The 2015 paper "Profiling a Warehouse-scale Computer" from Kanev et. al. provides insights into limitations and bottlenecks that computing at large scale experiences. While their work is not directly relevant to benchmarking graph algorithims, elements of their methodology are useful. For example, they conduct their profiling by randomly sampling from active machines, then levering the Linux Perf suite to collect data. They then tag the observations to link it to the code generating the observed behaviour and load the results into the Dremel database for analysis. They use the Top-Down profiling approach. The Top-Down approach uses the micro-operation queue to classify operations into one of four categories. The patterns of micro-operation occurences drive the characterization of system behaviour. They note that the canonical approach to determining instruction set size is to simulate and then look for the elbow point in the simulation where cache misses drop to zero, and offer an alternative method that samples the real system instead. They have two interesting findings relevant to the HIVE problemset. First, the main reason that they see back-end micro-operation slots being created is to serve data cache requirements. Second, 95 percent of the systems that they analyze use 31 percent or less of their memory bandwidth. Taken together, we can surmise that the size of the data being read from and written to memory is not the bottleneck, it is the latency in waiting for the accesses to occur. In the context of graph processing, because the memory access patterns are not localized, and the processing operations are very simple the latency effect will be exacerbated. Finally, they identify that simultaneous multi-threading is a noted mechanism to improve overall performance assuming that there are a diverse cause of battlenecks. It is not clear whether the parralellizing of graph algorithms will improve or degrade the impact of memory latency.}
 }
 
 @inproceedings{Peng2021,
@@ -538,3 +540,137 @@ url = {https://github.com/osullik/summer2023/blob/main/Papers/bibliography/refer
 abstract={This paper describes extensions to Rice University's HPCToolkit performance tools to support measurement and analysis of GPU-accelerated applications. To help developers understand the performance of accelerated applications as a whole, HPCToolkit's measurement and analysis tools attribute metrics to calling contexts that span both CPUs and GPUs. To measure GPU-accelerated applications efficiently, HPCToolkit employs a novel wait-free data structure to coordinate monitoring and attribution of GPU performance metrics. To help developers understand the performance of complex GPU code generated from high-level programming models, HPCToolkit's hpcprof constructs sophisticated approximations of call path profiles for GPU computations. To support fine-grain analysis and tuning, HPCToolkit attributes GPU performance metrics to source lines and loops. Also, HPCToolkit uses GPU PC samples to derive and attribute a collection of useful GPU performance metrics. We illustrate HPCToolkit's new capabilities for analyzing GPU- accelerated applications with three case studies.}
 }
 
+@incollection{Capota2015,
+  title={Graphalytics: A big data benchmark for graph-processing platforms},
+  author={Capot{\u{a}}, Mihai and Hegeman, Tim and Iosup, Alexandru and Prat-P{\'e}rez, Arnau and Erling, Orri and Boncz, Peter},
+  booktitle={Proceedings of the GRADES'15},
+  pages={1--6},
+  year={2015},
+  abstract={Graphs are increasingly used in industry, governance, and science. This has stimulated the appearance of many and diverse graph-processing platforms. Although platform diversity is beneficial, it also makes it very challenging to select the best platform for an application domain or one of its important applications, and to design new and tune existing platforms. Continuing a long tradition of using benchmarking to address such challenges, in this work we present our vision for Graphalytics, a big data benchmark for graph-processing platforms. We have already benchmarked with Graphalytics a variety of popular platforms, such as Giraph, GraphX, and Neo4j.},
+  comment={The 2015 Graphalytics Benchmark from Capot{\u{a}} et. al. aims to produce consistent reporting on graph workloads between all combinations of algorithms, datasets and platforms. It primarily targets distributed and paralell implementations. Their paper claims (but provides no substantive evidence or discussion of) support for evaluating algorithms run on GPUs and knowledge graph analytics. They assert that a good benchmark suite must balance using real-world datasets with designing specific problems to stress the known choke points. After highlighting that the use of real datasets is essential for credibility, they explain how they create their synthetic datasets. Specifically for graph workloads they identify (1) Excessive Network Utilization, (2) Large Memory Footprints, (3) Poor Access Locality and (4) Skewed Execution Intensity. They characterize their datasets by Vertex and Edge Count, Global and Average Cluster Coefficents and Assortativity (The assortativity coefficient is the Pearson correlation coefficient of degree between pairs of linked nodes). They also examine the defree distribution by goodness of fit to several known distributions. The Graphalytics suite supports five algos': (1) General Stats, (2) Breadth First Search, (3) Connected Components, (4) Community Detection, (5) Graph Evolution. They do not measure or report the time taken to extract, transform and load the graph into memory, or any detail about how it is structured in memory. The Benchmark Suite measures execution time and traversed edges per second (calculated by dividing the execution time by the total number of edges - it is not clear if this will handle algoritms that revisit edges multiple times, and a more robust approach wi required). They assert that software engineering best practices should be applied to any benchmarking effort, and use static code analysis and formal change management to provide quality assurance for their system, justifying our use of TDD in approaching our solution.}
+}
+
+@article{Iosup2016,
+  title={LDBC Graphalytics: A benchmark for large-scale graph analysis on parallel and distributed platforms},
+  author={Iosup, Alexandru and Hegeman, Tim and Ngai, Wing Lung and Heldens, Stijn and Prat-P{\'e}rez, Arnau and Manhardto, Thomas and Chafio, Hassan and Capot{\u{a}}, Mihai and Sundaram, Narayanan and Anderson, Michael and others},
+  journal={Proceedings of the VLDB Endowment},
+  volume={9},
+  number={13},
+  pages={1317--1328},
+  year={2016},
+  publisher={VLDB Endowment},
+  abstract={In this paper we introduce LDBC Graphalytics, a new industrial-grade benchmark for graph analysis platforms. It consists of six deterministic algorithms, standard datasets, synthetic dataset generators, and reference output, that enable the objective comparison of graph analysis platforms. Its test harness produces deep metrics that quantify multiple kinds of system scalability, such as horizontal/vertical and weak/strong, and of robustness, such as failures and performance variability. The benchmark comes with open-source software for generating data and monitoring performance. We describe and analyze six implementations of the benchmark (three from the community, three from the industry), providing insights into the strengths and weaknesses of the platforms. Key to our contribution, vendors perform the tuning and benchmarking of their platforms.},
+  comment={}
+}
+
+@inproceedings{Spasic2016,
+  title={An RDF Dataset Generator for the Social Network Benchmark with Real-World Coherence.},
+  author={Spasic, Mirko and Jovanovik, Milos and Prat-P{\'e}rez, Arnau},
+  booktitle={BLINK ISWC},
+  year={2016},
+  abstract={Synthetic datasets used in benchmarking need to mimic all characteristics of real-world datasets, in order to provide realistic benchmarking results. Synthetic RDF datasets usually show a significant discrepancy in the level of structuredness compared to real-world RDF datasets. This structural difference is important as it directly affects storage, indexing and querying. In this paper, we show that the synthetic RDF dataset used in the Social Network Benchmark is characterized with high-structuredness and therefore introduce modifications to the data generator so that it produces an RDF dataset with a real-world structuredness.},
+  comment={}
+}
+
+@article{Bonifati2020,
+  title={Graph generators: State of the art and open challenges},
+  author={Bonifati, Angela and Holubov{\'a}, Irena and Prat-P{\'e}rez, Arnau and Sakr, Sherif},
+  journal={ACM computing surveys (CSUR)},
+  volume={53},
+  number={2},
+  pages={1--30},
+  year={2020},
+  publisher={ACM New York, NY, USA},
+  abstract={The abundance of interconnected data has fueled the design and implementation of graph generators reproducing real-world linking properties or gauging the effectiveness of graph algorithms, techniques, and applications manipulating these data. We consider graph generation across multiple subfields, such as Semantic Web, graph databases, social networks, and community detection, along with general graphs. Despite the disparate requirements of modern graph generators throughout these communities, we analyze them under a common umbrella, reaching out the functionalities, the practical usage, and their supported operations. We argue that this classification is serving the need of providing scientists, researchers, and practitioners with the right data generator at hand for their work. This survey provides a comprehensive overview of the state-of-the-art graph generators by focusing on those that are pertinent and suitable for several data-intensive tasks. Finally, we discuss open challenges and missing requirements of current graph generators along with their future extensions to new emerging fields.},
+  comment={}
+}
+
+@inproceedings{Angles2013,
+  title={Benchmarking database systems for social network applications},
+  author={Angles, Renzo and Prat-P{\'e}rez, Arnau and Dominguez-Sal, David and Larriba-Pey, Josep-Lluis},
+  booktitle={First International Workshop on Graph Data Management Experiences and Systems},
+  pages={1--7},
+  year={2013},
+  abstract={Graphs have become an indispensable tool for the analysis of linked data. As with any data representation, the need for using database management systems appears when they grow in size and complexity. Associated to those needs, benchmarks appear to assess the performance of such systems in specific scenarios, representative of real use cases. In this paper we propose a microbenchmark based on social networks. This includes a data generator that synthetically creates social graphs, and a set of low level atomic queries that model parts of the behavior of social network users. In order to understand how different data management paradigms are stressed, we execute the benchmark over five different database systems representing graph (Dex and Neo4j), RDF (RDF-3X) and relational (Virtuoso and PostgreSQL) data management. We conclude that reachability queries are those that put all the database systems into more difficulties, justifying themselves, and making them good candidates for more complex benchmarks.},
+  comment={}
+}
+
+@inproceedings{Erling2015,
+  title={The LDBC social network benchmark: Interactive workload},
+  author={Erling, Orri and Averbuch, Alex and Larriba-Pey, Josep and Chafi, Hassan and Gubichev, Andrey and Prat, Arnau and Pham, Minh-Duc and Boncz, Peter},
+  booktitle={Proceedings of the 2015 ACM SIGMOD International Conference on Management of Data},
+  pages={619--630},
+  year={2015},
+  abstract={The Linked Data Benchmark Council (LDBC) is now two years underway and has gathered strong industrial participation for its mission to establish benchmarks, and benchmarking practices for evaluating graph data management systems. The LDBC introduced a new choke-point driven methodology for developing benchmark workloads, which combines user input with input from expert systems architects, which we outline. This paper describes the LDBC Social Network Benchmark (SNB), and presents database benchmarking innovation in terms of graph query functionality tested, correlated graph generation techniques, as well as a scalable benchmark driver on a workload with complex graph dependencies. SNB has three query workloads under development: Interactive, Business Intelligence, and Graph Algorithms. We describe the SNB Interactive Workload in detail and illustrate the workload with some early results, as well as the goals for the two other workloads.},
+  comment={}
+}
+
+@article{Li2005,
+  title={Towards a theory of scale-free graphs: Definition, properties, and implications},
+  author={Li, Lun and Alderson, David and Doyle, John C and Willinger, Walter},
+  journal={Internet Mathematics},
+  volume={2},
+  number={4},
+  pages={431--523},
+  year={2005},
+  publisher={Taylor \& Francis},
+  abstract={There is a large, popular, and growing literature on "scale-free" networks with the Internet along with metabolic networks representing perhaps the canonical examples. While this has in many ways reinvigorated graph theory, there is unfortunately no consistent, precise definition of scale-free graphs and few rigorous proofs of many of their claimed properties. In fact, it is easily shown that the existing theory has many inherent contradictions and that the most celebrated claims regarding the Internet and biology are verifiably false. In this paper, we introduce a structural metric that allows us to differentiate between all simple, connected graphs having an identical degree sequence, which is of particular interest when that sequence satisfies a power law relationship. We demonstrate that the proposed structural metric yields considerable insight into the claimed properties of SF graphs and provides one possible measure of the extent to which a graph is scale-free. This structural view can be related to previously studied graph properties such as the various notions of self-similarity, likelihood, betweenness and assortativity. Our approach clarifies much of the confusion surrounding the sensational qualitative claims in the current literature, and offers a rigorous and quantitative alternative, while suggesting the potential for a rich and interesting theory. This paper is aimed at readers familiar with the basics of Internet technology and comfortable with a theorem-proof style of exposition, but who may be unfamiliar with the existing literature on scale-free networks.},
+  comment={}
+}
+
+@article{Hu2020,
+  title={Open graph benchmark: Datasets for machine learning on graphs},
+  author={Hu, Weihua and Fey, Matthias and Zitnik, Marinka and Dong, Yuxiao and Ren, Hongyu and Liu, Bowen and Catasta, Michele and Leskovec, Jure},
+  journal={Advances in neural information processing systems},
+  volume={33},
+  pages={22118--22133},
+  year={2020},
+  abstract={We present the Open Graph Benchmark (OGB), a diverse set of challenging and realistic benchmark datasets to facilitate scalable, robust, and reproducible graph machine learning (ML) research. OGB datasets are large-scale, encompass multiple important graph ML tasks, and cover a diverse range of domains, ranging from social and information networks to biological networks, molecular graphs, source code ASTs, and knowledge graphs. For each dataset, we provide a unified evaluation protocol using meaningful application-specific data splits and evaluation metrics. In addition to building the datasets, we also perform extensive benchmark experiments for each dataset. Our experiments suggest that OGB datasets present significant challenges of scalability to large-scale graphs and out-of-distribution generalization under realistic data splits, indicating fruitful opportunities for future research. Finally, OGB provides an automated end-to-end graph ML pipeline that simplifies and standardizes the process of graph data loading, experimental setup, and model evaluation. OGB will be regularly updated and welcomes inputs from the community. OGB datasets as well as data loaders, evaluation scripts, baseline code, and leaderboards are publicly available at https://ogb.stanford.edu.},
+  comment={}
+}
+
+@inproceedings{Dhulipala2020,
+  title={The graph based benchmark suite (gbbs)},
+  author={Dhulipala, Laxman and Shi, Jessica and Tseng, Tom and Blelloch, Guy E and Shun, Julian},
+  booktitle={Proceedings of the 3rd Joint International Workshop on Graph Data Management Experiences \& Systems (GRADES) and Network Data Analytics (NDA)},
+  pages={1--8},
+  year={2020},
+  abstract={In this demonstration paper, we present the Graph Based Benchmark Suite (GBBS), a suite of scalable, provably-efficient implementations of over 20 fundamental graph problems for shared-memory multicore machines. Our results are obtained using a graph processing interface written in C++, extending the Ligra interface with additional functional primitives that have clearly defined cost bounds. Our approach enables writing high-level codes that are simultaneously simple and high-performance by virtue of using highly-optimized primitives. Another benefit is that optimizations, such as graph compression, are implemented transparently to high-level user code, and can thus be utilized without changing the implementation. Our approach enables our codes to scale to the largest publicly-available real-world graph containing over 200 billion edges on a single multicore machine. We show how to use GBBS to process and perform a variety of tasks on real-world graphs. We present the high-level C++ APIs that enable us to write concise, high-performance implementations. We also introduce a Python interface to GBBS, which lets users easily prototype algorithms and pipelines in Python that significantly outperform NetworkX, a mature Python-based graph processing solution.},
+  comment={}
+}
+
+@inproceedings{Shun2012,
+  title={Brief announcement: The problem based benchmark suite},
+  author={Shun, Julian and Blelloch, Guy E and Fineman, Jeremy T and Gibbons, Phillip B and Kyrola, Aapo and Simhadri, Harsha Vardhan and Tangwongsan, Kanat},
+  booktitle={Proceedings of the twenty-fourth annual ACM symposium on Parallelism in algorithms and architectures},
+  pages={68--70},
+  year={2012},
+  abstract={This announcement describes the problem based benchmark suite (PBBS). PBBS is a set of benchmarks designed for comparing parallel algorithmic approaches, parallel programming language styles, and machine architectures across a broad set of problems. Each benchmark is defined concretely in terms of a problem specification and a set of input distributions. No requirements are made in terms of algorithmic approach, programming language, or machine architecture. The goal of the benchmarks is not only to compare runtimes, but also to be able to compare code and other aspects of an implementation (e.g., portability, robustness, determinism, and generality). As such the code for an implementation of a benchmark is as important as its runtime, and the public PBBS repository will include both code and performance results. The benchmarks are designed to make it easy for others to try their own implementations, or to add new benchmark problems. Each benchmark problem includes the problem specification, the specification of input and output file formats, default input generators, test codes that check the correctness of the output for a given input, driver code that can be linked with implementations, a baseline sequential implementation, a baseline multicore implementation, and scripts for running timings (and checks) and outputting the results in a standard format. The current suite includes the following problems: integer sort, comparison sort, remove duplicates, dictionary, breadth first search, spanning forest, minimum spanning forest, maximal independent set, maximal matching, K-nearest neighbors, Delaunay triangulation, convex hull, suffix arrays, n-body, and ray casting. For each problem, we report the performance of our baseline multicore implementation on a 40-core machine.},
+  comment={}
+}
+
+@article{Rossetti2017,
+  title={: graph benchmark handling community dynamics},
+  author={Rossetti, Giulio},
+  journal={Journal of Complex Networks},
+  volume={5},
+  number={6},
+  pages={893--912},
+  year={2017},
+  publisher={Oxford University Press},
+  abstract={Graph models provide an understanding of the dynamics of network formation and evolution; as a direct consequence, synthesizing graphs having controlled topology and planted partitions has been often identified as a strategy to describe benchmarks able to assess the performances of community discovery algorithm. However, one relevant aspect of real-world networks has been ignored by benchmarks proposed so far: community dynamics. As time goes by network communities rise, fall and may interact with each other generating merges and splits. Indeed, during the last decade dynamic community discovery has become a very active research field: in order to provide a coherent environment to test novel algorithms aimed at identifying mutable network partitions we introduce RDYN, an approach able to generates dynamic networks along with time-dependent ground-truth partitions having tunable quality.},
+  comment={}
+}
+
+@article{Rossetti2018,
+  title={Community discovery in dynamic networks: a survey},
+  author={Rossetti, Giulio and Cazabet, R{\'e}my},
+  journal={ACM computing surveys (CSUR)},
+  volume={51},
+  number={2},
+  pages={1--37},
+  year={2018},
+  publisher={ACM New York, NY, USA},
+  abstract={Several research studies have shown that complex networks modeling real-world phenomena are characterized by striking properties: (i) they are organized according to community structure, and (ii) their structure evolves with time. Many researchers have worked on methods that can efficiently unveil substructures in complex networks, giving birth to the field of community discovery. A novel and fascinating problem started capturing researcher interest recently: the identification of evolving communities. Dynamic networks can be used to model the evolution of a system: nodes and edges are mutable, and their presence, or absence, deeply impacts the community structure that composes them. This survey aims to present the distinctive features and challenges of dynamic community discovery and propose a classification of published approaches. As a “user manual,” this work organizes state-of-the-art methodologies into a taxonomy, based on their rationale, and their specific instantiation. Given a definition of network dynamics, desired community characteristics, and analytical needs, this survey will support researchers to identify the set of approaches that best fit their needs. The proposed classification could also help researchers choose in which direction to orient their future research.},
+  comment={}
+}
