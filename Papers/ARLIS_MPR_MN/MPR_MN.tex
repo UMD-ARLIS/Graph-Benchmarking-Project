@@ -57,11 +57,61 @@
         \subsection{Why the Intelligence and/or security community should care}
         Graphs are used extensively across the intelligence community to store important pieces of data. For example, in Social Network Analysis, graphs are used to model the relationships between individuals or entities. In cybersecurity, graphs are used to to model networks, systems, and data flows, and in Infrastructure Protection, they are used in modeling and analyzing critical infrastructure networks, such as transportation systems, power grids, or communication networks. 
         Graph analysis is implemented through algorithms and techniques specifically designed to process and analyze graph data. These algorithms traverse, explore, and extract insights from the interconnected nodes and edges of the graph. By identifying hidden patterns, facilitating decision-making, and enhancing situational awareness, graph analysis contributes to the overall security and defense efforts of a nation. 
-
-        and some mathematics $1+1$ = $2$ and  $A=\pi r^2$ in the text\footnote{and some mathematics $A=\pi r^2$ in the text}.  
         
     \section{Background and Related Work}
-        \lipsum[4]
+        \par{Towards determining whether the PiUMA system is a step towards the HIVE goal, we must consider our research in the context of prior work in Graph Workload benchmarking. 
+        We summarize our preliminary review in table \ref{Table:graphBenchmarks}. 
+        Our analysis if decomposed into examining the  available Datasets, Reference Algorithm implementations, supported metrics and available System Architectures. }
+
+        \subsection{Datasets}
+        \par{While most of the reviewed approaches emphasise the need for 'real' datasets to give their benchmark credibility, only the GAP Benchmark so far actually provides 'real' data \cite{Beamer2017}. 
+        Use of synthetic graphs dominates, with the 2004 Recursive Matrix algorithm \cite{Chakrabarti2004} and its successors core among them. 
+        More recent approaches including the Social Dataset Generator \cite{Angles2013} and Datagen \cite{Capota2015} attempt to extend the graph generators to support streaming data, and structures more representative of 'real' social networks.
+        There appears to be no standard statistical description of graph datasets. 
+        The presentation of vertex and edge count is ubiquitous, but doesn't communicate structure. 
+        R-MAT derivatives like the Graph-500 dataset \cite{Murphy2010} tend to favour the $a+b+c+d=1.0$} parameter set for synthetic data, describing the probability distribution of vertices across an adjacency matrix.
+        More useful metrics are introduced by the team who develop the graphalytics benchmark, including cluster coefficient, assortativity and distribuiton fit \cite{Capota2015}.
+        Overall, our project must aim to select standard, real-world datasets and find suitable metrics to describe them.
+
+        \subsection{Reference Algorithm Implementations}
+        \par{To meet the goals of HIVE, we anticipate requiring reference implementations of Breadth-First Search (BFS), Community Detection, Subgraph Matching and Knowledge Graph Analytics in both single-core and paralell/distributed configurations.
+        However, there is no common set of reference algorithms for Graph Benchmarking because depending on the domain of focus, the applicable algorithms vary. 
+        For example, there is limited utility conducting community detection on a graph with no community structure.
+        The most commonly implemented reference algorithm is Breadth-First Search. 
+        It is widely available in sequential and distributed configurations, and forms the basis of the Graph500 Benchmark \cite{Murphy2010}, still the standard in contemporary graph benchmarking for high performance computing.
+        For Community Detection, we are adopting the Louvian Algorithm \cite{Blondel2008}. Reference implementations exist in C++ for both sequential and distributed code \cite{Ghosh2018}. 
+        We have not yet examined subgraph matching in sufficient depth.
+        Benchmarking Knowledge Graph Analytics will require an understanding of the primitive operations common to all knowledge graphs. 
+        Our initial review identifies four possible primitive operations of Selection, Adjacency, Reachability and Summarization which have only been examined by a single benchmarking approach \cite{Angles2013}. 
+        To effectively compare the performance of CPU, GPU and PiUMA across sequential and Parallel implementations, we need to have a set of standard algorithms that reflect the problem domains of search, community detection, subgraph matching and knowledge graph analytics. 
+        Because of the limited instruction set available to the PiUMA compiler, we need to refactor each algorithm in \textit{bare-bones} C so that the same code can be compiled using $GCC$ for x86\_64 CPUs, $NVCC$ for NVIDIA GPUs and $PTK$ for the PiUMA}.
+        
+        \subsection{Supported Metrics}
+        To fairly compare each implementation on each architecture, we need to define standard metrics to evaluate performance. 
+        The Statement of Work and original PiUMA Paper identify execution speed as Traversed Edges Per Second (TEPS) and power consumption as TEPS per Watt (TEPS/W) as the metrics to optimize \cite{Aananthakrishnan2020}. 
+        TEPS is not widely reported in existing benchmarks, with only Graphalytics referring to it, describing their calculation as $\frac{Total Execution Time}{Number of Edges in Graph}$ \cite{Capota2015}, which will not account for multiple traversals of the same edges, say for iterative algorithms like the Louvian.
+        The most common metric is Execution Time per query, with all surveyed approaches reporting it. 
+        Measurement of load time, and the Objects per Second Load rate is only tracked by the Social Network Benchmark \cite{Angles2013}, with it explicitly scoped out by most approaches. 
+        As HIVE focuses on streaming graph problems, there is a valid argument that ETL time should not be explicitly measured. 
+        However understanding the processor and memory implications of insertions, deletions and other updates will be very relevant, with the Social Network benchmark identifying the need as far back as 2013 \cite{Angles2013}.
+        Given the repeated assertions that graph applications are bound by memory latency, and particularly hurt by a lack of spatial and temporal locality resulting from their sparse structure \cite{Mutlu2023,Ren2010,Blondel2008,Capota2015,Beamer2017} it is surprising that there is no clear, common approach to measuring spatial and temporal locality of graphs in memory.
+        That may in part be because of the difficulty in measuring locality scores. For example, in 2005 Weinberg et. al. argue that it is overly reductive to reduce locality to a simple scalar score, before immediately introducing their scalar score for locality.
+        However, since 62\% of all power usage is attributed to moving data to and from memory \cite{Mutlu2023} and that 95\% of systems use less than 31\% of their memory bandwidth \cite{Kanev2015} because of latency issues fetching data from memory there is a clear need to characterize the spatial and temporal locality of graphs as part of a benchmark. 
+        Spatial and temporal locality has knock-on effects for execution time and power consumption, the metrics we really care about.
+        To generate meaningful metrics to compare each implementation, we need to identify a standard to count the traversed edges per second, measure total execution time, measure spatial locality, measure temporal locality and measure power consumption given each of these other views.
+        Additionally, for parallel implementations, we need to measure network latency as data is passed back and forth between the workers. 
+
+        \subsection{System Architectures}
+        The HIVE project aims to achieve a 1000x improvement in graph processing by a combination of algorithmic and hardware approaches. 
+        To evaluate the differing performance, we need to compare implementations in sequential and parallel across CPU, GPU and PiUMA system configurations. 
+        CPU implementations are what the majority of benchmarks have been developed for, almost exclusively in Sequential configurations, less Graphalytics \cite{Capota2015} which is designed for parallel evaluation. 
+        GPUs are optimized for dense vector and matrix computation \cite{Dally2021}, and so are expected to perform relatively poorly on graph algorithms, at least relative to the significant gains seen in applications they are well suited for, like training Neural Networks. While the Graphalytics Benchmark claims to support GPU evaluation, it lacks any discussion of results and the veracity of the claims cannot be confirmed \cite{Capota2015}.
+        PiMUA is a bespoke architecture from intel \cite{Aananthakrishnan2020}. 
+        Prior work at ARLIS has evaluated their claimed performance improvements on the provided simulation and emulation platforms. 
+        Only in Summer 2023 have we gained access to the single-PiUMA Software Development Variant (SDV) for running workloads and the Multi-PiUMA Optical Interconnect Assembly for measuring the latency of passing messages between multiple PiUMA chips in a distributed configuration. 
+        While the Optical Interconnect Assembly is not currently functioning as designed due to a manufacturing flaw, we are able to use the measured latency to develop performance projections in conjunction with the SDV. 
+        
+
     \section{Project Approach}
         \textbf{Subtask 1} aaaaaa
         
