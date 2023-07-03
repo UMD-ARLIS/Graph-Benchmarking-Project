@@ -34,7 +34,7 @@
 %%
 %%
 %% The first command in your LaTeX source must be the \documentclass command.
-\documentclass[sigconf,authordraft]{acmart}
+\documentclass[sigconf,anonymous, authordraft]{acmart}
 %% NOTE that a single column version may required for 
 %% submission and peer review. This can be done by changing
 %% the \doucmentclass[...]{acmart} in this template to 
@@ -308,6 +308,10 @@ They present these metrics despite earlier warnings in their own work about the 
 Their analysis suggests that a lack of locality degrades the execution time of applications and so it is interesting that neither Graph500 nor the newer graph benchmark suites account for the loading or structuring of graphs in memory in their measurement. 
 Chatacterising the shape of graphs in memory appears to be an under-explored dimension of the benchmarking space \cite{Weinberg2005}.}
 
+\par{In 2009 Adhianto et. al. from Rice University released the initial build of the High Performance Computing Toolkit (HPCToolkit). 
+The toolkit aims to profile the performance of code on high performance systems without needing to instrument the code, reducing the overheads imposed on the system under test. 
+Their approach and toolkit exemplifies the measurement of perforance without instrumentation, demonstrating the feasibility of profiling code without intrinsicly degrading its performance \cite{Adhianto2010}.}
+
 \par{A 2010 description of how Google implements system profiling across its data warehouses by Ren et. al. focuses on continuous monitoring rather than benchmarking.  
 Their experience argues that sampling binaries during execution rather than fully instrumenting at compile time them is a superior approach that reduces memory usage and execution time. 
 They sample events, which can include clock cycles, L1 and L2 cache misses and branch mispredictions. 
@@ -315,9 +319,40 @@ Their work provides a precedent for using profiling to compare different hadware
 There appears to be a gap in defining what a standard 'profile' is for a graph algorithm. 
 Detemining what a standard 'profile', and further determining a method to effectively vizualize memory accesses for graph applications by time and locality will be a prosperous avenue of further research \cite{Ren2010}.}
 
-\par{In 2009 Adhianto et. al. from Rice University released the initial build of the High Performance Computing Toolkit (HPCToolkit). 
-The toolkit aims to profile the performance of code on high performance systems without needing to instrument the code, reducing the overheads imposed on the system under test. 
-Their approach and toolkit exemplifies the measurement of perforance without instrumentation, demonstrating the feasibility of profiling code without intrinsicly degrading its performance \cite{Adhianto2010}.}
+\par{The 2015 paper "Profiling a Warehouse-scale Computer" from Kanev et. al. provides insights into limitations and bottlenecks that computing at large scale experiences. 
+While their work is not directly relevant to benchmarking graph algorithims, elements of their methodology are useful. 
+For example, they conduct their profiling by randomly sampling from active machines, then levering the Linux Perf suite to collect data.
+They then tag the observations to link it to the code generating the observed behaviour and load the results into the Dremel database for analysis. 
+They use the Top-Down profiling approach. 
+The Top-Down approach uses the micro-operation queue to classify operations into one of four categories. 
+The patterns of micro-operation occurences drive the characterization of system behaviour. 
+They assert the canonical approach to determining instruction set size is to simulate and then look for the elbow point in the simulation where cache misses drop to zero, and offer an alternative method that samples the real system instead. 
+They have two interesting findings relevant to the HIVE problemset. 
+First, the main reason that they see back-end micro-operation slots being created is to serve data cache requirements. 
+Second, 95 percent of the systems that they analyze use 31 percent or less of their memory bandwidth. 
+Taken together, we can surmise that the size of the data being read from and written to memory is not the bottleneck, it is the latency in waiting for the accesses to occur. 
+In graph processing, because the memory access patterns are not localized, and the processing operations are very simple the latency effect will be exacerbated. 
+Finally, they identify that simultaneous multi-threading is a noted mechanism to improve overall performance assuming that there are a diverse cause of battlenecks. 
+It is not clear whether the parralellizing of graph algorithms will improve or degrade memory latency in graph processing \cite{Kanev2015}.}
+
+\subsection{Problem Domains and Graph Algorithms}
+
+\subsubsection{Community Detection}
+
+\par{In 2008 Blondel et al characterize what in time becomes known as the Louvian Algorithm. 
+The Louvian Algorithm is a heuristic algorithm to approximate community detection in graphs. 
+It uses an interative 2-step algorithm to maximize the modularity score of communities in a hierarchical manner. 
+The algorithm first assigns each node in the graph to a different community and calculates the improvement in modularity scores. 
+Then it creates a new instance of the graph where changes to the communites increase the modulatiry score. 
+The algorithm terminates when no changes to modularity score result from an iteration. 
+They define community detection algorithms as belonging to one of three categories: (1) Divisive, (2) Agglomerative and (3) Optimization. The Louvian Algorithm is an agglomerative algorithm. 
+They assert that their algorithm is bound by storage, not computation. 
+Assuming that they mean memory when they write storage, it conforms to the expected behviour of graph platforms motivating the HIVE program.
+They observe that despite a minimal effect on the ending modularity scores, the starting node (and order of execition) has a varying effect on runtime. 
+They were not able to determine why runtime is affected by start node. 
+They assert a linear complexity for their algorithm, but do not present a formal proof, but show emprirically that they achieve superior modularity and runtime results compared to the other algprithms at the time. 
+Runtime and Modularity appear to be suitable metrics for a community detection benchmark. 
+Finally, they postulate further runtime improvements by introducing additional heuristics, like a 'good enough' threshold for modularity \cite{Blondel2008}.}
 
 \subsection{Graph Benchmarking}
 
@@ -326,6 +361,19 @@ Graph500's inital goal focuses on creating benchmarks for the search, optimizati
 They specify the parameters to be used in RMAT to generate synthetic graphs, but are unclear on the actual metric they are benchmarking against. 
 In context it appears to be temporal (i.e. time to complete an operation), which they note in their initial experiments is already limited at large scales. 
 Graph 500 is a useful standard but relised on synthetically genrated data and focuses narrowly on a few problems, with simplistic metrics \cite{Murphy2010}.}
+
+\par{The 2015 Graphalytics Benchmark from Capot{\u{a}} et. al. aims to produce consistent reporting on graph workloads between all combinations of algorithms, datasets and platforms. 
+It primarily targets distributed and paralell implementations. 
+Their paper claims (but provides no substantive evidence or discussion of) support for evaluating algorithms run on GPUs and knowledge graph analytics. 
+They assert that a good benchmark suite must balance using real-world datasets with designing specific problems to stress the known choke points. 
+After highlighting that the use of real datasets is essential for credibility, they explain how they create their synthetic datasets.
+Specifically for graph workloads they identify (1) Excessive Network Utilization, (2) Large Memory Footprints, (3) Poor Access Locality and (4) Skewed Execution Intensity. 
+They characterize their datasets by Vertex and Edge Count, Global and Average Cluster Coefficents and Assortativity (The assortativity coefficient is the Pearson correlation coefficient of degree between pairs of linked nodes). 
+They also examine the defree distribution by goodness of fit to several known distributions. 
+The Graphalytics suite supports five algos': (1) General Stats, (2) Breadth First Search, (3) Connected Components, (4) Community Detection, (5) Graph Evolution. 
+They do not measure or report the time taken to extract, transform and load the graph into memory, or any detail about how it is structured in memory. 
+The Benchmark Suite measures execution time and traversed edges per second (calculated by dividing the execution time by the total number of edges - it is not clear if this will handle algoritms that revisit edges multiple times, and a more robust approach wi required). 
+They assert that software engineering best practices should be applied to any benchmarking effort, and use static code analysis and formal change management to provide quality assurance for their system, justifying our use of TDD in approaching our solution \cite{Capota2015}.}
 
 \par{Beamer et. al. from UC Berkeley introduce the GAP Graph Benchmark in their 2017 paper in response to their percieved shortcomings with the Graph500 benchmark. 
 The authors assert that a benchmark suite should use real and diverse data wherever possible, and when synthetic data is used it must be standardized. 
@@ -337,22 +385,23 @@ The benchmark is designed to be wider-ranging than Graph500, and as a result has
 While Connected components and betweenness centrality have some relation to community detection, and triangle counting is related to subgraph matching none are exact matches for the problem domain that HIVE is specifically pursuing. 
 There is no mention at all of knowledge graph analytics. Given that overall system performance includes the loading and storage in memory of Graphs has it appears to be a gap that these parts of the process are not measured. 
 An examination of how a graph is stored in memory effects its spatial locality during execution appars to be under-explored and so may be worth analyzing further \cite{Beamer2017}.}
-
+\small
 \begin{table*}[t]
-  \begin{tabular}{ |c|c|c|c|c|c|c|c|c|c|c|c|c|}
+  \begin{tabular}{ |c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
     \hline
-    {Benchmark Suite} & \multicolumn{9}{|c|}{Algorithm} & \multicolumn{3}{|c|}{Metrics} \\
+    {Benchmark Suite} & \multicolumn{10}{|c|}{Algorithm} & \multicolumn{3}{|c|}{Metrics} & \multicolumn{2}{|c|}{Imp} & \multicolumn{3}{|c|}{Arch}\\
     \hline
-               & BFS & SSSP & PR & CC & BC & TC & CD & SGM & KGA & ET (Secs) & GETPS & SLS \\
+                                          & STATS & BFS & SSSP & PR & CC & BC & TC & CD & SGM & KGA & ET & TEPS & SLS & Seq & Par & CPU & GPU & DSA \\
     \hline
-     Graph500 [2010]\cite{Murphy2010}  &  X  &      &    &    &    &    &    &     &     &    X      &       &     \\
-     GAP [2017]\cite{Beamer2017}       &  X  &   X  &  X &  X &  X &  X &    &     &     &    X      &       &     \\
+     Graph500 [2010]\cite{Murphy2010}     &       & X   &      &    &    &    &    &    &     &     &  X &      &     & X   &     & X   &     &     \\
+     Graphalytics [2015]\cite{Capota2015} &   X   & X   &      &    & X  &    &    &  X &     & ?   &  X &   X  &     & X   &  X  & X   &  ?  &     \\
+     GAP [2017]\cite{Beamer2017}          &       & X   & X    & X  & X  & X  & X  &    &     &     &  X &      &     & X   &     & X   &     &     \\
     \hline
   \end{tabular}
-  \caption{Summary of Graph Benchmark Datasets}
+  \caption{Summary of Graph Benchmark Datasets.\\ STAT = Statistics, BFS = Breadth First Search, SSSP = Single Source Shortest Path, PR = PageRank, CC = Connected Components, BC = Betweenness Centrality, TC = Triangle Counting, CD = Community Detection, SGM = Sub Graph Matching, KGA = Knowledge Graph Analytics, ET = Execution Time, TEPS = Travered Edges Per Second, SLS = Spatial Locality Score, Seq = Sequential, Par = Paralell/Distributed, CPU = Central Processing Unit, GPU = Graphics Processing Unit, DSA = Domain Specific Architecture}
   \label{table:graphBenchmarks}
 \end{table*}
-
+\normalfont
 
 \subsection{Graph Dataset Generation}
 
