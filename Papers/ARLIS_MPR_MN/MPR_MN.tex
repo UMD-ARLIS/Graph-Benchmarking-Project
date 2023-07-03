@@ -1,0 +1,115 @@
+\documentclass[letterpaper, 10pt]{article}
+
+% % % % % % % % % % % % % %
+% Preamble
+% % % % % % % % % % % % % %
+ 
+%Get all the formatting details from preamble.tex
+\input{./preamble.tex}
+
+\begin{document}
+\pagestyle{empty}
+
+%Make the title block
+\title{\color{arlisRed}{
+    \LARGE{Project Title }\\ 
+    \large{Team XX}}}
+\author{                                                            %Add as many authors as you like on new lines   
+    \color{arlisRed}{
+        Author One, institution 1, email 1\\
+        Author Two, institution 2, email 2}\\
+    \small{\color{black}{                                           %Add as many POCs / mentors as you like on new lines
+        \textbf{Sponsoring Agency:} Office name, Agency name \\
+        \textbf{RISC Faculty Mentor 1:} Name, University, email \\
+        \textbf{RISC Faculty Mentor 2:} Name, University, email \\ 
+    }} 
+}
+
+% % % % % % % % % % % % % %
+% Headers and footers
+% % % % % % % % % % % % % %
+\pagestyle{fancy}
+\fancyhead{}        %Flush the header and footer
+\fancyfoot{}
+%Header
+\fancyhead[C]{\small{\textbf{SECURITY//LABELS//HERE}}\vspace{55pt}}
+%Footer
+\fancyfoot[C]{\thepage\\ DOD distribution statements go here. \\ © 2023 UMD/ARLIS. All Rights Reserved. Proprietary Information. \textbf{\\SECURITY//LABELS//HERE} }
+
+
+% % % % % % % % % % % % % %
+% Document Content
+% % % % % % % % % % % % % %
+
+\maketitle
+
+\abstractname{~Typically 200-300 words summarizing project purpose, goals, and approach~}
+\begin{multicols}{2}    
+    \section{Project Goals}
+        \subsection{Overarching Project Goal}
+        Develop an advanced graph analytics processor (PiUMA) capable of efficiently processing streaming graphs with unparalleled speed, surpassing current processing technologies by a factor of 1000x, while simultaneously achieving significant reductions in power consumption.  \cite{Joshi2022}
+        \subsection{Additional Goals}
+        \begin{itemize}
+        \item Benchmark PiUMA, a new architecture for high-performance graph processing utilizing against the provided projections 
+        \item Emphasis on comparative benchmarking of PiUMA’s graph processing capabilities in community detection, subgraph matching and knowledge graph analytics against CPU and GPU architectures.
+        \end{itemize}
+
+        \subsection{Why the Intelligence and/or security community should care}
+        Graphs are used extensively across the intelligence community to store important pieces of data. For example, in Social Network Analysis, graphs are used to model the relationships between individuals or entities. In cybersecurity, graphs are used to to model networks, systems, and data flows, and in Infrastructure Protection, they are used in modeling and analyzing critical infrastructure networks, such as transportation systems, power grids, or communication networks. 
+        Graph analysis is implemented through algorithms and techniques specifically designed to process and analyze graph data. These algorithms traverse, explore, and extract insights from the interconnected nodes and edges of the graph. By identifying hidden patterns, facilitating decision-making, and enhancing situational awareness, graph analysis contributes to the overall security and defense efforts of a nation. 
+
+        and some mathematics $1+1$ = $2$ and  $A=\pi r^2$ in the text\footnote{and some mathematics $A=\pi r^2$ in the text}.  
+        
+    \section{Background and Related Work}
+        \lipsum[4]
+    \section{Project Approach}
+        \textbf{Subtask 1} aaaaaa
+        
+        \textbf{Subtask ...} bbbbbb
+        
+        \textbf{Subtask n} cccc
+
+        \subsection{Rough division of efforts}
+        
+    \section{Project Timeline}
+        \begin{center}
+            \begin{tabular}{c|c|c}
+                 Milestone  & Target Data   & Current Status  \\
+                 \hline
+                 X          & Y             & Z \\
+                 A          & B             & C
+            \end{tabular}
+            \label{tab:my_label}
+        \end{center}
+    \section{Progress Towards Goals}
+        \subsection{Subtask 1}
+            \lipsum[5]
+        \subsection{Subtask ...}
+            \lipsum[6]
+        \subsection{subtask n}
+            \lipsum[7]
+    \section{Interfacing with Clients and Customers}
+        (Any discussions with stakeholders outside the RISC  program informing the work; only list weekly check-ins  once) \\
+        \textbf{Agency:} \\  
+        \textbf{POC:}  \\
+        \textbf{Date:} \\
+        \textbf{Purpose:} \\
+        \textbf{High-level Takeaway(s):} \\ 
+        \textit{[Repeat per engagement]} 
+
+    \section{Issues Faced}
+        \lipsum[8]
+    \section{Challenges Ahead}
+        \lipsum[9]
+    \section{References}
+        \printbibliography[heading=none]
+
+    \section{Acronyms}
+        [if useful to call out] \\
+        \textbf{ARLIS} Applied Research Laboratory for Intelligence and Security.\\ 
+        \textbf{MBE} model-based enterprise. \\
+        \textbf{OUSD(I\&S)} Office of the Undersecretary of Defense for  Intelligence and Security. \\
+        \textbf{UARC} University Affiliated Research Center.\\
+    \end{multicols}
+    \newpage
+\end{document}
