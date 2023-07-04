@@ -12,16 +12,17 @@
 
 %Make the title block
 \title{\color{arlisRed}{
-    \LARGE{Project Title }\\ 
-    \large{Team XX}}}
+    \LARGE{Unlocking the Power of Hierarchical Identify Verify Exploit (HIVE): Revolutionizing Data Analysis and Efficiency }\\ 
+    \large{Team MN}}}
 \author{                                                            %Add as many authors as you like on new lines   
     \color{arlisRed}{
-        Author One, institution 1, email 1\\
-        Author Two, institution 2, email 2}\\
+        Kent O'Sullivan, University of Maryland, osullik@umd.edu\\
+        Nandini Ramachandran, University of Maryland, nandinir@umd.edu}\\
+        Morein Ibrahim, University of Maryland, morein04@terpmail.umd.edu \\
     \small{\color{black}{                                           %Add as many POCs / mentors as you like on new lines
-        \textbf{Sponsoring Agency:} Office name, Agency name \\
-        \textbf{RISC Faculty Mentor 1:} Name, University, email \\
-        \textbf{RISC Faculty Mentor 2:} Name, University, email \\ 
+        \textbf{Sponsoring Agency:} DARPA, Department of Defense \\
+        \textbf{RISC Faculty Mentor 1:} William Regli, University of Maryland, regli@umd.edu \\
+        \textbf{RISC Faculty Mentor 2:} Cliston Cole, Morgan State University, Cliston.cole@morgan.edu \\ 
     }} 
 }
 
@@ -47,7 +48,7 @@
 \begin{multicols}{2}    
     \section{Project Goals}
         \subsection{Overarching Project Goal}
-        Develop an advanced graph analytics processor (PiUMA) capable of efficiently processing streaming graphs with unparalleled speed, surpassing current processing technologies by a factor of 1000x, while simultaneously achieving significant reductions in power consumption.  \cite{Joshi2022}
+        Develop an advanced graph analytics processor (PiUMA) capable of efficiently processing streaming graphs with unparalleled speed, surpassing current processing technologies by a factor of 1000x, while simultaneously achieving significant reductions in power consumption. 
         \subsection{Additional Goals}
         \begin{itemize}
         \item Benchmark PiUMA, a new architecture for high-performance graph processing utilizing against the provided projections 
@@ -111,36 +112,49 @@
         Only in Summer 2023 have we gained access to the single-PiUMA Software Development Variant (SDV) for running workloads and the Multi-PiUMA Optical Interconnect Assembly for measuring the latency of passing messages between multiple PiUMA chips in a distributed configuration. 
         While the Optical Interconnect Assembly is not currently functioning as designed due to a manufacturing flaw, we are able to use the measured latency to develop performance projections in conjunction with the SDV. 
         
-
-    \section{Project Approach}
-        \textbf{Subtask 1} aaaaaa
-        
-        \textbf{Subtask ...} bbbbbb
-        
-        \textbf{Subtask n} cccc
-
-        \subsection{Rough division of efforts}
         
     \section{Project Timeline}
         \begin{center}
             \begin{tabular}{c|c|c}
-                 Milestone  & Target Data   & Current Status  \\
+                 Milestone  & Target Date   & Current Status  \\
                  \hline
-                 X          & Y             & Z \\
-                 A          & B             & C
+                 BFS          & 6/9             & 100\% \\
+                 Community Detection          & 6/23           & 75\% \\
+                 Subgraph Matching &7/7 &25\% \\
+                 Knowledge Graph &7/21 &0\% \\
+                 Report and Brief &8/3 &0\%
             \end{tabular}
             \label{tab:my_label}
         \end{center}
-    \section{Progress Towards Goals}
-        \subsection{Subtask 1}
-            \lipsum[5]
-        \subsection{Subtask ...}
-            \lipsum[6]
-        \subsection{subtask n}
+    \section{Methodology}
+    To meet the goals of HIVE, we plan to focus benchmarking and evaluation efforts on three different graph processing algorithms:\\  
+    
+        \textbf{Subtask 1} Community Detection
+        
+        \textbf{Subtask 2} Subgraph Matching
+        
+        \textbf{Subtask 3} Knowledge Graphs
+        
+        \subsection{Community Detection}
+            The Louvain Algorithm is a popular community detection algorithm widely used for identifying communities or groups in complex networks. As part of our benchmarking goals, we aim to have clearly outlined the louvain algorithm, defined its expected behaivors, as well as implemented and evaluated its performance on CPU, GPU, and PiUMA architectures. We are running an open source implementation of this algorithm which works using modularity optimization to improve the density of links within communities and aggregation to achieve a cohesive community structure. This algorithm can be applied to analyze large-scale, dynamic networks for HIVE.  In particular, it has numerous use cases for social network analysis to identify potential terrorist threats or influential nodes as well as cybersecurity applications for detecting malicious communities or botnets. Currently, we implemented and evaluated this algorithm on a CPU and are currently working on the GPU and PiUMA architectures.
+        \subsection{Subgraph Matching}
+            Subgraph matching is a graph matching problem where the goal is to find occurrences of a smaller graph (subgraph) within a larger graph (target graph). In other words, it involves finding instances of a pattern graph within a larger graph. Subgraph matching techniques can help uncover relationships between entities within a network. By identifying subgraphs that match specific patterns or structures, it could potentially reveal hidden relationships between various elements, which can be valuable for intelligence analysis and decision-making. For example, in Network Security, Subgraph matching algorithms can identify patterns of malicious activity within network traffic, helping detect cyber threats, intrusion attempts, or anomalous behavior. We are currently working on defining this algorithm's expected behaiviors. 
+
+        \subsection{Knowledge Graphs}
             \lipsum[7]
+    \section{Dataset Creation Tool}
+        Purpose and goals. How it works/created. Mention specific ways we plan to emulate real datasets \\
+    \section{Telemetry Tools}
+        AWS instance to run the tools
+        \textbf{VALGRIND:} \\  
+        \textbf{GNU GPROF:}  \\
+        \textbf{PERF:}  \\
+        \textbf{OPROFILE:} \\
+        \textbf{Intel VTUNE Profiler:} \\
+       
     \section{Interfacing with Clients and Customers}
         (Any discussions with stakeholders outside the RISC  program informing the work; only list weekly check-ins  once) \\
-        \textbf{Agency:} \\  
+        \textbf{Agency: Intel} \\  
         \textbf{POC:}  \\
         \textbf{Date:} \\
         \textbf{Purpose:} \\
