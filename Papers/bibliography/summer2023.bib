@@ -342,7 +342,7 @@ abstract={Both static and streaming graph processing are central in data analyti
   groups={telemetry},
   url={https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Weinberg2005.pdf},
   abstract={Several benchmarks for measuring the memory performance of HPC systems along dimensions of spatial and temporal memory locality have recently been proposed. However, little is understood about the relationships of these benchmarks to real applications and to each other. We propose a methodology for producing architecture-neutral characterizations of the spatial and temporal locality exhibited by the memory access patterns of applications. We demonstrate that the results track intuitive notions of locality on several synthetic and application benchmarks. We employ the methodology to analyze the memory performance components of the HPC Challenge Benchmarks, the Apex-MAP benchmark, and their relationships to each other and other benchmarks and applications. We show that this analysis can be used to both increase understanding of the benchmarks and enhance their usefulness by mapping them, along with applications, to a 2-D space along axes of spatial and temporal locality.},
-  comment={A 2010 description of how Google implements system profiling across its data warehouses by Ren et. al. focuses on continuous monitoring rather than benchmarking. Their experience argues that sampling binaries during execution rather than fully instrumenting at compile time them is a superior approach that reduces memory usage and execution time. They sample events, which can include clock cycles, L1 and L2 cache misses and branch mispredictions. Their work provides a precedent for using profiling to compare different hadware implementations of the same application, supporting our evaluation of Graph Algorithms across CPU, GPU and PiUMA for the HIVE project. There appears to be a gap in defining what a standard 'profile' is for a graph algorithm. Detemining what a standard 'profile', and further determining a method to effectively vizualize memory accesses for graph applications by time and locality will be a prosperous avenue of further research.}
+  comment={}
   }
 
 
@@ -592,7 +592,7 @@ abstract={This paper describes extensions to Rice University's HPCToolkit perfor
   pages={1--7},
   year={2013},
   abstract={Graphs have become an indispensable tool for the analysis of linked data. As with any data representation, the need for using database management systems appears when they grow in size and complexity. Associated to those needs, benchmarks appear to assess the performance of such systems in specific scenarios, representative of real use cases. In this paper we propose a microbenchmark based on social networks. This includes a data generator that synthetically creates social graphs, and a set of low level atomic queries that model parts of the behavior of social network users. In order to understand how different data management paradigms are stressed, we execute the benchmark over five different database systems representing graph (Dex and Neo4j), RDF (RDF-3X) and relational (Virtuoso and PostgreSQL) data management. We conclude that reachability queries are those that put all the database systems into more difficulties, justifying themselves, and making them good candidates for more complex benchmarks.},
-  comment={}
+  comment={In 2013 Angles et. al. propose their benchmark for social database systems. Their approach creates micro-benchmarks based query primitives for social networks they identify as: (1) Selection, (2) Adjacency, (3) Reachability and (4) Summarization. They present a generator to create syntetic datasets, evolving the R-MAT algorithm to create a 'streaming' dataset by simulating the R-MAT recursion, sotring the distribution of edges and then constructing the graph after the fact. Their benchmark compares SQL, Graph and RDF (Knowledge Graph) implementations on similar queries. Rather than implement the algorithms themselves, they use the query languages of DBMS like PostgreSQL, Neo4J and RDF-3X. They measure both graph load time, (calculating objects per second by dividing total load time by total node+edge counts) and execution time. They find that Reachability queries are the most computationally intensive, and unviable on non-native graph structures, like the relational data stores. Though their benchmark seems to lack some formality, it does offer the ability to support streaming data, knowledge graphs and gives us primite operations to form the core of our exploration of knowledge graphs. They highlight that the cost of translating between URIs and internal representations in KGs can be expensive, particularly for simple queries. Though not evaluated here, their graph generator offers a potential path to transform a static graph into a streaming graph}
 }
 
 @inproceedings{Erling2015,
@@ -672,5 +672,63 @@ abstract={This paper describes extensions to Rice University's HPCToolkit perfor
   year={2018},
   publisher={ACM New York, NY, USA},
   abstract={Several research studies have shown that complex networks modeling real-world phenomena are characterized by striking properties: (i) they are organized according to community structure, and (ii) their structure evolves with time. Many researchers have worked on methods that can efficiently unveil substructures in complex networks, giving birth to the field of community discovery. A novel and fascinating problem started capturing researcher interest recently: the identification of evolving communities. Dynamic networks can be used to model the evolution of a system: nodes and edges are mutable, and their presence, or absence, deeply impacts the community structure that composes them. This survey aims to present the distinctive features and challenges of dynamic community discovery and propose a classification of published approaches. As a “user manual,” this work organizes state-of-the-art methodologies into a taxonomy, based on their rationale, and their specific instantiation. Given a definition of network dynamics, desired community characteristics, and analytical needs, this survey will support researchers to identify the set of approaches that best fit their needs. The proposed classification could also help researchers choose in which direction to orient their future research.},
+  comment={}
+
+}@InProceedings{Szekely2015,
+  author       = {Szekely, Pedro and Knoblock, Craig A and Slepicka, Jason and Philpot, Andrew and Singh, Amandeep and Yin, Chengye and Kapoor, Dipsy and Natarajan, Prem and Marcu, Daniel and Knight, Kevin and others},
+  booktitle    = {The Semantic Web-ISWC 2015: 14th International Semantic Web Conference, Bethlehem, PA, USA, October 11-15, 2015, Proceedings, Part II 14},
+  title        = {Building and using a knowledge graph to combat human trafficking},
+  year         = {2015},
+  organization = {Springer},
+  pages        = {205--221},
+  comment      = {Good case study, demonstrates practical applications of KGs in the real world. An end-to-end domain pipeline. Lots of references to useful tools.},
+  url          = {https://link.springer.com/chapter/10.1007/978-3-319-25010-6_12},
+}
+
+
+@article{Javed2018,
+	abstract = {The modern science of networks has made significant advancement in the modeling of complex real-world systems. One of the most important features in these networks is the existence of community structure. In recent years, many community detection algorithms have been proposed to unveil the structural properties and dynamic behaviors of networks. In this study, we attempt a contemporary survey on the methods of community detection and its applications in the various domains of real life. Besides highlighting the strengths and weaknesses of each community detection approach, different aspects of algorithmic performance comparison and their testing on standard benchmarks are discussed. The challenges faced by community detection algorithms, open issues and future trends related to community detection are also postulated. The main goal of this paper is to put forth a review of prevailing community detection algorithms that range from traditional algorithms to state of the art algorithms for overlapping community detection. Algorithms based on dimensionality reduction techniques such as non-negative matrix factorization (NMF) and principal component analysis (PCA) are also focused. This study will serve as an up-to-date report on the evolution of community detection and its potential applications in various domains from real world networks.},
+	author = {Muhammad Aqib Javed and Muhammad Shahzad Younis and Siddique Latif and Junaid Qadir and Adeel Baig},
+	doi = {https://doi.org/10.1016/j.jnca.2018.02.011},
+	issn = {1084-8045},
+	journal = {Journal of Network and Computer Applications},
+	keywords = {Community detection, Clustering algorithms, Modularity, Anomaly detection, Online social networks},
+	pages = {87-111},
+	title = {Community detection in networks: A multidisciplinary review},
+	url = {https://www.sciencedirect.com/science/article/pii/S1084804518300560},
+	volume = {108},
+	year = {2018},
+	bdsk-url-1 = {https://www.sciencedirect.com/science/article/pii/S1084804518300560},
+	bdsk-url-2 = {https://doi.org/10.1016/j.jnca.2018.02.011},
+  comment={}
+  }
+
+
+@article{Sangkaran2020,
+  title={Criminal network community detection using graphical analytic methods: A survey},
+  author={Sangkaran, Theyvaa and Abdullah, Azween and JhanJhi, NZ},
+  journal={EAI Endorsed Transactions on Energy Web},
+  volume={7},
+  number={26},
+  pages={e5--e5},
+  year={2020},
+  url = {https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Sangkaran2020.pdf},
+  groups={HIVE},
+  abstract={Criminal networks analysis has attracted severalnumbersofresearchersas network analysis gained its popularity among professionals and researchers. In this study, we have presented a comprehensive review of community detection methods based  on  graph  analysis.  The  concept  of  community  was  vividlydiscussed  as  well  as  the  algorithms  for  detecting communities  within  a  network.  Broad  categorization  of  community  detection  algorithms  was  also  discussed  as  well  as  a thorough  review  of  detection  algorithms which  has  beendeveloped,  implemented  and  evaluated  by  several  authors insocial network analysis. Most importantly, a strict review of researches based on the detection of community in a criminal network was carried out revealing the strength and limitations of criminal network community detection methods. Thus, it becomesobvious  through  this  study  that  more  research  activities  is  necessary  and  expected  in  order  to further grow  this research area.},
+  comment={}
+}
+
+@article{Sangkaran2020a,
+  title={Criminal community detection based on isomorphic subgraph analytics},
+  author={Sangkaran, Theyvaa and Abdullah, Azween and Jhanjhi, NZ},
+  journal={Open Computer Science},
+  volume={10},
+  number={1},
+  pages={164--174},
+  year={2020},
+  publisher={De Gruyter},
+  url = {https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Sangkaran2020a.pdf},
+  groups={HIVE},
+  abstract={All highly centralised enterprises run by crim-inals do share similar traits, which, if recognised, canhelp in the criminal investigative process. While conduct-ing a complex confederacy investigation, law enforcementagents should not only identify the key participants butalso be able to grasp the nature of the inter-connectionsbetween the criminals to understand and determine themodus operandi of an illicit operation. We studied com-munity detection in criminal networks using the graphtheory and formally introduced an algorithm that opensa new perspective of community detection compared tothe traditional methods used to model the relations be-tween objects. Community structure, generally describedas densely connected nodes and similar patterns of linksis an important property of complex networks. Our methoddiffers from the traditional method by allowing law en-forcement agencies to be able to compare the detected com-munities and thereby be able to assume a different view-point of the criminal network, as presented in the paperwe have compared our algorithm to the well-known Girvan-Newman. We consider this method as an alternative oran addition to the traditional community detection meth-ods mentioned earlier, as the proposed algorithm allows,and will assists in, the detection of different patterns andstructures of the same community for enforcement agen-cies and researches. This methodology on community de-tection has not been extensively researched. Hence, wehave identified it as a research gap in this domain and de-cided to develop a new method of criminal community de-tection.},
   comment={}
 }
