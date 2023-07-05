@@ -235,7 +235,7 @@ By conducting a thorough benchmarking analysis, this report aims to provide valu
         \textbf{Subtask 3} Knowledge Graphs
 
             \osullikomment{I think we restructure these to be: Sample problem, question we ask, how thats a graph, what algorithm works for it, what the limitation is}
-
+        
         \subsection{Community Detection}
             The Louvain Algorithm is a popular community detection algorithm widely used for identifying communities or groups in complex networks. As part of our benchmarking goals, we aim to have clearly outlined the louvain algorithm, defined its expected behaviors, as well as implemented and evaluated its performance on CPU, GPU, and PiUMA architectures. We are running an open source implementation of this algorithm which works using modularity optimization to improve the density of links within communities and aggregation to achieve a cohesive community structure. This algorithm can be applied to analyze large-scale, dynamic networks for HIVE.  In particular, it has numerous use cases for social network analysis to identify potential terrorist threats or influential nodes as well as cybersecurity applications for detecting malicious communities or botnets. Currently, we implemented and evaluated this algorithm on a CPU and are currently working on the GPU and PiUMA architectures.
             
@@ -251,23 +251,8 @@ By conducting a thorough benchmarking analysis, this report aims to provide valu
         
     \section{Telemetry Tools}
         \osullikomment{Add HPCToolkit; see if we can address specifically to the measurement of Time, Memory and Power. }
-        Utilizing a standardized set of tools in order to evaluate algorithmic performance on multiple architectures is critical in attaining precise benchmarking results. As mentioned in Section 2.3, we need to identify a standard to count the traversed edges per second, measure total execution time, measure spatial locality, measure temporal locality and measure power consumption given each of these other views. Additionally, for parallel implementations, we need to measure network latency as data is passed back and forth between the workers. The tools outlined below will enable us to capture the necessary benchmarking information, relying on an AWS EC2 instance to run the telemetry on an Ubuntu system. \\
-        \noindent
-        \newline
-        \textbf{VALGRIND:}
-         Is a suite of debugging and profiling tools. Includes Memcheck which can detect common memory-related errors and Cachegrind which is a high-precision tracing profiler. \\  
-        \noindent
-        \newline
-        \textbf{GNU GPROF:}  Can be used to determine which parts of a program are taking most of the execution time. \\
-        \noindent
-        \newline
-        \textbf{PERF:}  Can instrument CPU performance counters, tracepoints, kprobes, and uprobes (dynamic tracing). It is capable of lightweight profiling. \\
-        \noindent
-        \newline
-        \textbf{OPROFILE:}  Is an open source project that includes a statistical profiler for Linux systems, capable of profiling all running code at low overhead.\\
-        \noindent
-        \newline
-        \textbf{Intel VTUNE Profiler:} Can optimize application performance, system performance, and system configuration across CPU and GPU architectures. It can be used for System or Application settings to get coarse-grained system data. It can also be used to optimize performance while avoiding power and thermal-related throttling. \\
+        Utilizing a standardized set of tools in order to evaluate algorithmic performance on multiple architectures is critical in attaining precise benchmarking results. As mentioned in Section 2.3, we need to identify a standard to count the traversed edges per second, measure total execution time, measure spatial locality, measure temporal locality and measure power consumption given each of these other views. Additionally, for parallel implementations, we need to measure network latency as data is passed back and forth between the workers. We are experimenting with basic utilities such as PERF, OPROFILE, and GNU PROF as well as more robust application systems such as HPC Toolkit, VALGRIND, and Intel VTUNE Profiler. The tools outlined above will enable us to capture the necessary benchmarking information, relying on an AWS EC2 instance to run the telemetry on an Ubuntu system. \\
+        \osullikomment{Group together aS utlitlites (eg. perf, oprofile prof) and applications (HPCTOOLKIT, Valgring, VTUNE) footnote the links to their repos etc}
        
     \section{Interfacing with Clients and Customers}        
         At this time we have not conducted direct engagement with DARPA or Intel.
@@ -280,7 +265,7 @@ By conducting a thorough benchmarking analysis, this report aims to provide valu
 
     \section{Next Steps}
         \osullikomment{I think we need to walk this back a bit, we're overstating our achievements a little here}
-        The project has made significant progress in various areas. The Sequential and Parallel BFS algorithm as well as the Sequentual Louvain algorithm have all been sucessfully implemented on a CPU architecture. Telemetry capabilities have been integrated to measure time, memory and power, providing valuable insights into algorithm performance. Additionally, the GPU and PiUMA architectures have been successfully configured remotely on the cloud, enabling us to run algorithms across all architectures. Finally, a dataset creation tool has been developed to produce graphs of various sizes resembling real-world datasets. Current setbacks include having delayed access to a Linux system to run the PiUMA SDV and benchmarking tools. Future anticipated challenges include identifying efficient implementations of subgraph matching and knowledge graph algorithms. Looking ahead, the project will focus on implementing and evaluating subgraph matching and knowledge graph algorithms. The telemetry capabilities will be expanded to include additional metrics and dimensions for a more comprehensive analysis. The dataset creation process will continue to evolve by incorporating more realistic and diverse data formats, structures, and characteristics. By advancing these aspects, the project is on track to deliver a comprehensive benchmarking study of multiple graph processing algorithms on CPU, GPU, and PiUMA architectures, ultimately contributing to HIVE's goal of increasing processing of streaming graphs at significantly higher speeds. 
+        The project has been moving slightly slower than anticipated in regards to the implementation and evaluation of algorithms, yet making steady progress in setting up a robust experimental framework. An open source implementation of the Sequentual Louvain algorithm has been successfully implemented on a CPU architecture. Telemetry capabilities have been integrated to measure time, memory and power, providing valuable insights into algorithm performance. Additionally, the NVIDIA CUDA GPU architecture has been successfully configured remotely on the cloud, enabling us to run algorithms across both CPU and GPU architectures. Finally, a dataset creation tool has been developed to produce graphs of various sizes. Current setbacks include having delayed access to a Linux system to run the PiUMA SDV and benchmarking tools. Future anticipated challenges include identifying efficient implementations of subgraph matching and knowledge graph algorithms. Looking ahead, the project will focus on implementing and evaluating subgraph matching and knowledge graph algorithms. The telemetry capabilities will be expanded to include additional metrics and dimensions for a more comprehensive analysis. The dataset creation process will continue to evolve by incorporating more realistic and diverse data formats while also considering scale free graphs and real-world datasets. By advancing these aspects, the project is on track to deliver a comprehensive benchmarking study of atleast two out of three graph processing algorithms on both CPU and GPU architectures. Setting up the PiUMA framework continues to remain a task in progress, but is targeted for completion by the end of the month. Overall progress is slow due to the necessity of setting up an extensive testing framework, yet is on track to pick up pace as familiarity with tools/algorithms increases, ultimately contributing to HIVE's vision of increasing processing of streaming graphs at significantly higher speeds. 
     \section{References}
         \printbibliography[heading=none]
 
