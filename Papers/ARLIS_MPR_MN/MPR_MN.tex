@@ -160,15 +160,28 @@ By conducting a thorough benchmarking analysis, this report aims to provide valu
     \section{Dataset Creation Tool}
         To achieve benchmarking credibility, we recognized the need to provide a tool for generating graphs with a specific number of nodes and edges to mimic real-world datasets. To attain this, we developed a program which takes three command-line arguments: the number of nodes in the graph, the number of edges, and a random seed. The random seed ensures reproducibility of the generated graph. The program utilizes an array of Edge structures to store the generated edges. To emulate real-world datasets, the research project aims to use synthetic graphs to create statistically similar datasets in order to explore the characteristics and performance of graph algorithms on more representative data. Future improvements to this creation tool involve curating custom datasets that reflect the structure and properties of real-world social networks, considering metrics such as cluster coefficient, assortativity, and distribution fit. 
     \section{Telemetry Tools}
-        AWS instance to run the tools
-        \textbf{VALGRIND:} \\  
-        \textbf{GNU GPROF:}  \\
-        \textbf{PERF:}  \\
-        \textbf{OPROFILE:} \\
-        \textbf{Intel VTUNE Profiler:} \\
+        Utilizing a standardized set of tools in order to evaluate algorithmic performance on multiple architectures is critical in attaining precise benchmarking results. As mentioned in Section 2.3, we need to identify a standard to count the traversed edges per second, measure total execution time, measure spatial locality, measure temporal locality and measure power consumption given each of these other views. Additionally, for parallel implementations, we need to measure network latency as data is passed back and forth between the workers. The tools outlined below will enable us to capture the necessary benchmarking information, relying on an AWS EC2 instance to run the telemetry on an Ubuntu system. \\
+        \noindent
+        \newline
+        \textbf{VALGRIND:}
+         Is a suite of debugging and profiling tools. Includes Memcheck which can detect common memory-related errors and Cachegrind which is a high-precision tracing profiler. \\  
+        \noindent
+        \newline
+        \textbf{GNU GPROF:}  Can be used to determine which parts of a program are taking most of the execution time. \\
+        \noindent
+        \newline
+        \textbf{PERF:}  Can instrument CPU performance counters, tracepoints, kprobes, and uprobes (dynamic tracing). It is capable of lightweight profiling. \\
+        \noindent
+        \newline
+        \textbf{OPROFILE:}  Is an open source project that includes a statistical profiler for Linux systems, capable of profiling all running code at low overhead.\\
+        \noindent
+        \newline
+        \textbf{Intel VTUNE Profiler:} It can optimize application performance, system performance, and system configuration across CPU and GPU architectures. It can be used for System or Application settings to get coarse-grained system data. It can also be used to optimize performance while avoiding power and thermal-related throttling. \\
        
     \section{Interfacing with Clients and Customers}
         (Any discussions with stakeholders outside the RISC  program informing the work; only list weekly check-ins  once) \\
+        
+        *NEED CLARITY ON WHETHER TO INCLUDE INTEL PL REVIEW MEETING OR OMIT SECTION*\\
         \textbf{Agency: Intel} \\  
         \textbf{POC:}  \\
         \textbf{Date:} \\
@@ -177,7 +190,7 @@ By conducting a thorough benchmarking analysis, this report aims to provide valu
         \textit{[Repeat per engagement]} 
 
     \section{Next Steps}
-        Talk about current progress and next steps. Mentioned issues faced and future challenges.
+        The project has made significant progress in various areas. The Sequential and Parallel BFS algorithm as well as the Sequentual Louvain algorithm have all been sucessfully implemented on a CPU architecture. Telemetry capabilities have been integrated to measure time, memory and power, providing valuable insights into algorithm performance. Additionally, the GPU and PiUMA architectures have been successfully configured remotely on the cloud, enabling us to run algorithms across all architectures. Finally, a dataset creation tool has been developed to produce graphs of various sizes resembling real-world datasets. Current setbacks include having delayed access to a Linux system to run the PiUMA SDV and benchmarking tools. Future anticipated challenges include identifying efficient implementations of subgraph matching and knowledge graph algorithms. Looking ahead, the project will focus on implementing and evaluating subgraph matching and knowledge graph algorithms. The telemetry capabilities will be expanded to include additional metrics and dimensions for a more comprehensive analysis. The dataset creation process will continue to evolve by incorporating more realistic and diverse data formats, structures, and characteristics. By advancing these aspects, the project is on track to deliver a comprehensive benchmarking study of multiple graph processing algorithms on CPU, GPU, and PiUMA architectures, ultimately contributing to HIVE's goal of increasing processing of streaming graphs at significantly higher speeds. 
     \section{References}
         \printbibliography[heading=none]
 
