@@ -1,0 +1,71 @@
+// THINGS TO KNOW. 
+
+// This code creates a graph dataset using an adjacency matrix representation. 
+// You can modify the numVertices variable to adjust the number of vertices in the graph. 
+// The addEdge function allows you to specify the connections between vertices by adding edges. 
+// Finally, the printGraph function prints the adjacency matrix representation of the graph.
+
+// You can compile and run this code to generate a graph dataset that can be used for testing subgraph matching algorithms. 
+// Feel free to modify the code according to your specific requirements and graph structures.
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_VERTICES 100
+
+// Graph structure
+typedef struct {
+    int numVertices;
+    int adjacencyMatrix[MAX_VERTICES][MAX_VERTICES];
+} Graph;
+
+// Initialize an empty graph
+void initGraph(Graph* graph, int numVertices) {
+    graph->numVertices = numVertices;
+
+    for (int i = 0; i < numVertices; i++) {
+        for (int j = 0; j < numVertices; j++) {
+            graph->adjacencyMatrix[i][j] = 0;
+        }
+    }
+}
+
+// Add an edge between two vertices
+void addEdge(Graph* graph, int src, int dest) {
+    graph->adjacencyMatrix[src][dest] = 1;
+    graph->adjacencyMatrix[dest][src] = 1;
+}
+
+// Print the graph
+void printGraph(Graph* graph) {
+    printf("Graph:\n");
+    for (int i = 0; i < graph->numVertices; i++) {
+        for (int j = 0; j < graph->numVertices; j++) {
+            printf("%d ", graph->adjacencyMatrix[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    // Create a graph
+    Graph graph;
+    int numVertices = 6;  // Adjust the number of vertices as needed
+
+    initGraph(&graph, numVertices);
+
+    // Add edges between vertices
+    addEdge(&graph, 0, 1);
+    addEdge(&graph, 0, 2);
+    addEdge(&graph, 1, 2);
+    addEdge(&graph, 1, 3);
+    addEdge(&graph, 2, 4);
+    addEdge(&graph, 3, 4);
+    addEdge(&graph, 3, 5);
+
+    // Print the graph
+    printGraph(&graph);
+
+    return 0;
+}
