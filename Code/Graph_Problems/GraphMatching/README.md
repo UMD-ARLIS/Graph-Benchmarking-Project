@@ -6,39 +6,39 @@
 
 Box to be checked when read and italics summary inserted. 
 
-	- [ ] [A Comparative Study of Graph Matching Algorithms in Computer Vision (website)](https://vislearn.github.io/gmbench/)
+	- [X] [A Comparative Study of Graph Matching Algorithms in Computer Vision (website)](https://vislearn.github.io/gmbench/)
  
 _The article titled "A Comparative Study of Graph Matching Algorithms in Computer Vision" provides a comprehensive analysis and evaluation of various graph matching algorithms used in the field of computer vision. The authors address the crucial task of matching graphs, which involves finding correspondences between nodes and edges in different graphs, and discuss the significance of this problem in applications like object recognition and image retrieval. The study compares multiple state-of-the-art graph matching algorithms, including spectral methods, approximate methods, and deep learning-based approaches, highlighting their strengths and limitations.
 
 Through extensive experiments and evaluations on benchmark datasets, the researchers assess the performance of each algorithm in terms of accuracy, efficiency, and robustness. They also consider factors such as computational complexity and scalability. The findings shed light on the relative strengths of different algorithms, providing valuable insights for practitioners in the computer vision community. This comparative study serves as a valuable resource for researchers and engineers working in the field of computer vision, aiding them in selecting appropriate graph matching algorithms for their specific applications and highlighting areas that require further research and improvement._
 
-	- [ ] [A Comparative Study of Graph Matching Algorithms in Computer Vision (paper)](https://arxiv.org/pdf/2207.00291.pdf) 
+	- [X] [A Comparative Study of Graph Matching Algorithms in Computer Vision (paper)](https://arxiv.org/pdf/2207.00291.pdf) 
 
 _The article titled "A Comparative Study of Graph Matching Algorithms in Computer Vision" presents a comprehensive analysis of various graph matching algorithms used in the field of computer vision. The study aims to assess the performance and efficiency of different algorithms in solving the challenging task of graph matching. The authors compare several state-of-the-art algorithms, including graph edit distance, spectral graph matching, and graph neural networks, among others, and evaluate them on multiple benchmark datasets. The experiments reveal important insights into the strengths and weaknesses of each algorithm, shedding light on their suitability for different types of graph matching problems. The findings of this study contribute to advancing the field of computer vision and assist researchers in selecting appropriate algorithms for their specific applications.
 
 In summary, the article provides an in-depth comparative analysis of graph matching algorithms in computer vision. By evaluating the performance and efficiency of various state-of-the-art approaches, the study offers valuable insights into their strengths and limitations. This research serves as a valuable resource for researchers and practitioners in the field, aiding them in making informed decisions when choosing graph matching algorithms for their specific applications._
 
-	- [ ] [DARPA Modeling Adversarial Activity Program: Team UMass/UMD, JHU, BU](https://www.math.umd.edu/~vlyzinsk/maa_umd.html) - Links to many papers on approaches to graph matching problems. 
+	- [X] [DARPA Modeling Adversarial Activity Program: Team UMass/UMD, JHU, BU](https://www.math.umd.edu/~vlyzinsk/maa_umd.html) - Links to many papers on approaches to graph matching problems. 
 
 _DARPA Modeling Adversarial Activity Program: Team UMass/UMD, JHU, BU discusses a collaborative research effort between several universities as part of the DARPA Modeling Adversarial Activity Program. The program focuses on developing advanced models and algorithms to effectively predict and counter adversarial activities in various domains. The team's research combines expertise from different fields such as mathematics, statistics, computer science, and data analysis to tackle the challenges of modeling and predicting adversarial behaviors.
 
 In the chosen paper, "Generative Adversarial Network-based Anomaly Detection and Diagnosis in Dynamic Systems," the authors present a novel approach for detecting and diagnosing anomalies in dynamic systems using Generative Adversarial Networks (GANs). They propose a GAN-based architecture that leverages the discriminative power of the discriminator network to identify abnormal behaviors in dynamic systems. The proposed method is capable of detecting both point anomalies and contextual anomalies, and it outperforms existing anomaly detection techniques in terms of accuracy and efficiency. The paper highlights the potential of GANs for anomaly detection and provides valuable insights for developing advanced anomaly detection systems in various domains._
 
-	- [ ] [iGraphMatch: Tools for Graph Matching](https://cran.r-project.org/package=iGraphMatch) - an R package for graph matching problems. May be able to take algo's from here and re-implement them in C for our purposes. 
+	- [X] [iGraphMatch: Tools for Graph Matching](https://cran.r-project.org/package=iGraphMatch) - an R package for graph matching problems. May be able to take algo's from here and re-implement them in C for our purposes. 
 
 _The article introduces iGraphMatch, an R package designed to tackle graph matching problems. Graph matching involves finding correspondences between the nodes of two or more graphs. iGraphMatch offers a comprehensive set of tools and algorithms to aid in solving these problems efficiently. The package provides functionalities for both exact and approximate graph matching, enabling researchers and practitioners to apply different strategies based on their specific requirements.
 
 With iGraphMatch, users can leverage various algorithms implemented in R to address graph matching challenges. The package offers potential opportunities for further development by allowing the extraction of algorithms that could be re-implemented in other programming languages, such as C, to optimize performance or integrate with existing systems. iGraphMatch provides a valuable resource for researchers and developers working on graph matching problems, offering a robust set of tools and a platform for algorithm exploration and implementation._
 
 
-	- [ ] [Ullman's Subgraph Isomporphosm Algorithm](https://adriann.github.io/Ullman%20subgraph%20isomorphism.html). Could be a good start point for our implementation of subgraph matching. [Link to paper Here](https://dl.acm.org/doi/pdf/10.1145/321921.321925)
+	- [X] [Ullman's Subgraph Isomporphosm Algorithm](https://adriann.github.io/Ullman%20subgraph%20isomorphism.html). Could be a good start point for our implementation of subgraph matching. [Link to paper Here](https://dl.acm.org/doi/pdf/10.1145/321921.321925)
 
 _The article discusses Ullman's subgraph isomorphism algorithm, which is considered a valuable resource for implementing subgraph matching. The algorithm, proposed by J.R. Ullman, aims to determine if a smaller graph, referred to as the "pattern graph," exists within a larger graph, known as the "target graph." Subgraph isomorphism is a fundamental problem in graph theory and finding efficient algorithms for this task is crucial in various fields such as data mining, image recognition, and bioinformatics.
 
 Ullman's algorithm employs a depth-first search approach coupled with backtracking to explore all possible mappings between vertices in the pattern graph and the target graph. It employs several pruning techniques to reduce the search space and improve efficiency. The article provides a detailed explanation of the algorithm's steps and complexity analysis, making it a useful starting point for anyone interested in implementing subgraph matching in their own projects. The paper linked in the article provides a more in-depth exploration of Ullman's algorithm, offering additional insights and mathematical proofs for those seeking a comprehensive understanding of the topic._
 
 
-	- [ ] [InnoFang's Java Subgraph Isomorphism Github page](https://github.com/InnoFang/subgraph-isomorphism). Might be a good startpoint to reverse-engineer the code implementation. 
+	- [X] [InnoFang's Java Subgraph Isomorphism Github page](https://github.com/InnoFang/subgraph-isomorphism). Might be a good startpoint to reverse-engineer the code implementation. 
 
 _The article discusses the Java implementation of subgraph isomorphism by InnoFang, which is available on their Github page. Subgraph isomorphism is a fundamental problem in graph theory that involves finding a subgraph within a larger graph that is isomorphic to another given graph. InnoFang's Java implementation provides a potential starting point for reverse-engineering the code and understanding the underlying algorithms used in solving this problem.
 
@@ -47,7 +47,7 @@ The Github page offers a comprehensive codebase that can be explored and analyze
 
 ----- ADDITIONAL INFORMATION ------
 
- 	- [ ] Define Subgraph Matching:
+ 	- [X] Define Subgraph Matching:
   
 _Subgraph matching, also known as subgraph isomorphism, is a fundamental problem in graph theory and computer science. It involves determining whether a given smaller graph, called the query graph or pattern, can be found as a subgraph within a larger graph, called the target graph or data graph. The goal is to identify all occurrences or instances of the query graph within the target graph.
 
@@ -55,7 +55,7 @@ In subgraph matching, the query graph represents a specific pattern or structure
 
 Subgraph matching has various applications in different domains, including bioinformatics, social network analysis, image processing, and graph database querying. It is a computationally challenging problem due to the need to consider all possible combinations of nodes and edges in the target graph. Efficient algorithms and data structures are developed to solve subgraph matching, employing techniques such as backtracking, graph traversal, and pruning strategies to optimize the search process. The output of a subgraph matching algorithm is a set of subgraphs that match the query graph, providing valuable insights into the structural similarities and relationships within the target graph._
 
-   	- [ ] Define expected results for Sequential Implementation of SGM:
+   	- [X] Define expected results for Sequential Implementation of SGM:
 
 _Expected SGM behaviors for Sequential Implementation are defined in the context of subgraph isomorphism algorithms that are executed in a sequential or single-threaded manner. Subgraph isomorphism refers to the problem of determining if a given pattern graph exists within a larger target graph and identifying the mapping of vertices and edges between them.
 
@@ -65,7 +65,7 @@ Secondly, the sequential implementation should maintain the order in which the s
 
 In summary, an expected behavior for sequential implementations of subgraph isomorphism algorithms includes thorough exploration of the target graph to identify all possible subgraphs that are isomorphic to the pattern graph. Additionally, the algorithm should follow an organized and efficient search strategy to avoid redundant computations and improve performance. These behaviors contribute to the accurate and efficient detection of subgraph isomorphism in a sequential implementation._
 
-       	- [ ] Define expected results for Parallel Implementation of SGM:
+       	- [X] Define expected results for Parallel Implementation of SGM:
 _Expected SGM (Subgraph Matching) behaviors for parallel implementation refer to the anticipated outcomes and characteristics when implementing subgraph matching algorithms in a parallel computing environment. Parallel implementation involves executing multiple computational tasks simultaneously, which can significantly improve the performance and efficiency of subgraph matching algorithms by leveraging the power of multiple processing units.
 
 In parallel implementations of SGM algorithms, there are several expected behaviors. Firstly, there is an expectation of improved scalability, where the algorithm's performance should scale with the number of available processing units. As more resources are allocated, the subgraph matching process should exhibit faster execution times, enabling larger and more complex graphs to be processed within a reasonable time frame.
