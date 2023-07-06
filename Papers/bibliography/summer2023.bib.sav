@@ -743,4 +743,14 @@ abstract={This paper describes extensions to Rice University's HPCToolkit perfor
   url          = {https://www.bellingcat.com/news/uk-and-europe/2020/10/22/russian-vehicle-registration-leak-reveals-additional-gru-hackers/},
 }
 
+@article{zhu2016computing,
+  title={Computing semantic similarity of concepts in knowledge graphs},
+  author={Zhu, Ganggao and Iglesias, Carlos A},
+  journal={IEEE Transactions on Knowledge and Data Engineering},
+  volume={29},
+  number={1},
+  pages={72--85},
+  year={2016},
+  publisher={IEEE}
+}
 @Comment{jabref-meta: databaseType:bibtex;}
