@@ -85,7 +85,7 @@ Graph analytics has emerged as a critical tool for intelligence and security app
             \label{fig:callRecords}
         \end{figure*}
         
-        Because of their powerful ability to model and query social interactions of intelligence interest, graphs are used extensively across the intelligence community to store and analyze important pieces of data. \osullikomment{We can probaby get rid of this now that we have the other examples in there: For example, a social network analysis of our above $PhoneCalls$ graph could model the relationships between individuals. In cyber security, graphs are used to to model networks, systems, and data flows, and in infrastructure protection, they are used in modeling and analyzing critical infrastructure networks, such as transportation systems, power grids, or communication networks.}
+        Because of their powerful ability to model and query social interactions of intelligence interest, graphs are used extensively across the intelligence community to store and analyze important pieces of data. 
 
         Graph analysis is implemented through algorithms and techniques specifically designed to process and analyze graph data. 
         These algorithms traverse, explore, and extract insights from the interconnected nodes and edges of the graph. By identifying hidden patterns, facilitating decision-making, and enhancing situational awareness, graph analysis contributes to the overall security and defense efforts of a nation. 
@@ -210,7 +210,57 @@ Graph analytics has emerged as a critical tool for intelligence and security app
         \end{table*}
         \normalsize
 
+    \subsection{Algorithms}\label{section:algorithms}
+    To meet the goals of HIVE, we plan to focus benchmarking and evaluation efforts on three different graph processing algorithms, approaching the problem 'depth first':
+    \newline
+    
+        \textbf{Subtask 1} Community Detection
         
+        \textbf{Subtask 2} Subgraph Matching
+        
+        \textbf{Subtask 3} Knowledge Graphs
+
+
+        %What is an example of the intelligence problem we're dealing with e.g. we have a bunch of call data records
+%We want to ask a question - e.g. who else is affiliated with some known bad influences
+%We can represent CDRs as a graph, and use a community detection algo to find that answer
+%We use community detection algo of Louvian because of X, Y, Z reasons (and cite the paper)
+%The current limitation of the Louvian algo is X, which we will measure using Y to determine its impact
+        \subsubsection{Community Detection}\label{section:communityDetection}
+            In the intelligence community, community detection is widely used for identifying communities or groups within larger networks. 
+            Say we are addressing a problem that involves analyzing a large set of call data records (CDRs) to identify potential associations with known bad influences. 
+            To answer the question of who else may be affiliated with these influences, we can represent the CDRs as a graph and apply a community detection algorithm \cite{Truicua2018}. 
+            One suitable algorithm for this task is the Louvain Algorithm \cite{Blondel2008}, widely recognized for its effectiveness in identifying communities in complex networks. 
+            The Louvain Algorithm is based on modularity optimization, which aims to enhance the density of links within communities and promote a cohesive community structure. 
+            Its application in social network analysis and cybersecurity has proven valuable, enabling the detection of potential threats such as terrorist networks or malicious communities and botnets. The algorithm's capabilities make it well-suited for handling large-scale and dynamic networks, such as the one represented by the CDRs. In regards to our team's current benchmarking goals, we consider the community detection deliverable complete once we have clearly outlined the Louvain Algorithm's expected behaviors, implemented a parallel and sequentional version across CPU, GPU, and PiUMA architectures, and evaluated its performance with defined metrics across small, medium, and large datasets. 
+            
+        \subsubsection{Subgraph Matching}\label{section:subgraphMatching}
+            In the context of intelligence analysis, subgraph matching plays a crucial role in uncovering hidden relationships within complex networks. 
+            It is a graph matching problem where the goal is to find occurrences of a smaller graph (subgraph) within a larger graph (target graph). 
+            By identifying subgraphs that match specific patterns or structures, it could potentially reveal relationships between entities, which can be valuable for intelligence analysis and decision-making. 
+            For instance, we can consider the scenario of investigating a social network to detect potential criminal networks involved in money laundering \cite{Soltani2016}. 
+            By representing the social network as a graph where each node represents an individual, subgraph matching algorithms can be used to search for patterns indicative of money laundering activites. 
+            The algorithm would search for subgraphs that exhibit specific characteristics, such as a set of nodes representing individuals connected in a particular way, along with associated attributes like financial transactions, locations, and timestamps. 
+            Subgraph matching algorithms tailored to this specific problem can help identify clusters of nodes within the social network that exhibit similar patterns, revealing potential connections among individuals involved in illegal financial activities. 
+            \osullikomment{Morein - if you've got more to add on the algorithmic side here please add it in}
+            Some suitable algorithms include graph isomorphism, network motif mining, and graph pattern matching. 
+            The graph isomorphism algorithm \cite{Babai2016} checks for exact matches between the subgraph and target graph which can be useful to identify identical patterns of activity. 
+            The network motif mining algorithm \cite{Oliver2022}focuses on discovering frequently occurring subgraphs within the larger graph, which can reveal recurring structures or relationships among individuals. 
+            The graph pattern matching algorithm \cite{Cheng2008} allows for specification of complex patterns which can be used to specific patterns such as cycles or cliques in money laundering activities. 
+            There are many constraints to consider when deciding on an algorithm as each approach is driven by the intelligence problem to be solved. 
+            We are currently focused on defining the expected behaviors and characteristics of subgraph matching algorithms. 
+            \osullikomment{@Morein - did you come across standard measures in your reading?}
+
+
+        \subsubsection{Knowledge Graphs}\label{section:knowledgeGraphs}
+            Knowledge graph algorithms are designed to extract meaningful insights and uncover relationships within knowledge graphs, which represent information in a structured and interconnected manner.
+            Common knowledge graph algorithms include entity linking and disambiguation, which connect entities within the graph to external knowledge bases. 
+            Additionally, they include semantic similarity measures to determine the relatedness of entities based on their attributes.
+            For example, consider the intelligence problem of intelligence analysis in counterterrorism efforts. 
+            A knowledge graph can represent entities such as individuals, organizations, locations, and events, along with their relationships. 
+            Entity linking and disambiguation algorithms can connect the entities within the knowledge graph to external databases such as watchlists or criminal records, aiding in the identification and tracking of potential terrorist networks \cite{Xia2019}. 
+            Semantic similarity measures can assess the relatedness of individuals based on their attributes, enabling the identification of potential associates or shared characteristics among suspects. Current semantic similarity methods include  measuring the structure of the semantic network between concepts, focusing on path length and depth, while others focus on the Information Content (IC) of concepts. IC is a measure of specificity where higher values are associated with more specific concepts and lower values are associated with more general ideas \cite{Zhu2016}. In order to effectively benchmark knowledge graph analytics, further investigation and evaluation of these operations are necessary to establish standard metrics and performance evaluations across different architectures and technologies.
+            
     \section{Project Timeline}\label{section:timeline}
         \begin{center}
             \begin{tabular}{c|c|c}
@@ -226,69 +276,22 @@ Graph analytics has emerged as a critical tool for intelligence and security app
         \end{center}
         
     \section{Methodology}\label{section:methodology}
-    To meet the goals of HIVE, we plan to focus benchmarking and evaluation efforts on three different graph processing algorithms, approaching the problem 'depth first':
-    \newline
+    Add info for this section: "here's what we are doing about it"
+    Reference High level diagram.
+
+    \begin{figure*}
+            \centering
+            \includegraphics[width=\columnwidth]{Papers/ARLIS_MPR_MN/Figures/high_level_overview.png}
+            \caption{A Notional $CallRecords$ graph has phone numbers as the $Vertexes$ (or $nodes$) as phone numbers and the calls between those numbers as $Edges$. If the analyst knows the phone number of a person of interest (in red) they can use graph analytics to address intelligence requirements about the community the POI is involved with, where call patterns correlate with events or what possible multi-hop information flows could be.}
+            \label{fig:callRecords}
+        \end{figure*}
+
     
-        \textbf{Subtask 1} Community Detection
-        
-        \textbf{Subtask 2} Subgraph Matching
-        
-        \textbf{Subtask 3} Knowledge Graphs
-
-            \osullikomment{I think we restructure these to be: Sample problem, question we ask, how thats a graph, what algorithm works for it, what the limitation is}
-        %What is an example of the intelligence problem we're dealing with e.g. we have a bunch of call data records
-%We want to ask a question - e.g. who else is affiliated with some known bad influences
-%We can represent CDRs as a graph, and use a community detection algo to find that answer
-%We use community detection algo of Louvian because of X, Y, Z reasons (and cite the paper)
-%The current limitation of the Louvian algo is X, which we will measure using Y to determine its impact
-        \subsection{Community Detection}\label{section:communityDetection}
-            In the intelligence community, community detection is widely used for identifying communities or groups within larger networks. 
-            Say we are addressing a problem that involves analyzing a large set of call data records (CDRs) to identify potential associations with known bad influences. 
-            To answer the question of who else may be affiliated with these influences, we can represent the CDRs as a graph and apply a community detection algorithm \cite{Truicua2018}. 
-            One suitable algorithm for this task is the Louvain Algorithm \cite{Blondel2008}, widely recognized for its effectiveness in identifying communities in complex networks. 
-            The Louvain Algorithm is based on modularity optimization, which aims to enhance the density of links within communities and promote a cohesive community structure. 
-            Its application in social network analysis and cybersecurity has proven valuable, enabling the detection of potential threats such as terrorist networks or malicious communities and botnets. 
-            The algorithm's capabilities make it well-suited for handling large-scale and dynamic networks, such as the one represented by the CDRs. However, it is essential to acknowledge current limitations of the Louvain Algorithm. 
-            \osullikomment{How will we be measuring these things? If you don't have specific metrics and methods in mind you can kill this part:
-            To assess its impact and performance, we will measure specific aspects such as its computational efficiency, scalability, and accuracy. 
-            By measuring the algorithm's limitations using appropriate metrics, such as execution time and memory usage, we can determine its suitability for our intelligence problem and explore potential enhancements or alternative approaches to address the identified shortcomings.} \nandirComment{I'm not familiar with the specific metrics yet so we can kill this}
-            In regards to our team's current benchmarking goals, we consider the community detection deliverable complete once we have clearly outlined the Louvain Algorithm's expected behaviors, implemented a parallel and sequentional version across CPU, GPU, and PiUMA architectures, and evaluated its performance with defined metrics across small, medium, and large datasets. \osullikomment{Maybe we make this last sentence here a bit more of a definition of done. I.e. I think we're done with this when we have Sequential and Parallel Implementations across CPU, GPU and PiUMA, along with some datasets and defined metrics.} \nandirComment{that sound better? the metrics specifically haven't been defined yet so not sure how to approach that territory}
-            
-        \subsection{Subgraph Matching}\label{section:subgraphMatching}
-            In the context of intelligence analysis, subgraph matching plays a crucial role in uncovering hidden relationships within complex networks. 
-            It is a graph matching problem where the goal is to find occurrences of a smaller graph (subgraph) within a larger graph (target graph). 
-            By identifying subgraphs that match specific patterns or structures, it could potentially reveal relationships between entities, which can be valuable for intelligence analysis and decision-making. 
-            For instance, we can consider the scenario of investigating a social network to detect potential criminal networks involved in money laundering \cite{Soltani2016}. 
-            By representing the social network as a graph where each node represents an individual, subgraph matching algorithms can be used to search for patterns indicative of money laundering activites. 
-            The algorithm would search for subgraphs that exhibit specific characteristics, such as a set of nodes representing individuals connected in a particular way, along with associated attributes like financial transactions, locations, and timestamps. 
-            Subgraph matching algorithms tailored to this specific problem can help identify clusters of nodes within the social network that exhibit similar patterns, revealing potential connections among individuals involved in illegal financial activities. 
-            \osullikomment{Morein - if you've got more to add on the algorithmic side here please add it in}
-            Some suitable algorithms include graph isomorphism, network motif mining, and graph pattern matching. 
-            The graph isomorphism algorithm \cite{Babai2016} checks for exact matches between the subgraph and target graph which can be useful to identify identical patterns of activity. 
-            The network motif mining algorithm \cite{Oliver2022}focuses on discovering frequently occurring subgraphs within the larger graph, which can reveal recurring structures or relationships among individuals. 
-            The graph pattern matching algorithm \cite{Cheng2008} allows for specification of complex patterns which can be used to specific patterns such as cycles or cliques in money laundering activities. 
-            There are many constraints to consider when deciding on an algorithm as each approach is driven by the intelligence problem to be solved. 
-            We are currently focused on defining the expected behaviors and characteristics of subgraph matching algorithms. 
-            \osullikomment{Kill if we don't have actual metrics and methods. @Morein - did you come across standard measures in your reading?}
-            This includes evaluating their efficiency, scalability, and accuracy in handling large-scale and dynamic networks. 
-
-        \subsection{Knowledge Graphs}\label{section:knowledgeGraphs}
-            Knowledge graph algorithms are designed to extract meaningful insights and uncover relationships within knowledge graphs, which represent information in a structured and interconnected manner.
-            Common knowledge graph algorithms include entity linking and disambiguation, which connect entities within the graph to external knowledge bases. 
-            Additionally, they include semantic similarity measures to determine the relatedness of entities based on their attributes.
-            For example, consider the intelligence problem of intelligence analysis in counterterrorism efforts. 
-            A knowledge graph can represent entities such as individuals, organizations, locations, and events, along with their relationships. 
-            Entity linking and disambiguation algorithms can connect the entities within the knowledge graph to external databases such as watchlists or criminal records, aiding in the identification and tracking of potential terrorist networks \cite{Xia2019}. 
-            \osullikomment{What are the semantic similarity metrics specifically?}
-            Semantic similarity measures can assess the relatedness of individuals based on their attributes, enabling the identification of potential associates or shared characteristics among suspects. Current semantic similarity methods include  measuring the structure of the semantic network between concepts, focusing on path length and depth, while others focus on the Information Content (IC) of concepts. IC is a measure of specificity where higher values are associated with more specific concepts and lower values are associated with more general ideas \cite{Zhu2016}. In order to effectively benchmark knowledge graph analytics, further investigation and evaluation of these operations are necessary to establish standard metrics and performance evaluations across different architectures and technologies.
-            
     \section{Dataset Creation Tool}\label{section:datasetCreation}
-        To conduct our initial benchmark testing, we recognized the need to provide a tool for generating graphs with a specific number of nodes and edges.
-        \osullikomment{Need to synch this up with the lit review - in general terms, the strong opinion is that we should try and use real data. We may have to retire the dataset generator after the testing phase} \osullikomment{Kent academic writing tip \#1. ctrl+f for the word "this" and replace it with what you really mean. Helps to force the use of active voice and also makes your writing clearer.}. We developed a dataset generator program which takes three command-line arguments: the number of nodes in the graph, the number of edges, and a random seed. This approach involved using synthetic graphs to create a basic collection of test datasets in order to begin evaluating performance of graph algorithms. \osullikomment{That's overstating the algorithm a bit. Our dataset generator creates random datasets in a reproducible manner and is a good tool for initial testing, but probably won't make it to our benchmarking suite} The dataset generator creates random datasets in a reproducible manner, yet its use will be absolved once we develop a more robust benchmarking suite. Future improvements to this creation tool involve curating custom datasets that reflect the structure and properties of real-world social networks, considering metrics such as cluster coefficient, assortativity, and distribution fit. 
+        To conduct our initial benchmark testing, we recognized the need to provide a tool for generating graphs with a specific number of nodes and edges. We developed a dataset generator program which takes three command-line arguments: the number of nodes in the graph, the number of edges, and a random seed. The dataset generator creates random datasets in a reproducible manner, serving as a basic introductory collection of test sets, yet its use will be absolved once we develop a more robust benchmarking suite. Future improvements to this creation tool involve curating custom datasets that reflect the structure and properties of real-world social networks, considering metrics such as cluster coefficient, assortativity, and distribution fit. 
         Additionally, scale-free graphs have been identified as a valuable model for capturing characteristics of complex networks observed in domains such as social, biological, and technical networks \cite{Newman2003}. The pioneering work \cite{Barabasi1999} introduced the concept of scale-free networks, where the degree distribution follows a power-law distribution. Scale-free graphs adopt a preferential attachment mechanism \cite{Rak2020}where a few nodes, known as "hubs", have a significantly higher number of connections compared to the majority of nodes in the network as new nodes have the tendency to connect with already well connected nodes. We acknowledge that relying solely on synthetic graph generation may not fully capture the complex nature of real world networks. To address this limitation, we are also exploring integration of real world data sets, following the example of the GAP Benchmark \cite{Beamer2017}.
         
     \section{Telemetry Tools}\label{section:telemetry}
-        \osullikomment{Add HPCToolkit; see if we can address specifically to the measurement of Time, Memory and Power. }
         Utilizing a standardized set of tools in order to evaluate algorithmic performance on multiple architectures is critical in attaining precise benchmarking results. As mentioned in Section \ref{section:metrics}, we need to identify a standard to count the traversed edges per second, measure total execution time, measure spatial locality, measure temporal locality and measure power consumption given each of these other views. Additionally, for parallel implementations, we need to measure network latency as data is passed back and forth between the workers. We are experimenting with basic utilities such as PERF \footnote{\href{https://perf.wiki.kernel.org/index.php/Main_Page}{https://perf.wiki.kernel.org/index.php/Main_Page}}, OPROFILE \footnote{\href{https://oprofile.sourceforge.io/about/}{https://oprofile.sourceforge.io/about/}}, and GNU PROF \footnote{\href{http://web.archive.org/web/20141129061523/http://www.cs.utah.edu/dept/old/texinfo/as/gprof.html#SEC2}{http://web.archive.org/web/20141129061523/http://www.cs.utah.edu/dept/old/texinfo/as/gprof.html#SEC2}}as well as more robust application systems such as HPC Toolkit \footnote{\href{http://hpctoolkit.org/}{http://hpctoolkit.org/}}, VALGRIND \footnote{\href{https://valgrind.org/docs/manual/quick-start.html}{https://valgrind.org/docs/manual/quick-start.html}}, and Intel VTUNE Profiler\footnote{\href{https://www.intel.com/content/www/us/en/developer/tools/oneapi/vtune-profiler.html#gs.11c0nr}{https://www.intel.com/content/www/us/en/developer/tools/oneapi/vtune-profiler.html#gs.11c0nr}}. The tools outlined above will enable us to capture the necessary benchmarking information, relying on an AWS EC2 instance to run the telemetry on an Ubuntu system. We are also simultaneously considering adopting a CENTOS system to run on an EC2 Metal instance as it appears to be a more suitable environment for running the PiUMA simulator.
        
     \section{Interfacing with Clients and Customers}\label{section:stakeholders}  
