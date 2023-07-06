@@ -276,14 +276,13 @@ Graph analytics has emerged as a critical tool for intelligence and security app
         \end{center}
         
     \section{Methodology}\label{section:methodology}
-    Add info for this section: "here's what we are doing about it"
-    Reference High level diagram.
+    Referencing Figure \ref{fig:highLevelOverview}, we are currently in the process of defining expected behaviors for our reference implementations. We have set up infrastructure to run experiments on CPU and GPU architectures and are working next on configuring the PiUMA system. Regarding benchmarking datasets, we have developed a dataset generator for initial testing, but are currently researching the adoption of 'real-world' datasets for more robust testing in the future. Additionally, we are building up a benchmarking suite consisting of a collection of profiling tools to run experiments on the selected architectures. 
 
     \begin{figure*}
             \centering
             \includegraphics[width=\columnwidth]{Papers/ARLIS_MPR_MN/Figures/high_level_overview.png}
-            \caption{A Notional $CallRecords$ graph has phone numbers as the $Vertexes$ (or $nodes$) as phone numbers and the calls between those numbers as $Edges$. If the analyst knows the phone number of a person of interest (in red) they can use graph analytics to address intelligence requirements about the community the POI is involved with, where call patterns correlate with events or what possible multi-hop information flows could be.}
-            \label{fig:callRecords}
+            \caption{A high level schematic diagram of the project framework, tasks, and deliverables}
+            \label{fig:highLevelOverview}
         \end{figure*}
 
     
