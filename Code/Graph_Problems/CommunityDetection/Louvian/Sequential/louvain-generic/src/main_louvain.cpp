@@ -35,6 +35,8 @@
 #include "louvain.h"
 #include <unistd.h>
 
+#include <time.h>                      //Added by osullik for Milisecond Telemetry
+
 #include "modularity.h"
 #include "zahn.h"
 #include "owzad.h"
@@ -49,6 +51,7 @@
 
 using namespace std;
 
+struct timespec start_time, end_time;  //Added by osullik for milisecond Telemetry
 
 char *filename = NULL;
 char *filename_w = NULL;
@@ -245,6 +248,10 @@ main(int argc, char **argv) {
   srand(time(NULL)+getpid());
   
   parse_args(argc, argv);
+
+  cerr << "Starting Timer" << endl;     // Added by osullik for ETL Telemetry
+  clock_gettime(CLOCK_MONOTONIC_RAW, &start_time);
+
   
   time_t time_begin, time_end;
   time(&time_begin);
@@ -314,7 +321,17 @@ main(int argc, char **argv) {
     display_time("End");
     cerr << "Total duration: " << (time_end-time_begin) << " sec" << endl;
   }
-  cerr << new_qual << endl;
+
+  cerr << "Modularity: " << new_qual << endl;                 // Modified by osullink to specify "modularity"
+
+  clock_gettime(CLOCK_MONOTONIC_RAW, &end_time);              // Added by osullik for ETL Telemetry
+
+  uint64_t delta_s = (end_time.tv_sec - start_time.tv_sec);    // Added by osullik for ETL Telemetry
+  uint64_t delta_us = (end_time.tv_sec - start_time.tv_sec) * 1000000 + (end_time.tv_nsec - start_time.tv_nsec) / 1000;  // Added by osullik for ETL Telemetry
+
+  cerr << "Total duration: " << (delta_us) << " ms" << endl;   // Added by osullik for ETL Telemetry
+  cerr << "Total duration: " << (delta_s) << " s" << endl;     // Added by osullik for ETL Telemetry
+
   
   delete q;
 }
