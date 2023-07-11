@@ -37,6 +37,8 @@
 
 #include <time.h>                      //Added by osullik for Milisecond Telemetry
 
+
+
 #include "modularity.h"
 #include "zahn.h"
 #include "owzad.h"
@@ -326,8 +328,8 @@ main(int argc, char **argv) {
 
   clock_gettime(CLOCK_MONOTONIC_RAW, &end_time);              // Added by osullik for ETL Telemetry
 
-  uint64_t delta_s = (end_time.tv_sec - start_time.tv_sec);    // Added by osullik for ETL Telemetry
-  uint64_t delta_us = (end_time.tv_sec - start_time.tv_sec) * 1000000 + (end_time.tv_nsec - start_time.tv_nsec) / 1000;  // Added by osullik for ETL Telemetry
+  u_int64_t delta_s = (end_time.tv_sec - start_time.tv_sec);    // Added by osullik for ETL Telemetry
+  u_int64_t delta_us = (end_time.tv_sec - start_time.tv_sec) * 1000000 + (end_time.tv_nsec - start_time.tv_nsec) / 1000;  // Added by osullik for ETL Telemetry
 
   cerr << "Total duration: " << (delta_us) << " ms" << endl;   // Added by osullik for ETL Telemetry
   cerr << "Total duration: " << (delta_s) << " s" << endl;     // Added by osullik for ETL Telemetry
