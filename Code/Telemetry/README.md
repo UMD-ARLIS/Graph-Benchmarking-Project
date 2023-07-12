@@ -5,6 +5,52 @@ All files relating to the measurement of performance of each Graph Problem again
 ## Definitions of Metrics we will use, and methods to measure them. 
 Populate once we decide what to do
 
+### Timing
+**ETL Time** - Instrumented in the code by adding the following: 
+
+        //In the Preamble
+        #include <time.h>                      //Added by osullik for Milisecond Telemetry
+        struct timespec start_time, end_time;  //Added by osullik for milisecond Telemetry
+
+        //At the start of main: 
+        cerr << "Starting Timer" << endl;     // Added by osullik for ETL Telemetry
+        clock_gettime(CLOCK_MONOTONIC_RAW, &start_time);
+
+        //At the end of main: 
+        clock_gettime(CLOCK_MONOTONIC_RAW, &end_time);              // Added by osullik for ETL Telemetry
+        u_int64_t delta_s = (end_time.tv_sec - start_time.tv_sec);    // Added by osullik for ETL Telemetry
+        u_int64_t delta_us = (end_time.tv_sec - start_time.tv_sec) * 1000000 + (end_time.tv_nsec - start_time.tv_nsec) / 1000;  // Added by osullik for ETL Telemetry
+        cerr << "Total duration: " << (delta_us) << " ms" << endl;   // Added by osullik for ETL Telemetry
+        cerr << "Total duration: " << (delta_s) << " s" << endl;     // Added by osullik for ETL Telemetry
+
+**Execution Time** Instrumented in the code by adding the following: 
+
+        //In the Preamble
+        #include <time.h>                      //Added by osullik for Milisecond Telemetry
+        struct timespec start_time, end_time;  //Added by osullik for milisecond Telemetry
+
+        //At the start of main: 
+        cerr << "Starting Timer" << endl;     // Added by osullik for ETL Telemetry
+        clock_gettime(CLOCK_MONOTONIC_RAW, &start_time);
+
+        //At the end of main: 
+        clock_gettime(CLOCK_MONOTONIC_RAW, &end_time);              // Added by osullik for ETL Telemetry
+        u_int64_t delta_s = (end_time.tv_sec - start_time.tv_sec);    // Added by osullik for ETL Telemetry
+        u_int64_t delta_us = (end_time.tv_sec - start_time.tv_sec) * 1000000 + (end_time.tv_nsec - start_time.tv_nsec) / 1000;  // Added by osullik for ETL Telemetry
+        cerr << "Total duration: " << (delta_us) << " ms" << endl;   // Added by osullik for ETL Telemetry
+        cerr << "Total duration: " << (delta_s) << " s" << endl;     // Added by osullik for ETL Telemetry
+
+### Memory
+**Total Memory Usage**
+
+        sudo valgrind --log-file="valgrind.out" ./louvain graph.bin -l -1 -v -q id_qual; grep total valgrind.out | sed -E 's/.*: ([0-9,]+) allocs, ([0-9,]+) frees, ([0-9,]+) bytes allocated/\1 allocs\n\2 frees\n\3 bytes allocated/'
+
+**Peak memory Usage**
+
+        sudo valgrind --tool=massif --pages-as-heap=yes --massif-out-file=massif.out ./<exe name> ; grep mem_heap_B massif.out | sed -e 's/mem_heap_B=\(.*\)/\1/' | sort -g | tail -n 1
+
+
+
 **Performance** Measured in Giga Traversed Edges Per Second [Source: HIVE Workload Analysis Report pg 15](https://drive.google.com/file/d/1qM5POYo0vB9p-QKb88oNzzED2a7cJdW_/view?usp=drive_link)
 
 **Efficency** Measured in Giga Traversed Edges Per Second Per Watt [Source: HIVE Workload Analysis Report pg 15](https://drive.google.com/file/d/1qM5POYo0vB9p-QKb88oNzzED2a7cJdW_/view?usp=drive_link)
