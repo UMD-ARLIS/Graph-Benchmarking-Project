@@ -32,7 +32,7 @@ suitable for extremely large graphs or complex matching scenarios. In such cases
 
 
 
-Other algo's to consider if this fails to meet our requirements.
+Other algos to consider if this fails to meet our requirements.
 
 1. Ullmann algorithm: The Ullmann algorithm is a subgraph matching algorithm that uses backtracking and depth-first search to efficiently find all
    occurrences of a subraph in a larger target graph, considering both node and edge labels, while allowing for node and edge mappings to be
