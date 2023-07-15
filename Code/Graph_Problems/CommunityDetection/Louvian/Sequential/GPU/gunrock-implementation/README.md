@@ -54,5 +54,5 @@ cd gunrock
 
 ## Output
 
-The output should appear immediately. For the example above, check out [sample_output.txt]([https://link-url-here.org](https://github.com/osullik/summer2023/edit/main/Code/Graph_Problems/CommunityDetection/Louvian/Sequential/GPU/gunrock-implementation/README.md)https://github.com/osullik/summer2023/edit/main/Code/Graph_Problems/CommunityDetection/Louvian/Sequential/GPU/gunrock-implementation/sample_output.txt) to view detailed results
+The output should appear immediately. For the example above, check out [sample_output.txt](https://github.com/osullik/summer2023/edit/main/Code/Graph_Problems/CommunityDetection/Louvian/Sequential/GPU/gunrock-implementation/sample_output.txt)
 
