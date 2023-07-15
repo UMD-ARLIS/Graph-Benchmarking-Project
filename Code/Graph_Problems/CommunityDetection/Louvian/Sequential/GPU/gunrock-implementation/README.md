@@ -27,7 +27,7 @@ cd gunrock
     1. Use your own dataset (must be an market file .mtx)
     2. Use existing available datasets as instructed below:
 
-        Gunrock provides small and large datasets. You can familiarize yourself with them here: https://github.com/gunrock/gunrock/tree/master/dataset
+        Gunrock provides small and large datasets. You can familiarize yourself with them [here](https://github.com/gunrock/gunrock/tree/master/dataset)
 
 
           - For small datasets, simply the name of the .mtx file is needed  
@@ -54,5 +54,5 @@ cd gunrock
 
 ## Output
 
-The output should appear immediately. For the example above, check out sample_output.txt to view detailed results
+The output should appear immediately. For the example above, check out [sample_output.txt]([https://link-url-here.org](https://github.com/osullik/summer2023/edit/main/Code/Graph_Problems/CommunityDetection/Louvian/Sequential/GPU/gunrock-implementation/README.md)https://github.com/osullik/summer2023/edit/main/Code/Graph_Problems/CommunityDetection/Louvian/Sequential/GPU/gunrock-implementation/sample_output.txt) to view detailed results
 
