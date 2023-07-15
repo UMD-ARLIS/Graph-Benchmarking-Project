@@ -56,3 +56,5 @@ cd gunrock
 
 The output should appear immediately. For the example above, check out [sample_output.txt](https://github.com/osullik/summer2023/edit/main/Code/Graph_Problems/CommunityDetection/Louvian/Sequential/GPU/gunrock-implementation/sample_output.txt)
 
+## Proof using GPU Power
+![Screenshot 2023-07-15 at 10 06 29 AM](https://github.com/osullik/summer2023/assets/98720566/9e3a3087-e995-42f8-a269-3244492993dc)
