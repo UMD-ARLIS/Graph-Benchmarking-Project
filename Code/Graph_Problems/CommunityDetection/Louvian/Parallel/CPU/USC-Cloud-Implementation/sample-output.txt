@@ -1,0 +1,89 @@
+Begin: Thu Jul 20 16:54:10 2023
+0:level 0Begin: :
+  start computation: Thu Jul 20 16:54:10 2023
+  network size: 11Thu Jul 20 16:54:10 2023
+ nodes, 9 links, 9 weight.1:level 0:
+  start computation: 
+Thu Jul 20 16:54:10 2023
+  network size: 16 nodes, 18 links, 0:level 1:
+  start computation: 18 weight.Thu Jul 20 16:54:10 2023
+  network size: 9 nodes, 9
+ links, 9 weight.
+1:level 1:
+  start computation: Thu Jul 20 16:54:10 2023
+  network size: 13 nodes, 17 links, 18 weight.
+1:  **modularity increased from -0.351852 to -0.0185185
+Merge local done
+ Merge remote done
+ Comm done
+ new modularity 0.0342656
+level 1:
+  start computation: Thu Jul 20 16:54:10 2023
+  network size: 22 nodes, 34 links, 63 weight.
+  modularity increased from 0.0342656 to 1.17863
+end computation: Thu Jul 20 16:54:10 2023
+level in loop 2:
+  start computation: Thu Jul 20 16:54:10 2023
+  network size: 18 nodes, 19 links, 63 weight.
+  modularity increased from 1.17863 to 0.0153691
+end computation: Thu Jul 20 16:54:10 2023
+level in loop 3:
+  start computation: Thu Jul 20 16:54:10 2023
+  network size: 16 nodes, 17 links, 63 weight.
+  modularity increased from 0.0153691 to 0.0471151
+end computation: Thu Jul 20 16:54:10 2023
+level in loop 4:
+  start computation: Thu Jul 20 16:54:10 2023
+  network size: 14 nodes, 15 links, 63 weight.
+  modularity increased from 0.0471151 to 0.0788612
+end computation: Thu Jul 20 16:54:10 2023
+level in loop 5:
+  start computation: Thu Jul 20 16:54:10 2023
+  network size: 12 nodes, 13 links, 63 weight.
+  modularity increased from 0.0788612 to 0.110607
+end computation: Thu Jul 20 16:54:10 2023
+level in loop 6:
+  start computation: Thu Jul 20 16:54:10 2023
+  network size: 10 nodes, 11 links, 63 weight.
+  modularity increased from 0.110607 to 0.142353
+end computation: Thu Jul 20 16:54:10 2023
+level in loop 7:
+  start computation: Thu Jul 20 16:54:10 2023
+  network size: 8 nodes, 9 links, 63 weight.
+  modularity increased from 0.142353 to 0.142353
+end computation: Thu Jul 20 16:54:10 2023
+level in loop 8:
+  start computation: Thu Jul 20 16:54:10 2023
+  network size: 7 nodes, 8 links, 63 weight.
+  modularity increased from 0.142353 to 0.158226
+end computation: Thu Jul 20 16:54:10 2023
+level in loop 9:
+  start computation: Thu Jul 20 16:54:10 2023
+  network size: 6 nodes, 7 links, 63 weight.
+  modularity increased from 0.158226 to 0.174099
+end computation: Thu Jul 20 16:54:10 2023
+level in loop 10:
+  start computation: Thu Jul 20 16:54:10 2023
+  network size: 5 nodes, 6 links, 63 weight.
+  modularity increased from 0.174099 to 0.189972
+end computation: Thu Jul 20 16:54:10 2023
+level in loop 11:
+  start computation: Thu Jul 20 16:54:10 2023
+  network size: 4 nodes, 5 links, 63 weight.
+  modularity increased from 0.189972 to 0.205845
+end computation: Thu Jul 20 16:54:10 2023
+level in loop 12:
+  start computation: Thu Jul 20 16:54:10 2023
+  network size: 3 nodes, 4 links, 63 weight.
+  modularity increased from 0.205845 to 0.221718
+end computation: Thu Jul 20 16:54:10 2023
+level in loop 13:
+  start computation: Thu Jul 20 16:54:10 2023
+  network size: 2 nodes, 3 links, 63 weight.
+  modularity increased from 0.221718 to 0.205845
+end computation: Thu Jul 20 16:54:10 2023
+0.205845
+End: Thu Jul 20 16:54:10 2023
+End: Thu Jul 20 16:54:10 2023
+Total duration: 0 sec.
+Total duration: 0 sec.
