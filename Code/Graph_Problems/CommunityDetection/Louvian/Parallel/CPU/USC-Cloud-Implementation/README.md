@@ -81,7 +81,7 @@ Example:
 
 --- 
 ## Sample Output
-For this example, check out [sample-output.txt](https://github.com/osullik/summer2023/main/Code/Graph_Problems/CommunityDetection/Louvian/Parallel/CPU/UDC-Cloud-Implementation/sample-output.txt)  
+For this example, check out [sample-output.txt](https://github.com/osullik/summer2023/blob/main/Code/Graph_Problems/CommunityDetection/Louvian/Parallel/CPU/USC-Cloud-Implementation/sample-output.txt)
   
 ## Data Format
 This implementation uses the standard usnweighted METIS graph data format for input graphs. 
