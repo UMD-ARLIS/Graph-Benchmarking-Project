@@ -75,7 +75,7 @@ linewidth=2pt % Width of the border lines around content boxes
 %----------------------------------------------------------------------------------------
 %
 {\includegraphics[height=4em]{umd_logo.png}} % First university/lab logo on the left
-{\bf\textsc{SecretKeeping in Question Answering}\vspace{0.5em}} % Poster title
+{\bf\textsc{Project MN (HIVE) - Piuma Benchmarking}\vspace{0.5em}} % Poster title
 {\textsc{\{ Sakshum Kulshrestha, Ben Moskowitz, Kent O'Sullivan, Nate Rollings \& Ryan Van Voorhis \} \hspace{12pt} University of Maryland Department of Computer Science}} % Author names and institution
 
 
@@ -254,12 +254,12 @@ The main limitations to this method are:
 %	SYSTEM DESIGN
 %----------------------------------------------------------------------------------------
 
-\headerbox{3. System Design Approaches}{name=method,column=0,below=objectives,bottomaligned=conclusion}{ % This block's bottom aligns with the bottom of the conclusion block
+\headerbox{3. System Design Approaches}{name=method,column=0, span=2, below=objectives,bottomaligned=conclusion}{ % This block's bottom aligns with the bottom of the conclusion block
 
 \vspace{1em}
 \begin{center}
-\includegraphics[width=0.6\linewidth]{figures/ParallelDiagram.png}
-\captionof{figure}{Approach 1 uses a parallel architecture. If a secretKeeper with access only to the secret context and the QA system with access to all context return answers with high cosine similarity, the answer is a secret.} 
+\includegraphics[width=0.5\linewidth]{Papers/ARLIS_MPR_MN/Figures/high_level_overview.png}
+\captionof{figure}{A high-level schematic diagram of the project framework, tasks, and deliverables} 
 
 \end{center}
 
@@ -273,20 +273,21 @@ The main limitations to this method are:
 %	RESULTS 2
 %----------------------------------------------------------------------------------------
 
-\headerbox{5. Qualitative Results}{name=results2,column=1,below=objectives,bottomaligned=conclusion}{ % This block's bottom aligns with the bottom of the conclusion block
 
-After evaluating the system on a generated question, secret, and answer set, there are some samples that revealed details about the system's performance:
+%\headerbox{5. Qualitative Results}{name=results2,column=1,below=objectives,bottomaligned=conclusion}{ % This block's bottom %aligns with the bottom of the conclusion block
 
-\footnotesize{\texttt{\textbf{Question: }What mountain has snow on it all year round? (With secret Kenya)\\
-\textbf{QA Answer: }Mount Kenya\\
-\textbf{Secret Answer: }Mount Wilson}}\\
-\normalsize{}{Occasionally, the secret keeper model will answer incorrectly, meaning the QA answer, which would reveal secret information, slips through.}
+%After evaluating the system on a generated question, secret, and answer set, there are some samples that revealed details about the system's performance:
 
-\footnotesize{\texttt{\textbf{Question: }How many weight rooms are in the Malkin Athletic Center (With secret Jacksonville Communities)\\
-\textbf{QA Answer: }three\\
-\textbf{Secret Answer: }two}}\\
-\normalsize{Numeric responses always produce high similarity, even if there is little overlap in how the information is sourced, causing false positives.}
-}
+%\footnotesize{\texttt{\textbf{Question: }What mountain has snow on it all year round? (With secret Kenya)\\
+%\textbf{QA Answer: }Mount Kenya\\
+%\textbf{Secret Answer: }Mount Wilson}}\\
+%\normalsize{}{Occasionally, the secret keeper model will answer incorrectly, meaning the QA answer, which would reveal secret information, slips through.}
+
+%\footnotesize{\texttt{\textbf{Question: }How many weight rooms are in the Malkin Athletic Center (With secret Jacksonville Communities)\\
+%\textbf{QA Answer: }three\\
+%\textbf{Secret Answer: }two}}\\
+%\normalsize{Numeric responses always produce high similarity, even if there is little overlap in how the information is sourced, causing false positives.}
+%}
 
 
 %----------------------------------------------------------------------------------------
