@@ -236,7 +236,7 @@ The report aims to provide valuable insights into PiUMA's capabilities and contr
             The graph pattern matching algorithm \cite{Cheng2008} allows for the specification of complex patterns which can be used for specific patterns such as cycles or cliques in money laundering activities. 
             %There are many constraints to consider when deciding on an algorithm, as each approach is driven by the intelligence problem to be solved. 
             We are currently focused on selecting an appropriate reference algorithm for implementing subgraph matching. Subgraph matching accuracy is measured by evaluating two key aspects: existence and correctness. Existence focuses on determining whether a subgraph match is found or not in the target graph. Correctness assesses the accuracy of the identified matches using metrics such as precision, recall, and F1 score, considering the true positive, false positive, and false negative results. Labeled datasets with known ground truth are often used to compare the algorithm's output and compute these accuracy measures, while also considering factors like efficiency and scalability.} 
-
+            
         \subsubsection{Knowledge Graphs}\label{section:knowledgeGraphs}
                 
             Knowledge graph algorithms are designed to extract meaningful insights and uncover relationships within knowledge graphs, which represent information in a structured and interconnected manner.
@@ -248,14 +248,13 @@ The report aims to provide valuable insights into PiUMA's capabilities and contr
             Semantic similarity measures can assess the relatedness of individuals based on their attributes, enabling the identification of potential associates or shared characteristics among suspects. Current semantic similarity methods include measuring the semantic network structure between concepts, focusing on path length and depth, while others focus on the Information Content (IC) of concepts. IC is a measure of specificity where higher values are associated with more specific concepts and lower values are associated with more general ideas \cite{Zhu2016}. To effectively benchmark knowledge graph analytics, further investigation and evaluation of these operations are necessary to establish standard metrics and performance evaluations across different architectures and technologies, however prior work in Knowledge Graph Analytics using a micro benchmarking approach to primitive operations of \textit{Selection, Adjacency, Reachability} and \textit{Summarization} \cite{Angles2013} offers a promising intial direction.
             
     \section{Project Timeline}\label{section:timeline}
-    \osullikomment{Update post sprint with new numbers}
         \begin{center}
             \begin{tabular}{c|c|c}
                  Milestone              & Target Date   & Current Status\tablefootnote{Derived from Epic completion on Project Jira Board at \href{https://osullik.atlassian.net/jira/software/projects/HIVE/boards/1/}{https://osullik.atlassian.net/jira/software/projects/HIVE/boards/1/}}  \\
                  \hline
                  BFS                    & 6/9           & 36\% \\
-                 Community Detection    & 6/23          & 59\% \\
-                 Subgraph Matching      & 7/7           & 16\% \\
+                 Community Detection    & 6/23          & 42\% \\
+                 Subgraph Matching      & 7/7           & 19\% \\
                  Knowledge Graph        & 7/21          & 0\% \\
                  Report and Brief       & 8/3           & 0\%
             \end{tabular}
