@@ -85,13 +85,13 @@ linewidth=2pt % Width of the border lines around content boxes
 
 \headerbox{1. Objectives}{name=objectives,column=0,row=0}{
 
-Our objective is simple. \textit{Can a Question Answering (QA) system keep a secret?} Specifically: 
+Develop a benchmarking suite to measure the progress of Intel's Programmable Integrated Unified Memory Architecture (PIUMA): 
 
 \begin{enumerate}
-    \item How do we represent secrets and detect if a secret might leak during QA?
-    \item Is there any relationship between secret keeping, QA accuracy and runtime?
-    \item What causes false positive responses (mistakenly thinking something is a secret)?
-    \item What causes false negative responses (mistakenly leaking secret information)?. 
+    \item Collect datasets that represent intelligence and security problems 
+    \item Source or develop suitable cross-architecture reference implementations of commonly used graph analysis algorithms
+    \item Construct an experimental framework to report performance (execution time, memory usage, and power consumption)
+    \item Benchmark PiUMA, a new architecture for high-performance graph processing against the provided projections 
 \end{enumerate}
 
 \vspace{0.3em} % When there are two boxes, some whitespace may need to be added if the one on the right has more content
@@ -103,7 +103,19 @@ Our objective is simple. \textit{Can a Question Answering (QA) system keep a sec
 
 \headerbox{2. Introduction}{name=introduction,column=1,row=0,bottomaligned=objectives}{
 
-ChatGPT's arrival shows \cite{samczsun2022} how a human can employ an adversarial questioning method for truth amplification\cite{Evans2021} we call \textit{interrogation} to induce information leakage from a system\cite{FAIR†2022}. Current content moderation approaches are ineffective in resisting \textit{interrogation}, because the model doesn't actually know what information it shouldn't disclose. We need to teach the system to keep certain information 'secret' while under interrogation, or better yet, use covert omission and tactical misdirection to prevent interrogation from occurring. Our experiments compare four models of 'secret-keeping' across two architectures and identify focal points for future work.
+Many intelligence and security problems are
+fundamentally social problems that can be modeled as a collection of
+social interactions between humans using a graph data
+structure. The HIVE program seeks to develop an advanced graph
+processor capable of efficiently processing streaming
+graphs 1000x faster while reducing power consumption. The motivating problem is that when
+graphs get very large, they become very slow to search, and many
+problems quickly become intractable. HIVE expects that
+specialized hardware optimized for Graph Processing
+may make some of these ’intractable’ problems solvable,
+and expand the toolkit available to the I\&S community. Towards determining whether the PiUMA system is a
+step towards the HIVE goal, we consider our research in the context of prior work in graph workload benchmarking.
+
 }
 
 %----------------------------------------------------------------------------------------
@@ -248,9 +260,6 @@ The main limitations to this method are:
 \begin{center}
 \includegraphics[width=0.6\linewidth]{figures/ParallelDiagram.png}
 \captionof{figure}{Approach 1 uses a parallel architecture. If a secretKeeper with access only to the secret context and the QA system with access to all context return answers with high cosine similarity, the answer is a secret.} 
-
-\includegraphics[width=0.6\linewidth]{figures/secret_keeper_diagram.PNG}
-\captionof{figure}{Approach 2 uses word embeddings associated with the secret to purge secret material from the source of the QA system. It can't leak information it doesn't have.}
 
 \end{center}
 
