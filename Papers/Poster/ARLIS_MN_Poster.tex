@@ -20,9 +20,11 @@
 
 \documentclass[landscape,a0paper,fontscale=0.285]{baposter} % Adjust the font scale/size here
 
+
 \usepackage{hyperref}
 
 \usepackage{graphicx} % Required for including images
+\usepackage{svg}
 \graphicspath{{figures/}} % Directory in which figures are stored
 
 \usepackage{amsmath} % For typesetting math
@@ -74,10 +76,10 @@ linewidth=2pt % Width of the border lines around content boxes
 %	TITLE SECTION 
 %----------------------------------------------------------------------------------------
 %
-{\includegraphics[height=4em]{umd_logo.png}} % First university/lab logo on the left
-{\bf\textsc{Project MN (HIVE) - Piuma Benchmarking}\vspace{0.5em}} % Poster title
-{\textsc{\{ Sakshum Kulshrestha, Ben Moskowitz, Kent O'Sullivan, Nate Rollings \& Ryan Van Voorhis \} \hspace{12pt} University of Maryland Department of Computer Science}} % Author names and institution
-
+{\includegraphics[height=4em]{arlis.png}} % First university/lab logo on the left
+{\bf\textsc{MINNESOTA: Benchmarking Graph Processing}\vspace{0.2em}} % Poster title
+{\textsc{Morein Ibrahim, Nandini Ramachandran\\ \hspace{12pt} Kent O'Sullivan, Cliston Cole, \& William Regli}} % Author names and institution
+{\includegraphics[height=6em]{qrcode.png}}
 
 %----------------------------------------------------------------------------------------
 %	OBJECTIVES
@@ -85,13 +87,13 @@ linewidth=2pt % Width of the border lines around content boxes
 
 \headerbox{1. Objectives}{name=objectives,column=0,row=0}{
 
-Develop a benchmarking suite to measure the progress of Intel's Programmable Integrated Unified Memory Architecture (PIUMA): 
+Develop a benchmarking suite to measure the progress of Intel's novel graph processing architecture: the Programmable Integrated Unified Memory Architecture (PiUMA): 
 
 \begin{enumerate}
-    \item Collect datasets that represent intelligence and security problems 
-    \item Source or develop suitable cross-architecture reference implementations of commonly used graph analysis algorithms
-    \item Construct an experimental framework to report performance (execution time, memory usage, and power consumption)
-    \item Benchmark PiUMA, a new architecture for high-performance graph processing against the provided projections 
+    \item Collect datasets that represent relevant intelligence and security problems. 
+    \item Source or develop suitable cross-architecture reference implementations of graph analysis algorithms useful to the Intelligence and Security (I\&S) community.
+    \item Construct an experimental framework to report performance (execution time, memory usage, and power consumption).
+    \item Benchmark PiUMA; a new architecture for high-performance graph processing against the provided projections \cite{Aananthakrishnan2020}.
 \end{enumerate}
 
 \vspace{0.3em} % When there are two boxes, some whitespace may need to be added if the one on the right has more content
@@ -101,20 +103,37 @@ Develop a benchmarking suite to measure the progress of Intel's Programmable Int
 %	INTRODUCTION
 %----------------------------------------------------------------------------------------
 
-\headerbox{2. Introduction}{name=introduction,column=1,row=0,bottomaligned=objectives}{
+\headerbox{2. Why graph processing?}{name=problem,column=1,row=0}{
+Graph processing is used in the I\&S domain to address complex interdependencies in real-world systems, analyze data efficiently, and detect anomalies and patterns for security purposes.\\
 
-Many intelligence and security problems are
-fundamentally social problems that can be modeled as a collection of
-social interactions between humans using a graph data
-structure. The HIVE program seeks to develop an advanced graph
-processor capable of efficiently processing streaming
-graphs 1000x faster while reducing power consumption. The motivating problem is that when
-graphs get very large, they become very slow to search, and many
-problems quickly become intractable. HIVE expects that
-specialized hardware optimized for Graph Processing
-may make some of these ’intractable’ problems solvable,
-and expand the toolkit available to the I\&S community. Towards determining whether the PiUMA system is a
-step towards the HIVE goal, we consider our research in the context of prior work in graph workload benchmarking.
+To understand the benefit of PiUMA in graph analysis, we compared graph processing performance on real-world datasets in areas of interest to the Intelligence and Security Community.
+
+}
+
+\headerbox{3. Reference Algorithms}{name=algorithms,column=1, row=0, bottomaligned=objectives, below=problem}{
+\textbf{Louvain.} Algorithm to detect communities in graphs by heuristic optimization of modularity \cite{Blondel2008}. Tested on 26GB of tweets to find communities.
+
+\textbf{VF3.} Algorithm to find isomorphic sub-graph patterns in larger graphs \cite{Carletti2017}. Tested on a Financial dataset to detect suspicious transaction patterns. 
+%Many intelligence and security problems are fundamentally social problems that can be modeled as a collection of social interactions between humans using a graph data structure. 
+%The HIVE program seeks to develop an advanced graph processor capable of efficiently processing streaming graphs 1000x faster while reducing power consumption. 
+%The motivating problem is that when graphs get very large, they become very slow to search, and many problems quickly become intractable. 
+%HIVE expects that specialized hardware optimized for Graph Processing may make some of these ’intractable’ problems solvable, and expand the toolkit available to the I\&S community. 
+%Towards determining whether the PiUMA system is a step towards the HIVE goal, we consider our research in the context of prior work in graph workload arking.
+
+}
+
+%----------------------------------------------------------------------------------------
+%	BENCHMARK FRAMEWORK
+%----------------------------------------------------------------------------------------
+
+\headerbox{4. Benchmark Framework}{name=method,column=0, span=2, below=objectives,above=bottom}{ % This block's bottom aligns with the bottom of the conclusion block
+
+\vspace{1em}
+\begin{center}
+\includesvg[width=0.80\linewidth]{system_diagram.svg}
+\captionof{figure}{Our benchmark framework as prototyped on an AWS P5.8x large instance. It includes reference datasets, sequential and parallel implementations of the Louvain and VF3 algorithms and a suite of measurement tools to create comparison reports between CPU, GPU and PiUMA architectures for Graph Processing.} 
+
+\end{center}
 
 }
 
@@ -122,17 +141,17 @@ step towards the HIVE goal, we consider our research in the context of prior wor
 %	RESULTS 1
 %----------------------------------------------------------------------------------------
 
-\headerbox{4. Quantitative Results}{name=results,column=2,span=2,row=0}{
+\headerbox{5. Summary of Results}{name=graphs,column=2,span=2,row=0}{
 
 \begin{multicols}{2}
 \vspace{1em}
 \begin{center}
 
-\includegraphics[width=0.55\linewidth]{figures/modelComparison.png}
-\captionof{figure}{Purging secrets scales poorly.}
+\includegraphics[width=0.55\linewidth]{placeholder.jpg}
+\captionof{figure}{Results to be pasted on top of poster.}
 
-\includegraphics[width=0.55\linewidth]{figures/incorrext_interrogation.png}
-\captionof{figure}{Interrogation induces information leakage}
+\includegraphics[width=0.55\linewidth]{placeholder.jpg}
+\captionof{figure}{Results to be pasted on top of poster.}
 
 
 
@@ -150,11 +169,31 @@ step towards the HIVE goal, we consider our research in the context of prior wor
 
 \begin{center}
     
-\includegraphics[width=0.55\linewidth]{figures/incorrect_available_context.png}
-\captionof{figure}{Less information leaks with more context}
+\includegraphics[width=0.55\linewidth]{placeholder.jpg}
+\captionof{figure}{Results to be pasted on top of poster.}
 
-\includegraphics[width=0.55\linewidth]{figures/incorrect_num_secrets.png}
-\captionof{figure}{Many secrets induce (some) paranoia}
+\includegraphics[width=0.55\linewidth]{placeholder.jpg}
+\captionof{figure}{Results to be pasted on top of poster.}
+
+\end{center}
+
+%\textbf{What causes False Positives?} Keeping Many Secrets. The system becomes 'paranoid' as the probability of returning an incorrect answer with a high cosine similarity (e.g. numeric answers) increases. \\
+%\textbf{What causes False Negatives?} Information leakage results from a lack of detail in the secret context and also from 'interrogation' with large volumes of probing questions. 
+
+\end{multicols}
+
+\begin{multicols}{2}
+\vspace{1em}
+
+
+
+\begin{center}
+    
+\includegraphics[width=0.55\linewidth]{placeholder.jpg}
+\captionof{figure}{Results to be pasted on top of poster.}
+
+\includegraphics[width=0.55\linewidth]{placeholder.jpg}
+\captionof{figure}{Results to be pasted on top of poster.}
 
 \end{center}
 
@@ -168,45 +207,57 @@ step towards the HIVE goal, we consider our research in the context of prior wor
 %	REFERENCES
 %----------------------------------------------------------------------------------------
 
-\headerbox{8. References}{name=references,column=0,above=bottom}{
+\headerbox{8. References}{name=references,column=2,span=2, above=bottom}{
 
 \renewcommand{\section}[2]{\vskip 0.05em} % Get rid of the default "References" section title
 %\nocite{*} % Insert publications even if they are not cited in the poster
 \tiny{ % Reduce the font size in this block
 \bibliographystyle{unsrt}
-\bibliography{WhoIsYourDaddyAndWhatDoesHeDo} % Use sample.bib as the bibliography file
+
+\begin{multicols}{2}
+   \bibliography{Papers/bibliography/summer2023} % Use sample.bib as the bibliography file 
+\end{multicols}
+
 }}
 
 %----------------------------------------------------------------------------------------
 %	FUTURE RESEARCH
 %----------------------------------------------------------------------------------------
 
-\headerbox{7. Future Research}{name=futureresearch,column=1,span=2,aligned=references,above=bottom}{ % This block is as tall as the references block
+%\headerbox{7. Future Research}{name=futureresearch,column=1,span=2,aligned=references,above=bottom}{ % This block is as tall as the references block
 
-\begin{multicols}{2}
-We see merit in extending our current design by training the system end-to-end, rather than using the ensemble pipeline approach. Further work is needed in improving similarity metric over cosine similarity to reduce our false positive rate. We see the opportunity to transfer these approaches to open domain QA. Finally, the system leaks information under interrogation. We see merit in evolving our question perturbation methods to avoid triggering interrogation, or to determine when interrogation is occurring so the system can actively protect the secrets we need to keep. 
+%\begin{multicols}{2}
 
-%We presented additions to the core parallel structure like removing a secret from a context and perturbing a question that provided starting points for future work to improve the system. An extension of this work would be to use more sophisticated techniques to perturb questions. Another direction worth exploring is a way to train this system end to end. Compared to the ensemble method now, an end to end trained system might be able to learn features more optimized for this task. Additionally, we can work on better incorporating context to determine similarity score rather than purely cosine similarly to address current limitations. Lastly, we can attempt to transfer the ideas presented here for an open-domain QA system.
-\end{multicols}
-}
+%\end{multicols}
+%}
 
 %----------------------------------------------------------------------------------------
 %	CONTACT INFORMATION
 %----------------------------------------------------------------------------------------
 
-\headerbox{9. Contact Information}{name=contact,column=3,aligned=references,above=bottom}{ % This block is as tall as the references block
+%\headerbox{9. Contact Information}{name=contact,column=3,aligned=references,above=bottom}{ % This block is as tall as the references block
 
-\begin{description}\compresslist
-\item[Github]\href{https://github.com/osullik/WhoIsYourDaddyAndWhatDoesHeDo}{Link to project Git}
-\item[Email] \{sakshumk, bmoskow1, osullik, nrolling, rjvanv\}@umd.edu
-\end{description}
-}
+%\begin{description}\compresslist
+%\item[Github]\href{https://github.com/osullik/WhoIsYourDaddyAndWhatDoesHeDo}{Link to project Git}
+%\item[Email] \{sakshumk, bmoskow1, osullik, nrolling, rjvanv\}@umd.edu
+%\end{description}
+%}
 
 %----------------------------------------------------------------------------------------
 %	CONCLUSION
 %----------------------------------------------------------------------------------------
 
-\headerbox{6. Conclusion}{name=conclusion,column=2,span=2,row=0,below=results,above=references}{
+\headerbox{6. Future Work}{name=future_work,column=2,row=0,below=graphs, above=references}{
+
+We have focused on developing the \textit{framework} for benchmarking. Immediate next steps include: 
+
+\begin{itemize}\compresslist
+    \item {Move benchmark framework from the cloud to a physical system for 'fair' benchmarking that can leverage the analytic tools that are limited in the cloud, like \textit{perf}.}
+    \item{Refactor the CPU, GPU and PiUMA reference algorithm implementations to a codebase to improve fairness of comparison}
+    \item{Run parallel benchmark on PiUMA Optical Interconnect.}
+\end{itemize}
+
+
 
 % \begin{multicols}{2}
 
@@ -230,67 +281,30 @@ We see merit in extending our current design by training the system end-to-end, 
 
 %------------------------------------------------
 
-We were successful in creating a system that, in general, is able to protect information given a context that is described to it. The ideal "secret keeper" protects a complex or vague idea while still preserving the original question answering ability and can scale to any number of secrets. Our method is an initial step towards this goal.
-Our most significant contributions are:
-
-\begin{itemize}\compresslist
-\item Creating a system that recognizes and protects secrets given a context with acceptable accuracy.
-\item The system can be implemented out of the box; our current setup requires no end to end training.
-\item The system retains relatively high accuracy without secrets, making it no worse than the original
-\end{itemize}
-
-The main limitations to this method are:
-\begin{itemize}\compresslist
-\item Poor scaling as keeping additional secrets increases the paranoia (false positives) of the system.
-\item Vulnerability to information leakage (false negatives) under interrogation. 
-\item Lack of an effective, ethically endorsed mechanism for covert omission or deception of users to avoid triggering interrogation interactions. 
-\end{itemize}
 
 
 % \end{multicols}
 }
 
-%----------------------------------------------------------------------------------------
-%	SYSTEM DESIGN
-%----------------------------------------------------------------------------------------
+\headerbox{7. Conclusion}{name=conclusion,column=3,row=0,below=graphs, above=references}{
+Our most significant contributions are:
 
-\headerbox{3. System Design Approaches}{name=method,column=0, span=2, below=objectives,bottomaligned=conclusion}{ % This block's bottom aligns with the bottom of the conclusion block
+\begin{itemize}\compresslist
+\item Identification and implementation of graph algorithms and datasets relevant to I \& S problems.
+\item Development of a framework to compare the execution time and memory usage of those algorithms on those datasets on CPU, GPU and PiUMA architectures.
+\end{itemize}
 
-\vspace{1em}
-\begin{center}
-\includegraphics[width=0.5\linewidth]{Papers/ARLIS_MPR_MN/Figures/high_level_overview.png}
-\captionof{figure}{A high-level schematic diagram of the project framework, tasks, and deliverables} 
+We gratefully acknowledge the supprt of our Mentors, ARLIS and the DARPA HIVE program. 
 
-\end{center}
-
-%\textbf{Approach 1} used a parallel secret keeping system. If the cosine similarity of each system's answer is high, then the answer was a secret and can not be answered
-
-%\textbf{Approach 2} sought to purge secrets from the context. Information cannot leak if it does not exist. 
-
+%The main limitations to this method are:
+%\begin{itemize}\compresslist
+%\item Possible hidden complications with open-sourced algorithms.
+%\item Inaccuracies in data results.
+%\item Time constraints with data collection.
+%\end{itemize}
 }
 
-%----------------------------------------------------------------------------------------
-%	RESULTS 2
-%----------------------------------------------------------------------------------------
 
-
-%\headerbox{5. Qualitative Results}{name=results2,column=1,below=objectives,bottomaligned=conclusion}{ % This block's bottom %aligns with the bottom of the conclusion block
-
-%After evaluating the system on a generated question, secret, and answer set, there are some samples that revealed details about the system's performance:
-
-%\footnotesize{\texttt{\textbf{Question: }What mountain has snow on it all year round? (With secret Kenya)\\
-%\textbf{QA Answer: }Mount Kenya\\
-%\textbf{Secret Answer: }Mount Wilson}}\\
-%\normalsize{}{Occasionally, the secret keeper model will answer incorrectly, meaning the QA answer, which would reveal secret information, slips through.}
-
-%\footnotesize{\texttt{\textbf{Question: }How many weight rooms are in the Malkin Athletic Center (With secret Jacksonville Communities)\\
-%\textbf{QA Answer: }three\\
-%\textbf{Secret Answer: }two}}\\
-%\normalsize{Numeric responses always produce high similarity, even if there is little overlap in how the information is sourced, causing false positives.}
-%}
-
-
-%----------------------------------------------------------------------------------------
 
 \end{poster}
 
