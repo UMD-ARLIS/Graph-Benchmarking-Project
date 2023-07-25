@@ -1,6 +1,6 @@
 # SETTING UP THE PIUMA SDV [INTEL CONFIDENTIAL]
 
-Once the SDV has been set up per the (https://drive.google.com/file/d/11pyErG-NWkQfhW5SHwAsw4l9TfJNbV7Y/view?usp=drive_link)[Pysical Assembly] and (https://drive.google.com/file/d/1qp9n3qxSt4a4JoJnaonERoSBjLatzuat/view?usp=drive_link)[Network Topology] instructions, I used the (https://drive.google.com/file/d/1SSXAHJjvSPf-L5qHTElnKz_SpSgD7GBv/view?usp=drive_link)[how-to video] to generate the following:
+Once the SDV has been set up per the (Physical Assembly)[https://drive.google.com/file/d/11pyErG-NWkQfhW5SHwAsw4l9TfJNbV7Y/view?usp=drive_link] and (Network Topology)[https://drive.google.com/file/d/1qp9n3qxSt4a4JoJnaonERoSBjLatzuat/view?usp=drive_link] instructions, I used the (How-To Video)[https://drive.google.com/file/d/1SSXAHJjvSPf-L5qHTElnKz_SpSgD7GBv/view?usp=drive_link] to generate the following:
 
 **NOTE: WATCHING THE TUTORIAL VIDEO IS MANDATORY PRIOR TO PROCEEDING**
 
