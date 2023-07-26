@@ -1,3 +1,51 @@
+# SETTING UP THE PIUMA SDV [INTEL CONFIDENTIAL]
+
+Once the SDV has been set up per the [Physical Assembly](https://drive.google.com/file/d/11pyErG-NWkQfhW5SHwAsw4l9TfJNbV7Y/view?usp=drive_link) and [Network Topology](https://drive.google.com/file/d/1qp9n3qxSt4a4JoJnaonERoSBjLatzuat/view?usp=drive_link) instructions, I used the [How-To Video](https://drive.google.com/file/d/1SSXAHJjvSPf-L5qHTElnKz_SpSgD7GBv/view?usp=drive_link) to generate the following:
+
+**NOTE: WATCHING THE TUTORIAL VIDEO IS MANDATORY PRIOR TO PROCEEDING**
+
+1 -  SSH into the PiUMA NUC
+
+	tbc with network config
+
+2 - Once in the PiUMA NUC, SSH into the PiUMA Host, relaying through the NUC:
+
+	ssh piuma-host
+
+3 - To figure out the current version of PiUMA, in the PiUMA host run the following command and look for the numeric value in the target of the symbolic link it returns. The link will be something like *intel-piuma-software-env.sh -> /opt/intel/piuma/**dev.40**/intel_piuma_env.sh*. The Bold part of the above is the version. 
+
+	ll /etc/profile.d | grep piuma
+
+4 - We can then check the environment variables with the command:
+
+	env | grep PIUMA
+
+5 - To check other versions use:
+
+	ll /opt/intel/piuma
+
+6 - To see what is inside the distribution use: 
+
+	ll /opt/intel/piuma/**version_here**
+
+7 - We can check the available datasets, spread across two locations using: 
+
+	ll /opt/HIVE-Datasets
+	ll /opt/HIVE-Workflows
+
+8 - We can of course then see the contents of any of the datasets with
+
+	ll /opt/HIVE-Workflows/**dataset_name**
+
+The main way they load data is with binary files. For the most part they are graphs in the CSR format, packaged as binary files. 
+
+9 - To run the basic functionality test use: 
+
+	cd /home/piuma/**piuma-toolkit-version**/examples/hello
+	make install
+	make run
+	make qcons
+
 # Setting up the Linux Environment for our testing
 
 
