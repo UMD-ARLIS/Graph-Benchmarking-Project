@@ -28,9 +28,9 @@ def save_graph(G, outputFilePath):
 
     with open(outputFilePath, 'wb') as mtx_file:
         mtx_file.write(ascii_header)
-        mtx_file.write((f"{num_nodes} {num_nodes} {num_edges}\n").encode("ascii"))
+        mtx_file.write((str(num_nodes) + " " + str(num_nodes) + " " + str(num_edges)).encode("ascii"))
         for edge in G.edges():
-            mtx_file.write((f"{edge[0]} {edge[1]}\n").encode("ascii"))
+            mtx_file.write(("\n"+str(edge[0]) + " " + str(edge[1])).encode("ascii"))
 
 
 #Define an argument parser to accept input through the command line
