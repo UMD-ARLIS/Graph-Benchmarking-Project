@@ -1,6 +1,12 @@
+#Python Core Imports
+import argparse
+
+#External Library imports
 import networkx as nx
 
-def convert_txt_to_mtx(txt_file_path, mtx_file_path):
+#User file imports.
+
+def load_graoh(txt_file_path):
     # Read the text file and create a graph
     G = nx.Graph()
     with open(txt_file_path, 'r') as txt_file:
@@ -12,22 +18,48 @@ def convert_txt_to_mtx(txt_file_path, mtx_file_path):
 
             source, target = map(int, line.strip().split())
             G.add_edge(source, target)
+    return G
 
+
+def save_graph(G, outputFilePath):
     num_nodes = len(G.nodes())
     num_edges = len(G.edges())
+    ascii_header = ("%%MatrixMarket matrix coordinate real general\n").encode("ascii")
 
-    # Save the graph in Matrix Market coordinate format
-    with open(mtx_file_path, 'w') as mtx_file:
-        mtx_file.write("%%MatrixMarket matrix coordinate real general\n")
-        mtx_file.write(f"{num_nodes} {num_nodes} {num_edges}\n")
+    with open(outputFilePath, 'wb') as mtx_file:
+        mtx_file.write(ascii_header)
+        mtx_file.write((f"{num_nodes} {num_nodes} {num_edges}\n").encode("ascii"))
         for edge in G.edges():
-            mtx_file.write(f"{edge[0]} {edge[1]}\n")
+            mtx_file.write((f"{edge[0]} {edge[1]}\n").encode("ascii"))
 
 
-# Replace these file paths with your input text file and desired output mtx file paths
+#Define an argument parser to accept input through the command line
+parser = argparse.ArgumentParser(
+                    prog='graphConverter',
+                    description='Converts between graph formats',
+                    epilog='Currently only implemented txt to mtx')
 
-input_txt_file = "/Users/nani/Downloads/SmallDataSet.txt"
-output_mtx_file = "/Users/nani/Downloads/SmallDataSet.mtx"
+parser.add_argument('-i', '--inputFile',
+                    help="The input file of graph to convert",
+                    required=True,
+                    default=None)
 
-convert_txt_to_mtx(input_txt_file, output_mtx_file)
+parser.add_argument('-o', '--outputFile',
+                    help="The name of the file to output",
+                    required=True,
+                    default="graph.mtx")
 
+if __name__ == "__main__":
+    '''
+    Main function to run all your code
+    '''
+    flags = parser.parse_args()
+
+    input_txt_file = flags.inputFile
+    output_mtx_file = flags.outputFile
+
+    if input_txt_file is not None: 
+        graphFromTxt = load_graoh(input_txt_file,)
+        save_graph(graphFromTxt, output_mtx_file)
+    else: 
+        exit("No input file specified")
