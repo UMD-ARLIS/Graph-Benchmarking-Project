@@ -68,5 +68,11 @@ The huge datset is derived from the twitter benchmark dataset used by thge UC Be
 **SOD:** 25,558,868 Kb
 
 **Source:** (https://github.com/ANLAB-KAIST/traces/releases/tag/twitter_rv.net)[ANLAB KAIST Twitter Dataset]
+	
+	wget https://github.com/ANLAB-KAIST/traces/releases/download/twitter_rv.net/twitter_rv.net.00.gz
+	wget https://github.com/ANLAB-KAIST/traces/releases/download/twitter_rv.net/twitter_rv.net.01.gz
+	wget https://github.com/ANLAB-KAIST/traces/releases/download/twitter_rv.net/twitter_rv.net.02.gz
+	wget https://github.com/ANLAB-KAIST/traces/releases/download/twitter_rv.net/twitter_rv.net.03.gz
+	gunzip -c twitter_rv.net.00 twitter_rv.net.01 twitter_rv.net.02 twitter_rv.net.03 > HUGE_twitter_rv.net
 
 **Format:** .txt Adjacency List
