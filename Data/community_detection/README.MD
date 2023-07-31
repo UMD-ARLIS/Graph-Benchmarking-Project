@@ -13,7 +13,7 @@ The Small Dataset is derived from
 
 **SOD:** 22 Kb
 
-**Source:** (https://github.com/gunrock/gunrock/tree/main/datasets/chesapeake)[Gunrock Benchmark]
+**Source:** [Gunrock Benchmark](https://github.com/gunrock/gunrock/tree/main/datasets/chesapeake)
 
 	wget https://github.com/gunrock/gunrock/blob/main/datasets/chesapeake/chesapeake.mtx
 	mv chesapeake.mtx SMALL_chesapeake.mtx
@@ -67,7 +67,7 @@ The huge datset is derived from the twitter benchmark dataset used by thge UC Be
 
 **SOD:** 25,558,868 Kb
 
-**Source:** (https://github.com/ANLAB-KAIST/traces/releases/tag/twitter_rv.net)[ANLAB KAIST Twitter Dataset]
+**Source:** [ANLAB KAIST Twitter Dataset](https://github.com/ANLAB-KAIST/traces/releases/tag/twitter_rv.net)
 	
 	wget https://github.com/ANLAB-KAIST/traces/releases/download/twitter_rv.net/twitter_rv.net.00.gz
 	wget https://github.com/ANLAB-KAIST/traces/releases/download/twitter_rv.net/twitter_rv.net.01.gz
