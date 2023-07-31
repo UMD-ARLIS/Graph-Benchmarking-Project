@@ -231,6 +231,7 @@
 \DeclareOptionX{legalpaper}    {\@geometryKnowsThisSizetrue\baposter@setfinalpapersize{8.5in}{14in}}%
 \DeclareOptionX{executivepaper}{\@geometryKnowsThisSizetrue\baposter@setfinalpapersize{7.25in}{10.5in}}%
 \DeclareOptionX{screen}        {\@geometryKnowsThisSizetrue\baposter@setfinalpapersize{225mm}{180mm}}%g
+\DeclareOptionX{twotothree}        {\@geometryKnowsThisSizetrue\baposter@setfinalpapersize{24in}{36in}}%
 
 % Margin
 \setlength{\baposter@finalmargin}{1.5cm}

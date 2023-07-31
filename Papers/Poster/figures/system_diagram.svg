@@ -23,10 +23,10 @@
        inkscape:menu-tooltip="Does not filter but adds a filter region"
        style="color-interpolation-filters:sRGB"
        id="filter184"
-       x="-0.1"
-       y="-0.1"
-       width="1.0256363"
-       height="1.2">
+       x="-0.28324747"
+       y="-0.089859128"
+       width="1.2088838"
+       height="1.1898592">
       <feColorMatrix
          type="saturate"
          values="1"
@@ -54,6 +54,17 @@
          x="66.355934"
          y="-7.1435544e-08" />
     </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath178">
+      <rect
+         style="fill:#000000"
+         id="rect180"
+         width="831.62604"
+         height="527.5907"
+         x="73.028091"
+         y="5.1637106" />
+    </clipPath>
   </defs>
   <sodipodi:namedview
      id="namedview20"
@@ -65,9 +76,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
-     inkscape:zoom="0.43703704"
-     inkscape:cx="525.12712"
-     inkscape:cy="287.16102"
+     inkscape:zoom="0.67097468"
+     inkscape:cx="473.19222"
+     inkscape:cy="270.50201"
      inkscape:window-width="1309"
      inkscape:window-height="807"
      inkscape:window-x="0"
@@ -82,7 +93,7 @@
        id="path2" />
   </clipPath>
   <g
-     clip-path="url(#clipPath244)"
+     clip-path="url(#clipPath178)"
      id="g16"
      style="filter:url(#filter184)"
      transform="translate(0,2.2881356)">
