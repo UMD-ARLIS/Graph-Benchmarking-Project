@@ -18,11 +18,13 @@ Due to the sizes of these files, we include here the sources of the datasets we 
         tar -zxvf newSIPbenchmarks.tgz
         rm newSIPbenchmarks.tgz
         cd newSIPbenchmarks.tgz/scalefree/A.01
+	cp -r newSIPbenchmarks.tgz/scalefree/A.01 SMALL_A.01
         
 
-**Format:** Unsure of the format, but needs to be converted into something that the fv3 algorithm can eat using our grf_converter script, which a>
+**Format:** Unsure of the format, but needs to be converted into something that the fv3 algorithm can eat using our grf_converter script
+which assuming you are in the subgraph_matching directory should be 
 
-        python ../../../../Code/Data_Analysis/grf_converter.py -i target -o target.grf
+        python ../../Code/Data_Analysis/grf_converter.py -i target -o target.grf
 
 ### Pattern
 
@@ -31,9 +33,9 @@ Due to the sizes of these files, we include here the sources of the datasets we 
 **Number of Edges:** 180
 **SOD:** 4 Kb
 
-**Source:** Same as A.01 Target. To convert the pattern file into the graph file, assuming you are in the A.01 directory.
+**Source:** Same as A.01 Target. To convert the pattern file into the graph file, assuming you are in the subgraph_matching directory.
 
-	python ../../../../Code/Data_Analysis/grf_converter.py -i pattern -o pattern.grf
+	python ../../Code/Data_Analysis/grf_converter.py -i pattern -o pattern.grf
 
 
 
@@ -53,6 +55,7 @@ Due to the sizes of these files, we include here the sources of the datasets we 
 
         wget https://snap.stanford.edu/data/email-Enron.txt.gz
         gunzip email-Enron.txt.gz
+	mv email-Enron.txt MEDIUM_email-Enron.txt
         
 **Format:** 
 
@@ -79,7 +82,7 @@ None Provided.
 
 
 	wget https://graphchallenge.s3.amazonaws.com/synthetic/gc5/201512012345.v18571154_e38040320.tsv
-	
+	mv 201512012345.v18571154_e38040320.tsv LARGE_201512012345.v18571154_e38040320.tsv
 
 **Format:** Tab Seperated Adjacency List, needs to be converted into a grf format with: 
 
@@ -100,6 +103,7 @@ None Provided.
 **Source:** [MIT Graph Challenge Datasets](https://graphchallenge.mit.edu/data-sets) generated from [MWAI Archives](http://mawi.wide.ad.jp/mawi/)
 
 	wget https://graphchallenge.s3.amazonaws.com/synthetic/gc5/201512020330.v226196185_e480047894.tsv
+	mv 201512020330.v226196185_e480047894.tsv HUGE_201512020330.v226196185_e480047894.tsv
 
 **Format:** Tab Seperated Adjacency List, needs to be converted into a grf format with: 
 
