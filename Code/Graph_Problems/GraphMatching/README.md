@@ -24,7 +24,7 @@ This runs on the provided file from the VF3Lib Code
 8 3.07613e-06 8.3829e-06
 ```
 
-Indiacting 8 Matches in the time stipulated
+Indicating 8 Matches in the time stipulated
 
 ### Small 
 
@@ -40,25 +40,15 @@ Converted to: Graph with 200 nodes and 3043 edges
 
 We then need to convert the PATTERN file with: 
 
-	python ../../../Data_Analysis/grf_converter.py -i ../../../../Data/subgraph_matching/SMALL_A.01/pattern -o ../../../../Data/subgraph_matching/SMALL_A.01/pattern.grf -t subgraphFormat
+	python ../../../Data_Analysis/grf_converter.py -i ../../../../Data/subgraph_matching/SMALL_A.01/pattern -o ../../../../Data/subgraph_matching/SMALL_A.01/pattern.grf -t other
 
-If successful it should output: 
+ If successful it should output: 
 
 ```
 Converted to: Graph with 180 nodes and 2247 edges
 ```
 
-To then Run the graph matching, we use: 
 
-	./bin/vf3 ../../../../Data/subgraph_matching/SMALL_A.01/pattern.grf ../../../../Data/subgraph_matching/SMALL_A.01/target.grf
-
-Which should give us an output of something like: 
-
-```
-./bin/vf3 ../../../../Data/subgraph_matching/SMALL_A.01/pattern.grf ../../../../Data/subgraph_matching/SMALL_A.01/target.grf
-```
-
-// I may or may not have wrote more than I was soppused to, but I think what I included was good knowledge to have and be able to reference.
 
 ### Medium
 
@@ -72,9 +62,46 @@ First we need to convert the TARGET GRAPH File into the Correct format using:
 Converted to: Graph with 36692 nodes and 183831 edges
 ```
 
-Then to run the Medium Dataset we need to execute: 
+THEN we can generate a subgraph file using our random walk subgraph generator with: 
 
-./bin/vf3 test/bvg1.sub.grf ../../../../Data/subgraph_matching/SMALL_A.01/MEDIUM_email-Enron.grf
+	python ../../../Data_Analysis/generate_subgraphs.py -i ../../../../Data/subgraph_matching/MEDIUM_email-Enron.txt -o ../../../../Data/subgraph_matching/MEDIUM_SUB_email-Enron.txt -t AL -s 2 -l 3
+
+ Which generates a subgraph of 3 nodes using a random seed of 2, outputting: 
+
+```
+Need to add more nodes to reach walk length
+Subgraph Large Enough
+Subgraph is [(1, 3), (3, 4), (4, 1)]
+```
+
+Then we convert that file into a grf file with: 
+
+	python ../../../Data_Analysis/grf_converter.py -i ../../../../Data/subgraph_matching/MEDIUM_SUB_email-Enron.txt -o ../../../../Data/subgraph_matching/MEDIUM_SUB_email-Enron.grf -t AL
+
+Giving a successful output of: 
+
+```
+Converted to: Graph with 3 nodes and 3 edges
+```
+
+To then Run the graph matching, we use: 
+
+	./bin/vf3 ../../../../Data/subgraph_matching/SMALL_A.01/pattern.grf ../../../../Data/subgraph_matching/SMALL_A.01/target.grf
+
+Which should give us an output of something like: 
+
+```
+4362264 0.001068 38.8512
+```
+being: [number of solutions found] [time to find the first solution] [time to find all the solutions]
+
+To run in parallel on 2 threads we would use: 
+
+	./bin/vf3p ../../../../Data/subgraph_matching/MEDIUM_SUB_email-Enron.grf ../../../../Data/subgraph_matching/MEDIUM_email-Enron.grf -a 1 -t 2
+
+also giving an output of the form:
+
+[number of solutions found] [time to find the first solution] [time to find all the solutions]
 
 ## Related Works: 
 
