@@ -1,6 +1,5 @@
 # Graph Matching
 
-
 ## Experiments
 To run each dataset, assuming you are in the /vf3lib directory, and that you have populated the datasets as outlined in  [The SGM Dataset Readme](https://github.com/osullik/summer2023/edit/main/Data/subgraph_matching/README.MD)
 
