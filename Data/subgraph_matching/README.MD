@@ -4,67 +4,103 @@ Due to the sizes of these files, we include here the sources of the datasets we 
 
 ## Small Dataset
 
-**Name:** 
+**Name:** Benchmarks for the Subgraph Isomorhism Problem - Scale Free Graphs - A.01
 
-**Nodes:** 
+**Nodes:** 200
 
-**Edges:** 
+**Edges:** 3043
 
-**SOD:** Kb
+**SOD:** 5 Kb
 
-**Source:**
+**Source:** [Benchmarks for the Subgraphs Isomorphism Problem](https://perso.liris.cnrs.fr/christine.solnon/SIP.html)
 
-	wget
-	
+        wget http://liris.cnrs.fr/csolnon/newSIPbenchmarks.tgz
+        tar -zxvf newSIPbenchmarks.tgz
+        rm newSIPbenchmarks.tgz
+        cd newSIPbenchmarks.tgz/scalefree/A.01
+        
 
-**Format:** (MTX file, the [Matrix Market Format](https://people.sc.fsu.edu/~jburkardt/data/mm/mm.html).
+**Format:** Unsure of the format, but needs to be converted into something that the fv3 algorithm can eat using our grf_converter script, which a>
+
+        python ../../../../Code/Data_Analysis/grf_converter.py -i target -o target.grf
+
+### Pattern
+
+**Number of Subgraphs:** 180
+**Number of Nodes:** 180
+**Number of Edges:** 180
+**SOD:** 4 Kb
+
+**Source:** Same as A.01 Target. To convert the pattern file into the graph file, assuming you are in the A.01 directory.
+
+	python ../../../../Code/Data_Analysis/grf_converter.py -i pattern -o pattern.grf
+
+
 
 ## Medium Dataset
 
-**Name:** 
+### Target
 
-**Nodes:** 
+**Name:** Enron Email Dataset
 
-**Edges:** 
+**Nodes:** 36,692 
 
-**SOD:** Kb
+**Edges:** 183,131
 
-**Source:** 
+**SOD:** 3,955 Kb
 
-	wget
-	
-	
-	
+**Source:** [Stanford Network Analytics Program (SNAP)](https://snap.stanford.edu/data/email-Enron.html) via the [MIT Graph Challenge Datasets](h>
+
+        wget https://snap.stanford.edu/data/email-Enron.txt.gz
+        gunzip email-Enron.txt.gz
+        
 **Format:** 
+
+comes in an adjacency list format with some leading comments, can be moved into the required GRF format for vf3 with our converter. Assuming you >
+
+        python ../../Code/Data_Analysis/grf_converter.py -i email-Enron.txt -o email-Enron.grf -AL
+
+### Pattern
+
+None Provided.
 
 ## Large Dataset
 
-**Name:**
+### Target 
+**Name:** Measurement and Analysis on the Wide Internet (MAWI) Graph 1
 
-**Nodes:**
+**Nodes:** 18,571,154
 
-**Edges:**
+**Edges:** 38,040,320
 
-**SOD:** Kb
+**SOD:** 684,690 Kb
 
-**Source:** 
+**Source:** [MIT Graph Challenge Datasets](https://graphchallenge.mit.edu/data-sets) generated from [MWAI Archives](http://mawi.wide.ad.jp/mawi/)
 
 
-	wget
+	wget https://graphchallenge.s3.amazonaws.com/synthetic/gc5/201512012345.v18571154_e38040320.tsv
 	
 
+**Format:** Tab Seperated Adjacency List, needs to be converted into a grf format with: 
 
-**Format:**
+	 
+
+### Pattern
 
 ## Huge Dataset
 
-**Name:**
+**Name:** Measurement and Analysis on the Wide Internet (MAWI) Graph 5
 
-**Nodes:**
+**Nodes:** 226,196,185
 
-**Edges:** 
+**Edges:** 480,047,894
 
-**SOD:** Kb
+**SOD:** 10,048,635 Kb
 
-**Source:**
-**Format:**
+**Source:** [MIT Graph Challenge Datasets](https://graphchallenge.mit.edu/data-sets) generated from [MWAI Archives](http://mawi.wide.ad.jp/mawi/)
+
+	wget https://graphchallenge.s3.amazonaws.com/synthetic/gc5/201512020330.v226196185_e480047894.tsv
+
+**Format:** Tab Seperated Adjacency List, needs to be converted into a grf format with: 
+
+        
