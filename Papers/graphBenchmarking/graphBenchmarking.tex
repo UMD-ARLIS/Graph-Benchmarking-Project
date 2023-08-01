@@ -362,6 +362,16 @@ They specify the parameters to be used in RMAT to generate synthetic graphs, but
 In context it appears to be temporal (i.e. time to complete an operation), which they note in their initial experiments is already limited at large scales. 
 Graph 500 is a useful standard but relised on synthetically genrated data and focuses narrowly on a few problems, with simplistic metrics \cite{Murphy2010}.}
 
+\par{In 2013 Angles et. al. propose their benchmark for social database systems. 
+Their approach creates micro-benchmarks based query primitives for social networks they identify as: (1) Selection, (2) Adjacency, (3) Reachability and (4) Summarization. 
+They present a generator to create syntetic datasets, evolving the R-MAT algorithm to create a 'streaming' dataset by simulating the R-MAT recursion, sotring the distribution of edges and then constructing the graph after the fact. 
+Their benchmark compares SQL, Graph and RDF (Knowledge Graph) implementations on similar queries. 
+Rather than implement the algorithms themselves, they use the query languages of DBMS like PostgreSQL, Neo4J and RDF-3X.
+They measure both graph load time, (calculating objects per second by dividing total load time by total node+edge counts) and execution time. 
+They find that Reachability queries are the most computationally intensive, and unviable on non-native graph structures, like the relational data stores. 
+Though their benchmark seems to lack some formality, it does offer the ability to support streaming data, knowledge graphs and gives us primite operations to form the core of our exploration of knowledge graphs. They highlight that the cost of translating between URIs and internal representations in KGs can be expensive, particularly for simple queries. 
+Though not evaluated here, their graph generator offers a potential path to transform a static graph into a streaming graph \cite{Angles2013}.}
+
 \par{The 2015 Graphalytics Benchmark from Capot{\u{a}} et. al. aims to produce consistent reporting on graph workloads between all combinations of algorithms, datasets and platforms. 
 It primarily targets distributed and paralell implementations. 
 Their paper claims (but provides no substantive evidence or discussion of) support for evaluating algorithms run on GPUs and knowledge graph analytics. 
@@ -372,7 +382,7 @@ They characterize their datasets by Vertex and Edge Count, Global and Average Cl
 They also examine the defree distribution by goodness of fit to several known distributions. 
 The Graphalytics suite supports five algos': (1) General Stats, (2) Breadth First Search, (3) Connected Components, (4) Community Detection, (5) Graph Evolution. 
 They do not measure or report the time taken to extract, transform and load the graph into memory, or any detail about how it is structured in memory. 
-The Benchmark Suite measures execution time and traversed edges per second (calculated by dividing the execution time by the total number of edges - it is not clear if this will handle algoritms that revisit edges multiple times, and a more robust approach wi required). 
+The Benchmark Suite measures execution time and traversed edges per second (calculated by dividing the execution time by the total number of edges - it is not clear if this will handle algoritms that revisit edges multiple times, and a more robust approach is required). 
 They assert that software engineering best practices should be applied to any benchmarking effort, and use static code analysis and formal change management to provide quality assurance for their system, justifying our use of TDD in approaching our solution \cite{Capota2015}.}
 
 \par{Beamer et. al. from UC Berkeley introduce the GAP Graph Benchmark in their 2017 paper in response to their percieved shortcomings with the Graph500 benchmark. 
@@ -385,23 +395,24 @@ The benchmark is designed to be wider-ranging than Graph500, and as a result has
 While Connected components and betweenness centrality have some relation to community detection, and triangle counting is related to subgraph matching none are exact matches for the problem domain that HIVE is specifically pursuing. 
 There is no mention at all of knowledge graph analytics. Given that overall system performance includes the loading and storage in memory of Graphs has it appears to be a gap that these parts of the process are not measured. 
 An examination of how a graph is stored in memory effects its spatial locality during execution appars to be under-explored and so may be worth analyzing further \cite{Beamer2017}.}
-\small
+\scriptsize
 \begin{table*}[t]
-  \begin{tabular}{ |c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+  \begin{tabular}{ |c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
     \hline
-    {Benchmark Suite} & \multicolumn{10}{|c|}{Algorithm} & \multicolumn{3}{|c|}{Metrics} & \multicolumn{2}{|c|}{Imp} & \multicolumn{3}{|c|}{Arch}\\
+    {Benchmark Suite} & \multicolumn{10}{|c|}{Algorithm} & \multicolumn{4}{|c|}{Metrics} & \multicolumn{2}{|c|}{Imp} & \multicolumn{3}{|c|}{Arch} & \multicolumn{4}{|c|}{Datasets}\\
     \hline
-                                          & STATS & BFS & SSSP & PR & CC & BC & TC & CD & SGM & KGA & ET & TEPS & SLS & Seq & Par & CPU & GPU & DSA \\
+                                              & STATS & BFS & SSSP & PR & CC & BC & TC & CD & SGM & KGA & ET & TEPS & LT & SLS & Seq & Par & CPU & GPU & DSA & Real & Synth & Stat & Stream \\
     \hline
-     Graph500 [2010]\cite{Murphy2010}     &       & X   &      &    &    &    &    &    &     &     &  X &      &     & X   &     & X   &     &     \\
-     Graphalytics [2015]\cite{Capota2015} &   X   & X   &      &    & X  &    &    &  X &     & ?   &  X &   X  &     & X   &  X  & X   &  ?  &     \\
-     GAP [2017]\cite{Beamer2017}          &       & X   & X    & X  & X  & X  & X  &    &     &     &  X &      &     & X   &     & X   &     &     \\
+     Graph500 [2010]\cite{Murphy2010}         &       & X   &      &    &    &    &    &    &     &     &  X &      &    &     & X   &     & X   &     &     &       &   X  &   X  &        \\
+     Social Benchmark [2013]\cite{Angles2013} &   X   &     &      &    &    &    &    &    &     &  X  &  X &      & X  &     & X   &     & X   &     &     &       &   X  &   X  &  X     \\
+     Graphalytics [2015]\cite{Capota2015}     &   X   & X   &      &    & X  &    &    &  X &     & ?   &  X &   X  &    &     & X   &  X  & X   &  ?  &     &       &   X  &   X  &        \\
+     GAP [2017]\cite{Beamer2017}              &       & X   & X    & X  & X  & X  & X  &    &     &     &  X &      &    &     & X   &     & X   &     &     &   X   &   X  &   X  &        \\
     \hline
   \end{tabular}
-  \caption{Summary of Graph Benchmark Datasets.\\ STAT = Statistics, BFS = Breadth First Search, SSSP = Single Source Shortest Path, PR = PageRank, CC = Connected Components, BC = Betweenness Centrality, TC = Triangle Counting, CD = Community Detection, SGM = Sub Graph Matching, KGA = Knowledge Graph Analytics, ET = Execution Time, TEPS = Travered Edges Per Second, SLS = Spatial Locality Score, Seq = Sequential, Par = Paralell/Distributed, CPU = Central Processing Unit, GPU = Graphics Processing Unit, DSA = Domain Specific Architecture}
+  \caption{Summary of Graph Benchmark Datasets.\\ STAT = Statistics, BFS = Breadth First Search, SSSP = Single Source Shortest Path, PR = PageRank, CC = Connected Components, BC = Betweenness Centrality, TC = Triangle Counting, CD = Community Detection, SGM = Sub Graph Matching, KGA = Knowledge Graph Analytics, ET = Execution Time, TEPS = Travered Edges Per Second, LT = Load Time, SLS = Spatial Locality Score, Seq = Sequential, Par = Paralell/Distributed, CPU = Central Processing Unit, GPU = Graphics Processing Unit, DSA = Domain Specific Architecture}
   \label{table:graphBenchmarks}
 \end{table*}
-\normalfont
+\normalsize
 
 \subsection{Graph Dataset Generation}
 
