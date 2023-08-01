@@ -38,17 +38,45 @@ Which if successful should give us:
 Converted to: Graph with 200 nodes and 3043 edges
 ```
 
-We then need to convert the PATTERN file with: 
+We then need to create a subgraph with our subgra[h generator:
 
-	python ../../../Data_Analysis/grf_converter.py -i ../../../../Data/subgraph_matching/SMALL_A.01/pattern -o ../../../../Data/subgraph_matching/SMALL_A.01/pattern.grf -t other
+	python ../../../Data_Analysis/generate_subgraphs.py -i ../../../../Data/subgraph_matching/SMALL_A.01/pattern -o ../../../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_pattern.grf -t other -s 2 -l 3
 
  If successful it should output: 
 
 ```
-Converted to: Graph with 180 nodes and 2247 edges
+Need to add more nodes to reach walk length
+Subgraph Large Enough
+Subgraph is [(1, 3), (3, 17), (17, 1)]
+```
+We then convert that subgraph to a .grf file with our conversion tool:
+
+	python ../../../Data_Analysis/grf_converter.py -i ../../../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_pattern.txt -o ../../../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_pattern.grf -t AL
+
+Giving us an output of: 
+```
+Converted to: Graph with 3 nodes and 3 edges
 ```
 
+We can now run the matching program in serial with: 
 
+ 	./bin/vf3 ../../../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_pattern.grf ../../../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf 
+
+Which should give us an output of something like:
+
+```
+47676 1.03636e-05 0.0991161
+```
+
+We can now run the matching program in parallel on 2 threads with: 
+
+	./bin/vf3p ../../../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_pattern.grf ../../../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf -a 1 -t 2
+
+ Giving an output of something like: 
+
+```
+ 47675 0.000324 0.10275
+```
 
 ### Medium
 
