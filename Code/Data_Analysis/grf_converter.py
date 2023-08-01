@@ -43,7 +43,6 @@ def load_AL_graph(txt_file_path):
                 continue
 
             if line.startswith("#"):  # Skip comment lines
-                print("SKIPPING")
                 continue
 
             source, target = map(int, line.strip().split())
