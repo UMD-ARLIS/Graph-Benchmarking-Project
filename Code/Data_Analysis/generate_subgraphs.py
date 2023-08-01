@@ -36,7 +36,7 @@ def load_graph(txt_file_path):
     return G
 
 def load_AL_graph(txt_file_path):
-    # Read the text file and create a graph
+    # Read the a graph from an adjacency list text file and create a graph
     G = nx.Graph()
     with open(txt_file_path, 'r') as txt_file:
         for line in txt_file:
@@ -52,7 +52,22 @@ def load_AL_graph(txt_file_path):
             G.add_edge(source, target)
     return G
 
+
 def random_walk(graph, start_node, walk_length):
+    '''
+    Conduct a random walk of the graph to generate a subgraph that we know will exist in the parent
+    INPUT ARGS: 
+        graph - networkX graph - The graph to walk on
+        start_node - int - the lable of the node to start the walk from 
+        walk_length - int - the lenght of the walk to take
+    PROCESS:
+        Get the list of neighbours for the current node
+        Randomly traverse to one of those nodes
+        Append that to the list
+        Stop when you have walked far enough
+    RETURNS:
+        walk_path - list of strings - the labels of the nodes that have been traversed
+    '''
     current_node = start_node
     walk_path = [current_node]
 
@@ -114,15 +129,13 @@ if __name__ == "__main__":
 
     input_txt_file = flags.inputFile
     output_file = flags.outputFile
-
     inputType = flags.inputType
     walkLength = int(flags.walkLength)
-
     random.seed(flags.randomSeed)
 
  
     if input_txt_file is not None: 
-        if inputType == "AL":
+        if inputType == "AL":   #process an Adjacency list
             graphFromTxt = load_AL_graph(input_txt_file)
         else:
             graphFromTxt = load_graph(input_txt_file)
@@ -130,10 +143,12 @@ if __name__ == "__main__":
         subgraph = []
         
         try:
+            #Find the first cycle in the graph
             cycle = (nx.find_cycle(graphFromTxt))
             for node in cycle:
                 subgraph.append(node)
 
+            #if the cycle is longer than the size of the subgraph we want, return it. 
             if len(subgraph) > walkLength:
                 print("Visited Enough Nodes:")
                 print("Subgraph is", subgraph)
@@ -141,6 +156,7 @@ if __name__ == "__main__":
                 exit()
                 
             else:
+                #If not long enough, append steps from the random walk until it is long enough. 
                 print("Need to add more nodes to reach walk length")
                 randomWalk = random_walk(graphFromTxt,subgraph[0][0],walkLength)
                 try:
@@ -152,15 +168,14 @@ if __name__ == "__main__":
                     print("Subgraph is", subgraph)
                     saveSubgraph(subgraph,output_file)
 
-                    
                 except IndexError:
+                    #If we go out of range of the index, just return what we have so far. 
                     print('Subgraph At Max Size of Random Walk')
                     print("Subgraph is", subgraph)
                     saveSubgraph(subgraph,output_file)
 
-
-
         except:
+            #If there are no cycles, just use the random walk to generate the subgraph.
             randomWalk = random_walk(graphFromTxt,random.randrange(0,len(graphFromTxt.nodes)),(walkLength+1))
             try:
                 i = 0
@@ -170,13 +185,14 @@ if __name__ == "__main__":
                 print("Subgraph Large Enough")
                 print("Subgraph is", subgraph)
                 saveSubgraph(subgraph,output_file)
-
-                    
+      
             except IndexError:
+                #Again, if we go out of bounds of the index, just return what we have so far
                 print('Subgraph At Max Size of Random Walk')
                 print("Subgraph is", subgraph)
                 saveSubgraph(subgraph,output_file)
     else:
+        
         exit("No input file found")
 
 
