@@ -1,6 +1,81 @@
 # Graph Matching
 
+
+## Experiments
+To run each dataset, assuming you are in the /vf3lib directory, and that you have populated the datasets as outlined in  [The SGM Dataset Readme](https://github.com/osullik/summer2023/edit/main/Data/subgraph_matching/README.MD)
+
+Further, it assumes you have activated the virtual environment *hive_env* using something like 
+
+	source ../../../../hive_env/bin/activate
+
+ If not yet created, you can create the venv in the root directory with: 
+
+ 	python -m venv hive_env
+  	source hive_env/bin/activate
+   	pip install -r requirements.txt
+
+### Toy / Test
+This runs on the provided file from the VF3Lib Code
+
+	./bin/vf3 test/bvg1.sub.grf test/bvg1.grf 
+
+ output should be something like:
+
+```
+8 3.07613e-06 8.3829e-06
+```
+
+Indiacting 8 Matches in the time stipulated
+
+### Small 
+
+First we need to convert the TARGET GRAPH File into the Correct format using: 
+
+	python ../../../Data_Analysis/grf_converter.py -i ../../../../Data/subgraph_matching/SMALL_A.01/target -o ../../../../Data/subgraph_matching/SMALL_A.01/target.grf -t subgraphFormat
+
+Which if successful should give us: 
+
+```
+Converted to: Graph with 200 nodes and 3043 edges
+```
+
+We then need to convert the PATTERN file with: 
+
+	python ../../../Data_Analysis/grf_converter.py -i ../../../../Data/subgraph_matching/SMALL_A.01/pattern -o ../../../../Data/subgraph_matching/SMALL_A.01/pattern.grf -t subgraphFormat
+
+If successful it should output: 
+
+```
+Converted to: Graph with 180 nodes and 2247 edges
+```
+
+To then Run the graph matching, we use: 
+
+	./bin/vf3 ../../../../Data/subgraph_matching/SMALL_A.01/pattern.grf ../../../../Data/subgraph_matching/SMALL_A.01/target.grf
+
+Which should give us an output of something like: 
+
+```
+./bin/vf3 ../../../../Data/subgraph_matching/SMALL_A.01/pattern.grf ../../../../Data/subgraph_matching/SMALL_A.01/target.grf
+```
+
 // I may or may not have wrote more than I was soppused to, but I think what I included was good knowledge to have and be able to reference.
+
+### Medium
+
+First we need to convert the TARGET GRAPH File into the Correct format using: 
+
+	python ../../../Data_Analysis/grf_converter.py -i ../../../../Data/subgraph_matching/MEDIUM_email-Enron.txt -o ../../../../Data/subgraph_matching/SMALL_A.01/MEDIUM_email-Enron.grf -t AL
+
+ Which should give us an output of: 
+
+```
+Converted to: Graph with 36692 nodes and 183831 edges
+```
+
+Then to run the Medium Dataset we need to execute: 
+
+./bin/vf3 test/bvg1.sub.grf ../../../../Data/subgraph_matching/SMALL_A.01/MEDIUM_email-Enron.grf
 
 ## Related Works: 
 
