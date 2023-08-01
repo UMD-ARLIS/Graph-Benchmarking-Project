@@ -29,8 +29,11 @@ which assuming you are in the subgraph_matching directory should be
 ### Pattern
 
 **Number of Subgraphs:** 180
+
 **Number of Nodes:** 180
+
 **Number of Edges:** 180
+
 **SOD:** 4 Kb
 
 **Source:** Same as A.01 Target. To convert the pattern file into the graph file, assuming you are in the subgraph_matching directory.
