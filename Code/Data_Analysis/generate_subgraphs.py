@@ -107,7 +107,9 @@ def saveSubgraph(subgraphList,outputFilePath):
             adj_file.write(str(node[0])+" "+str(node[1])+"\n")
 
 def findCycle(graph, startNode=None):
-    print("Finding Cycle")
+    '''
+    Ugly workaround to get rid of self-cycles. TODO: Find a solution without recursion.
+    '''
     candidate = nx.find_cycle(graphFromTxt, startNode)
     for node in candidate:
         if node[0] == node[1]:
