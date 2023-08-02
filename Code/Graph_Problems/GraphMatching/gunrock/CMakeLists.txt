@@ -1,82 +1,113 @@
-####################################################
-############ INSTALLING CORRECT CMAKE ##############
-####################################################
-# Installing correct cmake version is easy!
-# 1) Find the respective version here;
-# https://github.com/Kitware/CMake/releases,
-# and 2) replace the [x.xx.x] in the following
-# commands with the version number (remove the
-# brackets). For example, if you are installing
-# CMake 3.22.1, replace [x.xx.x] with 3.22.1:
+project(gunrock)
 
-# wget https://github.com/Kitware/CMake/releases/download/v[x.xx.x]/cmake-[x.xx.x]-linux-x86_64.sh
-# chmod +x ./cmake-[x.xx.x]-linux-x86_64.sh
-# ./cmake-[x.xx.x]-linux-x86_64.sh
-# sudo mv cmake-[x.xx.x]-linux-x86_64 /opt/cmake
-# sudo ln -s /opt/cmake/bin/* /usr/local/bin/
-cmake_minimum_required(VERSION 3.20.1 FATAL_ERROR)
+set(gunrock_VERSION_MAJOR 1)
+set(gunrock_VERSION_MINOR 2)
+set(gunrock_VERSION_PATCH 0)
+add_definitions("-DGUNROCKVERSION=${gunrock_VERSION_MAJOR}.${gunrock_VERSION_MINOR}.${gunrock_VERSION_PATCH}")
 
-# begin /* Update Essentials version */
-set(ESSENTIALS_VERSION_MAJOR 2)
-set(ESSENTIALS_VERSION_MINOR 0)
-set(ESSENTIALS_VERSION_PATCH 0)
-# end /* Update Essentials version */
+cmake_minimum_required(VERSION 3.10)
 
-set(ESSENTIALS_VERSION "${ESSENTIALS_VERSION_MAJOR}.${ESSENTIALS_VERSION_MINOR}.${ESSENTIALS_VERSION_PATCH}")
+# enable @rpath in the install name for any shared library being built
+# note: it is planned that a future version of CMake will enable this by default
+set(CMAKE_MACOSX_RPATH 1)
 
-# Select "Release" as the default build type.
-# This can be altered by setting -DCMAKE_BUILD_TYPE
-# in the command-line interface to Release or Debug.
-# No reason to set CMAKE_CONFIGURATION_TYPES if it's 
-# not a multiconfig generator. Also no reason mess 
-# with CMAKE_BUILD_TYPE if it's a multiconfig generator.
-# https://stackoverflow.com/a/31548693/5729690
-get_property(isMultiConfig GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
-if(isMultiConfig)
-    set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE) 
-else()
-    if(NOT CMAKE_BUILD_TYPE)
-        message(STATUS "Defaulting to Release build type")
-        set(CMAKE_BUILD_TYPE Release CACHE STRING "" FORCE)
-    endif()
-    set_property(CACHE CMAKE_BUILD_TYPE PROPERTY HELPSTRING "Choose the type of build")
-    # set the valid options for cmake-gui drop-down list
-    set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug;Release")
-endif()
-
-project(essentials
-  VERSION ${ESSENTIALS_VERSION}
-  LANGUAGES CXX C CUDA
-  DESCRIPTION "Programmable CUDA/C++ GPU Graph Analytics"
-  HOMEPAGE_URL "https://github.com/gunrock/gunrock"
-)
-
-####################################################
-############### SET SM ARCHITECTURE ################
-####################################################
-
-## Note: This applies to NVBench as well.
-## Can be used for applications by extracting the
-## CUDA_ARCHITECTURES property from the project.
-## see cmake's get_target_properties()
-if(NOT CMAKE_CUDA_ARCHITECTURES)
-  set(CMAKE_CUDA_ARCHITECTURES 75)
-  message(STATUS "Using default GPU Architecture: ${CMAKE_CUDA_ARCHITECTURES}")
-else()
-  message(STATUS "GPU Architecture: ${CMAKE_CUDA_ARCHITECTURES}")
-endif()
-
+# begin /* Added make check target to improve ctest command */
+add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure)
+# end /* Added make check target to improve ctest command */
 
 # begin /* Dependencies directory */
 set(PROJECT_DEPS_DIR externals)
 # end /* Dependencies directory */
 
-# begin /* Include cmake modules */
-include(${PROJECT_SOURCE_DIR}/cmake/FetchThrustCUB.cmake)
-include(${PROJECT_SOURCE_DIR}/cmake/FetchModernGPU.cmake)
-include(${PROJECT_SOURCE_DIR}/cmake/FetchCXXOpts.cmake)
-include(${PROJECT_SOURCE_DIR}/cmake/FetchNlohmannJson.cmake)
-# end /* Include cmake modules */
+# begin /* Suppress all warnings from gcc */
+option(ENABLE_WARNINGS "Deprecated declarations warning flag." OFF)
+if (ENABLE_WARNINGS)
+  # moderngpu will give auto_ptr warning.
+else (ENABLE_WARNINGS)
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -w")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
+  add_definitions ("-w")
+endif (ENABLE_WARNINGS)
+# end /* Suppress all warnings from gcc */
+
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++14 -fPIC")
+
+option(CMAKE_VERBOSE_MAKEFILE OFF)
+
+# begin /* Find and set CUDA arch */
+set(gunrock_REQUIRED_CUDA_VERSION 9.0)
+FIND_PACKAGE(CUDA ${gunrock_REQUIRED_CUDA_VERSION} REQUIRED)
+# /* enables relocatable device code linking */
+SET(CUDA_SEPARABLE_COMPILATION ON)
+if(CUDA_64_BIT_DEVICE_CODE)
+  set(gunrock_arch_suffix x86_64)
+else()
+  set(gunrock_arch_suffix i386)
+endif()
+# end /* Find and set CUDA arch */
+
+# begin /* Include Boost, OpenMP & Metis */
+include(${CMAKE_SOURCE_DIR}/cmake/FindBoostHeaders.cmake)
+include(${CMAKE_SOURCE_DIR}/cmake/FindBoost.cmake)
+include(${CMAKE_SOURCE_DIR}/cmake/FindOpenMP.cmake)
+if (METIS_LIBRARY)
+  include(${CMAKE_SOURCE_DIR}/cmake/FindMetis.cmake)
+endif()
+include(${CMAKE_SOURCE_DIR}/cmake/FindFAISS.cmake)
+# end /* Include Boost, OpenMP & Metis */
+
+# begin /* How can I pass git SHA1 to compiler as definition using cmake? */
+# http://stackoverflow.com/questions/1435953/how-can-i-pass-git-sha1-to-compiler-as-definition-using-cmake/4318642#4318642
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
+include(GetGitRevisionDescription)
+get_git_head_revision(GIT_REFSPEC GIT_SHA1)
+# end /* How can I pass git SHA1 to compiler as definition using cmake? */
+
+# begin /* Include gunrock directories ./ */
+set(gunrock_INCLUDE_DIRS
+  ${CMAKE_SOURCE_DIR})
+include_directories(${gunrock_INCLUDE_DIRS})
+# end /* Include gunrock directories ./ */
+
+include(cmake/CPM.cmake)
+CPMAddPackage(
+  NAME RapidJSON
+  OPTIONS "RAPIDJSON_BUILD_UNITTESTS OFF"
+  GITHUB_REPOSITORY Tencent/rapidjson
+  GIT_TAG v1.1.0-489-g4b3d7c2f
+  SOURCE_DIR ${CMAKE_SOURCE_DIR}/externals/rapidjson)
+CPMAddPackage(
+  NAME ModernGPU
+  GITHUB_REPOSITORY NVlabs/moderngpu
+  GIT_TAG v2.12_june_8_2016-16-g2b39855
+  SOURCE_DIR ${CMAKE_SOURCE_DIR}/externals/moderngpu)
+
+# begin /* Include moderngpu & cub */
+include(${CMAKE_SOURCE_DIR}/cmake/FindRapidJson.cmake)
+include(${CMAKE_SOURCE_DIR}/cmake/FindModernGPU.cmake)
+# end /* Include moderngpu & cub */
+
+# begin /* Include googletest & googlemock */
+option(GUNROCK_GOOGLE_TESTS "Use Googletest as testing framework (default: OFF)." OFF)
+
+if (GUNROCK_GOOGLE_TESTS)
+  include(${CMAKE_SOURCE_DIR}/cmake/FindGoogleTest.cmake)
+endif (GUNROCK_GOOGLE_TESTS)
+# end /* Include googletest & googlemock */
+
+# begin /* Include CodeCoverage */
+option(GUNROCK_CODE_COVERAGE "Use CodeCoverage, requires lcov (default: OFF)." OFF)
+
+if (GUNROCK_CODE_COVERAGE)
+include(CodeCoverage)
+# setup_target_for_coverage(${PROJECT_NAME}_coverage ctest coverage)
+SETUP_TARGET_FOR_COVERAGE(${PROJECT_NAME}_coverage unit_test coverage)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
+endif (GUNROCK_CODE_COVERAGE)
+# end /* Include CodeCoverage */
 
 ## Set the directory where the binaries will be stored
 set(EXECUTABLE_OUTPUT_PATH
@@ -94,155 +125,315 @@ set(LIBRARY_OUTPUT_PATH
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_VERBOSE_MAKEFILE OFF)
 
-############ ADD LIBRARY: ESSENTIALS (HEADER-ONLY) ############
-add_library(essentials INTERFACE)
+# begin /* SET GENCODE_SM */
+set(GENCODE_SM10
+  -gencode=arch=compute_10,code=sm_10 -gencode=arch=compute_10,code=compute_10)
+set(GENCODE_SM13
+  -gencode=arch=compute_13,code=sm_13 -gencode=arch=compute_13,code=compute_13)
+set(GENCODE_SM20
+  -gencode=arch=compute_20,code=sm_20 -gencode=arch=compute_20,code=compute_20)
+set(GENCODE_SM30
+  -gencode=arch=compute_30,code=sm_30 -gencode=arch=compute_30,code=compute_30)
+set(GENCODE_SM35
+  -gencode=arch=compute_35,code=sm_35 -gencode=arch=compute_35,code=compute_35)
+set(GENCODE_SM37
+  -gencode=arch=compute_37,code=sm_37 -gencode=arch=compute_37,code=compute_37)
+set(GENCODE_SM50
+  -gencode=arch=compute_50,code=sm_50 -gencode=arch=compute_50,code=compute_50)
+set(GENCODE_SM52
+  -gencode=arch=compute_52,code=sm_52 -gencode=arch=compute_52,code=compute_52)
+set(GENCODE_SM60
+  -gencode=arch=compute_60,code=sm_60 -gencode=arch=compute_60,code=compute_60)
+set(GENCODE_SM61
+  -gencode=arch=compute_61,code=sm_61 -gencode=arch=compute_61,code=compute_61)
+set(GENCODE_SM70
+  -gencode=arch=compute_70,code=sm_70 -gencode=arch=compute_70,code=compute_70)
+set(GENCODE_SM72
+  -gencode=arch=compute_72,code=sm_72 -gencode=arch=compute_72,code=compute_72)
+set(GENCODE_SM75
+  -gencode=arch=compute_75,code=sm_75 -gencode=arch=compute_75,code=compute_75)
+set(GENCODE_SM80
+  -gencode=arch=compute_80,code=sm_80 -gencode=arch=compute_80,code=compute_80)
 
-####################################################
-############### SET TARGET PROPERTIES ##############
-####################################################
-set_target_properties(essentials 
-  PROPERTIES
-    CXX_STANDARD 17
-    CXX_STANDARD_REQUIRED ON
-    CXX_EXTENSIONS OFF # Should this be turned on for MSVC?
-    CUDA_STANDARD 17
-    CUDA_STANDARD_REQUIRED ON
-    CUDA_EXTENSIONS OFF
-    CUDA_RESOLVE_DEVICE_SYMBOLS ON
-    CUDA_SEPARABLE_COMPILATION ON
-    CUDA_ARCHITECTURES ${CMAKE_CUDA_ARCHITECTURES} # Set required architecture.
-    # CUDA_PTX_COMPILATION ON # Can only be applied to OBJ.
-)
+#set(GENCODE -gencode=arch=compute_10,code=compute_10) # at least generate PTX
+# end /* SET GENCODE_SM */
 
-####################################################
-############ TARGET COMPILER DEFINITIONS ###########
-####################################################
-target_compile_definitions(essentials
-  INTERFACE 
-    SM_TARGET=${CMAKE_CUDA_ARCHITECTURES}
-    ESSENTIALS_VERSION=${ESSENTIALS_VERSION}
-)
-
-####################################################
-############ TARGET COMPILE FEATURES ###############
-####################################################
-# Turn C++ Standard 17 ON.
-target_compile_features(essentials INTERFACE cxx_std_17)
-# set(CMAKE_CXX_EXTENSIONS OFF)
-
-set(ESSENTIALS_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
-
-####################################################
-############ TARGET INCLUDE DIRECTORIES ############
-####################################################
-target_include_directories(essentials
-  INTERFACE ${ESSENTIALS_INCLUDE_DIR}
-  INTERFACE ${CXXOPTS_INCLUDE_DIR}
-  INTERFACE ${THRUST_INCLUDE_DIR}
-  INTERFACE ${CUB_INCLUDE_DIR}
-  INTERFACE ${MODERNGPU_INCLUDE_DIR}
-  # INTERFACE ${RAPIDJSON_INCLUDE_DIR}
-  INTERFACE ${NHLOMANN_JSON_INCLUDE_DIR}
-  INTERFACE ${CMAKE_CUDA_TOOLKIT_INCLUDE_DIRECTORIES}
-)
-
-####################################################
-############ TARGET LINK LIBRARIES #################
-####################################################
-target_link_libraries(essentials
-  INTERFACE curand
-  INTERFACE cuda
-  INTERFACE cusparse
-)
-
-####################################################
-################# TARGET SOURCES ###################
-####################################################
-target_sources(essentials
-  INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/include/gunrock/util/gitsha1make.c"
-  INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/include/gunrock/io/detail/mmio.cpp"
-)
-
-####################################################
-############## SET CXX & CUDA FLAGS ################
-####################################################
-set(CXX_FLAGS 
-  $<$<CXX_COMPILER_ID:MSVC>:
-    /W4
-  >
-  $<$<CXX_COMPILER_ID:GNU>:
-    -Wall 
-    # -Wextra
-    -Wno-unused-result
-    -Wno-unused-local-typedefs
-    -Wno-strict-aliasing
-    -Wno-unused-function
-    -Wno-format-security
-    # -Werror
-    # -vvv
-  >
-)
-
-set(CUDA_RELEASE_FLAGS
-  --expt-extended-lambda 
-  --expt-relaxed-constexpr
-  --use_fast_math
-)
-
-set(CUDA_DEBUG_FLAGS
-  --expt-extended-lambda 
-  --expt-relaxed-constexpr
-  --ptxas-options -v
-  --debug # Host debug
-  --device-debug # Device debug
-)
-
-####################################################
-############ TARGET COMPILE OPTIONS ################
-####################################################
-target_compile_options(essentials INTERFACE 
-  $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CONFIG:DEBUG>>:${CXX_FLAGS}>
-  $<$<AND:$<COMPILE_LANGUAGE:CUDA>,$<CONFIG:DEBUG>>:${CUDA_DEBUG_FLAGS}>
-  $<$<AND:$<COMPILE_LANGUAGE:CUDA>,$<CONFIG:RELEASE>>:${CUDA_RELEASE_FLAGS}>
-)
-
-####################################################
-############ BUILD EXAMPLE APPLICATIONS ############
-####################################################
-option(ESSENTIALS_BUILD_EXAMPLES
-  "If on, builds the example graph applications."
+# begin /* Configure GUNROCK build options */
+option(GUNROCK_BUILD_LIB
+  "On to build library"
   ON)
 
-# Subdirectories for examples, testing and documentation
-if(ESSENTIALS_BUILD_EXAMPLES)
-  add_subdirectory(examples)
-endif(ESSENTIALS_BUILD_EXAMPLES)
-
-####################################################
-################ BUILD UNIT TESTS  #################
-####################################################
-option(ESSENTIALS_BUILD_TESTS
-  "If on, builds the unit tests."
+option(GUNROCK_BUILD_SHARED_LIBS
+  "On to build shared libraries, off for static libraries."
   ON)
 
-# Subdirectories for examples, testing and documentation
-if(ESSENTIALS_BUILD_TESTS)
-  include(${PROJECT_SOURCE_DIR}/cmake/FetchGoogleTest.cmake)
-  enable_testing()
-  add_subdirectory(unittests)
-endif(ESSENTIALS_BUILD_TESTS)
+option(GUNROCK_BUILD_APPLICATIONS
+  "If on, builds the sample applications."
+  ON)
 
-####################################################
-################ BUILD BENCHMARKS  #################
-####################################################
-option(ESSENTIALS_BUILD_BENCHMARKS
-  "If on, builds essentials with benchmarking support."
+option(GUNROCK_APP_BC
+  "If on, builds only BC application."
   OFF)
 
+option(GUNROCK_APP_BFS
+  "If on, builds only BFS application."
+  OFF)
+
+option(GUNROCK_APP_CC
+  "If on, builds only CC application."
+  OFF)
+
+option(GUNROCK_APP_PR
+  "If on, builds only PR application."
+  OFF)
+
+option(GUNROCK_APP_SSSP
+  "If on, builds only SSSP application."
+  OFF)
+
+option(GUNROCK_APP_HITS
+  "If on, builds only HITS application."
+  OFF)
+
+option(GUNROCK_APP_SALSA
+  "If on, builds only SALSA application."
+  OFF)
+
+option(GUNROCK_APP_MST
+  "If on, builds only MST application."
+  OFF)
+
+option(GUNROCK_APP_WTF
+  "If on, builds only WTF application."
+  OFF)
+
+option(GUNROCK_APP_TOPK
+  "If on, builds only TOPK application."
+  OFF)
+
+option(GUNROCK_APP_GRMAT
+  "If on, builds only GRMAT application."
+  OFF)
+
+option(GUNROCK_APP_LOUVAIN
+  "If on, builds only LOUVAIN application."
+  OFF)
+
+option(GUNROCK_APP_COLOR
+  "If on, builds only COLOR application."
+  OFF)
+
+option(GUNROCK_APP_KCORE
+  "If on, builds only KCORE application."
+  OFF)
+  
+option(GUNROCK_APP_LP
+  "If on, builds only LP application."
+  OFF)
+
+option(GUNROCK_APP_LCC
+  "If on, builds only LCC application."
+  OFF)
+
+#option(GUNROCK_APP_SAMPLE
+#  "If on, builds only SAMPLE application."
+#  OFF)
+
+option(GUNROCK_BUILD_TESTS
+  "If on, tests graph primitives with ctest"
+  ON)
+
+option(GUNROCK_MGPU_TESTS
+  "If on, tests multi GPU primitives with ctest"
+  OFF)
+
+option(GUNROCK_GENCODE_SM10
+  "ON to generate code for Compute Capability 1.0 devices (e.g. Tesla C870)"
+  OFF)
+
+option(GUNROCK_GENCODE_SM13
+  "ON to generate code for Compute Capability 1.3 devices (e.g. Tesla C1060)"
+  OFF)
+
+option(GUNROCK_GENCODE_SM20
+  "ON to generate code for Compute Capability 2.0 devices (e.g. Tesla C2050)"
+  OFF)
+
+option(GUNROCK_GENCODE_SM30
+  "ON to generate code for Compute Capability 3.0 devices (e.g. Tesla K10)"
+  OFF)
+
+option(GUNROCK_GENCODE_SM35
+  "ON to generate code for Compute Capability 3.5 devices (e.g. Tesla K40)"
+  OFF)
+
+option(GUNROCK_GENCODE_SM37
+  "ON to generate code for Compute Capability 3.7 devices (e.g. Tesla K80)"
+  OFF)
+
+option(GUNROCK_GENCODE_SM50
+  "ON to generate code for Compute Capability 5.0 devices (e.g. GeForce GTX 750 TI)"
+  OFF)
+
+option(GUNROCK_GENCODE_SM52
+  "ON to generate code for Compute Capability 5.2 devices (e.g. GeForce Titan X)"
+  OFF)
+
+#Pascal Architecture: CUDA 8
+if (CUDA_VERSION VERSION_EQUAL "8.0" OR CUDA_VERSION VERSION_GREATER "8.0")
+  option(GUNROCK_GENCODE_SM60
+    "ON to generate code for Compute Capability 6.0 devices (e.g. Tesla P100)"
+    OFF)
+  option(GUNROCK_GENCODE_SM61
+    "ON to generate code for Compute Capability 6.1 devices (e.g. GeForce GTX 1080)"
+    OFF)
+endif ()
+
+#Volta Architecture: CUDA 9
+if (CUDA_VERSION VERSION_EQUAL "9.0" OR CUDA_VERSION VERSION_GREATER "9.0")
+  option(GUNROCK_GENCODE_SM70
+    "ON to generate code for Compute Capability 7.0 devices (e.g. Volta V100)"
+    ON)
+  option(GUNROCK_GENCODE_SM72
+    "ON to generate code for Compute Capability 7.2 devices (e.g. Jetson AGX Xavier)"
+    OFF)
+endif ()
+
+#Turing Architecture: CUDA 10
+if (CUDA_VERSION VERSION_EQUAL "10.0" OR CUDA_VERSION VERSION_GREATER "10.0")
+  option(GUNROCK_GENCODE_SM75
+    "ON to generate code for Compute Capability 7.5 devices (e.g. GTX 1160 or RTX 2080)"
+    OFF)
+endif ()
+
+#Ampere Architecture: CUDA 11
+if (CUDA_VERSION VERSION_EQUAL "11.0" OR CUDA_VERSION VERSION_GREATER "11.0")
+  option(GUNROCK_GENCODE_SM80
+    "ON to generate code for Compute Capability 8.0 devices"
+    OFF)
+endif ()
+
+option (CUDA_AUTODETECT_GENCODE
+  "On to enable autodetection of appropriate gencode=X options for each detected device"
+  OFF)
+
+option(CUDA_VERBOSE_PTXAS
+  "On to enable verbose output from the PTXAS assembler."
+  OFF)
+
+if (CUDA_AUTODETECT_GENCODE)
+  include(${CMAKE_SOURCE_DIR}/cmake/AutoDetectCudaArch.cmake)
+  set(GENCODE ${GENCODE} ${CUDA_ARCHS})
+endif ()
+
+if (GUNROCK_GENCODE_SM10)
+  set(GENCODE ${GENCODE} ${GENCODE_SM10})
+endif(GUNROCK_GENCODE_SM10)
+
+if (GUNROCK_GENCODE_SM13)
+  set(GENCODE ${GENCODE} ${GENCODE_SM13})
+endif(GUNROCK_GENCODE_SM13)
+
+if (GUNROCK_GENCODE_SM20)
+  set(GENCODE ${GENCODE} ${GENCODE_SM20})
+endif(GUNROCK_GENCODE_SM20)
+
+if (GUNROCK_GENCODE_SM30)
+  set(GENCODE ${GENCODE} ${GENCODE_SM30})
+endif(GUNROCK_GENCODE_SM30)
+
+if (GUNROCK_GENCODE_SM35)
+  set(GENCODE ${GENCODE} ${GENCODE_SM35})
+endif(GUNROCK_GENCODE_SM35)
+
+if (GUNROCK_GENCODE_SM37)
+  set(GENCODE ${GENCODE} ${GENCODE_SM37})
+endif(GUNROCK_GENCODE_SM37)
+
+if (GUNROCK_GENCODE_SM50)
+  set(GENCODE ${GENCODE} ${GENCODE_SM50})
+endif(GUNROCK_GENCODE_SM50)
+
+if (GUNROCK_GENCODE_SM52)
+  set(GENCODE ${GENCODE} ${GENCODE_SM52})
+endif(GUNROCK_GENCODE_SM52)
+
+if (GUNROCK_GENCODE_SM60)
+  set(GENCODE ${GENCODE} ${GENCODE_SM60})
+endif(GUNROCK_GENCODE_SM60)
+
+if (GUNROCK_GENCODE_SM61)
+  set(GENCODE ${GENCODE} ${GENCODE_SM61})
+endif(GUNROCK_GENCODE_SM61)
+
+if (GUNROCK_GENCODE_SM70)
+  set(GENCODE ${GENCODE} ${GENCODE_SM70})
+endif(GUNROCK_GENCODE_SM70)
+
+if (GUNROCK_GENCODE_SM72)
+  set(GENCODE ${GENCODE} ${GENCODE_SM72})
+endif(GUNROCK_GENCODE_SM72)
+
+if (GUNROCK_GENCODE_SM75)
+  set(GENCODE ${GENCODE} ${GENCODE_SM75})
+endif(GUNROCK_GENCODE_SM75)
+
+if (GUNROCK_GENCODE_SM80)
+  set(GENCODE ${GENCODE} ${GENCODE_SM80})
+endif(GUNROCK_GENCODE_SM80)
+
+message(STATUS "Listing chosen GENCODE commands")
+foreach(code IN LISTS GENCODE)
+    message(STATUS "${code}")
+endforeach() 
+
+if (CUDA_VERBOSE_PTXAS)
+  set(VERBOSE_PTXAS --ptxas-options=-v)
+endif (CUDA_VERBOSE_PTXAS)
+# end /* Configure GUNROCK build options */
+
+# c++11 is required
+# Already set above. Causes build error on Ubuntu 18.04.1 LTS
+set(CUDA_NVCC_FLAGS --expt-extended-lambda -rdc=true -lcudadevrt)
+set(CUDA_LIBRARIES ${CUDA_LIBRARIES} ${CUDA_curand_LIBRARY})
+
+# begin /* Suppress all warnings from nvcc */
+if (NOT ENABLE_WARNINGS)
+  set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -w")
+endif (NOT ENABLE_WARNINGS)
+# end /* Suppress all warnings from nvcc */
+
+if(GUNROCK_BUILD_LIB)
+  if(GUNROCK_BUILD_SHARED_LIBS)
+    set(LIB_TYPE SHARED)
+  else()
+    set(LIB_TYPE STATIC)
+    set(GUNROCK_STATIC_LIB 1)
+  endif(GUNROCK_BUILD_SHARED_LIBS)
+
+  #configure_file(
+  #    ${CMAKE_CURRENT_SOURCE_DIR}/gunrock/gunrock_config.h.in
+  #    ${CMAKE_CURRENT_SOURCE_DIR}/gunrock/gunrock_config.h)
+
+  configure_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/gunrock/util/gitsha1.c.in"
+    "${CMAKE_CURRENT_SOURCE_DIR}/gunrock/util/gitsha1.c"
+    @ONLY)
+  add_subdirectory(gunrock)
+endif(GUNROCK_BUILD_LIB)
+
 # Subdirectories for examples, testing and documentation
-if(ESSENTIALS_BUILD_BENCHMARKS)
-  # ... see https://github.com/NVIDIA/nvbench/issues/66
-  set(NVBench_ENABLE_NVML OFF)
-  include(${PROJECT_SOURCE_DIR}/cmake/FetchNVBench.cmake)
-  add_subdirectory(benchmarks)
-endif(ESSENTIALS_BUILD_BENCHMARKS)
+if(GUNROCK_BUILD_TESTS)
+  # Enables testing for this directory and below.
+  # Note that ctest expects to find a test file
+  # in the build directory root. Therefore,
+  # this command should be in the source directory root.
+  # https://cmake.org/cmake/help/v3.0/command/enable_testing.html
+  # Note: For gunrock, use ctest or make check to run the tests
+  enable_testing()
+
+  add_subdirectory(examples)
+  if(GUNROCK_GOOGLE_TESTS)
+    add_subdirectory(unittests)
+  endif(GUNROCK_GOOGLE_TESTS)
+endif(GUNROCK_BUILD_TESTS)
