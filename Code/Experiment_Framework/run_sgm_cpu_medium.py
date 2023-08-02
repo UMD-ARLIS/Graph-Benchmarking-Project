@@ -3,11 +3,15 @@ import subprocess
 def run_commands(commands):
     output = ""
     for command in commands:
+        print("Running", command)
         try:
             result = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT, text=True)
             output += f"Command: {command}\nOutput:\n{result}\n"
+            print("Completed Successfully")
         except subprocess.CalledProcessError as e:
             output += f"Command: {command}\nError:\n{e.output}\n"
+            print("Failed")
+        
 
     return output
 
