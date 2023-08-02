@@ -114,7 +114,7 @@ Converted to: Graph with 3 nodes and 3 edges
 
 To then Run the graph matching, we use: 
 
-	./bin/vf3 ../../../../Data/subgraph_matching/SMALL_A.01/pattern.grf ../../../../Data/subgraph_matching/SMALL_A.01/target.grf
+	./bin/vf3 ../../../../Data/subgraph_matching/MEDIUM_SUB_email-Enron.grf ../../../../Data/subgraph_matching/MEDIUM_email-Enron.grf
 
 Which should give us an output of something like: 
 
@@ -130,6 +130,47 @@ To run in parallel on 2 threads we would use:
 also giving an output of the form:
 
 [number of solutions found] [time to find the first solution] [time to find all the solutions]
+
+### LARGE
+
+1- Convert the Input TSV to a .grf file:
+
+	python ../../../Data_Analysis/grf_converter.py -i ../../../../Data/subgraph_matching/LARGE_201512012345.v18571154_e38040320.tsv -o ../../../../Data/subgraph_matching/LARGE_201512012345.v18571154_e38040320.grf -t TSV
+
+which (after potentially several minutes) should give output like: 
+
+```
+Converted to: Graph with 18571154 nodes and 19020160 edges
+```
+
+
+**note** While the number of nodes are the same, the number of edges here indicate it is saving it as a directed rathern than an undirected graph
+
+2- Generate a subgraph of the Large file to match on:
+
+	python ../../../Data_Analysis/generate_subgraphs.py -i ../../../../Data/subgraph_matching/LARGE_201512012345.v18571154_e38040320.tsv -o ../../../../Data/subgraph_matching/LARGE_SUB_201512012345.v18571154_e38040320.txt -t other -s 2 -l 3
+
+Which will generate a subgraph of 3 nodes using the random seed of 2 and produce something like the following output: 
+
+```
+Need to add more nodes to reach walk length
+Subgraph Large Enough
+Subgraph is [(1, 1), (1, 12427667), (12427667, 1)]
+```
+
+3- Convert the subgraph file to a .grf file: 
+
+	python ../../../Data_Analysis/grf_converter.py -i ../../../../Data/subgraph_matching/LARGE_SUB_201512012345.v18571154_e38040320.txt -o ../../../../Data/subgraph_matching/LARGE_SUB_201512012345.v18571154_e38040320.grf -t AL
+
+Expect a return like: 
+
+```
+Converted to: Graph with 3 nodes and 2 edges
+```
+
+4- Run VF3 Serial:
+
+	./bin/vf3 ../../../../Data/subgraph_matching/LARGE_SUB_201512012345.v18571154_e38040320.grf ../../../../Data/subgraph_matching/LARGE_201512012345.v18571154_e38040320.grf
 
 ## Related Works: 
 
