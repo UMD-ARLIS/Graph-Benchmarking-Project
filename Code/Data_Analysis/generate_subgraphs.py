@@ -52,6 +52,24 @@ def load_AL_graph(txt_file_path):
             G.add_edge(source, target)
     return G
 
+def load_TSV_graph(txt_file_path):
+    G = nx.Graph()
+    with open(txt_file_path, 'r') as txt_file:
+        for line in txt_file:
+            if not line.strip():  # Skip empty lines
+                continue
+            if line.startswith("//"):  # Skip comment lines
+                continue
+
+            if line.startswith("#"):  # Skip comment lines
+                continue
+
+            source, target, attribute = map(int, line.strip().split())
+            print("Source", source, "Target", target, "Attribute", attribute)
+            G.add_edge(source, target)
+    return G
+
+
 
 def random_walk(graph, start_node, walk_length):
     '''
@@ -137,8 +155,11 @@ if __name__ == "__main__":
     if input_txt_file is not None: 
         if inputType == "AL":   #process an Adjacency list
             graphFromTxt = load_AL_graph(input_txt_file)
+        elif inputType == "TSV": #process a TSV File:
+            graphFromTxt = load_TSV_graph(input_txt_file)
         else:
             graphFromTxt = load_graph(input_txt_file)
+
         
         subgraph = []
         
@@ -192,7 +213,7 @@ if __name__ == "__main__":
                 print("Subgraph is", subgraph)
                 saveSubgraph(subgraph,output_file)
     else:
-        
+
         exit("No input file found")
 
 
