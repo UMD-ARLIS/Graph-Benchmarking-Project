@@ -16,14 +16,24 @@ def run_commands(commands):
 
 if __name__ == "__main__":
     commands = [
-        #Run Each Command in Turn and collect the results:
+        #Run the timing commands:
         "./../Graph_Problems/GraphMatching/vf3lib/bin/vf3  -v ./../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_3_pattern.grf ./../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf",
         "./../Graph_Problems/GraphMatching/vf3lib/bin/vf3 -v ./../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_4_pattern.grf ./../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf",
         "./../Graph_Problems/GraphMatching/vf3lib/bin/vf3p -v ./../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_3_pattern.grf ./../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf a 1 -t 2",
         "./../Graph_Problems/GraphMatching/vf3lib/bin/vf3p -v ./../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_4_pattern.grf ./../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf a 1 -t 2",
         "./../Graph_Problems/GraphMatching/vf3lib/bin/vf3p -v ./../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_3_pattern.grf ./../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf a 1 -t 10",
         "./../Graph_Problems/GraphMatching/vf3lib/bin/vf3p -v ./../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_4_pattern.grf ./../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf a 1 -t 10",
-        # Add more commands if needed
+        #Run the Memory Commands
+        "sudo valgrind --log-file=valgrind.out ./../Graph_Problems/GraphMatching/vf3lib/bin/vf3  ./../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_3_pattern.grf ./../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf -l -1 -v -q id_qual; grep total valgrind.out | sed -E 's/.*: ([0-9,]+) allocs, ([0-9,]+) frees, ([0-9,]+) bytes allocated/\1 allocs\n\2 frees\n\3 bytes allocated/",
+        "sudo valgrind --log-file=valgrind.out ./../Graph_Problems/GraphMatching/vf3lib/bin/vf3  ./../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_4_pattern.grf ./../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf -l -1 -v -q id_qual; grep total valgrind.out | sed -E 's/.*: ([0-9,]+) allocs, ([0-9,]+) frees, ([0-9,]+) bytes allocated/\1 allocs\n\2 frees\n\3 bytes allocated/",
+        "sudo valgrind --log-file=valgrind.out ./../Graph_Problems/GraphMatching/vf3lib/bin/vf3p  ./../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_3_pattern.grf ./../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf a 1 -t 2 -l -1 -v -q id_qual; grep total valgrind.out | sed -E 's/.*: ([0-9,]+) allocs, ([0-9,]+) frees, ([0-9,]+) bytes allocated/\1 allocs\n\2 frees\n\3 bytes allocated/",
+        "sudo valgrind --log-file=valgrind.out ./../Graph_Problems/GraphMatching/vf3lib/bin/vf3p  ./../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_4_pattern.grf ./../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf a 1 -t 2 -l -1 -v -q id_qual; grep total valgrind.out | sed -E 's/.*: ([0-9,]+) allocs, ([0-9,]+) frees, ([0-9,]+) bytes allocated/\1 allocs\n\2 frees\n\3 bytes allocated/"
+        "sudo valgrind --log-file=valgrind.out ./../Graph_Problems/GraphMatching/vf3lib/bin/vf3p  ./../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_3_pattern.grf ./../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf a 1 -t 10 -l -1 -v -q id_qual; grep total valgrind.out | sed -E 's/.*: ([0-9,]+) allocs, ([0-9,]+) frees, ([0-9,]+) bytes allocated/\1 allocs\n\2 frees\n\3 bytes allocated/",
+        "sudo valgrind --log-file=valgrind.out ./../Graph_Problems/GraphMatching/vf3lib/bin/vf3p  ./../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_4_pattern.grf ./../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf a 1 -t 10 -l -1 -v -q id_qual; grep total valgrind.out | sed -E 's/.*: ([0-9,]+) allocs, ([0-9,]+) frees, ([0-9,]+) bytes allocated/\1 allocs\n\2 frees\n\3 bytes allocated/"
+
+
+
+    
     ]
 
     # Run commands and collect results
