@@ -14,12 +14,12 @@ def run_commands(commands):
 if __name__ == "__main__":
     commands = [
         #Run Each Command in Turn and collect the results:
-        "./../GraphProblems/GraphMatching/vf3lib/bin/vf3 -v ./../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_3_pattern.grf ./../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf",
-        "./../GraphProblems/GraphMatching/vf3lib/bin/vf3 -v ./../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_4_pattern.grf ./../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf",
-        "./../GraphProblems/GraphMatching/vf3lib/bin/vf3p -v ./../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_3_pattern.grf ./../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf a 1 -t 2",
-        "./../GraphProblems/GraphMatching/vf3lib/bin/vf3p -v ./../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_4_pattern.grf ./../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf a 1 -t 2",
-        "./../GraphProblems/GraphMatching/vf3lib/bin/vf3p -v ./../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_3_pattern.grf ./../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf a 1 -t 10",
-        "./../GraphProblems/GraphMatching/vf3lib/bin/vf3p -v ./../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_4_pattern.grf ./../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf a 1 -t 10",
+        "./../Graph_Problems/GraphMatching/vf3lib/bin/vf3  -v ./../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_3_pattern.grf ./../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf",
+        "./../Graph_Problems/GraphMatching/vf3lib/bin/vf3 -v ./../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_4_pattern.grf ./../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf",
+        "./../Graph_Problems/GraphMatching/vf3lib/bin/vf3p -v ./../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_3_pattern.grf ./../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf a 1 -t 2",
+        "./../Graph_Problems/GraphMatching/vf3lib/bin/vf3p -v ./../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_4_pattern.grf ./../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf a 1 -t 2",
+        "./../Graph_Problems/GraphMatching/vf3lib/bin/vf3p -v ./../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_3_pattern.grf ./../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf a 1 -t 10",
+        "./../Graph_Problems/GraphMatching/vf3lib/bin/vf3p -v ./../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_4_pattern.grf ./../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf a 1 -t 10",
         # Add more commands if needed
     ]
 
