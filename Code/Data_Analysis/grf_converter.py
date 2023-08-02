@@ -63,6 +63,7 @@ def load_TSV_graph(txt_file_path):
 
             source, target, attribute = map(int, line.strip().split())
             G.add_edge(source, target)
+    G.to_undirected()   #Make Undirected - Hard coded for now, TODO - make this a parameter. 
     return G
 
 def convert_to_ordered_graph(G):
