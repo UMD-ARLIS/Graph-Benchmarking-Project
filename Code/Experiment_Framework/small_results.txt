@@ -1,0 +1,86 @@
+Command: ./../Graph_Problems/GraphMatching/vf3lib/bin/vf3  -v ./../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_3_pattern.grf ./../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf
+Output:
+Loaded in: 0.002549
+FastCheck in: 1e-06
+Classification in: 4e-06
+First Solution in: 1.48182e-05
+Matching Finished in: 0.0981732
+Solutions: 47676
+
+Command: ./../Graph_Problems/GraphMatching/vf3lib/bin/vf3 -v ./../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_4_pattern.grf ./../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf
+Output:
+Loaded in: 0.002519
+FastCheck in: 0
+Classification in: 3e-06
+First Solution in: 1.9e-05
+Matching Finished in: 1.52275
+Solutions: 871462
+
+Command: ./../Graph_Problems/GraphMatching/vf3lib/bin/vf3p -v ./../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_3_pattern.grf ./../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf a 1 -t 2
+Output:
+Loaded in: 0.002469
+FastCheck in: 1e-06
+Classification in: 3e-06
+First Solution in: 0.0003816
+Matching Finished in: 0.102146
+Solutions: 47663
+
+Command: ./../Graph_Problems/GraphMatching/vf3lib/bin/vf3p -v ./../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_4_pattern.grf ./../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf a 1 -t 2
+Output:
+Loaded in: 0.002472
+FastCheck in: 1e-06
+Classification in: 6e-06
+First Solution in: 0.000321
+Matching Finished in: 1.70797
+Solutions: 871348
+
+Command: ./../Graph_Problems/GraphMatching/vf3lib/bin/vf3p -v ./../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_3_pattern.grf ./../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf a 1 -t 10
+Output:
+Loaded in: 0.002496
+FastCheck in: 1e-06
+Classification in: 3e-06
+First Solution in: 0.000557333
+Matching Finished in: 0.0685997
+Solutions: 47602
+
+Command: ./../Graph_Problems/GraphMatching/vf3lib/bin/vf3p -v ./../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_4_pattern.grf ./../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf a 1 -t 10
+Output:
+Loaded in: 0.00253
+FastCheck in: 0
+Classification in: 4e-06
+First Solution in: 0.000891
+Matching Finished in: 1.33245
+Solutions: 869954
+
+Command: bash sgm_memory_small.sh
+Output:
+SMALL-3
+47676 0.048747 1.2303
+13,097 allocs
+13,094 frees
+689,596 bytes allocated
+SMALL-4
+871462 0.049418 18.1629
+13,113 allocs
+13,109 frees
+690,160 bytes allocated
+SMALL-P2-3
+47676 0.130995 1.76054
+608,351 allocs
+608,343 frees
+61,074,845 bytes allocated
+SMALL-P2-4
+871462 0.133052 34.8376
+10,221,746 allocs
+10,221,737 frees
+1,044,605,860 bytes allocated
+SMALL-P10-3
+47676 0.381316 1.99524
+608,367 allocs
+608,359 frees
+61,077,533 bytes allocated
+SMALL-P10-4
+871462 137.133 271.225
+10,221,761 allocs
+10,221,752 frees
+1,044,608,036 bytes allocated
