@@ -65,7 +65,6 @@ def load_TSV_graph(txt_file_path):
                 continue
 
             source, target, attribute = map(int, line.strip().split())
-            print("Source", source, "Target", target, "Attribute", attribute)
             G.add_edge(source, target)
     return G
 
