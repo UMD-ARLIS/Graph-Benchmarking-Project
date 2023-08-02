@@ -1,6 +1,6 @@
 # Graph Matching
 
-## Experiments
+## Experiments - CPU
 To run each dataset, assuming you are in the /vf3lib directory, and that you have populated the datasets as outlined in  [The SGM Dataset Readme](https://github.com/osullik/summer2023/edit/main/Data/subgraph_matching/README.MD)
 
 Further, it assumes you have activated the virtual environment *hive_env* using something like 
@@ -171,6 +171,83 @@ Converted to: Graph with 3 nodes and 2 edges
 4- Run VF3 Serial:
 
 	./bin/vf3 ../../../../Data/subgraph_matching/LARGE_SUB_201512012345.v18571154_e38040320.grf ../../../../Data/subgraph_matching/LARGE_201512012345.v18571154_e38040320.grf
+
+## Experiments - GPU
+
+These assume execution from within the [Code/Experiment_Framework](https://github.com/osullik/summer2023/tree/main/Code/Experiment_Framework) directory
+
+### Small
+
+First, convert the dataset to the mtx file using the mtx converter tool
+
+	python ../Data_Analysis/mtx_converter_script.py -i ../../Data/subgraph_matching/SMALL_A.01/target -o ../../Data/subgraph_matching/SMALL_target.mtx -t other
+
+Then, create a subgraph using the subgraph creation tool:
+
+	python ../Data_Analysis/generate_subgraphs.py -i ../../Data/subgraph_matching/SMALL_A.01/target -o ../../Data/subgraph_matching/SMALL_SUB_target.txt -t other -l 3
+
+Then convert the subgraph to the mtx format
+
+	python ../Data_Analysis/mtx_converter_script.py -i ../../Data/subgraph_matching/SMALL_SUB_target.txt -o ../../Data/subgraph_matching/SMALL_SUB_target.mtx -t AL
+
+Finally, Run the code: 
+
+	>> NANDINI TO COMPLETE HERE <<
+ 
+### Medium
+
+First, convert the dataset to the mtx file using the mtx converter tool
+
+	python ../Data_Analysis/mtx_converter_script.py -i ../../Data/subgraph_matching/MEDIUM_email-Enron.txt -o ../../Data/subgraph_matching/MEDIUM_email-enron.mtx -t AL
+
+Then create a subgraph:
+
+	python ../Data_Analysis/generate_subgraphs.py -i ../../Data/subgraph_matching/MEDIUM_email-Enron.txt -o ../../Data/subgraph_matching/MEDIUM_SUB_email-Enron.txt -t AL -l 3	
+
+Convert that subgraph to a mtx format: 
+
+	python ../Data_Analysis/mtx_converter_script.py -i ../../Data/subgraph_matching/MEDIUM_SUB_email-Enron.txt -o ../../Data/subgraph_matching/MEDIUM_SUB_email-Enron.mtx -t AL
+
+Finally, Run the code: 
+
+	>> NANDINI TO COMPLETE HERE <<
+
+### Large
+
+First, convert the dataset to the mtx file using the mtx converter tool
+
+	python ../Data_Analysis/mtx_converter_script.py -i ../../Data/subgraph_matching/LARGE_201512012345.v18571154_e38040320.tsv -o ../../Data/subgraph_matching/LARGE_201512012345.v18571154_e38040320.mtx -t TSV
+
+Then create a subgraph:
+
+	python ../Data_Analysis/generate_subgraphs.py -i ../../Data/subgraph_matching/LARGE_201512012345.v18571154_e38040320.tsv -o ../../Data/subgraph_matching/LARGE_SUB_201512012345.v18571154_e38040320.txt -t TSV -l 3	
+
+Then convert the subgraph into an MTX format: 
+
+	python ../Data_Analysis/mtx_converter_script.py -i ../../Data/subgraph_matching/LARGE_SUB_201512012345.v18571154_e38040320.txt -o ../../Data/subgraph_matching/LARGE_SUB_201512012345.v18571154_e38040320.mtx -t AL
+
+ Finally, Run the code: 
+
+	>> NANDINI TO COMPLETE HERE <<
+
+
+### Huge
+
+First, convert the dataset to the mtx file using the mtx converter tool
+
+	python ../Data_Analysis/mtx_converter_script.py -i ../../Data/subgraph_matching/HUGE_201512020330.v226196185_e480047894.tsv -o ../../Data/subgraph_matching/HUGE_201512020330.v226196185_e480047894.mtx -t TSV
+
+Then create a subgraph:
+
+	python ../Data_Analysis/generate_subgraphs.py -i ../../Data/subgraph_matching/HUGE_201512020330.v226196185_e480047894.tsv -o ../../Data/subgraph_matching/HUGE_SUB_201512020330.v226196185_e480047894.txt -t TSV -l 3	
+
+Then convert the subgraph into an MTX format: 
+
+	python ../Data_Analysis/mtx_converter_script.py -i ../../Data/subgraph_matching/HUGE_SUB_201512020330.v226196185_e480047894.txt -o ../../Data/subgraph_matching/HUGE_SUB_201512020330.v226196185_e480047894.mtx -t AL
+
+ Finally, Run the code: 
+
+	>> NANDINI TO COMPLETE HERE <<
 
 ## Related Works: 
 
