@@ -1,0 +1,54 @@
+Command: ./../Graph_Problems/GraphMatching/vf3lib/bin/vf3  -v ./../../Data/subgraph_matching/MEDIUM_SUB_3_email-Enron.grf  ./../../Data/subgraph_matching/MEDIUM_email-Enron.grf
+Output:
+Loaded in: 0.223496
+FastCheck in: 1e-06
+Classification in: 0.000786
+First Solution in: 0.000582
+Matching Finished in: 38.9504
+Solutions: 4362264
+
+Command: ./../Graph_Problems/GraphMatching/vf3lib/bin/vf3 -v ./../../Data/subgraph_matching/MEDIUM_SUB_4_email-Enron.grf  ./../../Data/subgraph_matching/MEDIUM_email-Enron.grf
+Output:
+Loaded in: 0.222969
+FastCheck in: 1e-06
+Classification in: 0.000797
+First Solution in: 0.000612
+Matching Finished in: 1980.63
+Solutions: 751382822
+
+Command: ./../Graph_Problems/GraphMatching/vf3lib/bin/vf3p -v ./../../Data/subgraph_matching/MEDIUM_SUB_3_email-Enron.grf  ./../../Data/subgraph_matching/MEDIUM_email-Enron.grf a 1 -t 2
+Output:
+Loaded in: 0.229118
+FastCheck in: 1e-06
+Classification in: 0.00039
+First Solution in: 0.034257
+Matching Finished in: 39.0827
+Solutions: 4362102
+
+Command: ./../Graph_Problems/GraphMatching/vf3lib/bin/vf3p -v ./../../Data/subgraph_matching/MEDIUM_SUB_4_email-Enron.grf  ./../../Data/subgraph_matching/MEDIUM_email-Enron.grf a 1 -t 2
+Output:
+Loaded in: 0.230074
+FastCheck in: 1e-06
+Classification in: 0.000388
+First Solution in: 0.054901
+Matching Finished in: 10528.8
+Solutions: 751331655
+
+Command: ./../Graph_Problems/GraphMatching/vf3lib/bin/vf3p -v ./../../Data/subgraph_matching/MEDIUM_SUB_3_email-Enron.grf  ./../../Data/subgraph_matching/MEDIUM_email-Enron.grf a 1 -t 10
+Output:
+Loaded in: 0.228808
+FastCheck in: 1e-06
+Classification in: 0.000388
+First Solution in: 0.002086
+Matching Finished in: 20.9843
+Solutions: 4358269
+
+Command: ./../Graph_Problems/GraphMatching/vf3lib/bin/vf3p -v ./../../Data/subgraph_matching/MEDIUM_SUB_4_email-Enron.grf  ./../../Data/subgraph_matching/MEDIUM_email-Enron.grf a 1 -t 10
+Output:
+Loaded in: 0.230296
+FastCheck in: 2e-06
+Classification in: 0.000388
+First Solution in: 0.003708
+Matching Finished in: 1994.15
+Solutions: 750628165
+

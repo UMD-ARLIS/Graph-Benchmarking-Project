@@ -42,7 +42,7 @@ Use the Open MPI’s mpi-run command to start the algorithm using the desired nu
 
 example:
 ```
-mpirun -np 2 ./community 4elt -r 4elt -l 2 -v > level2.txt
+mpirun -np 2 ./community example -r example -l 2 -v > level2.txt
 ```
 
 the general format is:

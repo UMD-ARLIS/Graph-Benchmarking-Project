@@ -1,6 +1,253 @@
 # Graph Matching
 
-// I may or may not have wrote more than I was soppused to, but I think what I included was good knowledge to have and be able to reference.
+## Experiments - CPU
+To run each dataset, assuming you are in the /vf3lib directory, and that you have populated the datasets as outlined in  [The SGM Dataset Readme](https://github.com/osullik/summer2023/edit/main/Data/subgraph_matching/README.MD)
+
+Further, it assumes you have activated the virtual environment *hive_env* using something like 
+
+	source ../../../../hive_env/bin/activate
+
+ If not yet created, you can create the venv in the root directory with: 
+
+ 	python -m venv hive_env
+  	source hive_env/bin/activate
+   	pip install -r requirements.txt
+
+### Toy / Test
+This runs on the provided file from the VF3Lib Code
+
+	./bin/vf3 test/bvg1.sub.grf test/bvg1.grf 
+
+ output should be something like:
+
+```
+8 3.07613e-06 8.3829e-06
+```
+
+Indicating 8 Matches in the time stipulated
+
+### Small 
+
+First we need to convert the TARGET GRAPH File into the Correct format using: 
+
+	python ../../../Data_Analysis/grf_converter.py -i ../../../../Data/subgraph_matching/SMALL_A.01/target -o ../../../../Data/subgraph_matching/SMALL_A.01/target.grf -t subgraphFormat
+
+Which if successful should give us: 
+
+```
+Converted to: Graph with 200 nodes and 3043 edges
+```
+
+We then need to create a subgraph with our subgra[h generator:
+
+	python ../../../Data_Analysis/generate_subgraphs.py -i ../../../../Data/subgraph_matching/SMALL_A.01/pattern -o ../../../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_pattern.grf -t other -s 2 -l 3
+
+ If successful it should output: 
+
+```
+Need to add more nodes to reach walk length
+Subgraph Large Enough
+Subgraph is [(1, 3), (3, 17), (17, 1)]
+```
+We then convert that subgraph to a .grf file with our conversion tool:
+
+	python ../../../Data_Analysis/grf_converter.py -i ../../../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_pattern.txt -o ../../../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_pattern.grf -t AL
+
+Giving us an output of: 
+```
+Converted to: Graph with 3 nodes and 3 edges
+```
+
+We can now run the matching program in serial with: 
+
+ 	./bin/vf3 ../../../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_pattern.grf ../../../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf 
+
+Which should give us an output of something like:
+
+```
+47676 1.03636e-05 0.0991161
+```
+
+We can now run the matching program in parallel on 2 threads with: 
+
+	./bin/vf3p ../../../../Data/subgraph_matching/SMALL_A.01/SMALL_SUB_pattern.grf ../../../../Data/subgraph_matching/SMALL_A.01/SMALL_target.grf -a 1 -t 2
+
+ Giving an output of something like: 
+
+```
+ 47675 0.000324 0.10275
+```
+
+### Medium
+
+First we need to convert the TARGET GRAPH File into the Correct format using: 
+
+	python ../../../Data_Analysis/grf_converter.py -i ../../../../Data/subgraph_matching/MEDIUM_email-Enron.txt -o ../../../../Data/subgraph_matching/SMALL_A.01/MEDIUM_email-Enron.grf -t AL
+
+ Which should give us an output of: 
+
+```
+Converted to: Graph with 36692 nodes and 183831 edges
+```
+
+THEN we can generate a subgraph file using our random walk subgraph generator with: 
+
+	python ../../../Data_Analysis/generate_subgraphs.py -i ../../../../Data/subgraph_matching/MEDIUM_email-Enron.txt -o ../../../../Data/subgraph_matching/MEDIUM_SUB_email-Enron.txt -t AL -s 2 -l 3
+
+ Which generates a subgraph of 3 nodes using a random seed of 2, outputting: 
+
+```
+Need to add more nodes to reach walk length
+Subgraph Large Enough
+Subgraph is [(1, 3), (3, 4), (4, 1)]
+```
+
+Then we convert that file into a grf file with: 
+
+	python ../../../Data_Analysis/grf_converter.py -i ../../../../Data/subgraph_matching/MEDIUM_SUB_email-Enron.txt -o ../../../../Data/subgraph_matching/MEDIUM_SUB_email-Enron.grf -t AL
+
+Giving a successful output of: 
+
+```
+Converted to: Graph with 3 nodes and 3 edges
+```
+
+To then Run the graph matching, we use: 
+
+	./bin/vf3 ../../../../Data/subgraph_matching/MEDIUM_SUB_email-Enron.grf ../../../../Data/subgraph_matching/MEDIUM_email-Enron.grf
+
+Which should give us an output of something like: 
+
+```
+4362264 0.001068 38.8512
+```
+being: [number of solutions found] [time to find the first solution] [time to find all the solutions]
+
+To run in parallel on 2 threads we would use: 
+
+	./bin/vf3p ../../../../Data/subgraph_matching/MEDIUM_SUB_email-Enron.grf ../../../../Data/subgraph_matching/MEDIUM_email-Enron.grf -a 1 -t 2
+
+also giving an output of the form:
+
+[number of solutions found] [time to find the first solution] [time to find all the solutions]
+
+### LARGE
+
+1- Convert the Input TSV to a .grf file:
+
+	python ../../../Data_Analysis/grf_converter.py -i ../../../../Data/subgraph_matching/LARGE_201512012345.v18571154_e38040320.tsv -o ../../../../Data/subgraph_matching/LARGE_201512012345.v18571154_e38040320.grf -t TSV
+
+which (after potentially several minutes) should give output like: 
+
+```
+Converted to: Graph with 18571154 nodes and 19020160 edges
+```
+
+
+**note** While the number of nodes are the same, the number of edges here indicate it is saving it as a directed rathern than an undirected graph
+
+2- Generate a subgraph of the Large file to match on:
+
+	python ../../../Data_Analysis/generate_subgraphs.py -i ../../../../Data/subgraph_matching/LARGE_201512012345.v18571154_e38040320.tsv -o ../../../../Data/subgraph_matching/LARGE_SUB_201512012345.v18571154_e38040320.txt -t other -s 2 -l 3
+
+Which will generate a subgraph of 3 nodes using the random seed of 2 and produce something like the following output: 
+
+```
+Need to add more nodes to reach walk length
+Subgraph Large Enough
+Subgraph is [(1, 1), (1, 12427667), (12427667, 1)]
+```
+
+3- Convert the subgraph file to a .grf file: 
+
+	python ../../../Data_Analysis/grf_converter.py -i ../../../../Data/subgraph_matching/LARGE_SUB_201512012345.v18571154_e38040320.txt -o ../../../../Data/subgraph_matching/LARGE_SUB_201512012345.v18571154_e38040320.grf -t AL
+
+Expect a return like: 
+
+```
+Converted to: Graph with 3 nodes and 2 edges
+```
+
+4- Run VF3 Serial:
+
+	./bin/vf3 ../../../../Data/subgraph_matching/LARGE_SUB_201512012345.v18571154_e38040320.grf ../../../../Data/subgraph_matching/LARGE_201512012345.v18571154_e38040320.grf
+
+## Experiments - GPU
+
+These assume execution from within the [Code/Experiment_Framework](https://github.com/osullik/summer2023/tree/main/Code/Experiment_Framework) directory
+
+### Small
+
+First, convert the dataset to the mtx file using the mtx converter tool
+
+	python ../Data_Analysis/mtx_converter_script.py -i ../../Data/subgraph_matching/SMALL_A.01/target -o ../../Data/subgraph_matching/SMALL_target.mtx -t other
+
+Then, create a subgraph using the subgraph creation tool:
+
+	python ../Data_Analysis/generate_subgraphs.py -i ../../Data/subgraph_matching/SMALL_A.01/target -o ../../Data/subgraph_matching/SMALL_SUB_target.txt -t other -l 3
+
+Then convert the subgraph to the mtx format
+
+	python ../Data_Analysis/mtx_converter_script.py -i ../../Data/subgraph_matching/SMALL_SUB_target.txt -o ../../Data/subgraph_matching/SMALL_SUB_target.mtx -t AL
+
+Finally, Run the code: 
+
+	>> NANDINI TO COMPLETE HERE <<
+ 
+### Medium
+
+First, convert the dataset to the mtx file using the mtx converter tool
+
+	python ../Data_Analysis/mtx_converter_script.py -i ../../Data/subgraph_matching/MEDIUM_email-Enron.txt -o ../../Data/subgraph_matching/MEDIUM_email-enron.mtx -t AL
+
+Then create a subgraph:
+
+	python ../Data_Analysis/generate_subgraphs.py -i ../../Data/subgraph_matching/MEDIUM_email-Enron.txt -o ../../Data/subgraph_matching/MEDIUM_SUB_email-Enron.txt -t AL -l 3	
+
+Convert that subgraph to a mtx format: 
+
+	python ../Data_Analysis/mtx_converter_script.py -i ../../Data/subgraph_matching/MEDIUM_SUB_email-Enron.txt -o ../../Data/subgraph_matching/MEDIUM_SUB_email-Enron.mtx -t AL
+
+Finally, Run the code: 
+
+	>> NANDINI TO COMPLETE HERE <<
+
+### Large
+
+First, convert the dataset to the mtx file using the mtx converter tool
+
+	python ../Data_Analysis/mtx_converter_script.py -i ../../Data/subgraph_matching/LARGE_201512012345.v18571154_e38040320.tsv -o ../../Data/subgraph_matching/LARGE_201512012345.v18571154_e38040320.mtx -t TSV
+
+Then create a subgraph:
+
+	python ../Data_Analysis/generate_subgraphs.py -i ../../Data/subgraph_matching/LARGE_201512012345.v18571154_e38040320.tsv -o ../../Data/subgraph_matching/LARGE_SUB_201512012345.v18571154_e38040320.txt -t TSV -l 3	
+
+Then convert the subgraph into an MTX format: 
+
+	python ../Data_Analysis/mtx_converter_script.py -i ../../Data/subgraph_matching/LARGE_SUB_201512012345.v18571154_e38040320.txt -o ../../Data/subgraph_matching/LARGE_SUB_201512012345.v18571154_e38040320.mtx -t AL
+
+ Finally, Run the code: 
+
+	>> NANDINI TO COMPLETE HERE <<
+
+
+### Huge
+
+First, convert the dataset to the mtx file using the mtx converter tool
+
+	python ../Data_Analysis/mtx_converter_script.py -i ../../Data/subgraph_matching/HUGE_201512020330.v226196185_e480047894.tsv -o ../../Data/subgraph_matching/HUGE_201512020330.v226196185_e480047894.mtx -t TSV
+
+Then create a subgraph:
+
+	python ../Data_Analysis/generate_subgraphs.py -i ../../Data/subgraph_matching/HUGE_201512020330.v226196185_e480047894.tsv -o ../../Data/subgraph_matching/HUGE_SUB_201512020330.v226196185_e480047894.txt -t TSV -l 3	
+
+Then convert the subgraph into an MTX format: 
+
+	python ../Data_Analysis/mtx_converter_script.py -i ../../Data/subgraph_matching/HUGE_SUB_201512020330.v226196185_e480047894.txt -o ../../Data/subgraph_matching/HUGE_SUB_201512020330.v226196185_e480047894.mtx -t AL
+
+ Finally, Run the code: 
+
+	>> NANDINI TO COMPLETE HERE <<
 
 ## Related Works: 
 
