@@ -30,7 +30,8 @@ def run_cuda_benchmark(algorithm, dataset_file, num_threads):
 
         # CUDA command for Louvain algorithm
         cuda_code_path = f"./gunrock/examples/louvain/bin/test_louvain_12.2_x86_64 --omp-threads={omp_threads} --iter-stats --pass-stats --advance-mode=ALL_EDGES --unify-segments=true --validation=each --num-runs=10 --graph-type=market --graph-file=gunrock/dataset/small/{dataset_file}"
-
+        # REVISED CODE PATH WITH WORKING GUNROCK IMPLEMENTATION
+        # cuda_code_path = f"./nanir/examples/louvain/bin/test_louvain_12.2_x86_64 --omp-threads={omp_threads} --iter-stats --pass-stats --advance-mode=ALL_EDGES --unify-segments=true --validation=each --num-runs=10 --graph-type=market --graph-file=gunrock/dataset/small/{dataset_file}"
     elif algorithm == "sm":
         if num_threads == "sequential":
             omp_threads = 1
@@ -41,7 +42,8 @@ def run_cuda_benchmark(algorithm, dataset_file, num_threads):
 
         # CUDA command for SM algorithm
         cuda_code_path = f"./gunrock/examples/sm/bin/test_sm_12.2_x86_64 --omp-threads={omp_threads} --pattern-graph-type=market --pattern-graph-file=gunrock/dataset/small/{dataset_file} --undirected=1 --pattern-undirected=1 --num-runs=1 --graph-type=market --graph-file=gunrock/dataset/small/{dataset_file}"
-
+        # REVISED CODE PATH WITH WORKING GUNROCK IMPLEMENTATION
+        # cuda_code_path = f"./nanir/examples/sm/bin/test_sm_12.2_x86_64 --omp-threads={omp_threads} --pattern-graph-type=market --pattern-graph-file=gunrock/dataset/small/{dataset_file} --undirected=1 --pattern-undirected=1 --num-runs=1 --graph-type=market --graph-file=gunrock/dataset/small/{dataset_file}"
     else:
         raise ValueError("Invalid algorithm type. Use 'louvain' or 'sm'.")
 
