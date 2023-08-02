@@ -27,7 +27,7 @@ if __name__ == "__main__":
     result = run_commands(commands)
 
     # Output results to a file
-    output_file_path = "results.txt"
+    output_file_path = "small_results.txt"
     with open(output_file_path, "w") as file:
         file.write(result)
 
