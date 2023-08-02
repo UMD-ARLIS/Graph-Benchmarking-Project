@@ -106,6 +106,15 @@ def saveSubgraph(subgraphList,outputFilePath):
         for node in subgraphList:
             adj_file.write(str(node[0])+" "+str(node[1])+"\n")
 
+def findCycle(graph, startNode=None):
+    print("Finding Cycle")
+    candidate = nx.find_cycle(graphFromTxt, startNode)
+    for node in candidate:
+        if node[0] == node[1]:
+            candidate = findCycle(graph, startNode=node).copy()
+    
+    return candidate
+
 
 #Define an argument parser to accept input through the command line
 parser = argparse.ArgumentParser(
@@ -166,9 +175,11 @@ if __name__ == "__main__":
         
         try:
             #Find the first cycle in the graph
-            cycle = (nx.find_cycle(graphFromTxt))
-            for node in cycle:
+            cycle = findCycle(graphFromTxt)
+
+            for node in cycle: 
                 subgraph.append(node)
+
 
             #if the cycle is longer than the size of the subgraph we want, return it. 
             if len(subgraph) > walkLength:
