@@ -26,8 +26,10 @@ OSUPPER = $(shell uname -s 2>/dev/null | tr [:lower:] [:upper:])
 
 #-------------------------------------------------------------------------------
 # Gen targets
+
 #-------------------------------------------------------------------------------
 
+GEN_SM90 = -gencode=arch=compute_90,code=\"sm_90,compute_90\" # Newest Ver (Nandini Added)
 GEN_SM75 = -gencode=arch=compute_75,code=\"sm_75,compute_75\" # Turing RTX20XX
 GEN_SM70 = -gencode=arch=compute_70,code=\"sm_70,compute_70\" # Volta V100
 GEN_SM61 = -gencode=arch=compute_61,code=\"sm_61,compute_61\" # Pascal GTX10XX
@@ -42,7 +44,7 @@ GEN_SM30 = -gencode=arch=compute_30,code=\"sm_30,compute_30\" # Kepler K10
 # RepeatFor (Cooperative Groups), e.g: SM35
 
 # Add your own SM target (default: V100, P100):
-SM_TARGETS = $(GEN_SM35)
+SM_TARGETS = $(GEN_SM52)
 
 #-------------------------------------------------------------------------------
 # Libs
