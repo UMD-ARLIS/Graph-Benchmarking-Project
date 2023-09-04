@@ -951,3 +951,178 @@ abstract={This paper describes extensions to Rice University's HPCToolkit perfor
   abstract={Several graph-based applications require to detect and locate occurrences of a pattern graph within a larger target graph. Subgraph isomorphism is a widely adopted formalization of this problem. While subgraph isomorphism is NP-Complete in the general case, there are algorithms that can solve it in a reasonable time on the average graphs that are encountered in specific real-world applications. In 2015 we introduced one such algorithm, VF2Plus, that was specifically designed for the large graphs encountered in bioinformatics applications. VF2Plus was an evolution of VF2, which had been considered for many years one of the fastest available algorithms. In turn, VF2Plus proved to be significantly faster than its predecessor, and among the fastest algorithms on bioinformatics graphs. In this paper we propose a further evolution, named VF3, that adds new improvements specifically targeted at enhancing the performance on graphs that are at the same time large and dense, that are currently the most problematic case for the state-of-the-art algorithms. The effectiveness of VF3 has been experimentally validated using several publicly available datasets, showing a significant speedup with respect to its predecessor and to the other most advanced state-of-the-art algorithms.},
   comment={}
 }
+
+@article{Hu2020,
+  title={Open graph benchmark: Datasets for machine learning on graphs},
+  author={Hu, Weihua and Fey, Matthias and Zitnik, Marinka and Dong, Yuxiao and Ren, Hongyu and Liu, Bowen and Catasta, Michele and Leskovec, Jure},
+  journal={Advances in neural information processing systems},
+  volume={33},
+  pages={22118--22133},
+  year={2020},
+  groups={graph_datasets},
+  abstract={We present the Open Graph Benchmark (OGB), a diverse set of challenging and realistic benchmark datasets to facilitate scalable, robust, and reproducible graph machine learning (ML) research. OGB datasets are large-scale, encompass multiple important graph ML tasks, and cover a diverse range of domains, ranging from social and information networks to biological networks, molecular graphs, source code ASTs, and knowledge graphs. For each dataset, we provide a unified evaluation protocol using meaningful application-specific data splits and evaluation metrics. In addition to building the datasets, we also perform extensive benchmark experiments for each dataset. Our experiments suggest that OGB datasets present significant challenges of scalability to large-scale graphs and out-of-distribution generalization under realistic data splits, indicating fruitful opportunities for future research. Finally, OGB provides an automated end-to-end graph ML pipeline that simplifies and standardizes the process of graph data loading, experimental setup, and model evaluation. OGB will be regularly updated and welcomes inputs from the community. OGB datasets as well as data loaders, evaluation scripts, baseline code, and leaderboards are publicly available at https://ogb. stanford. edu.},
+  comment={}
+}
+
+@inproceedings{Wang2016,
+  title={Gunrock: A high-performance graph processing library on the GPU},
+  author={Wang, Yangzihao and Davidson, Andrew and Pan, Yuechao and Wu, Yuduo and Riffel, Andy and Owens, John D},
+  booktitle={Proceedings of the 21st ACM SIGPLAN symposium on principles and practice of parallel programming},
+  pages={1--12},
+  year={2016}, 
+  groups={graph_datasets},
+  abstract={For large-scale graph analytics on the GPU, the irregularity of data access/control flow and the complexity of programming GPUs have been two significant challenges for developing a programmable high-performance graph library. "Gunrock," our high-level bulk-synchronous graph-processing system targeting the GPU, takes a new approach to abstracting GPU graph analytics: rather than designing an abstraction around computation, Gunrock instead implements a novel data-centric abstraction centered on operations on a vertex or edge frontier. Gunrock achieves a balance between performance and expressiveness by coupling high-performance GPU computing primitives and optimization strategies with a high-level programming model that allows programmers to quickly develop new graph primitives with small code size and minimal GPU programming knowledge. We evaluate Gunrock on five graph primitives (BFS, BC, SSSP, CC, and PageRank) and show that Gunrock has on average at least an order of magnitude speedup over Boost and PowerGraph, comparable performance to the fastest GPU hardwired primitives, and better performance than any other GPU high-level graph library.},
+  comment={}
+}
+
+@article{Bader2009,
+  title={Hpc scalable graph analysis benchmark},
+  author={Bader, David A and Feo, John and Gilbert, John and Kepner, Jeremy and Koester, David and Loh, Eugene and Madduri, Kamesh and Mann, Bill and Meuse, Theresa and Robinson, Eric},
+  journal={Citeseer. Citeseer},
+  volume={2009},
+  pages={1--10},
+  year={2009},
+  groups={graph_datasets},
+  abstract={},
+  comments={Defines the TEPS metric}
+}
+
+@techreport{Anderson2015,
+  title={Firehose streaming benchmarks},
+  author={Anderson, Karl and Plimpton, Steve},
+  year={2015},
+  institution={Sandia National Laboratories (SNL), Albuquerque, NM, and Livermore, CA~…}, 
+  groups={graph_datasets},
+  abstract = {},
+  comment={Not specifically on graphs, but highlights importance of streaming.}
+}
+
+@inproceedings{Mattson2013,
+  title={Standards for graph algorithm primitives},
+  author={Mattson, Tim and Bader, David and Berry, Jon and Buluc, Aydin and Dongarra, Jack and Faloutsos, Christos and Feo, John and Gilbert, John and Gonzalez, Joseph and Hendrickson, Bruce and others},
+  booktitle={2013 IEEE High Performance Extreme Computing Conference (HPEC)},
+  pages={1--2},
+  year={2013},
+  organization={IEEE}, 
+  groups={graph_datasets},
+  comment={Not a benchmark per-se but introduces GraphBLAS which sets conditions for graphs via linear algebra},
+  abstract={It is our view that the state of the art in constructing a large collection of graph algorithms in terms of linear algebraic operations is mature enough to support the emergence of a standard set of primitive building blocks. This paper is a position paper defining the problem and announcing our intention to launch an open effort to define this standard.}
+}
+
+@misc{Leskovec2014,
+  author       = {Jure Leskovec and Andrej Krevl},
+  title        = {{SNAP Datasets}: {Stanford} Large Network Dataset Collection},
+  howpublished = {\url{http://snap.stanford.edu/data}},
+  month        = jun,
+  year         = 2014, 
+  groups={graph_datasets},
+  abstract={},
+  comment={}
+}
+
+@INPROCEEDINGS{Wickramaarachchi2014,
+  author={Wickramaarachchi, Charith and Frincu, Marc and Small, Patrick and Prasanna, Viktor K.},
+  booktitle={2014 IEEE High Performance Extreme Computing Conference (HPEC)}, 
+  title={Fast parallel algorithm for unfolding of communities in large graphs}, 
+  year={2014},
+  volume={},
+  number={},
+  pages={1-6},
+  doi={10.1109/HPEC.2014.7040973},
+  groups={community_detection}
+  }
+
+  @article{Wang2020,
+  title={Fast gunrock subgraph matching (gsm) on gpus},
+  author={Wang, Leyuan and Owens, John D},
+  journal={arXiv preprint arXiv:2003.01527},
+  year={2020}, 
+  group={graph_matching},
+  abstract={},
+  comment={}
+}
+
+@inproceedings{Carletti2017,
+  title={Introducing VF3: A new algorithm for subgraph isomorphism},
+  author={Carletti, Vincenzo and Foggia, Pasquale and Saggese, Alessia and Vento, Mario},
+  booktitle={Graph-Based Representations in Pattern Recognition: 11th IAPR-TC-15 International Workshop, GbRPR 2017, Anacapri, Italy, May 16--18, 2017, Proceedings 11},
+  pages={128--139},
+  year={2017},
+  organization={Springer},
+  groups={graph_matching},
+  abstract={},
+  comment={}
+}
+
+@inproceedings{Carletti2019,
+  title={A parallel algorithm for subgraph isomorphism},
+  author={Carletti, Vincenzo and Foggia, Pasquale and Ritrovato, Pierluigi and Vento, Mario and Vigilante, Vincenzo},
+  booktitle={Graph-Based Representations in Pattern Recognition: 12th IAPR-TC-15 International Workshop, GbRPR 2019, Tours, France, June 19--21, 2019, Proceedings 12},
+  pages={141--151},
+  year={2019},
+  organization={Springer}, 
+  groups={graph_matching},
+  abstract={},
+  comment={}
+}
+
+@report{Regli2022, 
+title={Operationalizing Emerging Hardware for AI Applications: Recomendations For Establishing a Defense Applications Center}, 
+author={Regli, William and Coombs, David}, 
+year={2022}, 
+organization={Applied Research Laboratory for Intelligence and Security}, 
+groups={context_and_background}, 
+abstract={This report recommends establishing a flexible and adaptable Defense Applications Center (DAC). The Center will provide a shared resource in which the U.S. government (USG) and its designated performers can engage in active experimentation on how best to integrate advanced computing hardware with application needs from the Department of Defense (DoD) and the Intelligence Community (IC). The DAC would create, maintain, and sustain an operational capability for rapid testing and evaluation of advanced hardware and software solutions in the context of operational and defense-relevant problems.
+The DAC would benefit from features that facilitate collaboration and work in a multi-level security environment. The DAC should be housed in a large TS/SCI-qualified Sensitive Compartmented Information Facility (SCIF) equipped with a conference facility as well as a variety of office hoteling space and laboratory workrooms that can be dedicated to the DAC. In addition to the physical spaces, the DAC should provide support for the transfer and stewardship of technical datasets required for experimentation. This includes the proper handling of classified data at a variety of levels, the creation of challenge (or proxy) problems from this data, and the capture of experimental design, concepts, processes, and results. As such, the DAC will become a shared scientific instrument for investigating the application of new hardware and software paradigms for autonomy and Artificial Intelligence (AI) and their insertion into operational use by the U.S. military and Intelligence Community.},
+comment={This is a short report which argues that a Defense Application Center should be established to shepherd the research, development, testing, evaluation and transition of AI specific hardware into US Government users. It does not have any strong immediate impacts on the development of a KG benchmark beyond demonstrating that that the area is relevant and of interest.}
+}
+
+@report{Regli2022a, 
+title={Operationalizing Emerging Hardware for AI Applications: A Survey of Transition Opportunities and Datasets}, 
+author={Regli, William and Loats, Peter and Miller-Sims, Laurel and Johnson, Ben and Bunker, Jacob and Ott, Jared and Herlihy, Christine}, 
+year={2022}, 
+organization={Applied Research Laboratory for Intelligence and Security}, 
+groups={context_and_background}, 
+abstract={This document captures the inputs and results of an ongoing survey of operational users from across the Department of Defense and Intelligence Community regarding their current uses of computational hardware to solve large-scale artificial intelligence problems. This survey was conducted while providing transition support for the DARPA Software Defined Hardware (SDH) and Hierarchical Identify Verify Exploit (HIVE) Programs conducted under the Autonomy Application and Engineering Exploratorium (A2E2) project at the Applied Research Laboratory for Intelligence and Security (ARLIS). The focus of this survey has been to identify specific use-cases from current missions that push the limits of what can be done with the current generations of computational infrastructure for AI. The survey was conducted over many months in a series of informal and formally structured meetings and interviews. In some of the cases, government partners provided access to specific (sanitized) datasets for our experimental inspection. In other cases, both broad and deep descriptions were provided of specific datasets and operational needs; these descriptions were used to develop abstractions of the problem for use in our analysis.}, 
+comment={This report provides a comprehensive review of the intelligence and security use cases for AI accelerated hardware. Key take-aways specific to creating a benchmark for knowledge graphs are: (1) Graphs are very common data structures in intelligence and security problems. (2) Streaming data is a more salient problem than static data. (3) Time Constrained processing compounds the difficulties introduced by streaming data. (4) Real data is not available, definitely not at the scale required - however there are obvious proxies for some of the datasets and it may be possible to generate synthetic datasets for the others. Specific to benchmark datasets: (1) Knowledge Graphs in the real world scenarios studied were up to the petabyte scale. (2) The structure of the graph data has an inherent impact on processing time, so a diverse mix of graphs are required to actually test performance in realistic conditions. (3) Datasets should cover: (a) Transation Data, (b) person-to-person communications, (c) social media, (d) Dense relationships between people, and between people and associated properties, (e) Dense entity labelling. Take-aways specific to Knowledge Graph primitives include: (1) Streaming operations (and time constrained processing) imply that adding and removal of nodes and relationships is a core activity that occurs in KGs. This will extend to adding labels etc. (2) Search is a common requirement - moving through a graph to identify a node matching a query. (3) Path finding / connectedness is a common requriement. (4) Pattern Matching within graphs is a common requirement. (5) Co-Traveller problems occur commonly, but can be framed as a pattern-matching problem.}
+}
+
+@article{Regli2022b,
+  title={Software-Defined Hardware:A Study of Emerging Hardware for AI Applications}, 
+  author={Regli, William and Johnson, Ben and Miller-Sims, Laurel and Keshavarzi, Ali and Teli, Mohammad},
+  year={2022}, 
+  organization={Applied Research Laboratory for Intelligence and Security}, 
+  groups={context_and_background}, 
+  abstract={The evolution of the field of Artificial Intelligence (AI) has been tightly coupled to the evolution of computing machines themselves. Successive generations of advances in AI have proceeded lock-step with advances in hardware, with the capabilities of hardware inspiring new AI techniques and the aspirations of the AI discipline motivating the creation of new hardware technologies. While this has been the case for over 80 years, the pending end of Moore's Law is creating a vast new landscape of computational capabilities available to the AI community. Many of these new computing machines are inspired by the needs of machine learning and deep neural networks; others are making previously intractable problems more manageable via bespoke techniques for hardware-accelerated brute force. The result is what has been called a Cambrian Explosion of hardware technologies capable of radically altering the architecture of how we design and build intelligent software systems. The availability of this expanded hardware ecosystem has significant implications for AI researchers and educators.},
+  comment={This draft paper examines how the fundamental limitations on general computing technologies are driving the development of hardware optimized for specific applications. In particular they focus on hardware that specifically supports AI applications. The authors note that AI is becoming more data-intensive. As the requiremrnt to process larger amounts of data increases, the 'generality' of hardware is unable to support the training or inference speeds required, particualrly for low SWaP environments. The authors highlight how traditional metrics are becoming less fit-for purpose and identify metrics used in the recent DARPA Software Defined Hardware and HIVE projects of Giga Operations Per Watt per Second (GOPS/W) balance power consumption and execution time. Measures of Performance and Measures of Effectiveness are different and further thought should be applied to differentiating those things. The discussion of hardware is itself very dense, however they provide a clear explanation of their measurement framework. For timing they use the C++ library: std::chrono::high resolution clock, the Intel Advisor tool (and manual instrumentation) for operation counting and the ARM MAP tool to measure average power consumption.}
+}
+
+@article{Lopata2022, 
+  title={Challenges and Opportunities to Facilitate the Early Adoption of Novel Technologies}, 
+  author={Lopata, Paul and Regli, William}, 
+  year={2022}, 
+  organization={Applied Research Laboratory for Intelligence and Security}, 
+  groups={context_and_background}, 
+  abstract={},
+  comment={The paper is a draft written to argue for the creation for a national centre-of-excellence for identifying and adopting novel technologies for government use. The paper identifies five key metrics for mission success (which may form a useful measure-of-effect MoE start point): (1) Cost, (2) Time to Solution, (3) Reliability, (4) Error Rate and (5) Compatibility with Existing Systems. It is unclear how they derive this framework. They break down technology adoption into three nested layers. At the core is layer (1) Algorithmic - does the new technology perform better in the conduct of the task than a previous algorithm. Layer (2) is System - Does the overall system perform better in terms of metrics like execution time, power consumption, memory usage etc. Finally, the outer layer is (operational) which asks if the new technology and the algorithmic and system benefits will actually help to improve the ability of the gaining organisation to achieve their mission. It is unclear how they derived this framework. They note five key advantages of early adoption of technology: (1) Surprise over competitors, (2) Early adoption allows the adoptor to shape future work on the technology, (3 and 4) Working on high-end tech is a good recruting and retention mechanism, (5) Being seen as an innovative organisation can be a reputation boost. It is unclear how they derived this framework. The reaminder of the article is a loose FIC analysis of what a centre of excellence would do to achieve its tasks. }
+}
+
+@inproceedings{Mesquita2019,
+  title={Knowledgenet: A benchmark dataset for knowledge base population},
+  author={Mesquita, Filipe and Cannaviccio, Matteo and Schmidek, Jordan and Mirza, Paramita and Barbosa, Denilson},
+  booktitle={Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (EMNLP-IJCNLP)},
+  pages={749--758},
+  year={2019}, 
+  abstract={KnowledgeNet is a benchmark dataset for the task of automatically populating a knowledge base (Wikidata) with facts expressed in natural language text on the web. KnowledgeNet provides text exhaustively annotated with facts, thus enabling the holistic end-to-end evaluation of knowledge base population systems as a whole, unlike previous benchmarks that are more suitable for the evaluation of individual subcomponents (e.g., entity linking, relation extraction). We discuss five baseline approaches, where the best approach achieves an F1 score of 0.50, significantly outperforming a traditional approach by 79 percent (0.28). However, our best baseline is far from reaching human performance (0.82), indicating our dataset is challenging. The KnowledgeNet dataset and baselines are available at https://github.com/diffbot/knowledge-net},
+  comment={Mesquita et al's 2019 Knowledgenet benchmark is intended to support benchmarking of NLP task of knowledge graph population (KBP). KBP is the process of augmenting a knowledge graph with new facts. The process primarilty consists of parsing input text, converting it to triples and inserting /linking it to the appropriate entities, relationships and properties within the KG. The paper provides code but does not have a publicly accessible leaderboard. The authors identify the two key operations of KBP - (1) Entity discovery and linking and (2) Relation extraction. The benchmark is not suitable to be used in the HIVE context in its current form as it does not assess the performance of the system in terms of execution speed, memory usage etc - choosing to focus on relation extraction accuracy. It would be more accurate to refer to it as an NLP benchmark than a KG benchmark, however their data goal of 100,000 facts for 100 properties may provide a useful dataset.}
+}
+
+@inproceedings{Perevalov2022,
+  title={Knowledge Graph Question Answering Leaderboard: A Community Resource to Prevent a Replication Crisis},
+  author={Perevalov, Aleksandr and Yan, Xi and Kovriguina, Liubov and Jiang, Longquan and Both, Andreas and Usbeck, Ricardo},
+  booktitle={Proceedings of the Thirteenth Language Resources and Evaluation Conference},
+  pages={2998--3007},
+  year={2022}, 
+  abstract={Data-driven systems need to be evaluated to establish trust in the scientific approach and its applicability. In particular, this is true for Knowledge Graph (KG) Question Answering (QA), where complex data structures are made accessible via natural-language interfaces. Evaluating the capabilities of these systems has been a driver for the community for more than ten years while establishing different KGQA benchmark datasets. However, comparing different approaches is cumbersome. The lack of existing and curated leaderboards leads to a missing global view over the research field and could inject mistrust into the results. In particular, the latest and most-used datasets in the KGQA community, LC-QuAD and QALD, miss providing central and up-to-date points of trust. In this paper, we survey and analyze a wide range of evaluation results with significant coverage of 100 publications and 98 systems from the last decade. We provide a new central and open leaderboard for any KGQA benchmark dataset as a focal point for the community - this https URL. Our analysis highlights existing problems during the evaluation of KGQA systems. Thus, we will point to possible improvements for future evaluations.},
+  comment={The benchmark estaboished by Perevalov in 2022 for Knowledge Graph Question answering provides a short discussion about the requirement of a KGQA benchmark to be transparent and trustworthy, noting that the lack of standardization may lead to a 'replication crisis' where researchers may not be able to replicate each other's findings. They create a github repositiory for researchers to self-report their results but have no meaningful discussion of queries, workloads etc. The benchmark is not suitable for our work into assessing the relative suitability of hardware for graph-processing applications.}
+}
