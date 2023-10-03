@@ -93,7 +93,7 @@ def main():
     # Run the CUDA benchmark remotely
     run_cuda_remotely(algorithm, dataset_file, num_threads, ssh_key_path, ec2_instance_ip, ec2_instance_username)
 
-    # Rest of your code...
+
     
 if __name__ == "__main__":
     main()
