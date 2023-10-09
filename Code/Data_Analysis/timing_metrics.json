@@ -1,0 +1,11 @@
+{
+    "Average Elapsed Time (ms)": 13.592792,
+    "Minimum Elapsed Time (ms)": 7.78389,
+    "Maximum Elapsed Time (ms)": 17.868042,
+    "Preprocess Time (ms)": 71.404,
+    "Postprocess Time (ms)": 0.192881,
+    "Total Time (ms)": 208.273888,
+    "Algorithm": "louvain",
+    "Dataset File": "chesapeake.mtx",
+    "Mode": "parallel"
+}
