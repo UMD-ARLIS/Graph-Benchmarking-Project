@@ -1,2 +1,0 @@
-The code implementation for BFS algorithm is contained in the file titled main.m
-The files string_builder.c and string_builder.h contain the necessary structures to support the creation of a 'string builder' object that is used to display the BFS path in main.m

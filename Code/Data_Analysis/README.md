@@ -9,16 +9,17 @@ If you are running this on your local computer make sure to change into the Data
 To run on a test graph it must be a graph uploaded to the gunrock directory in .mtx format
 
 ```
-python3 gpu_script.py <algo> <filename.mtx> <exec-type> --ssh-key-path /path/to/your/key.pem --ec2-instance-ip 54.84.25.80 --ec2-instance-username ubuntu
+
+python output_to_json_script.py <algo> <filename.mtx> <exec-type> --ssh-key-path /path/to/your/key.pem --ec2-instance-ip 54.84.25.80 --ec2-instance-username ubuntu
 ```
 example:
 ```
-python3 updated_gpu_script.py louvain chesapeake.mtx parallel --ssh-key-path /Users/nani/Desktop/mnKeyPair.pem --ec2-instance-ip 54.84.25.80 --ec2-instance-username ubuntu
+python output_to_json_script.py louvain chesapeake.mtx parallel --ssh-key-path /Users/nani/Desktop/mnKeyPair.pem --ec2-instance-ip 54.84.25.80 --ec2-instance-username ubuntu
 
 ```
 Future Plans/Fixes:
-* Currently the full output prints to shell. I want to change this to extract and store only the necessary metric information (time, memory) 
-* I want to redirect output to LaTex/ReadTheDocs instead
+* Currently the full output prints to shell. I want to change this to extract and store only the necessary metric information (time, memory) (Addressed - extracts time metrics)
+* I want to redirect output to LaTex/ReadTheDocs instead (Addressed - outputs to JSON)
 * I want to parameterize further to incorporate input of any graph file from the local computer instead of simply allowing graphs will already exist in the server to be tested
 * I want to integrate/explore more profiling tools to extract all info possible
 * I want to integrate a graph viz feature to give a visual representation of the nodes/edges of an input graph. This will be integrated into the Latex/ReadTheDocs output solution

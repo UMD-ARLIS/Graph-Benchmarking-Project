@@ -59,7 +59,7 @@ def run_cuda_remotely(algorithm, dataset_file, num_threads, ssh_key_path, ec2_in
         print(stderr.read().decode())
 
         # Run Valgrind remotely
-        valgrind_command = f"sudo valgrind --log-file=valgrind.out {cuda_code_path}"
+        """ valgrind_command = f"sudo valgrind --log-file=valgrind.out {cuda_code_path}"
         stdin, stdout, stderr = ssh.exec_command(valgrind_command)
 
         # Print the Valgrind command's output
@@ -71,7 +71,7 @@ def run_cuda_remotely(algorithm, dataset_file, num_threads, ssh_key_path, ec2_in
 
         # Process the output to extract memory metrics using grep and sed
         memory_output = subprocess.check_output("grep total valgrind.out | sed -E 's/.*: ([0-9,]+) allocs, ([0-9,]+) frees, ([0-9,]+) bytes allocated/\\1 allocs\\n\\2 frees\\n\\3 bytes allocated/'", shell=True, universal_newlines=True)
-        print(memory_output)
+        print(memory_output) """
 
         # Close the SSH connection
         ssh.close()

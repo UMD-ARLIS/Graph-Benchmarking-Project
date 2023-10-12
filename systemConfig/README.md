@@ -1,50 +1,3 @@
-# SETTING UP THE PIUMA SDV [INTEL CONFIDENTIAL]
-
-Once the SDV has been set up per the [Physical Assembly](https://drive.google.com/file/d/11pyErG-NWkQfhW5SHwAsw4l9TfJNbV7Y/view?usp=drive_link) and [Network Topology](https://drive.google.com/file/d/1qp9n3qxSt4a4JoJnaonERoSBjLatzuat/view?usp=drive_link) instructions, I used the [How-To Video](https://drive.google.com/file/d/1SSXAHJjvSPf-L5qHTElnKz_SpSgD7GBv/view?usp=drive_link) to generate the following:
-
-**NOTE: WATCHING THE TUTORIAL VIDEO IS MANDATORY PRIOR TO PROCEEDING**
-
-1 -  SSH into the PiUMA NUC
-
-	tbc with network config
-
-2 - Once in the PiUMA NUC, SSH into the PiUMA Host, relaying through the NUC:
-
-	ssh piuma-host
-
-3 - To figure out the current version of PiUMA, in the PiUMA host run the following command and look for the numeric value in the target of the symbolic link it returns. The link will be something like *intel-piuma-software-env.sh -> /opt/intel/piuma/**dev.40**/intel_piuma_env.sh*. The Bold part of the above is the version. 
-
-	ll /etc/profile.d | grep piuma
-
-4 - We can then check the environment variables with the command:
-
-	env | grep PIUMA
-
-5 - To check other versions use:
-
-	ll /opt/intel/piuma
-
-6 - To see what is inside the distribution use: 
-
-	ll /opt/intel/piuma/**version_here**
-
-7 - We can check the available datasets, spread across two locations using: 
-
-	ll /opt/HIVE-Datasets
-	ll /opt/HIVE-Workflows
-
-8 - We can of course then see the contents of any of the datasets with
-
-	ll /opt/HIVE-Workflows/**dataset_name**
-
-The main way they load data is with binary files. For the most part they are graphs in the CSR format, packaged as binary files. 
-
-9 - To run the basic functionality test use: 
-
-	cd /home/piuma/**piuma-toolkit-version**/examples/hello
-	make install
-	make run
-	make qcons
 
 # Setting up the Linux Environment for our testing
 
@@ -66,69 +19,69 @@ so, we will be accessing the server through SSH, and I need you both to create S
 	//generate the Key pair.
 	ssh-keygen -m PEM -t rsa -b 4096
 
-It will prompt for a file name, i went with osullik_mn
+It will prompt for a file name, i went with <username>
 It will prompt you for a password. You of course should set a password, but if you choose not to I won't tell anyone & it'll prompt you for it every time you log in.
 It will generate two files for you
 
-	osullik_mn
-	osullik_mn.pub
+	<username>
+	<username>.pub
 
-I need you to send me your equivalent of osullik_mn.pub in slack. This is your public key.
-You need to keep your equivalent of osullik_mn SECRET, as this is you PRIVATE key that you will use to ssh in to the box.
+I need you to send me your equivalent of <username>.pub in slack. This is your public key.
+You need to keep your equivalent of <username> SECRET, as this is you PRIVATE key that you will use to ssh in to the box.
 
 To that end, let's make it into the customary format
 
-	mv osullik_mn osullik_mn.pem
-	chmod 400 osullik_mn.pem
+	mv <username> <username>.pem
+	chmod 400 <username>.pem
 
 This is changing the file name to a .pem file, and making it read-only by you.
 Once you have sent me your .pub file, I will use it to create your account.
 I would then login to my account using the following command (run from the same directory as the .pem file, hence desktop earlier)
 
-	ssh -i osullik_mn.pem osullik@54.84.25.80
+	ssh -i <username>.pem <username>@54.84.25.80
 
 here ssh is the program - "start an ssh connection"
 -i tells the program that the next argument will be an identity file
-osullik_mn.pem is the identity file i just told it to expect
-osullik is the username on the server
+<username>.pem is the identity file i just told it to expect
+<username> is the username on the server
 @54.84.25.80 is the IP address to connect to with that username and identify file
 
 ### Uploading to the Server
 then if I wanted to transfer files up to the server I'd use something like:
 
-	scp -i osullik_mn.pem test.txt osullik@54.84.25.80:/home/osullik/test/test.txt
+	scp -i <username>.pem test.txt <username>@54.84.25.80:/home/<username>/test/test.txt
 
 Where:
 scp is the secure copy program
 -i tells the program that the next argument will be an identity file
-osullik_mn.pem is the identity file i just told it to expect
+<username>.pem is the identity file i just told it to expect
 test.txt is the file on my local machine I want to copy (needs to be in the same directory you run this command, or you have to fully qualify it)
-osullik is the username on the server
+<username> is the username on the server
 @54.84.25.80 is the IP address to connect to with that username and identify file
-:/home/osullik/test/test.txt says where in the remote server to put the file
+:/home/<username>/test/test.txt says where in the remote server to put the file
 
 ### Git Setup
 
 so, to use github on the server you need to set up an SSH key, to do that, in your home directory on the server do the following, replacing with your details where appropriate:
 
-	ssh-keygen -t ed25519 -C "osullik@protonmail.com"
+	ssh-keygen -t ed25519 -C "<username>@domain.tld>"
 when prompted, put in:
 
-	~/.ssh/osullik_git
+	~/.ssh/<username>_git
 
 optionally add a passphrase
 make sure its there:
 
-	ls ~/.ssh/ | grep osullik_git
+	ls ~/.ssh/ | grep <username>_git
 
 you should see something like:
 
-	osullik_git
-	osullik_git.pub
+	<username>_git
+	<username>_git.pub
 
 We will need your public key in a moment so print it out and copy it to your clipboard:
 
-	cat ~/.etc/osullik_git.pub
+	cat ~/.etc/<username>_git.pub
 
 To copy it to your clipboard on your mac, just highlight it and use the COMMAND+C shortcut
 
@@ -138,13 +91,13 @@ Add to the SSH agent by first starting it:
 
 Then adding it:
 
-	ssh-add ~/.ssh/osullik_git
+	ssh-add ~/.ssh/<username>_git
 
 then you need to add it to your github account.  In your web browser 
 go to [Github Keys Page](https://github.com/settings/keys)
 then, click on the new ssh key button
-name your key something, mine is osullik_minnesota for example
-then paste in the content of your equivalent of osullik_git.pub that you copied to your clipboard earlier
+name your key something, mine is <username>_minnesota for example
+then paste in the content of your equivalent of <username>_git.pub that you copied to your clipboard earlier
 save
 then you should be good to go!
 
