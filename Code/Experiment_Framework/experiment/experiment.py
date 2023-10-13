@@ -1,4 +1,5 @@
 #~/Code/Experiment_Framework/experiment/experiment.py
+#Author: Kent O'Sullivan - osullik@umd.edu
 
 #Core Imports
 import sys
