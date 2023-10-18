@@ -13,14 +13,9 @@ version: 2
 sphinx:
   configuration: docs/conf.py
 
-# Build documentation with MkDocs
-#mkdocs:
-#  configuration: mkdocs.yml
-
 # Optionally build your docs in additional formats such as PDF
 #formats:
 #  - pdf
-
 
 # Specify the operating system for the build
 build:
@@ -61,8 +56,14 @@ sphinx:
 >>>>>>> 4cfcbf2 (Created .readthedocs.yaml file)
 =======
   tools:
+<<<<<<< HEAD
     python: 
       version: 3.7
       install:
         - requirements: docs/requirements.txt
 >>>>>>> 301e22f (modifying RTD.yaml)
+=======
+    - python: 3.7
+  install:
+    - requirements: docs/requirements.txt
+>>>>>>> 646ad36 (modifying RTD.yaml)
