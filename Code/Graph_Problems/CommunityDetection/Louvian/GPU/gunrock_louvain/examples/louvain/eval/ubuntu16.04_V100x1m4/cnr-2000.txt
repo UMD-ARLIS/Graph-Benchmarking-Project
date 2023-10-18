@@ -1,0 +1,2 @@
+[../../gunrock/util/test_utils.cu, 82 @ gpu 0] cudaSetDevice failed. (CUDA error 101: invalid device ordinal)
+[../../gunrock/app/test_base.cuh, 715 @ gpu 0] error encountered (CUDA error 101: invalid device ordinal)

@@ -1,0 +1,15 @@
+{
+    "avg-process-time": -1,
+    "engine": "Gunrock",
+    "command-line": "./examples/louvain/bin/louvain_main_12.2_x86_64 --omp-threads=32 --iter-stats --pass-stats --advance-mode=ALL_EDGES --unify-segments=true --validation=each --num-runs=10 --graph-type=market --graph-file=dataset/small/chesapeake.mtx --jsondir=./examples/louvain/eval/ubuntu16.04_V100x1m4",
+    "json-schema": "2019-09-20",
+    "compiler": "Gnu GCC C/C++",
+    "compiler-version": 110300000,
+    "time": "Thu Jul 13 23:00:14 2023\n",
+    "gunrock-version": "1.2.0",
+    "git-commit-sha": "386d04450b9ae11097e9789a648042d4d310f199",
+    "primitive": "Louvain",
+    "stddev-degree": 6.223675727844238,
+    "num-vertices": 39,
+    "num-edges": 340
+}
