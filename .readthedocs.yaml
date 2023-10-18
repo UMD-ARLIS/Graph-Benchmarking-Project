@@ -25,6 +25,7 @@ sphinx:
 # Specify the operating system for the build
 build:
   os: ubuntu-20.04
+<<<<<<< HEAD
 
 # Optionally set the version of Python and requirements required to build your docs
 python:
@@ -58,3 +59,10 @@ sphinx:
 #    install:
 #    - requirements: docs/requirements.txt
 >>>>>>> 4cfcbf2 (Created .readthedocs.yaml file)
+=======
+  tools:
+    python: 
+      version: 3.7
+      install:
+        - requirements: docs/requirements.txt
+>>>>>>> 301e22f (modifying RTD.yaml)
