@@ -32,6 +32,7 @@ python:
 build:
   os: ubuntu-22.04
   tools:
+<<<<<<< HEAD
     python: "3.11"
     # You can also specify other tool versions:
     # nodejs: "19"
@@ -67,3 +68,8 @@ sphinx:
   install:
     - requirements: docs/requirements.txt
 >>>>>>> 646ad36 (modifying RTD.yaml)
+=======
+    python: "3.7"
+  install:
+    requirements: docs/requirements.txt
+>>>>>>> b25d64d (modifying RTD.yaml)
