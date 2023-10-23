@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/nanir/gunrock/build/gunrock",
+  "command": "/usr/bin/cc -DGUNROCKVERSION=1.2.0 -Dgunrock_utils_EXPORTS -I/home/nanir/gunrock -I/home/nanir/gunrock/externals/rapidjson/include -I/home/nanir/gunrock/externals/moderngpu/src -I/home/nanir/gunrock/gunrock/gunrock.h -I/usr/local/cuda-12.2/include  -w -fopenmp -O2 -g -DNDEBUG -fPIC   -w -o CMakeFiles/gunrock_utils.dir/util/gitsha1.c.o -c /home/nanir/gunrock/gunrock/util/gitsha1.c",
+  "file": "/home/nanir/gunrock/gunrock/util/gitsha1.c"
+}
+]

@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../lib/libcolor_app.a CMakeFiles/color_app.dir/__/__/gunrock/app/color/color_app_generated_color_app.cu.o CMakeFiles/color_app.dir/color_app_intermediate_link.o
+/usr/bin/ranlib ../../lib/libcolor_app.a

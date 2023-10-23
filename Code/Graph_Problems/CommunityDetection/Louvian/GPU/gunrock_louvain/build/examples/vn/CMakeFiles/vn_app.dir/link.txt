@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../lib/libvn_app.a CMakeFiles/vn_app.dir/__/__/gunrock/app/vn/vn_app_generated_vn_app.cu.o CMakeFiles/vn_app.dir/vn_app_intermediate_link.o
+/usr/bin/ranlib ../../lib/libvn_app.a

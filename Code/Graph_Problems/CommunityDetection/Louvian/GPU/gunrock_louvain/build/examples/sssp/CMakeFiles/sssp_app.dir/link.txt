@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../lib/libsssp_app.a CMakeFiles/sssp_app.dir/__/__/gunrock/app/sssp/sssp_app_generated_sssp_app.cu.o CMakeFiles/sssp_app.dir/sssp_app_intermediate_link.o
+/usr/bin/ranlib ../../lib/libsssp_app.a

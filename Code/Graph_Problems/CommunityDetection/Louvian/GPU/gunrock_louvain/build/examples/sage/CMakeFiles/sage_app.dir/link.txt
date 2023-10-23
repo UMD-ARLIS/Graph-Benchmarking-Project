@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../lib/libsage_app.a CMakeFiles/sage_app.dir/__/__/gunrock/app/sage/sage_app_generated_sage_app.cu.o CMakeFiles/sage_app.dir/sage_app_intermediate_link.o
+/usr/bin/ranlib ../../lib/libsage_app.a

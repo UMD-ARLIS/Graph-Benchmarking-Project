@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../lib/libproj_app.a CMakeFiles/proj_app.dir/__/__/gunrock/app/proj/proj_app_generated_proj_app.cu.o CMakeFiles/proj_app.dir/proj_app_intermediate_link.o
+/usr/bin/ranlib ../../lib/libproj_app.a

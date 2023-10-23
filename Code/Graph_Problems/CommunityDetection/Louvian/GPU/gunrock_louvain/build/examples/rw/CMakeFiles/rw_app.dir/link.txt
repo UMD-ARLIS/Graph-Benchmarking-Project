@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../lib/librw_app.a CMakeFiles/rw_app.dir/__/__/gunrock/app/rw/rw_app_generated_rw_app.cu.o CMakeFiles/rw_app.dir/rw_app_intermediate_link.o
+/usr/bin/ranlib ../../lib/librw_app.a

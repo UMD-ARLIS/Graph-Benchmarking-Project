@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../lib/libknn_app.a CMakeFiles/knn_app.dir/__/__/gunrock/app/knn/knn_app_generated_knn_app.cu.o CMakeFiles/knn_app.dir/knn_app_intermediate_link.o
+/usr/bin/ranlib ../../lib/libknn_app.a

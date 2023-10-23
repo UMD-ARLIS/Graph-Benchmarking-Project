@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../lib/liblouvain_app.a CMakeFiles/louvain_app.dir/__/__/gunrock/app/louvain/louvain_app_generated_louvain_app.cu.o CMakeFiles/louvain_app.dir/louvain_app_intermediate_link.o
+/usr/bin/ranlib ../../lib/liblouvain_app.a
