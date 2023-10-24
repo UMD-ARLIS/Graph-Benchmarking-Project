@@ -14,7 +14,7 @@ located in the `../tests` directory, using commands:
 
 .. code-block:: python
 
-    python ../tests/test_experiment_runner.py
+    python ./tests/test_experiment_runner.py
 
 PROGRAM EXECUTION
 ************************
