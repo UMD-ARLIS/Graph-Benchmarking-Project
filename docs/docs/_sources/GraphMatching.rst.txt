@@ -6,6 +6,7 @@ Graph Matching
    :maxdepth: 2
 
    Parallel
+   Sequential
 
 
 Experiments - CPU
