@@ -51,7 +51,7 @@ Other Resources
 - [Graph Clustering](https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Ghosh2019.pdf) [Code here](https://github.com/ECP-ExaGraph/vite)
 
 Alternatives
------------
+------------
 
 - [The Leiden Algorithm Neo4j page](https://neo4j.com/docs/graph-data-science/current/algorithms/leiden/#:~:text=The%20Leiden%20algorithm%20is%20an,modularity%20score%20for%20each%20community.) The Leiden algorithm is a hierarchical clustering algorithm, that recursively merges communities into single nodes by greedily optimizing the modularity and the process repeats in the condensed graph. It modifies the Louvain algorithm to address some of its shortcomings, namely the case where some of the communities found by Louvain are not well-connected. This is achieved by periodically randomly breaking down communities into smaller well-connected ones.
 - [Leiden Algorithm Paper](https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Traag2019.pdf)

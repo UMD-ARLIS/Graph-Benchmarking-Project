@@ -18,7 +18,9 @@
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="GPU Gunrock Louvain" href="GPU_gunrock_louvain.html" />
+    <link rel="prev" title="Graph Problems" href="Graph%20Problems.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -40,8 +42,27 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="Code.html">Code</a></li>
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="Code.html">Code</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Data%20Analysis.html">Data Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Dataset%20Creation.html">Dataset Creation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Experiment%20Framework.html">Experiment Framework</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="Graph%20Problems.html">Graph Problems</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Community Detection Problems - The Louvian Algorithm</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="GPU_gunrock_louvain.html">GPU Gunrock Louvain</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#background-on-community-detection-problems">Background on Community Detection Problems</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#louvian-algorithm-sequential">Louvian Algorithm (Sequential)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#louvian-algorithm-parallel">Louvian Algorithm (Parallel)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#alternatives">Alternatives</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="GraphMatching.html">Graph Matching</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Telemetry.html">Telemetry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Utilities.html">Utilities</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="Data.html">Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="System%20Configurations.html">System Configurations</a></li>
 </ul>
@@ -60,6 +81,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="Code.html">Code</a></li>
+          <li class="breadcrumb-item"><a href="Graph%20Problems.html">Graph Problems</a></li>
       <li class="breadcrumb-item active">Community Detection Problems - The Louvian Algorithm</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/CommunityDetection_Louvian.rst.txt" rel="nofollow"> View page source</a>
@@ -72,6 +95,15 @@
              
   <section id="community-detection-problems-the-louvian-algorithm">
 <h1>Community Detection Problems - The Louvian Algorithm<a class="headerlink" href="#community-detection-problems-the-louvian-algorithm" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="GPU_gunrock_louvain.html">GPU Gunrock Louvain</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cmake.html">cmake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataset.html">dataset</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <p>This Readme contains general information on the algorithms and links to useful resources. Details of the implementations are in the child sequential and parallel folders respectively.</p>
 <section id="background-on-community-detection-problems">
 <h2>Background on Community Detection Problems<a class="headerlink" href="#background-on-community-detection-problems" title="Link to this heading"></a></h2>
@@ -128,7 +160,10 @@
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Graph%20Problems.html" class="btn btn-neutral float-left" title="Graph Problems" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="GPU_gunrock_louvain.html" class="btn btn-neutral float-right" title="GPU Gunrock Louvain" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 
