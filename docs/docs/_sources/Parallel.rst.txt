@@ -2,7 +2,8 @@
 Parallel
 ========
 
-Example Text
-------------
+.. toctree::
+   :maxdepth: 2
 
-**This is an example text**
+   Parallel_CPU
+   Parallel_GPU
