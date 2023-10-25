@@ -9,3 +9,4 @@ GPU Gunrock Louvain
    cmake
    dataset
    examples
+   gunrock
