@@ -2,6 +2,13 @@
 Vite Implementation
 ===================
 
+
+.. toctree::
+   :maxdepth: 2
+
+   Usage
+
+
 **************
 Vite (ˈviːte/)
 **************

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite - Parallel Louvain implementation &mdash; Graph Benchmarking Project  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Parallel GPU" href="Parallel_GPU.html" />
+    <link rel="prev" title="Vite Implementation" href="vite_implementation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Graph Benchmarking Project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="Code.html">Code</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Data%20Analysis.html">Data Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Dataset%20Creation.html">Dataset Creation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Experiment%20Framework.html">Experiment Framework</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="Graph%20Problems.html">Graph Problems</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="CommunityDetection_Louvian.html">Community Detection Problems - The Louvian Algorithm</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="GraphMatching.html">Graph Matching</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="Parallel.html">Parallel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Sequential.html">Sequential</a></li>
+<li class="toctree-l4"><a class="reference internal" href="GraphMatching_Gunrock.html">Graph Matching Gunrock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="VF3Lib.html">Graph Matching VF3Lib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="GraphMatching.html#experiments-cpu">Experiments - CPU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="GraphMatching.html#experiments-gpu">Experiments - GPU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="GraphMatching.html#related-works">Related Works:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Telemetry.html">Telemetry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Utilities.html">Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Data.html">Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="System%20Configurations.html">System Configurations</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Graph Benchmarking Project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="Code.html">Code</a></li>
+          <li class="breadcrumb-item"><a href="Graph%20Problems.html">Graph Problems</a></li>
+          <li class="breadcrumb-item"><a href="GraphMatching.html">Graph Matching</a></li>
+          <li class="breadcrumb-item"><a href="Parallel.html">Parallel</a></li>
+          <li class="breadcrumb-item"><a href="Parallel_CPU.html">Parallel CPU</a></li>
+          <li class="breadcrumb-item"><a href="vite_implementation.html">Vite Implementation</a></li>
+      <li class="breadcrumb-item active">Vite - Parallel Louvain implementation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Usage.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="vite-parallel-louvain-implementation">
+<h1>Vite - Parallel Louvain implementation<a class="headerlink" href="#vite-parallel-louvain-implementation" title="Link to this heading"></a></h1>
+<section id="about">
+<h2>ABOUT<a class="headerlink" href="#about" title="Link to this heading"></a></h2>
+<p><cite>Vite</cite> is an MPI+OpenMP implementation of Louvain method for
+(undirected) graph clustering or community detection, that supports
+a number of heuristics to improve the scalability. Vite can use both
+real-world and synthetic graph (uses an in-memory random geometric
+graph generator).</p>
+</section>
+<section id="compilation">
+<h2>COMPILATION<a class="headerlink" href="#compilation" title="Link to this heading"></a></h2>
+<p>Build the program with the standard <cite>make</cite> command in the same directory as this file.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make
+</pre></div>
+</div>
+<p>Upon building, the program will generate two binaries:
+bin/graphClustering (parallel) and bin/fileConvert (serial).</p>
+<p>We’ll use bin/fileConvert for input graph conversion from native
+formats to a binary format that bin/graphClustering will be able
+to read.</p>
+</section>
+<section id="input-graph-conversion">
+<h2>INPUT GRAPH CONVERSION<a class="headerlink" href="#input-graph-conversion" title="Link to this heading"></a></h2>
+<p>Convert input files to binary from various formats.
+Possible options (should be used in combination):</p>
+<ol class="arabic">
+<li><dl class="option-list">
+<dt><kbd><span class="option">-n</span></kbd></dt>
+<dd><p>Input graph in SNAP format</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-m</span></kbd></dt>
+<dd><p>Input graph in Matrix-market format</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-e</span></kbd></dt>
+<dd><p>Input graph in METIS format</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-p</span></kbd></dt>
+<dd><p>Input graph in Pajek format</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-d</span></kbd></dt>
+<dd><p>Input graph in DIMACS format. Pass 0 or 1
+to indicate undirected/directed graph</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-s</span></kbd></dt>
+<dd><p>Input graph is directed edge list</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-u</span></kbd></dt>
+<dd><p>Input graph is undirected edge list
+(Can be used for Graph Challenge official
+datasets - <a class="reference external" href="http://graphchallenge.mit.edu/">http://graphchallenge.mit.edu/</a>)</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-x</span></kbd></dt>
+<dd><p>Read a number of files with edge list
+information, usage e.g.:
+-x “&lt;file-path&gt; &lt;start-chunk&gt; &lt;end-chunk&gt;”
+Requires conformant file names.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-i</span></kbd></dt>
+<dd><p>Accept weights as is from the file. If this
+option is not passed, then by default the
+absolute value of the original weight is
+chosen.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-r</span></kbd></dt>
+<dd><p>Create random edge weights</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-w</span></kbd></dt>
+<dd><p>Initialize edge weights to 1.0</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-o</span></kbd></dt>
+<dd><p>Output binary file with full path</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-z</span></kbd></dt>
+<dd><p>If the index of input graph is 1-based,
+then this option makes it 0-based</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-f</span></kbd></dt>
+<dd><p>Option preceding input graph file</p>
+</dd>
+</dl>
+</li>
+</ol>
+<p>Our examples:</p>
+<p>Simple directed edge list</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bin/./fileConvert<span class="w"> </span>-s<span class="w"> </span>-z<span class="w"> </span>-w<span class="w"> </span>-f<span class="w"> </span>simple_example.txt<span class="w"> </span>-o<span class="w"> </span>simple_example.bin
+</pre></div>
+</div>
+<p>Small dataset directed edge list</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bin/./fileConvert<span class="w"> </span>-s<span class="w"> </span>-z<span class="w"> </span>-w<span class="w"> </span>-f<span class="w"> </span>chesapeake.txt<span class="w"> </span>-o<span class="w"> </span>chesapeake.bin
+</pre></div>
+</div>
+</section>
+<section id="program-execution">
+<h2>PROGRAM EXECUTION<a class="headerlink" href="#program-execution" title="Link to this heading"></a></h2>
+<p>There are two ways by which this program can be run:</p>
+<p>1.) In a serializable manner (single worker/processor):</p>
+<p>Simple directed edge list example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mpiexec<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span>./bin/./graphClustering<span class="w"> </span>-f<span class="w"> </span>simple_example.bin
+</pre></div>
+</div>
+<p>2.) In a parallel manner (multiple workers/processors):</p>
+<p>Simple directed edge list example (can be any number of workers up to 10 to the right of “-n”):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mpiexec<span class="w"> </span>-n<span class="w"> </span><span class="m">2</span><span class="w"> </span>./bin/./graphClustering<span class="w"> </span>-f<span class="w"> </span>simple_example.bin
+</pre></div>
+</div>
+<p>The same process can be applied to any larger dataset, like the chesapeake.txt file we have in Code/Data_Analysis (just be sure to have converted it to a .bin file properly beforehand):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mpiexec<span class="w"> </span>-n<span class="w"> </span><span class="m">2</span><span class="w"> </span>./bin/./graphClustering<span class="w"> </span>-f<span class="w"> </span>chesapeake.bin
+</pre></div>
+</div>
+</section>
+<section id="output">
+<h2>OUTPUT<a class="headerlink" href="#output" title="Link to this heading"></a></h2>
+<p>If -DDONT_CREATE_DIAG_FILES is passed during compilation (default
+setting), then output is send to stdout. Otherwise, the output
+result is dumped per process on files named as dat.out.&lt;process-id&gt;.</p>
+<p>Output files are cleared with the standard <cite>make clean</cite> command in the same directory as this file.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>clean
+</pre></div>
+</div>
+</section>
+<section id="further-inquiry">
+<h2>FURTHER INQUIRY<a class="headerlink" href="#further-inquiry" title="Link to this heading"></a></h2>
+<p>For troubleshooting, see the  <a class="reference external" href="https://github.com/UMD-ARLIS/Graph-Benchmarking-Project/blob/louvain_update/Code/Graph_Problems/CommunityDetection/Louvian/Parallel/CPU/vite-implementation/README">README.md</a> , the  <a class="reference external" href="https://github.com/ECP-ExaGraph/vite">original github</a> , or email myself (<a class="reference external" href="mailto:vrife&#37;&#52;&#48;umd&#46;edu">vrife<span>&#64;</span>umd<span>&#46;</span>edu</a>) or the original author (<a class="reference external" href="mailto:sg0&#37;&#52;&#48;pnnl&#46;gov">sg0<span>&#64;</span>pnnl<span>&#46;</span>gov</a>), I found them to be very responsive.</p>
+</section>
+<section id="licensing">
+<h2>LICENSING<a class="headerlink" href="#licensing" title="Link to this heading"></a></h2>
+<p>See <a class="reference external" href="https://github.com/UMD-ARLIS/Graph-Benchmarking-Project/blob/louvain_update/Code/Graph_Problems/CommunityDetection/Louvian/Parallel/CPU/vite-implementation/LICENSE.md">LICENSE.md</a> for license information</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="vite_implementation.html" class="btn btn-neutral float-left" title="Vite Implementation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Parallel_GPU.html" class="btn btn-neutral float-right" title="Parallel GPU" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, UMD ARLIS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
