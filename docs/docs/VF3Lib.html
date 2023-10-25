@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VF3Lib &mdash; Graph Benchmarking Project  documentation</title>
+  <title>Graph Matching VF3Lib &mdash; Graph Benchmarking Project  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -53,7 +53,7 @@
 <li class="toctree-l4"><a class="reference internal" href="Parallel.html">Parallel</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Sequential.html">Sequential</a></li>
 <li class="toctree-l4"><a class="reference internal" href="GraphMatching_Gunrock.html">Graph Matching Gunrock</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">VF3Lib</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Graph Matching VF3Lib</a></li>
 <li class="toctree-l4"><a class="reference internal" href="GraphMatching.html#experiments-cpu">Experiments - CPU</a></li>
 <li class="toctree-l4"><a class="reference internal" href="GraphMatching.html#experiments-gpu">Experiments - GPU</a></li>
 <li class="toctree-l4"><a class="reference internal" href="GraphMatching.html#related-works">Related Works:</a></li>
@@ -86,7 +86,7 @@
           <li class="breadcrumb-item"><a href="Code.html">Code</a></li>
           <li class="breadcrumb-item"><a href="Graph%20Problems.html">Graph Problems</a></li>
           <li class="breadcrumb-item"><a href="GraphMatching.html">Graph Matching</a></li>
-      <li class="breadcrumb-item active">VF3Lib</li>
+      <li class="breadcrumb-item active">Graph Matching VF3Lib</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/VF3Lib.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -96,9 +96,187 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="vf3lib">
-<h1>VF3Lib<a class="headerlink" href="#vf3lib" title="Link to this heading"></a></h1>
-<p>Example</p>
+  <section id="graph-matching-vf3lib">
+<h1>Graph Matching VF3Lib<a class="headerlink" href="#graph-matching-vf3lib" title="Link to this heading"></a></h1>
+<section id="vf3lib">
+<h2>vf3lib<a class="headerlink" href="#vf3lib" title="Link to this heading"></a></h2>
+<p>vf3lib is a software library containing all the currently published
+versions of VF3, the fastest algorithm to solve subgraph isomorphism on
+large and dense graphs. <em>Extremely efficient in time and memory!</em></p>
+<p>This library, written in C++11, contains the official implementations of
+VF2-Plus, VF3, VF3L, VF3P realized by the authors. The latest version of
+vf3lib includes new graph loaders and the parallel versions of VF3L
+(VF3P), designed to effectively speed-up the algorithm on multicore
+architectures.</p>
+<p>The library is allows to solve: * Graph Isomorphism * Subgraph
+Isomorphism * Monomorphism (Non-induced subgraph isomorphism) - <em>Very
+Soon!</em></p>
+<section id="references">
+<h3>References<a class="headerlink" href="#references" title="Link to this heading"></a></h3>
+<p>If you use VF3 please don’t forget to cite us!</p>
+<ol class="arabic simple">
+<li><p>Challenging the time complexity of exact subgraph isomorphism for
+huge and dense graphs with VF3 - Carletti V., Foggia P., Saggese A.,
+Vento M. - IEEE transactions on pattern analysis and machine
+intelligence - 2018</p></li>
+<li><p>Introducing VF3: A new algorithm for subgraph isomorphism - Carletti
+V., Foggia P., Saggese A., Vento M. - International Workshop on
+Graph-Based Representations in Pattern Recognition - 2017</p></li>
+<li><p>Comparing performance of graph matching algorithms on huge graphs -
+Carletti V., Foggia P., Saggese A., Vento M. - Pattern Recognition
+Letters - 2018</p></li>
+<li><p>A Parallel Algorithm for Subgraph Isomorphism - V. Carletti, P.
+Foggia, P. Ritrovato, M. Vento, V. Vigilante - International Workshop
+on Graph-Based Representations in Pattern Recognition - 2019</p></li>
+</ol>
+</section>
+<section id="how-to-use-it">
+<h3>How To Use It<a class="headerlink" href="#how-to-use-it" title="Link to this heading"></a></h3>
+<p>The provided Makefile will produce three different executables: - VF3:
+The algorith whit all the heustics - VF3L: A lightweight version, where
+the look-ahead is deactivated. This version fit for sparse or small
+graphs. - VF3P: A parallel version of VF3L, to be used when the problem
+is really hard!</p>
+<p>If you wish to use the sequential version of VF (VF3 or VF3L) execute
+the following commandline:</p>
+<blockquote>
+<div><p>vf3 [pattern] [target]</p>
+</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$./bin/vf3<span class="w"> </span>./test/bvg1.sub.grf<span class="w"> </span>./test/bvg1.grf
+<span class="m">8</span><span class="w"> </span><span class="m">6</span>.34141e-06<span class="w"> </span><span class="m">1</span>.27038e-05
+</pre></div>
+</div>
+<p>The standard output provided by the algorithm is: [number of solutions
+found] [time to find the first solution] [time to find all the
+solutions]</p>
+<p>The following additional parameters can be added to the commandline: *
+-r Repetition time limit in seconds. The matching is repeted multiple
+times until the overall execution time breaches the given repetition
+time limit. The proposed execution time provided by the executable is
+the average value among all the executions performed. To be used when
+you wish to benchmark the algorithm on very small graphs, where the
+execution time of a single run is extremely small (eg. milliseconds), on
+order to get the execution time properly. (Default: 1 sec) * -u Force
+the loader to read the graphs as undirected. (Default: false) * -v
+Verbose mode. Additional time information are provides, such as loading
+time. (Default: false) * -s Print all the solutions (not only the
+number of solutions found) (Default: false) * -f Loader file format.
+Using this parameter you can specify the format of the graphs to be
+loaded: (Default: vf) * vf: stanard VF file format. Commonl used by the
+MIVIA Graph datasets * edge: Edge file format commonly used on VLDB
+datasets such as (Patents, WebGoogle, etc…)</p>
+<section id="vf3p-additional-parameters">
+<h4>VF3P additional parameters<a class="headerlink" href="#vf3p-additional-parameters" title="Link to this heading"></a></h4>
+<p>The parallel version has the following extra parameters: * -a Version
+of the paralle strategy to be used: (Mandatory) 1. (1) Parallel Version
+using the Global State Stack (GSS) only 2. (2) Parallel Version using
+the additional Local State Stack (LSS). * -t Number of thread to be
+used (Mandatory) * -c First CPU to be used when the thread are pinned
+on CPUs. The threads are pinned on different successive CPUs starting
+from the one has been specified. If 0 the pinning is disabled. (Default:
+0) * -l LSS size limit. Maximum number of states in the LSS. Value 0
+correspond to the pattern size (Default: 0) * -h GSS depth limit. The
+states belonging to the first “h” levels of the State Space are forced
+to be put in the GSS. 0 means only the first state is put in the GSS
+(Default 3) * -k Use a lock-free stack as GSS</p>
+</section>
+</section>
+<section id="datasets">
+<h3>Datasets<a class="headerlink" href="#datasets" title="Link to this heading"></a></h3>
+<p>VF3 has been benchmarked on the following databases of graphs: * <a class="reference external" href="https://mivia.unisa.it/datasets/graph-database/arg-database/">MIVIA
+ARG</a> *
+<a class="reference external" href="https://mivia.unisa.it/datasets/graph-database/mivia2-graph-database/">MIVIA
+LDG</a>
+* <a class="reference external" href="https://drive.google.com/file/d/0B2AvWp2gRW0QU2JJdGhkSFUyT3M/view?usp=sharing">MIVIA
+Biological</a></p>
+</section>
+<section id="vf-file-formats">
+<h3>VF File Formats<a class="headerlink" href="#vf-file-formats" title="Link to this heading"></a></h3>
+<section id="binary">
+<h4>Binary<a class="headerlink" href="#binary" title="Link to this heading"></a></h4>
+<p>The file is composed by a sequence of 16-bit words; the words are
+encoded in little-endian format (e.g., LSB first). The first word
+represents the number of nodes in the graph. Then, for each node, there
+is a word encoding the number of edges coming out of that node, followed
+by a sequence of words encoding the endpoints of those edges. An
+example, represented in hexadecimal, follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">03</span> <span class="mi">00</span>     <span class="n">Number</span> <span class="n">of</span> <span class="n">nodes</span> <span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="mi">00</span> <span class="mi">00</span>     <span class="n">Number</span> <span class="n">of</span> <span class="n">edges</span> <span class="n">out</span> <span class="n">of</span> <span class="n">node</span> <span class="mi">0</span> <span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="mi">02</span> <span class="mi">00</span>     <span class="n">Number</span> <span class="n">of</span> <span class="n">edges</span> <span class="n">out</span> <span class="n">of</span> <span class="n">node</span> <span class="mi">1</span> <span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="mi">00</span> <span class="mi">00</span>     <span class="n">Target</span> <span class="n">of</span> <span class="n">the</span> <span class="n">first</span> <span class="n">edge</span> <span class="n">of</span> <span class="n">node</span> <span class="mi">1</span> <span class="p">(</span><span class="n">edge</span> <span class="mi">1</span> <span class="o">-&gt;</span> <span class="mi">0</span><span class="p">)</span>
+<span class="mi">02</span> <span class="mi">00</span>     <span class="n">Target</span> <span class="n">of</span> <span class="n">the</span> <span class="n">second</span> <span class="n">edge</span> <span class="n">of</span> <span class="n">node</span> <span class="mi">1</span> <span class="p">(</span><span class="n">edge</span> <span class="mi">1</span> <span class="o">-&gt;</span> <span class="mi">2</span><span class="p">)</span>
+<span class="mi">01</span> <span class="mi">00</span>     <span class="n">Number</span> <span class="n">of</span> <span class="n">edges</span> <span class="n">out</span> <span class="n">of</span> <span class="n">node</span> <span class="mi">2</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="mi">00</span> <span class="mi">00</span>     <span class="n">Target</span> <span class="n">of</span> <span class="n">the</span> <span class="n">first</span> <span class="p">(</span><span class="ow">and</span> <span class="n">only</span><span class="p">)</span> <span class="n">edge</span> <span class="n">of</span> <span class="n">node</span> <span class="mi">2</span> <span class="p">(</span><span class="n">edge</span> <span class="mi">2</span> <span class="o">-&gt;</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="text">
+<h4>Text<a class="headerlink" href="#text" title="Link to this heading"></a></h4>
+<p>On the first line there must be the number of nodes; subsequent lines
+will contain the node attributes, one node per line, preceded by the
+node id; node ids must be in the range from 0 to the number of nodes -
+1. Then, for each node there is the number of edges coming out of the
+node, followed by a line for each edge containing the ids of the edge
+ends and the edge attribute. Blank lines, and lines starting with #, are
+ignored. An example file, where both node and edge attributes are ints,
+could be the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Number of nodes</span>
+<span class="mi">3</span>
+
+<span class="c1"># Node attributes</span>
+<span class="mi">0</span> <span class="mi">27</span>
+<span class="mi">1</span> <span class="mi">42</span>
+<span class="mi">2</span> <span class="mi">13</span>
+
+<span class="c1"># Edges coming out of node 0\n</span>
+<span class="mi">2</span>
+<span class="mi">0</span> <span class="mi">1</span>  <span class="mi">24</span>
+<span class="mi">0</span> <span class="mi">2</span>  <span class="mi">73</span>
+
+<span class="c1"># Edges coming out of node 1</span>
+<span class="mi">1</span>
+<span class="mi">1</span> <span class="mi">3</span>  <span class="mi">66</span>
+
+<span class="c1"># Edges coming out of node 2</span>
+<span class="mi">0</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="vf3lib-further-explained">
+<h2>VF3Lib Further Explained<a class="headerlink" href="#vf3lib-further-explained" title="Link to this heading"></a></h2>
+<p>A common subgraph matching algorithm that can be used for log files and kill chains in network data is the VF2 algorithm. VF2 (or VF2++)
+is a well-known algorithm for graph isomorphism and subgraph isomorphism. It efficiently finds all occurrences of a subgraph, also know as a
+query graph within a larger target graph.</p>
+<p>Here’s a high-level overview of the VF2 algorithm:</p>
+<p>Define the subgraph: Construct a small graph that represents the pattern we are looking for within the larger log or network graph.
+This query graph can be constructed based on the log patterns or kill chain stages we want to match.</p>
+<p>Initialize the VF2 algorithm: Initialize the algorithm with the subgraph and the target graph (log or network data)
+we want to search. The VF2 algorithm maintains two states: the current state of the mapping between nodes in the subgraph and the target graph,
+and the feasibility status indicating if a particular mapping is possible.</p>
+<p>Explore the search space: The VF2 algorithm performs a depth-first search to explore the search space of possible mappings between the subgraph
+and the target graph. It systematically tries to extend the current mapping by adding new nodes and edges, while ensuring that the structural
+constraints (such as edge connectivity and node labels) are satisfied.</p>
+<p>Check feasibility and pruning: At each step, the algorithm checks the feasibility of the current mapping based on the structural constraints.
+If a certain condition is not met (e.g., node labels don’t match), the algorithm prunes that branch of the search space, avoiding unnecessary
+exploration.</p>
+<p>Collect matches: During the search, whenever a complete and valid mapping is found, it represents a match of the subgraph within the target graph.
+We can collect these matches and analyze them further for log analysis or identifying kill chain stages.</p>
+<p>In short, VF2 algorithm is a widely used subgraph matching algorithm that efficiently finds all occurrences of a subgraph within a larger target
+graph. It utilizes a depth-first search and backtracking approach, considering node and edge labels, while maintaining the feasibility of mappings
+based on structural constraints. However, it’s worth noting that graph matching is generally an NP-hard problem, and the VF2 algorithm may not be
+suitable for extremely large graphs or complex matching scenarios. In such cases, approximate or specialized algorithms may be required.</p>
+<p>Other algos to consider if this fails to meet our requirements.</p>
+<ol class="arabic simple">
+<li><p>Ullmann algorithm: The Ullmann algorithm is a subgraph matching algorithm that uses backtracking and depth-first search to efficiently find all
+occurrences of a subraph in a larger target graph, considering both node and edge labels, while allowing for node and edge mappings to be
+one-to-one or many-to-one.</p></li>
+<li><p>QuickSI algorithm: The QuickSI algorithm is a scalable and efficient subgraph matching algorithm that utilizes a combination of filtering and
+verification steps to quickly identify potential matches between a subgraph and a target graph, based on structural and label constraints,
+without exploring the entire search space.</p></li>
+</ol>
+</section>
 </section>
 
 
