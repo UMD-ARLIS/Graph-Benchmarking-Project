@@ -10,3 +10,4 @@ GPU Gunrock Louvain
    dataset
    examples
    gunrock
+   tools
