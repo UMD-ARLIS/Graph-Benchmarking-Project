@@ -2,6 +2,12 @@
 Graph Matching
 ==============
 
+.. toctree::
+   :maxdepth: 2
+
+   Parallel
+
+
 Experiments - CPU
 -----------------
 
