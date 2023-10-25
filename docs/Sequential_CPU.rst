@@ -2,4 +2,4 @@
 Sequential CPU
 ==============
 
-Example
+-VF3 Sequential Implementation-
