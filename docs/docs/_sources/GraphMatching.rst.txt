@@ -7,6 +7,7 @@ Graph Matching
 
    Parallel
    Sequential
+   GraphMatching_Gunrock
 
 
 Experiments - CPU
