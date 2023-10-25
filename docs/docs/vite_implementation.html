@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite Implementation &mdash; Graph Benchmarking Project  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Parallel GPU" href="Parallel_GPU.html" />
+    <link rel="prev" title="Parallel CPU" href="Parallel_CPU.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Graph Benchmarking Project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="Code.html">Code</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Data%20Analysis.html">Data Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Dataset%20Creation.html">Dataset Creation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Experiment%20Framework.html">Experiment Framework</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="Graph%20Problems.html">Graph Problems</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="CommunityDetection_Louvian.html">Community Detection Problems - The Louvian Algorithm</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="GraphMatching.html">Graph Matching</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="Parallel.html">Parallel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Sequential.html">Sequential</a></li>
+<li class="toctree-l4"><a class="reference internal" href="GraphMatching_Gunrock.html">Graph Matching Gunrock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="VF3Lib.html">Graph Matching VF3Lib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="GraphMatching.html#experiments-cpu">Experiments - CPU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="GraphMatching.html#experiments-gpu">Experiments - GPU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="GraphMatching.html#related-works">Related Works:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Telemetry.html">Telemetry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Utilities.html">Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Data.html">Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="System%20Configurations.html">System Configurations</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Graph Benchmarking Project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="Code.html">Code</a></li>
+          <li class="breadcrumb-item"><a href="Graph%20Problems.html">Graph Problems</a></li>
+          <li class="breadcrumb-item"><a href="GraphMatching.html">Graph Matching</a></li>
+          <li class="breadcrumb-item"><a href="Parallel.html">Parallel</a></li>
+          <li class="breadcrumb-item"><a href="Parallel_CPU.html">Parallel CPU</a></li>
+      <li class="breadcrumb-item active">Vite Implementation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/vite_implementation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="vite-implementation">
+<h1>Vite Implementation<a class="headerlink" href="#vite-implementation" title="Link to this heading"></a></h1>
+<section id="vite-vite">
+<h2>Vite (ˈviːte/)<a class="headerlink" href="#vite-vite" title="Link to this heading"></a></h2>
+<section id="about">
+<h3>ABOUT<a class="headerlink" href="#about" title="Link to this heading"></a></h3>
+<p><cite>Vite</cite> is an MPI+OpenMP implementation of Louvain method for (undirected)
+graph clustering or community detection, that supports a number of heuristics
+to improve the scalability. Vite can use both real-world and synthetic graph
+(uses an in-memory random geometric graph generator).</p>
+<p>Please refer to the following paper that discusses the
+distributed implementation and associated heuristics:
+<a class="reference external" href="https://ieeexplore.ieee.org/abstract/document/8425242/">https://ieeexplore.ieee.org/abstract/document/8425242/</a></p>
+<p>We recently added an option to improve the distribution to
+be more edge-balanced rather than standard vertex-based (“-b”),
+which can avoid communication and improve execution time.
+Relevant discussion in the following paper:
+<a class="reference external" href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8916299">https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8916299</a></p>
+<p>If quality is important for you, please consider the coloring
+options. Coloring will increase the overall execution time and
+communication, but it is possible to combine coloring with
+other heuristics to improve the performance. Relevant discussion
+in the following paper:
+<a class="reference external" href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8547534">https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8547534</a></p>
+<p>Vite can be downloaded from (please don’t use the past
+PNNL/PNL link to download Vite mentioned in the paper, the
+current GitHub link is the correct one):
+<a class="reference external" href="https://github.com/ECP-ExaGraph/vite">https://github.com/ECP-ExaGraph/vite</a></p>
+<p>This code requires an MPI library (preferably MPI-3 compatible)
+and C++11 compliant compiler for building.</p>
+<p>Please contact the following for any queries or support:</p>
+<p>Sayan Ghosh, PNNL (sg0 at pnnl dot gov)
+Mahantesh Halappanavar, PNNL (hala at pnnl dot gov)
+Antonino Tumeo, PNNL (antonino.tumeo at pnnl dot gov)</p>
+<p>Please ‘*’ this repository on GitHub if the code is useful to you.</p>
+</section>
+<section id="compilation">
+<h3>COMPILATION<a class="headerlink" href="#compilation" title="Link to this heading"></a></h3>
+<p>Pass -DDEBUG_PRINTF if detailed diagonostics is required along
+program run. This program requires OpenMP and C++11 support,
+so pass -fopenmp (for g++)/-qopenmp (for icpc) and -std=c++11/
+-std=c++0x. For Cray systems, use CC.</p>
+<p>Pass -DUSE_32_BIT_GRAPH if number of nodes in the graph are
+within 32-bit range (2 x 10^9), else 64-bit range is assumed.</p>
+<p>Pass -DDONT_CREATE_DIAG_FILES if you dont want to create 2 files
+per process with detail diagonostics.</p>
+<p>Upon building, the program will generate two binaries:
+bin/graphClustering (parallel) and bin/fileConvert (serial).</p>
+<p>Please use bin/fileConvert for input graph conversion from
+native formats to a binary format that bin/graphClustering will
+be able to read.</p>
+<p>Compiling on Intel KNL:</p>
+<p>We made some modifications to the code to port it to Cray XC systems
+with Intel KNL. We use lib-memkind to allocate some heavily used data
+structures to KNL MCDRAM (for usage in flat-mode).
+Please ensure lib-memkind module is loaded and pass
+-DUSE_AUTOHBW_MEMALLOC, and pass -xmic-AVX512 instead of -xHost in
+the Makefile.</p>
+<p>Experimental device offload:</p>
+<p>The modularity computation is the only arithmetic logic in this code.
+Even though, due to the limited computation associated with the modularity
+computation, it is doubtful how much GPU can help in improving the
+performance relative to using OpenMP host pragmas. However, we have added
+an option to enable OpenMP offload only for the modularity computation
+kernel. Vite must be built with -DOMP_TARGET_OFFLOAD and a compiler that
+supports OpenMP 4.5. The default compiler options in the Makefile needs to
+be updated as well, for instance, on Summit, for enabling OpenMP offload
+in the XL compiler, one would need to pass: “-qsmp=omp -qoffload” currently.
+Initial testing suggests that for certain graphs, it is possible to achieve
+about 10-15% improvement in performance relative to host OpenMP.</p>
+</section>
+<section id="input-graph-conversion">
+<h3>INPUT GRAPH CONVERSION<a class="headerlink" href="#input-graph-conversion" title="Link to this heading"></a></h3>
+<p>Convert input files to binary from various formats.
+Possible options (can be combined):</p>
+<ol class="arabic">
+<li><dl class="option-list">
+<dt><kbd><span class="option">-n</span></kbd></dt>
+<dd><p>: Input graph in SNAP format</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-m</span></kbd></dt>
+<dd><p>: Input graph in Matrix-market format</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-e</span></kbd></dt>
+<dd><p>: Input graph in METIS format</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-p</span></kbd></dt>
+<dd><p>: Input graph in Pajek format</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-d</span></kbd></dt>
+<dd><p>: Input graph in DIMACS format. Pass 0 or 1
+to indicate undirected/directed graph</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-s</span></kbd></dt>
+<dd><p>: Input graph is directed edge list</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-u</span></kbd></dt>
+<dd><p>: Input graph is undirected edge list
+(Can be used for Graph Challenge official
+datasets - <a class="reference external" href="http://graphchallenge.mit.edu/">http://graphchallenge.mit.edu/</a>)</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-x</span></kbd></dt>
+<dd><p>: Read a number of files with edge list
+information, usage e.g.:
+-x “&lt;file-path&gt; &lt;start-chunk&gt; &lt;end-chunk&gt;”
+Requires conformant file names.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-i</span></kbd></dt>
+<dd><p>: Accept weights as is from the file. If this
+option is not passed, then by default the
+absolute value of the original weight is
+chosen.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-r</span></kbd></dt>
+<dd><p>: Create random edge weights</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-w</span></kbd></dt>
+<dd><p>: Initialize edge weights to 1.0</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-o</span></kbd></dt>
+<dd><p>: Output binary file with full path</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-z</span></kbd></dt>
+<dd><p>: If the index of input graph is 1-based,
+then this option makes it 0-based</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-f</span></kbd></dt>
+<dd><p>: Option preceding input graph file</p>
+</dd>
+</dl>
+</li>
+</ol>
+</section>
+<section id="file-conversion-related">
+<h3>File conversion related<a class="headerlink" href="#file-conversion-related" title="Link to this heading"></a></h3>
+<p>Typical example:
+bin/./fileConvert -n -f karate.txt -o karate.bin</p>
+<p>If your input file does not have edge weights, and you
+want random edge weights, then pass option “-r”.</p>
+<p>bin/./fileConvert -m -r -f karate.mtx -o karate.bin</p>
+<p>Note: DIMACS file could be directed or undirected, so
+pass 0 if input is directed, or a number &gt; 0 input
+graph is undirected. Also, we expect DIMACS inputs to
+have weights, therefore passing -r has no effect.</p>
+<p>bin/./fileConvert -d 0 -f sample.gr -o sample.bin</p>
+<p>Same as the one before, except initializes all weights
+to 1, no matter what is in the input file.</p>
+<p>bin/./fileConvert -d 0 -w -f sample.gr -o sample.bin</p>
+<p>Note: If the input file is index 1-based, then indicate
+that by passing -z, such that it will be converted to
+0-based internally.</p>
+<p>bin/./fileConvert -s -z -f network.dat -o lfrtest.bin</p>
+<p>Note: We consider files containing edge list, as ‘simple’
+formatted files (option “-s” for directed, and option “-u”
+for undirected). If you have a weighted simple format file
+(i.e., is <cite>u v w</cite> format) then you have to additionally
+pass “-i”.
+If there are weights in such an edge-list file and for some
+reason you do not want to consider them, pass “-w” or “-r”
+in addition to “-s” or “-u” such that we can assign one-weights
+or random-weights internally.</p>
+<p>By default, we assume edge list files to not have any weights
+(as in, just <cite>u v</cite> per line).</p>
+<p>bin/./fileConvert -f uk2007-edges.txt -s -w -o uk2007.bin</p>
+<section id="note-on-s-and-u-options">
+<h4>Note on <cite>-s</cite> and <cite>-u</cite> options<a class="headerlink" href="#note-on-s-and-u-options" title="Link to this heading"></a></h4>
+<p>The <cite>-s</cite> or <cite>-u</cite> option is just to tell the implementation about
+your native graph format (as in if you pass <cite>-s</cite>, we assume in
+your edge list just <cite>u v</cite> exists and not its complement, i.e.,
+directed; whereas when you pass <cite>-u</cite>, we will assume that both
+<cite>u v</cite>  and <cite>v u</cite> exists, i.e., undirected).</p>
+<p>Regardless of the native format, internally, we always use an
+undirected graph representation, because the algorithm itself
+assumes an undirected input, and accordingly prints the number of
+edges as double if your native graph was directed (on the other
+hand, if your native graph was undirected, and for e.g., you used
+<cite>-u</cite> to convert to binary, the #edges printed by the implementation
+should exactly match with the #edges of your native graph).</p>
+<p>Apart from the simple edge list formats and matrix-market formats,
+we do not actively check the correctness of the other formats.</p>
+</section>
+</section>
+<section id="synthetic-graph-generation">
+<h3>SYNTHETIC GRAPH GENERATION<a class="headerlink" href="#synthetic-graph-generation" title="Link to this heading"></a></h3>
+<section id="rgg">
+<h4>RGG<a class="headerlink" href="#rgg" title="Link to this heading"></a></h4>
+<p>Apart from real world graphs, users can use specific options
+to generate a Random Geometric Graph (RGG) in parallel.
+RGGs have been known to have good community structure:
+<a class="reference external" href="https://arxiv.org/pdf/1604.03993.pdf">https://arxiv.org/pdf/1604.03993.pdf</a></p>
+<p>The way we have implemented a parallel RGG generator, vertices
+owned by a process will only have cross edges with its logical
+neighboring processes (each process owning 1x1/p chunk of the
+1x1 unit square). If MPI process mapping is such that consecutive
+processes (for e.g., p and p+1) are physically close to each other,
+then there is not much communication stress in the application.
+Therefore, we allow an option to add extra edges between randomly
+chosen vertices, whose owners may be physically far apart. Relevant
+discussion in paper:
+<a class="reference external" href="https://ieeexplore.ieee.org/abstract/document/8641631">https://ieeexplore.ieee.org/abstract/document/8641631</a></p>
+<p>We require the total number of processes to be a power of 2 and
+total number of vertices to be perfectly divisible by the number of
+processes when parallel RGG generation options are used.</p>
+<p>An n-D random geometric graph (RGG), is generated by randomly placing N
+vertices in an n-D space and connecting pairs of vertices whose Euclidean
+distance is less than or equal to d. We only consider 2D RGGs contained
+within a unit square, [0,1]^2. We distribute the domain such that each
+process receives N/p vertices (where p is the total number of processes).
+Each process owns (1 * 1/p) portion of the unit square and d is computed
+as (please refer to Section 4 of above paper for details):</p>
+<p>d = (dc + dt)/2;
+where, dc = sqrt(ln(N) / pi*N); dt = sqrt(2.0736 / pi*N)</p>
+<p>Therefore, the number of vertices (N) passed during miniVite execution on p
+processes must satisfy the condition – 1/p &gt; d.</p>
+<p>Please note, the default distribution of graph generated from the in-built random
+geometric graph generator causes a process to only communicate with its two
+immediate neighbors. If you want to increase the communication intensity for
+generated graphs, please use the “-e” option to specify an extra percentage of edges
+that will be generated, linking random vertices. As a side-effect, this option
+significantly increases the time required to generate the graph.</p>
+<p>E.g.:
+mpiexec -n 2 bin/./minivite -f karate.bin
+mpiexec -n 2 bin/./minivite -l -n 100
+mpiexec -n 2 bin/./minivite -n 100
+mpiexec -n 2 bin/./minivite -e 2 -n 100</p>
+</section>
+<section id="networkit-bindings">
+<h4>NetworKit bindings<a class="headerlink" href="#networkit-bindings" title="Link to this heading"></a></h4>
+<p>We also have bindings to NetworKit[*], that can help generate random and scale
+free graphs. This is mostly serial, but NetworKit internally may use OpenMP.</p>
+<p>Note: We have only tested with NetworKit GitHub main (commit hash:
+482cc48bd113ad3f4bd7aba7d773ed30d5e61094), and future support may not keep up
+with ongoing NetworKit updates.</p>
+<p>[*] <a class="reference external" href="https://networkit.github.io/">https://networkit.github.io/</a></p>
+<p>Networkit can be built from GitHub:
+git clone –recursive <a class="reference external" href="https://github.com/networkit/networkit.git">https://github.com/networkit/networkit.git</a></p>
+<p>Possible options (can be combined):
+1.  -e               : Generate ER graph
+2.  -g               : Generate RGG graph
+3.  -b               : Generate Barabasi-Albert graph
+4.  -h               : Generate hyperbolic graph
+5.  -p &lt;…&gt;         : Probability for edge creation (for ER graph)
+6.  -n &lt;…&gt;         : Number of (max) nodes/vertices
+7.  -k &lt;…&gt;         : Number of clusters for RGG (each unit square is divided into clusters where edges are created within) OR attachments per node for Barabasi-Albert graph
+8.  -m &lt;…&gt;         : Initial nodes attached for Barabasi-Albert
+9.  -r               : Create random edge weights</p>
+</section>
+</section>
+<section id="executing-the-program">
+<h3>EXECUTING THE PROGRAM<a class="headerlink" href="#executing-the-program" title="Link to this heading"></a></h3>
+<p>0. Input file conversion to Vite binary format from the respective native
+file formats: convert the input file to binary format using fileConvert.</p>
+<ol class="arabic simple">
+<li><p>Set the desired number of processes and threads.</p></li>
+</ol>
+<p>2. Run distributed parallel Louvain algorithm (graphClustering binary)
+using the binary file created in Step #0:</p>
+<p>E.g., pass a binary file using “-f” option and include other heuristics:
+mpiexec -n 2 bin/./graphClustering -i -f karate.bin</p>
+<p>E.g., generate a random geometric graph by passing #vertices=64:
+mpiexec -n 2 bin/./graphClustering -n 64</p>
+<p>E.g., generate a random geometric graph by passing #vertices=64
+and store the resultant binary graph:
+mpiexec -n 2 bin/./graphClustering -n 64 -s rgg64.bin</p>
+<p>E.g., read a previously generated random geometric binary graph:
+mpiexec -n 2 bin/./graphClustering -f rgg64.bin</p>
+<p>Possible options (can be combined):</p>
+<ol class="arabic">
+<li><dl class="option-list">
+<dt><kbd><span class="option">-f <var>&lt;input&gt;</var></span></kbd></dt>
+<dd><p>: Input real-world binary file (read #1 above).</p>
+</dd>
+</dl>
+</li>
+<li><p>-c “&lt;ncolors&gt; &lt;single-color-iteration?&gt;”  : Enable coloring, adjacent vertices are processed in different order. Synchronization happens once per &lt;ncolors&gt;, so this option can significantly increase execution time. We use incomplete iterative coloring algorithm (Jones-Plassmann), so passed colors is just a hint, also pass whether a single-color-iteration is expected, by default multiple iterations are invoked.</p></li>
+<li><p>-d “&lt;ncolors&gt;  &lt;single-color-iteration?&gt;”  : Enable coloring, adjacent vertices are processes in different order. No communication overhead likeabove, only local overhead of coloring subgraph.</p></li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-i</span></kbd></dt>
+<dd><p>: Threshold cycling, threshold changes dynamically in every phase of Louvain algorithm.</p>
+</dd>
+</dl>
+</li>
+<li><p>-t 1          : If a vertex is in the same community for past 3 iterations, then consider it inactive.</p></li>
+<li><p>-t 3          : If a vertex is in the same community for past 3 iterations, then consider it inactive. Also, adds a communication step to gather inactive  vertices and terminate Louvain if larger than or equal to 90% vertices at an iteration are inactive.</p></li>
+<li><p>-t 2 -a &lt;0-1&gt; : Early termination* using probability alpha.</p></li>
+<li><p>-t 4 -a &lt;0-1&gt; : Early termination* using probability alpha. Also, adds a communication step to gather inactive vertices and terminate Louvain if larger than or equal to 90% vertices at an iteration are inactive.</p></li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-b</span></kbd></dt>
+<dd><p>: Only valid for real-world inputs. Attempts to
+distribute approximately equal number of edges among
+processes. Irregular number of vertices owned by a
+particular process. Increases the distributed graph
+creation time due to serial overheads, but may
+significantly improve the overall execution time.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-o</span></kbd></dt>
+<dd><p>: Output communities into a file. This option will result
+in Vite dumping the communities (community-per-vertex in
+each line, total number of lines == number of vertices)
+in a text file named &lt;input-binary-file&gt;.communities in
+the same path as the input binary file.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-r <var>&lt;nranks&gt;</var></span></kbd></dt>
+<dd><p>: This is used to control the number of aggregators in MPI
+I/O and is meaningful when an input binary graph file is
+passed with option “-f”.
+naggr := (nranks greater than 1) ? (nprocs/nranks) : nranks;</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-g <var>&lt;gfile&gt;</var></span></kbd></dt>
+<dd><p>: Pass a ground truth file for community comparison. We
+expect the ground truth file to contain N lines (equal to
+the total #vertices in the graph), while each line containing
+a distinct vertex ID and associated community ID, separated by
+a space or tab. Ground truth community comparison is performed
+in a single node, and it uses OpenMP to parallelize. It may take
+a substantial amount of time for large files.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-z</span></kbd></dt>
+<dd><p>: Only applicable if “-g &lt;gfile&gt;” option is passed. This tells us
+that the passed ground truth file is 1-based. If this option is
+not passed, we assume the ground truth to the 0-based.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-n <var>&lt;V&gt;</var></span></kbd></dt>
+<dd><p>: Generate graph in memory (uses a parallel Random Geometric Graph
+generator).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-e <var>&lt;%&gt;</var></span></kbd></dt>
+<dd><p>: Used in conjunction with the “-n &lt;V&gt;” option to generate RGG.
+This option tells the percentage of edges to be added, randomly
+connecting vertices across processes. Currently, the maximum number
+of randomly added edges to RGG cannot exceed INT_MAX (there is no
+check to determine this, so exercise caution).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-p</span></kbd></dt>
+<dd><p>: Run a single phase of Louvain.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-s <var>&lt;output&gt;</var></span></kbd></dt>
+<dd><p>: Only applicable to the generated graphs (for e.g., -n &lt;V&gt;),
+output is a binary file as per the output file path.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="option-list">
+<dt><kbd><span class="option">-j</span></kbd></dt>
+<dd><p>: Just process (read or generate) the graph and exit without running community detection.</p>
+</dd>
+</dl>
+</li>
+</ol>
+<p>Coloring:</p>
+<p>mpiexec -n 2 bin/graphClustering -c “4” -f karate.bin
+mpiexec -n 2 bin/graphClustering -c “8 false” -i -f karate.bin</p>
+<p>By default, the coloring method is run for multiple iterations, to make it run for
+just a single iteration, pass “true”. For e.g.:
+mpiexec -n 2 bin/graphClustering -c “4 true” -f karate.bin</p>
+<p><em>Note: Option to update inactive vertices percentage is defined as macro ET_CUTOFF in louvain.hpp, and the default is 2%.</em></p>
+</section>
+<section id="comparing-communities-with-ground-truth-data">
+<h3>COMPARING COMMUNITIES WITH GROUND TRUTH DATA<a class="headerlink" href="#comparing-communities-with-ground-truth-data" title="Link to this heading"></a></h3>
+<p>1. Generate benchmark graphs with ground truth
+community information. For e.g., we have tested
+with LFR benchmark.
+(<a class="reference external" href="https://sites.google.com/site/santofortunato/inthepress2">https://sites.google.com/site/santofortunato/inthepress2</a>)
+LFR generates an edge list (index 1-based), along with community
+membership of each vertex.</p>
+<p>2. Convert the generated network to binary using
+fileConvert binary.</p>
+<p>3. Execute the program as shown in the e.g. below:
+mpiexec -n 2 bin/./graphClustering -r 1 -f lfrtest.bin -z -g community.dat</p>
+<p>The difference between standard way to execute the program and this way
+is that one needs to pass the ground truth vertex-community mapping
+using the “-g” option. Also, the “-z” option tells the program that
+the input ground truth file – <cite>community.dat</cite> is 1-based. If “-z” is
+not passed, then we assume that the file is 0-based.</p>
+<p>We return some statistics such as F-score, Gini-coefficient,
+false positives/negatives and true positives. We expect that the isolated
+vertices will be placed into their respective communities, and not into
+a single one.</p>
+<p>However, extra communication per phase is required when these metrics
+are to be computed, so the program execution time will increase
+significantly. Plus, the community comparison part is currently
+multithreaded (uses OpenMP), so everything is brought to a single
+node/PE and then communities are compared.</p>
+</section>
+<section id="output-result">
+<h3>OUTPUT RESULT<a class="headerlink" href="#output-result" title="Link to this heading"></a></h3>
+<p>If -DDONT_CREATE_DIAG_FILES is passed during compilation,
+then output is send to stdout.
+Otherwise, the output result is dumped per process on files
+named as dat.out.&lt;process-id&gt;. Check dat.out.0 to review
+program diagonostics.
+Output files are cleared with: <cite>make clean</cite>.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Parallel_CPU.html" class="btn btn-neutral float-left" title="Parallel CPU" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Parallel_GPU.html" class="btn btn-neutral float-right" title="Parallel GPU" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, UMD ARLIS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
