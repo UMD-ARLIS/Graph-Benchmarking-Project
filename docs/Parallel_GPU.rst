@@ -2,7 +2,4 @@
 Parallel GPU
 ============
 
-Example Text
-------------
-
-**This is an example text**
+-Parallel Implementation for GPU not configured yet-
