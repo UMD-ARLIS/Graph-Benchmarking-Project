@@ -2,7 +2,10 @@
 Graph Problems
 ==============
 
-Example Text
-------------
+All files relating to the implementation of a graph algorithm in code.
 
-**This is an example text**
+.. toctree::
+   :maxdepth: 2
+
+   CommunityDetection_Louvian
+   GraphMatching

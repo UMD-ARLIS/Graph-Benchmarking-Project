@@ -20,7 +20,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Experiment Framework" href="Experiment%20Framework.html" />
-    <link rel="prev" title="Data Analysis" href="Data%20Analysis.html" /> 
+    <link rel="prev" title="Updated_GPU_Script.Py" href="updated_gpu_script.py.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -46,7 +46,12 @@
 <li class="toctree-l1 current"><a class="reference internal" href="Code.html">Code</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="Data%20Analysis.html">Data Analysis</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Dataset Creation</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#example-text">Example Text</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#benchmark-datasets">Benchmark Datasets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#synthetic-graph-generation">Synthetic Graph Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#existing-graph-datasets">Existing Graph Datasets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graph-sampling">Graph Sampling</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Experiment%20Framework.html">Experiment Framework</a></li>
@@ -86,9 +91,34 @@
              
   <section id="dataset-creation">
 <h1>Dataset Creation<a class="headerlink" href="#dataset-creation" title="Link to this heading"></a></h1>
-<section id="example-text">
-<h2>Example Text<a class="headerlink" href="#example-text" title="Link to this heading"></a></h2>
-<p><strong>This is an example text</strong></p>
+<p>All files relating to the creation of graph datasets. Boxes to be checked once read &amp; a summary line added in <em>italics</em>.</p>
+<p>Papers added to summer2023.bib file and are stored by SurnameYear.pdf here: <a class="reference external" href="https://github.com/osullik/summer2023/tree/main/Papers/bibliography/reference_papers">Reference Papers</a></p>
+<section id="benchmark-datasets">
+<h2>Benchmark Datasets<a class="headerlink" href="#benchmark-datasets" title="Link to this heading"></a></h2>
+<section id="synthetic-graph-generation">
+<h3>Synthetic Graph Generation<a class="headerlink" href="#synthetic-graph-generation" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>[ ] <a class="reference external" href="https://github.com/graph500/graph500">Graph500 v3.0.0 Generator</a>. Written in C to meet the standards of the Graph500 benchmark.</p></li>
+<li><p>[ ] <a class="reference external" href="https://www.cs.cmu.edu/~christos/PUBLICATIONS/siam04.pdf">R-MAT (Chakrabarti et al 2004)</a>.</p></li>
+<li><p>[ ] <a class="reference external" href="https://users.cecs.anu.edu.au/~bdm/plantri/">plantri and fullgen planar graph generators</a>. A planar graph is a graph that can be drawn on a plane in such a way that its edges intersect only at their endpoints - that is, no edges cross each other. May be of use for subgraph matching? <a class="reference external" href="https://users.cecs.anu.edu.au/~bdm/papers/plantri-full.pdf">The Paper is here</a>.</p></li>
+<li><p>[ ] <a class="reference external" href="https://www.osti.gov/biblio/1871012">Synthetic Data and Graph Generation for Modeling Adversarial Activity</a>. Looks to be useful for generating things that look like Knowledge Graphs.</p></li>
+<li><p>[ ] <a class="reference external" href="https://github.com/ECP-ExaGraph/vite">C++ Implementation of Louvian</a>. Also looks to include some graph generation code that might be useful.</p></li>
+</ul>
+</section>
+<section id="existing-graph-datasets">
+<h3>Existing Graph Datasets<a class="headerlink" href="#existing-graph-datasets" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>[ ] <a class="reference external" href="https://snap.stanford.edu/data/index.html">Stanford Large Network Dataset Collection</a> - Large collection of datasets, including several appropriate for community detection applications.</p></li>
+<li><p>[ ] <a class="reference external" href="https://sparse.tamu.edu/about">SuiteSparse Matrix Collection</a> - Large collection of sparse matrix datasets for a large number of applications. Noting that these are matrices they may require a bit of work for us to convert into Adjacency Lists if we choose to use them.</p></li>
+<li><p>[ ] <a class="reference external" href="https://ogb.stanford.edu/">Stanford Open Graph Benchmark</a> - Datasets to support Machine Learning on Graphs. Mainly focused on Node, Link, and Graph property prediction (2023).</p></li>
+</ul>
+</section>
+<section id="graph-sampling">
+<h3>Graph Sampling<a class="headerlink" href="#graph-sampling" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>[ ] <a class="reference external" href="https://docs.lib.purdue.edu/cgi/viewcontent.cgi?article=2743&amp;context=cstech">Network Sampling via Edge-based Node Selection with Graph Induction</a> - Paper on how to sample graphs. Note that commentary from Ben Johnson that graph sampling while maintaining topological properties is a hard problem.</p></li>
+</ul>
+</section>
 </section>
 </section>
 
@@ -96,7 +126,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="Data%20Analysis.html" class="btn btn-neutral float-left" title="Data Analysis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="updated_gpu_script.py.html" class="btn btn-neutral float-left" title="Updated_GPU_Script.Py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="Experiment%20Framework.html" class="btn btn-neutral float-right" title="Experiment Framework" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
