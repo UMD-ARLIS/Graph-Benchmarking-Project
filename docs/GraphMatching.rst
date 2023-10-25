@@ -8,6 +8,7 @@ Graph Matching
    Parallel
    Sequential
    GraphMatching_Gunrock
+   VF3Lib
 
 
 Experiments - CPU
