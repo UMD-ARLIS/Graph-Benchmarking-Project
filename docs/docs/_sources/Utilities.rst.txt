@@ -2,7 +2,11 @@
 Utilities
 =========
 
-Example Text
-------------
+test
 
-**This is an example text**
+.. toctree::
+   :maxdepth: 2
+
+   c_utils
+   dataLoader
+   sets

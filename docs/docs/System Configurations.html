@@ -19,7 +19,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Subgraph Matching" href="Subgraph%20Matching.html" /> 
+    <link rel="prev" title="Subgraph Matching Datasets" href="Subgraph%20Matching.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,7 +45,20 @@
 <li class="toctree-l1"><a class="reference internal" href="Code.html">Code</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Data.html">Data</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">System Configurations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#blank-page">Blank Page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-the-linux-environment-for-our-testing">Setting up the Linux Environment for our testing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#system-setup">System Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#user-setup">User Setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#uploading-to-the-server">Uploading to the Server</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#git-setup">Git Setup</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#system-details">System Details:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cpus">CPUs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gpus">GPUs</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -76,9 +89,1499 @@
              
   <section id="system-configurations">
 <h1>System Configurations<a class="headerlink" href="#system-configurations" title="Link to this heading"></a></h1>
-<section id="blank-page">
-<h2>Blank Page<a class="headerlink" href="#blank-page" title="Link to this heading"></a></h2>
-<p><strong>This is an example text</strong></p>
+<section id="setting-up-the-linux-environment-for-our-testing">
+<h2>Setting up the Linux Environment for our testing<a class="headerlink" href="#setting-up-the-linux-environment-for-our-testing" title="Link to this heading"></a></h2>
+<section id="system-setup">
+<h3>System Setup<a class="headerlink" href="#system-setup" title="Link to this heading"></a></h3>
+<p>See the setup_Ubuntu.sh file for all commands used to set up the system
+for profiling and running GPUs</p>
+</section>
+<section id="user-setup">
+<h3>User Setup<a class="headerlink" href="#user-setup" title="Link to this heading"></a></h3>
+<p>See the makeUser.sh file which can be run as the root user on the server
+to create new users.</p>
+<p>To create a new user you need their public key, to get the user to
+generate their public key do:</p>
+<p>so, we will be accessing the server through SSH, and I need you both to
+create SSH key pairs. We can talk about how the cryptography works some
+time, but basically we are generating a PUBLIC key (i.e. one that
+everyone can know) and a PRIVATE key (i.e. one that only you should
+know)</p>
+<p>I’ll show you the commands I used, and you can set your own usernames
+accordingly. I did this on my desktop but you can do it anywhere.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span><span class="n">generate</span> <span class="n">the</span> <span class="n">Key</span> <span class="n">pair</span><span class="o">.</span>
+<span class="n">ssh</span><span class="o">-</span><span class="n">keygen</span> <span class="o">-</span><span class="n">m</span> <span class="n">PEM</span> <span class="o">-</span><span class="n">t</span> <span class="n">rsa</span> <span class="o">-</span><span class="n">b</span> <span class="mi">4096</span>
+</pre></div>
+</div>
+<p>It will prompt for a file name, i went with It will prompt you for a
+password. You of course should set a password, but if you choose not to
+I won’t tell anyone &amp; it’ll prompt you for it every time you log in. It
+will generate two files for you</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;.</span><span class="n">pub</span>
+</pre></div>
+</div>
+<p>I need you to send me your equivalent of .pub in slack. This is your
+public key. You need to keep your equivalent of SECRET, as this is you
+PRIVATE key that you will use to ssh in to the box.</p>
+<p>To that end, let’s make it into the customary format</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mv</span> <span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;.</span><span class="n">pem</span>
+<span class="n">chmod</span> <span class="mi">400</span> <span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;.</span><span class="n">pem</span>
+</pre></div>
+</div>
+<p>This is changing the file name to a .pem file, and making it read-only
+by you. Once you have sent me your .pub file, I will use it to create
+your account. I would then login to my account using the following
+command (run from the same directory as the .pem file, hence desktop
+earlier)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="o">-</span><span class="n">i</span> <span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;.</span><span class="n">pem</span> <span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;@</span><span class="mf">54.84.25.80</span>
+</pre></div>
+</div>
+<p>here ssh is the program - “start an ssh connection” -i tells the program
+that the next argument will be an identity file .pem is the identity
+file i just told it to expect is the username on the server &#64;54.84.25.80
+is the IP address to connect to with that username and identify file</p>
+<section id="uploading-to-the-server">
+<h4>Uploading to the Server<a class="headerlink" href="#uploading-to-the-server" title="Link to this heading"></a></h4>
+<p>then if I wanted to transfer files up to the server I’d use something
+like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scp</span> <span class="o">-</span><span class="n">i</span> <span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;.</span><span class="n">pem</span> <span class="n">test</span><span class="o">.</span><span class="n">txt</span> <span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;@</span><span class="mf">54.84.25.80</span><span class="p">:</span><span class="o">/</span><span class="n">home</span><span class="o">/&lt;</span><span class="n">username</span><span class="o">&gt;/</span><span class="n">test</span><span class="o">/</span><span class="n">test</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>Where: scp is the secure copy program -i tells the program that the next
+argument will be an identity file .pem is the identity file i just told
+it to expect test.txt is the file on my local machine I want to copy
+(needs to be in the same directory you run this command, or you have to
+fully qualify it) is the username on the server &#64;54.84.25.80 is the IP
+address to connect to with that username and identify file
+:/home//test/test.txt says where in the remote server to put the file</p>
+</section>
+<section id="git-setup">
+<h4>Git Setup<a class="headerlink" href="#git-setup" title="Link to this heading"></a></h4>
+<p>so, to use github on the server you need to set up an SSH key, to do
+that, in your home directory on the server do the following, replacing
+with your details where appropriate:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span><span class="o">-</span><span class="n">keygen</span> <span class="o">-</span><span class="n">t</span> <span class="n">ed25519</span> <span class="o">-</span><span class="n">C</span> <span class="s2">&quot;&lt;username&gt;@domain.tld&gt;&quot;</span>
+</pre></div>
+</div>
+<p>when prompted, put in:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">~/.</span><span class="n">ssh</span><span class="o">/&lt;</span><span class="n">username</span><span class="o">&gt;</span><span class="n">_git</span>
+</pre></div>
+</div>
+<p>optionally add a passphrase make sure its there:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ls</span> <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span> <span class="o">|</span> <span class="n">grep</span> <span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;</span><span class="n">_git</span>
+</pre></div>
+</div>
+<p>you should see something like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;</span><span class="n">_git</span>
+<span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;</span><span class="n">_git</span><span class="o">.</span><span class="n">pub</span>
+</pre></div>
+</div>
+<p>We will need your public key in a moment so print it out and copy it to
+your clipboard:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">~/.</span><span class="n">etc</span><span class="o">/&lt;</span><span class="n">username</span><span class="o">&gt;</span><span class="n">_git</span><span class="o">.</span><span class="n">pub</span>
+</pre></div>
+</div>
+<p>To copy it to your clipboard on your mac, just highlight it and use the
+COMMAND+C shortcut</p>
+<p>Add to the SSH agent by first starting it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">eval</span> <span class="s2">&quot;$(ssh-agent -s)&quot;</span>
+</pre></div>
+</div>
+<p>Then adding it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span><span class="o">-</span><span class="n">add</span> <span class="o">~/.</span><span class="n">ssh</span><span class="o">/&lt;</span><span class="n">username</span><span class="o">&gt;</span><span class="n">_git</span>
+</pre></div>
+</div>
+<p>then you need to add it to your github account. In your web browser go
+to <a class="reference external" href="https://github.com/settings/keys">Github Keys Page</a> then, click
+on the new ssh key button name your key something, mine is _minnesota
+for example then paste in the content of your equivalent of _git.pub
+that you copied to your clipboard earlier save then you should be good
+to go!</p>
+</section>
+</section>
+<section id="system-details">
+<h3>System Details:<a class="headerlink" href="#system-details" title="Link to this heading"></a></h3>
+<p>The dump of the system that experiments are being run on</p>
+<section id="cpus">
+<h4>CPUs<a class="headerlink" href="#cpus" title="Link to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">dmidecode</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># dmidecode 3.3</span>
+<span class="n">Getting</span> <span class="n">SMBIOS</span> <span class="n">data</span> <span class="kn">from</span> <span class="nn">sysfs.</span>
+<span class="n">SMBIOS</span> <span class="mf">2.7</span> <span class="n">present</span><span class="o">.</span>
+<span class="mi">87</span> <span class="n">structures</span> <span class="n">occupying</span> <span class="mi">3575</span> <span class="nb">bytes</span><span class="o">.</span>
+<span class="n">Table</span> <span class="n">at</span> <span class="mh">0x000EB01F</span><span class="o">.</span>
+
+<span class="n">Handle</span> <span class="mh">0x0000</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">24</span> <span class="nb">bytes</span>
+<span class="n">BIOS</span> <span class="n">Information</span>
+    <span class="n">Vendor</span><span class="p">:</span> <span class="n">Xen</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="mf">4.11</span><span class="o">.</span><span class="n">amazon</span>
+    <span class="n">Release</span> <span class="n">Date</span><span class="p">:</span> <span class="mi">08</span><span class="o">/</span><span class="mi">24</span><span class="o">/</span><span class="mi">2006</span>
+    <span class="n">Address</span><span class="p">:</span> <span class="mh">0xE8000</span>
+    <span class="n">Runtime</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">96</span> <span class="n">kB</span>
+    <span class="n">ROM</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">64</span> <span class="n">kB</span>
+    <span class="n">Characteristics</span><span class="p">:</span>
+        <span class="n">PCI</span> <span class="ow">is</span> <span class="n">supported</span>
+        <span class="n">EDD</span> <span class="ow">is</span> <span class="n">supported</span>
+        <span class="n">Targeted</span> <span class="n">content</span> <span class="n">distribution</span> <span class="ow">is</span> <span class="n">supported</span>
+    <span class="n">BIOS</span> <span class="n">Revision</span><span class="p">:</span> <span class="mf">4.11</span>
+
+<span class="n">Handle</span> <span class="mh">0x0100</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">27</span> <span class="nb">bytes</span>
+<span class="n">System</span> <span class="n">Information</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Xen</span>
+    <span class="n">Product</span> <span class="n">Name</span><span class="p">:</span> <span class="n">HVM</span> <span class="n">domU</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="mf">4.11</span><span class="o">.</span><span class="n">amazon</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">ec2a59ce</span><span class="o">-</span><span class="mi">6314</span><span class="o">-</span><span class="n">efdb</span><span class="o">-</span><span class="mf">3e42</span><span class="o">-</span><span class="n">da23b011c047</span>
+    <span class="n">UUID</span><span class="p">:</span> <span class="n">ec2a59ce</span><span class="o">-</span><span class="mi">6314</span><span class="o">-</span><span class="n">efdb</span><span class="o">-</span><span class="mf">3e42</span><span class="o">-</span><span class="n">da23b011c047</span>
+    <span class="n">Wake</span><span class="o">-</span><span class="n">up</span> <span class="n">Type</span><span class="p">:</span> <span class="n">Power</span> <span class="n">Switch</span>
+    <span class="n">SKU</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x0300</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">21</span> <span class="nb">bytes</span>
+<span class="n">Chassis</span> <span class="n">Information</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Xen</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Lock</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Present</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Boot</span><span class="o">-</span><span class="n">up</span> <span class="n">State</span><span class="p">:</span> <span class="n">Safe</span>
+    <span class="n">Power</span> <span class="n">Supply</span> <span class="n">State</span><span class="p">:</span> <span class="n">Safe</span>
+    <span class="n">Thermal</span> <span class="n">State</span><span class="p">:</span> <span class="n">Safe</span>
+    <span class="n">Security</span> <span class="n">Status</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">OEM</span> <span class="n">Information</span><span class="p">:</span> <span class="mh">0x00000000</span>
+    <span class="n">Height</span><span class="p">:</span> <span class="n">Unspecified</span>
+    <span class="n">Number</span> <span class="n">Of</span> <span class="n">Power</span> <span class="n">Cords</span><span class="p">:</span> <span class="n">Unspecified</span>
+    <span class="n">Contained</span> <span class="n">Elements</span><span class="p">:</span> <span class="mi">0</span>
+
+<span class="n">Handle</span> <span class="mh">0x0401</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">1</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x0402</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">2</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x0403</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">3</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x0404</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">4</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x0405</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">5</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x0406</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">6</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x0407</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">7</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x0408</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">8</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x0409</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">9</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x040A</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">10</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x040B</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">11</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x040C</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">12</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x040D</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">13</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x040E</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">14</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x040F</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">15</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x0410</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">16</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x0411</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">17</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x0412</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">18</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x0413</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">19</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x0414</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">20</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x0415</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">21</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x0416</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">22</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x0417</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">23</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x0418</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">24</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x0419</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">25</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x041A</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">26</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x041B</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">27</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x041C</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">28</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x041D</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">29</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x041E</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">30</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x041F</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">31</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x0420</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Processor</span> <span class="n">Information</span>
+    <span class="n">Socket</span> <span class="n">Designation</span><span class="p">:</span> <span class="n">CPU</span> <span class="mi">32</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">Central</span> <span class="n">Processor</span>
+    <span class="n">Family</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Intel</span>
+    <span class="n">ID</span><span class="p">:</span> <span class="n">F1</span> <span class="mi">06</span> <span class="mi">04</span> <span class="mi">00</span> <span class="n">FF</span> <span class="n">FB</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">17</span>
+    <span class="n">Version</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Voltage</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">External</span> <span class="n">Clock</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Current</span> <span class="n">Speed</span><span class="p">:</span> <span class="mi">2300</span> <span class="n">MHz</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">Populated</span><span class="p">,</span> <span class="n">Enabled</span>
+    <span class="n">Upgrade</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">L1</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L2</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">L3</span> <span class="n">Cache</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+
+<span class="n">Handle</span> <span class="mh">0x0B00</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">5</span> <span class="nb">bytes</span>
+<span class="n">OEM</span> <span class="n">Strings</span>
+    <span class="n">String</span> <span class="mi">1</span><span class="p">:</span> <span class="n">Xen</span>
+
+<span class="n">Handle</span> <span class="mh">0x1000</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">19</span> <span class="nb">bytes</span>
+<span class="n">Physical</span> <span class="n">Memory</span> <span class="n">Array</span>
+    <span class="n">Location</span><span class="p">:</span> <span class="n">Other</span>
+    <span class="n">Use</span><span class="p">:</span> <span class="n">System</span> <span class="n">Memory</span>
+    <span class="n">Error</span> <span class="n">Correction</span> <span class="n">Type</span><span class="p">:</span> <span class="n">Multi</span><span class="o">-</span><span class="n">bit</span> <span class="n">ECC</span>
+    <span class="n">Maximum</span> <span class="n">Capacity</span><span class="p">:</span> <span class="mi">244</span> <span class="n">GB</span>
+    <span class="n">Error</span> <span class="n">Information</span> <span class="n">Handle</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Provided</span>
+    <span class="n">Number</span> <span class="n">Of</span> <span class="n">Devices</span><span class="p">:</span> <span class="mi">16</span>
+
+<span class="n">Handle</span> <span class="mh">0x1100</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">34</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span>
+    <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Error</span> <span class="n">Information</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x0000</span>
+    <span class="n">Total</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Data</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Form</span> <span class="n">Factor</span><span class="p">:</span> <span class="n">DIMM</span>
+    <span class="n">Set</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Locator</span><span class="p">:</span> <span class="n">DIMM</span> <span class="mi">0</span>
+    <span class="n">Bank</span> <span class="n">Locator</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">RAM</span>
+    <span class="n">Type</span> <span class="n">Detail</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Rank</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Configured</span> <span class="n">Memory</span> <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+
+<span class="n">Handle</span> <span class="mh">0x1300</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">31</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x00000000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x003FFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Partition</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x1400</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x00000000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x003FFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Device</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1100</span>
+    <span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1300</span>
+    <span class="n">Partition</span> <span class="n">Row</span> <span class="n">Position</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x1101</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">34</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span>
+    <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Error</span> <span class="n">Information</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x0000</span>
+    <span class="n">Total</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Data</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Form</span> <span class="n">Factor</span><span class="p">:</span> <span class="n">DIMM</span>
+    <span class="n">Set</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Locator</span><span class="p">:</span> <span class="n">DIMM</span> <span class="mi">1</span>
+    <span class="n">Bank</span> <span class="n">Locator</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">RAM</span>
+    <span class="n">Type</span> <span class="n">Detail</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Rank</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Configured</span> <span class="n">Memory</span> <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+
+<span class="n">Handle</span> <span class="mh">0x1301</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">31</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x00400000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x007FFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Partition</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x1401</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x00400000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x007FFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Device</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1101</span>
+    <span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1301</span>
+    <span class="n">Partition</span> <span class="n">Row</span> <span class="n">Position</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x1102</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">34</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span>
+    <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Error</span> <span class="n">Information</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x0000</span>
+    <span class="n">Total</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Data</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Form</span> <span class="n">Factor</span><span class="p">:</span> <span class="n">DIMM</span>
+    <span class="n">Set</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Locator</span><span class="p">:</span> <span class="n">DIMM</span> <span class="mi">2</span>
+    <span class="n">Bank</span> <span class="n">Locator</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">RAM</span>
+    <span class="n">Type</span> <span class="n">Detail</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Rank</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Configured</span> <span class="n">Memory</span> <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+
+<span class="n">Handle</span> <span class="mh">0x1302</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">31</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x00800000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x00BFFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Partition</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x1402</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x00800000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x00BFFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Device</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1102</span>
+    <span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1302</span>
+    <span class="n">Partition</span> <span class="n">Row</span> <span class="n">Position</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x1103</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">34</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span>
+    <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Error</span> <span class="n">Information</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x0000</span>
+    <span class="n">Total</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Data</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Form</span> <span class="n">Factor</span><span class="p">:</span> <span class="n">DIMM</span>
+    <span class="n">Set</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Locator</span><span class="p">:</span> <span class="n">DIMM</span> <span class="mi">3</span>
+    <span class="n">Bank</span> <span class="n">Locator</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">RAM</span>
+    <span class="n">Type</span> <span class="n">Detail</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Rank</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Configured</span> <span class="n">Memory</span> <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+
+<span class="n">Handle</span> <span class="mh">0x1303</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">31</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x00C00000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x00FFFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Partition</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x1403</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x00C00000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x00FFFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Device</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1103</span>
+    <span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1303</span>
+    <span class="n">Partition</span> <span class="n">Row</span> <span class="n">Position</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x1104</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">34</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span>
+    <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Error</span> <span class="n">Information</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x0000</span>
+    <span class="n">Total</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Data</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Form</span> <span class="n">Factor</span><span class="p">:</span> <span class="n">DIMM</span>
+    <span class="n">Set</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Locator</span><span class="p">:</span> <span class="n">DIMM</span> <span class="mi">4</span>
+    <span class="n">Bank</span> <span class="n">Locator</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">RAM</span>
+    <span class="n">Type</span> <span class="n">Detail</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Rank</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Configured</span> <span class="n">Memory</span> <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+
+<span class="n">Handle</span> <span class="mh">0x1304</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">31</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x01000000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x013FFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Partition</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x1404</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x01000000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x013FFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Device</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1104</span>
+    <span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1304</span>
+    <span class="n">Partition</span> <span class="n">Row</span> <span class="n">Position</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x1105</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">34</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span>
+    <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Error</span> <span class="n">Information</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x0000</span>
+    <span class="n">Total</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Data</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Form</span> <span class="n">Factor</span><span class="p">:</span> <span class="n">DIMM</span>
+    <span class="n">Set</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Locator</span><span class="p">:</span> <span class="n">DIMM</span> <span class="mi">5</span>
+    <span class="n">Bank</span> <span class="n">Locator</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">RAM</span>
+    <span class="n">Type</span> <span class="n">Detail</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Rank</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Configured</span> <span class="n">Memory</span> <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+
+<span class="n">Handle</span> <span class="mh">0x1305</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">31</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x01400000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x017FFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Partition</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x1405</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x01400000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x017FFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Device</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1105</span>
+    <span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1305</span>
+    <span class="n">Partition</span> <span class="n">Row</span> <span class="n">Position</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x1106</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">34</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span>
+    <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Error</span> <span class="n">Information</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x0000</span>
+    <span class="n">Total</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Data</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Form</span> <span class="n">Factor</span><span class="p">:</span> <span class="n">DIMM</span>
+    <span class="n">Set</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Locator</span><span class="p">:</span> <span class="n">DIMM</span> <span class="mi">6</span>
+    <span class="n">Bank</span> <span class="n">Locator</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">RAM</span>
+    <span class="n">Type</span> <span class="n">Detail</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Rank</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Configured</span> <span class="n">Memory</span> <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+
+<span class="n">Handle</span> <span class="mh">0x1306</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">31</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x01800000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x01BFFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Partition</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x1406</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x01800000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x01BFFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Device</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1106</span>
+    <span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1306</span>
+    <span class="n">Partition</span> <span class="n">Row</span> <span class="n">Position</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x1107</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">34</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span>
+    <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Error</span> <span class="n">Information</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x0000</span>
+    <span class="n">Total</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Data</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Form</span> <span class="n">Factor</span><span class="p">:</span> <span class="n">DIMM</span>
+    <span class="n">Set</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Locator</span><span class="p">:</span> <span class="n">DIMM</span> <span class="mi">7</span>
+    <span class="n">Bank</span> <span class="n">Locator</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">RAM</span>
+    <span class="n">Type</span> <span class="n">Detail</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Rank</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Configured</span> <span class="n">Memory</span> <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+
+<span class="n">Handle</span> <span class="mh">0x1307</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">31</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x01C00000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x01FFFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Partition</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x1407</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x01C00000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x01FFFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Device</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1107</span>
+    <span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1307</span>
+    <span class="n">Partition</span> <span class="n">Row</span> <span class="n">Position</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x1108</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">34</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span>
+    <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Error</span> <span class="n">Information</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x0000</span>
+    <span class="n">Total</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Data</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Form</span> <span class="n">Factor</span><span class="p">:</span> <span class="n">DIMM</span>
+    <span class="n">Set</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Locator</span><span class="p">:</span> <span class="n">DIMM</span> <span class="mi">8</span>
+    <span class="n">Bank</span> <span class="n">Locator</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">RAM</span>
+    <span class="n">Type</span> <span class="n">Detail</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Rank</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Configured</span> <span class="n">Memory</span> <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+
+<span class="n">Handle</span> <span class="mh">0x1308</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">31</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x02000000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x023FFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Partition</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x1408</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x02000000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x023FFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Device</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1108</span>
+    <span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1308</span>
+    <span class="n">Partition</span> <span class="n">Row</span> <span class="n">Position</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x1109</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">34</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span>
+    <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Error</span> <span class="n">Information</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x0000</span>
+    <span class="n">Total</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Data</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Form</span> <span class="n">Factor</span><span class="p">:</span> <span class="n">DIMM</span>
+    <span class="n">Set</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Locator</span><span class="p">:</span> <span class="n">DIMM</span> <span class="mi">9</span>
+    <span class="n">Bank</span> <span class="n">Locator</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">RAM</span>
+    <span class="n">Type</span> <span class="n">Detail</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Rank</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Configured</span> <span class="n">Memory</span> <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+
+<span class="n">Handle</span> <span class="mh">0x1309</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">31</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x02400000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x027FFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Partition</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x1409</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x02400000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x027FFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Device</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1109</span>
+    <span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1309</span>
+    <span class="n">Partition</span> <span class="n">Row</span> <span class="n">Position</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x110A</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">34</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span>
+    <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Error</span> <span class="n">Information</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x0000</span>
+    <span class="n">Total</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Data</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Form</span> <span class="n">Factor</span><span class="p">:</span> <span class="n">DIMM</span>
+    <span class="n">Set</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Locator</span><span class="p">:</span> <span class="n">DIMM</span> <span class="mi">10</span>
+    <span class="n">Bank</span> <span class="n">Locator</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">RAM</span>
+    <span class="n">Type</span> <span class="n">Detail</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Rank</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Configured</span> <span class="n">Memory</span> <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+
+<span class="n">Handle</span> <span class="mh">0x130A</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">31</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x02800000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x02BFFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Partition</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x140A</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x02800000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x02BFFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Device</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x110A</span>
+    <span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x130A</span>
+    <span class="n">Partition</span> <span class="n">Row</span> <span class="n">Position</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x110B</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">34</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span>
+    <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Error</span> <span class="n">Information</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x0000</span>
+    <span class="n">Total</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Data</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Form</span> <span class="n">Factor</span><span class="p">:</span> <span class="n">DIMM</span>
+    <span class="n">Set</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Locator</span><span class="p">:</span> <span class="n">DIMM</span> <span class="mi">11</span>
+    <span class="n">Bank</span> <span class="n">Locator</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">RAM</span>
+    <span class="n">Type</span> <span class="n">Detail</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Rank</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Configured</span> <span class="n">Memory</span> <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+
+<span class="n">Handle</span> <span class="mh">0x130B</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">31</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x02C00000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x02FFFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Partition</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x140B</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x02C00000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x02FFFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Device</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x110B</span>
+    <span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x130B</span>
+    <span class="n">Partition</span> <span class="n">Row</span> <span class="n">Position</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x110C</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">34</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span>
+    <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Error</span> <span class="n">Information</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x0000</span>
+    <span class="n">Total</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Data</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Form</span> <span class="n">Factor</span><span class="p">:</span> <span class="n">DIMM</span>
+    <span class="n">Set</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Locator</span><span class="p">:</span> <span class="n">DIMM</span> <span class="mi">12</span>
+    <span class="n">Bank</span> <span class="n">Locator</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">RAM</span>
+    <span class="n">Type</span> <span class="n">Detail</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Rank</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Configured</span> <span class="n">Memory</span> <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+
+<span class="n">Handle</span> <span class="mh">0x130C</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">31</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x03000000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x033FFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Partition</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x140C</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x03000000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x033FFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Device</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x110C</span>
+    <span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x130C</span>
+    <span class="n">Partition</span> <span class="n">Row</span> <span class="n">Position</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x110D</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">34</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span>
+    <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Error</span> <span class="n">Information</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x0000</span>
+    <span class="n">Total</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Data</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Form</span> <span class="n">Factor</span><span class="p">:</span> <span class="n">DIMM</span>
+    <span class="n">Set</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Locator</span><span class="p">:</span> <span class="n">DIMM</span> <span class="mi">13</span>
+    <span class="n">Bank</span> <span class="n">Locator</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">RAM</span>
+    <span class="n">Type</span> <span class="n">Detail</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Rank</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Configured</span> <span class="n">Memory</span> <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+
+<span class="n">Handle</span> <span class="mh">0x130D</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">31</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x03400000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x037FFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Partition</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x140D</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x03400000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x037FFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Device</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x110D</span>
+    <span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x130D</span>
+    <span class="n">Partition</span> <span class="n">Row</span> <span class="n">Position</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x110E</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">34</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span>
+    <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Error</span> <span class="n">Information</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x0000</span>
+    <span class="n">Total</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Data</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Form</span> <span class="n">Factor</span><span class="p">:</span> <span class="n">DIMM</span>
+    <span class="n">Set</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Locator</span><span class="p">:</span> <span class="n">DIMM</span> <span class="mi">14</span>
+    <span class="n">Bank</span> <span class="n">Locator</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">RAM</span>
+    <span class="n">Type</span> <span class="n">Detail</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Rank</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Configured</span> <span class="n">Memory</span> <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+
+<span class="n">Handle</span> <span class="mh">0x130E</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">31</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x03800000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x03BFFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Partition</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x140E</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x03800000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x03BFFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">16</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Device</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x110E</span>
+    <span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x130E</span>
+    <span class="n">Partition</span> <span class="n">Row</span> <span class="n">Position</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x110F</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">34</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span>
+    <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Error</span> <span class="n">Information</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x0000</span>
+    <span class="n">Total</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Data</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">64</span> <span class="n">bits</span>
+    <span class="n">Size</span><span class="p">:</span> <span class="mi">4</span> <span class="n">GB</span>
+    <span class="n">Form</span> <span class="n">Factor</span><span class="p">:</span> <span class="n">DIMM</span>
+    <span class="n">Set</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Locator</span><span class="p">:</span> <span class="n">DIMM</span> <span class="mi">15</span>
+    <span class="n">Bank</span> <span class="n">Locator</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Type</span><span class="p">:</span> <span class="n">RAM</span>
+    <span class="n">Type</span> <span class="n">Detail</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Manufacturer</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Serial</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Asset</span> <span class="n">Tag</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Part</span> <span class="n">Number</span><span class="p">:</span> <span class="n">Not</span> <span class="n">Specified</span>
+    <span class="n">Rank</span><span class="p">:</span> <span class="n">Unknown</span>
+    <span class="n">Configured</span> <span class="n">Memory</span> <span class="n">Speed</span><span class="p">:</span> <span class="n">Unknown</span>
+
+<span class="n">Handle</span> <span class="mh">0x130F</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">31</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x03C00000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x03CFFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">4</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Array</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x1000</span>
+    <span class="n">Partition</span> <span class="n">Width</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x140F</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">35</span> <span class="nb">bytes</span>
+<span class="n">Memory</span> <span class="n">Device</span> <span class="n">Mapped</span> <span class="n">Address</span>
+    <span class="n">Starting</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x03C00000000</span>
+    <span class="n">Ending</span> <span class="n">Address</span><span class="p">:</span> <span class="mh">0x03CFFFFFFFF</span>
+    <span class="n">Range</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">4</span> <span class="n">GB</span>
+    <span class="n">Physical</span> <span class="n">Device</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x110F</span>
+    <span class="n">Memory</span> <span class="n">Array</span> <span class="n">Mapped</span> <span class="n">Address</span> <span class="n">Handle</span><span class="p">:</span> <span class="mh">0x130F</span>
+    <span class="n">Partition</span> <span class="n">Row</span> <span class="n">Position</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Handle</span> <span class="mh">0x2000</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">11</span> <span class="nb">bytes</span>
+<span class="n">System</span> <span class="n">Boot</span> <span class="n">Information</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="n">No</span> <span class="n">errors</span> <span class="n">detected</span>
+
+<span class="n">Handle</span> <span class="mh">0x7F00</span><span class="p">,</span> <span class="n">DMI</span> <span class="nb">type</span> <span class="mi">127</span><span class="p">,</span> <span class="mi">4</span> <span class="nb">bytes</span>
+<span class="n">End</span> <span class="n">Of</span> <span class="n">Table</span>
+</pre></div>
+</div>
+</section>
+<section id="gpus">
+<h4>GPUs<a class="headerlink" href="#gpus" title="Link to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nvidia</span><span class="o">-</span><span class="n">smi</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+---------------------------------------------------------------------------------------+</span>
+<span class="o">|</span> <span class="n">NVIDIA</span><span class="o">-</span><span class="n">SMI</span> <span class="mf">535.54.03</span>              <span class="n">Driver</span> <span class="n">Version</span><span class="p">:</span> <span class="mf">535.54.03</span>    <span class="n">CUDA</span> <span class="n">Version</span><span class="p">:</span> <span class="mf">12.2</span>     <span class="o">|</span>
+<span class="o">|-----------------------------------------+----------------------+----------------------+</span>
+<span class="o">|</span> <span class="n">GPU</span>  <span class="n">Name</span>                 <span class="n">Persistence</span><span class="o">-</span><span class="n">M</span> <span class="o">|</span> <span class="n">Bus</span><span class="o">-</span><span class="n">Id</span>        <span class="n">Disp</span><span class="o">.</span><span class="n">A</span> <span class="o">|</span> <span class="n">Volatile</span> <span class="n">Uncorr</span><span class="o">.</span> <span class="n">ECC</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">Fan</span>  <span class="n">Temp</span>   <span class="n">Perf</span>          <span class="n">Pwr</span><span class="p">:</span><span class="n">Usage</span><span class="o">/</span><span class="n">Cap</span> <span class="o">|</span>         <span class="n">Memory</span><span class="o">-</span><span class="n">Usage</span> <span class="o">|</span> <span class="n">GPU</span><span class="o">-</span><span class="n">Util</span>  <span class="n">Compute</span> <span class="n">M</span><span class="o">.</span> <span class="o">|</span>
+<span class="o">|</span>                                         <span class="o">|</span>                      <span class="o">|</span>               <span class="n">MIG</span> <span class="n">M</span><span class="o">.</span> <span class="o">|</span>
+<span class="o">|=========================================+======================+======================|</span>
+<span class="o">|</span>   <span class="mi">0</span>  <span class="n">Tesla</span> <span class="n">M60</span>                      <span class="n">On</span>  <span class="o">|</span> <span class="mi">00000000</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">1</span><span class="n">D</span><span class="mf">.0</span> <span class="n">Off</span> <span class="o">|</span>                    <span class="mi">0</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">N</span><span class="o">/</span><span class="n">A</span>   <span class="mi">29</span><span class="n">C</span>    <span class="n">P8</span>              <span class="mi">14</span><span class="n">W</span> <span class="o">/</span> <span class="mi">150</span><span class="n">W</span> <span class="o">|</span>      <span class="mi">0</span><span class="n">MiB</span> <span class="o">/</span>  <span class="mi">7680</span><span class="n">MiB</span> <span class="o">|</span>      <span class="mi">0</span><span class="o">%</span>      <span class="n">Default</span> <span class="o">|</span>
+<span class="o">|</span>                                         <span class="o">|</span>                      <span class="o">|</span>                  <span class="n">N</span><span class="o">/</span><span class="n">A</span> <span class="o">|</span>
+<span class="o">+-----------------------------------------+----------------------+----------------------+</span>
+<span class="o">|</span>   <span class="mi">1</span>  <span class="n">Tesla</span> <span class="n">M60</span>                      <span class="n">On</span>  <span class="o">|</span> <span class="mi">00000000</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">1</span><span class="n">E</span><span class="mf">.0</span> <span class="n">Off</span> <span class="o">|</span>                    <span class="mi">0</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">N</span><span class="o">/</span><span class="n">A</span>   <span class="mi">34</span><span class="n">C</span>    <span class="n">P8</span>              <span class="mi">15</span><span class="n">W</span> <span class="o">/</span> <span class="mi">150</span><span class="n">W</span> <span class="o">|</span>      <span class="mi">0</span><span class="n">MiB</span> <span class="o">/</span>  <span class="mi">7680</span><span class="n">MiB</span> <span class="o">|</span>      <span class="mi">0</span><span class="o">%</span>      <span class="n">Default</span> <span class="o">|</span>
+<span class="o">|</span>                                         <span class="o">|</span>                      <span class="o">|</span>                  <span class="n">N</span><span class="o">/</span><span class="n">A</span> <span class="o">|</span>
+<span class="o">+-----------------------------------------+----------------------+----------------------+</span>
+</pre></div>
+</div>
+</section>
+</section>
 </section>
 </section>
 
@@ -86,7 +1589,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="Subgraph%20Matching.html" class="btn btn-neutral float-left" title="Subgraph Matching" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Subgraph%20Matching.html" class="btn btn-neutral float-left" title="Subgraph Matching Datasets" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

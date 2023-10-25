@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BFS &mdash; Graph Benchmarking Project  documentation</title>
+  <title>BFS Datasets &mdash; Graph Benchmarking Project  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -45,8 +45,12 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Code.html">Code</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="Data.html">Data</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">BFS</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#example-text">Example Text</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">BFS Datasets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#toy-dataset">Toy Dataset</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#toytree">ToyTree</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#toyhard">ToyHard</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Community%20Detection.html">Community Detection</a></li>
@@ -71,7 +75,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="Data.html">Data</a></li>
-      <li class="breadcrumb-item active">BFS</li>
+      <li class="breadcrumb-item active">BFS Datasets</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/BFS.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -81,11 +85,44 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="bfs">
-<h1>BFS<a class="headerlink" href="#bfs" title="Link to this heading"></a></h1>
-<section id="example-text">
-<h2>Example Text<a class="headerlink" href="#example-text" title="Link to this heading"></a></h2>
-<p><strong>This is an example text</strong></p>
+  <section id="bfs-datasets">
+<h1>BFS Datasets<a class="headerlink" href="#bfs-datasets" title="Link to this heading"></a></h1>
+<p>The BFS Datasets are broken down into toy size (here), and small, medium, and large (external).</p>
+<section id="toy-dataset">
+<h2>Toy Dataset<a class="headerlink" href="#toy-dataset" title="Link to this heading"></a></h2>
+<p>The toy graphs are taken from the book “Kleinberg &amp; Tardos, Algorithm Design (2014)”.</p>
+<p>The .in files consist of the adjacency lists for each graph, assuming a directed graph.</p>
+<p>Their format is as follows:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># Title
+# Source
+NODES
+1
+2
+...
+n
+EDGES
+(1,2)
+(2,3)
+...
+(m,n)
+</pre></div>
+</div>
+<p>The .out files consist of the parameters and results expected for a BFS. They have multiple test cases, laid out as follows:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># Title
+source: &lt;startNode&gt;
+target: &lt;node being searched for&gt;
+traversal 1,2,3,4,...n
+</pre></div>
+</div>
+<p>Note, the program should return “FAIL” as the final traversal if it does not find the search target.</p>
+<section id="toytree">
+<h3>ToyTree<a class="headerlink" href="#toytree" title="Link to this heading"></a></h3>
+<p>![The ToyTree Graph](figures/toyTree.jpeg)</p>
+</section>
+<section id="toyhard">
+<h3>ToyHard<a class="headerlink" href="#toyhard" title="Link to this heading"></a></h3>
+<p>![The ToyHard Graph](figures/toyHard.jpeg)</p>
+</section>
 </section>
 </section>
 

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Subgraph Matching &mdash; Graph Benchmarking Project  documentation</title>
+  <title>Subgraph Matching Datasets &mdash; Graph Benchmarking Project  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -20,7 +20,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="System Configurations" href="System%20Configurations.html" />
-    <link rel="prev" title="Community Detection" href="Community%20Detection.html" /> 
+    <link rel="prev" title="Community Detection Datasets" href="Community%20Detection.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,10 +45,24 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Code.html">Code</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="Data.html">Data</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="BFS.html">BFS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Community%20Detection.html">Community Detection</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Subgraph Matching</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#example-text">Example Text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BFS.html">BFS Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Community%20Detection.html">Community Detection Datasets</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Subgraph Matching Datasets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#small-dataset">Small Dataset</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pattern">Pattern</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#medium-dataset">Medium Dataset</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#target">Target</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Pattern</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#large-dataset">Large Dataset</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Target</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">Pattern</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#huge-dataset">Huge Dataset</a></li>
 </ul>
 </li>
 </ul>
@@ -71,7 +85,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="Data.html">Data</a></li>
-      <li class="breadcrumb-item active">Subgraph Matching</li>
+      <li class="breadcrumb-item active">Subgraph Matching Datasets</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/Subgraph Matching.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -81,11 +95,108 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="subgraph-matching">
-<h1>Subgraph Matching<a class="headerlink" href="#subgraph-matching" title="Link to this heading"></a></h1>
-<section id="example-text">
-<h2>Example Text<a class="headerlink" href="#example-text" title="Link to this heading"></a></h2>
-<p><strong>This is an example text</strong></p>
+  <section id="subgraph-matching-datasets">
+<h1>Subgraph Matching Datasets<a class="headerlink" href="#subgraph-matching-datasets" title="Link to this heading"></a></h1>
+<p>Due to the sizes of these files, we include here the sources of the datasets we use, rather than the full dataset.</p>
+<section id="small-dataset">
+<h2>Small Dataset<a class="headerlink" href="#small-dataset" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Name:</strong> Benchmarks for the Subgraph Isomorphism Problem - Scale Free Graphs - A.01</p></li>
+<li><p><strong>Nodes:</strong> 200</p></li>
+<li><p><strong>Edges:</strong> 3043</p></li>
+<li><p><strong>SOD:</strong> 5 Kb</p></li>
+<li><p><strong>Source:</strong> <a class="reference external" href="https://perso.liris.cnrs.fr/christine.solnon/SIP.html">Benchmarks for the Subgraphs Isomorphism Problem</a></p></li>
+</ul>
+<p>To download the dataset:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>http://liris.cnrs.fr/csolnon/newSIPbenchmarks.tgz
+tar<span class="w"> </span>-zxvf<span class="w"> </span>newSIPbenchmarks.tgz
+rm<span class="w"> </span>newSIPbenchmarks.tgz
+<span class="nb">cd</span><span class="w"> </span>newSIPbenchmarks.tgz/scalefree/A.01
+cp<span class="w"> </span>-r<span class="w"> </span>newSIPbenchmarks.tgz/scalefree/A.01<span class="w"> </span>SMALL_A.01
+</pre></div>
+</div>
+<p><strong>Format:</strong> Unsure of the format, but needs to be converted into something that the fv3 algorithm can eat using our grf_converter script. Assuming you are in the subgraph_matching directory:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>../../Code/Data_Analysis/grf_converter.py<span class="w"> </span>-i<span class="w"> </span>target<span class="w"> </span>-o<span class="w"> </span>target.grf
+</pre></div>
+</div>
+<section id="pattern">
+<h3>Pattern<a class="headerlink" href="#pattern" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Number of Subgraphs:</strong> 180</p></li>
+<li><p><strong>Number of Nodes:</strong> 180</p></li>
+<li><p><strong>Number of Edges:</strong> 180</p></li>
+<li><p><strong>SOD:</strong> 4 Kb</p></li>
+<li><p><strong>Source:</strong> Same as A.01 Target. To convert the pattern file into the graph file, assuming you are in the subgraph_matching directory:</p></li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>../../Code/Data_Analysis/grf_converter.py<span class="w"> </span>-i<span class="w"> </span>pattern<span class="w"> </span>-o<span class="w"> </span>pattern.grf
+</pre></div>
+</div>
+</section>
+</section>
+<section id="medium-dataset">
+<h2>Medium Dataset<a class="headerlink" href="#medium-dataset" title="Link to this heading"></a></h2>
+<section id="target">
+<h3>Target<a class="headerlink" href="#target" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Name:</strong> Enron Email Dataset</p></li>
+<li><p><strong>Nodes:</strong> 36,692</p></li>
+<li><p><strong>Edges:</strong> 183,131</p></li>
+<li><p><strong>SOD:</strong> 3,955 Kb</p></li>
+<li><p><strong>Source:</strong> <cite>Stanford Network Analytics Program (SNAP) &lt;https://snap.stanford.edu/data/email-Enron.html&gt;</cite> via the <cite>MIT Graph Challenge Datasets</cite></p></li>
+</ul>
+<p>To download the dataset:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>https://snap.stanford.edu/data/email-Enron.txt.gz
+gunzip<span class="w"> </span>email-Enron.txt.gz
+mv<span class="w"> </span>email-Enron.txt<span class="w"> </span>MEDIUM_email-Enron.txt
+</pre></div>
+</div>
+<p><strong>Format:</strong> Comes in an adjacency list format with some leading comments, can be moved into the required GRF format for vf3 with our converter. Assuming you are in the subgraph_matching directory:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>../../Code/Data_Analysis/grf_converter.py<span class="w"> </span>-i<span class="w"> </span>email-Enron.txt<span class="w"> </span>-o<span class="w"> </span>email-Enron.grf<span class="w"> </span>-AL
+</pre></div>
+</div>
+</section>
+<section id="id1">
+<h3>Pattern<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<p>None Provided.</p>
+</section>
+</section>
+<section id="large-dataset">
+<h2>Large Dataset<a class="headerlink" href="#large-dataset" title="Link to this heading"></a></h2>
+<section id="id2">
+<h3>Target<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Name:</strong> Measurement and Analysis on the Wide Internet (MAWI) Graph 1</p></li>
+<li><p><strong>Nodes:</strong> 18,571,154</p></li>
+<li><p><strong>Edges:</strong> 38,040,320</p></li>
+<li><p><strong>SOD:</strong> 684,690 Kb</p></li>
+<li><p><strong>Source:</strong> <cite>MIT Graph Challenge Datasets</cite> generated from <cite>MWAI Archives</cite></p></li>
+</ul>
+<p>To download the dataset:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>https://graphchallenge.s3.amazonaws.com/synthetic/gc5/201512012345.v18571154_e38040320.tsv
+mv<span class="w"> </span><span class="m">201512012345</span>.v18571154_e38040320.tsv<span class="w"> </span>LARGE_201512012345.v18571154_e38040320.tsv
+</pre></div>
+</div>
+<p><strong>Format:</strong> Tab Separated Adjacency List, needs to be converted into a grf format.</p>
+</section>
+<section id="id3">
+<h3>Pattern<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+</section>
+</section>
+<section id="huge-dataset">
+<h2>Huge Dataset<a class="headerlink" href="#huge-dataset" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Name:</strong> Measurement and Analysis on the Wide Internet (MAWI) Graph 5</p></li>
+<li><p><strong>Nodes:</strong> 226,196,185</p></li>
+<li><p><strong>Edges:</strong> 480,047,894</p></li>
+<li><p><strong>SOD:</strong> 10,048,635 Kb</p></li>
+<li><p><strong>Source:</strong> <cite>MIT Graph Challenge Datasets</cite> generated from <cite>MWAI Archives</cite></p></li>
+</ul>
+<p>To download the dataset:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>https://graphchallenge.s3.amazonaws.com/synthetic/gc5/201512020330.v226196185_e480047894.tsv
+mv<span class="w"> </span><span class="m">201512020330</span>.v226196185_e480047894.tsv<span class="w"> </span>HUGE_201512020330.v226196185_e480047894.tsv
+</pre></div>
+</div>
+<p><strong>Format:</strong> Tab Separated Adjacency List, needs to be converted into a grf format.</p>
 </section>
 </section>
 
@@ -93,7 +204,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="Community%20Detection.html" class="btn btn-neutral float-left" title="Community Detection" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Community%20Detection.html" class="btn btn-neutral float-left" title="Community Detection Datasets" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="System%20Configurations.html" class="btn btn-neutral float-right" title="System Configurations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

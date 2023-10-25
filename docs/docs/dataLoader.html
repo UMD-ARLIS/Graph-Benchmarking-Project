@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dataloader &mdash; Graph Benchmarking Project  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Set Utility" href="sets.html" />
+    <link rel="prev" title="C-Utils" href="c_utils.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Graph Benchmarking Project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="Code.html">Code</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Data%20Analysis.html">Data Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Dataset%20Creation.html">Dataset Creation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Experiment%20Framework.html">Experiment Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Graph%20Problems.html">Graph Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Telemetry.html">Telemetry</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="Utilities.html">Utilities</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="c_utils.html">C-Utils</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Dataloader</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#description">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#input-format">Input Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#known-issues-future-work">Known Issues / Future Work</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests">Tests</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sets.html">Set Utility</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Data.html">Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="System%20Configurations.html">System Configurations</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Graph Benchmarking Project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="Code.html">Code</a></li>
+          <li class="breadcrumb-item"><a href="Utilities.html">Utilities</a></li>
+      <li class="breadcrumb-item active">Dataloader</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/dataLoader.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="dataloader">
+<h1>Dataloader<a class="headerlink" href="#dataloader" title="Link to this heading"></a></h1>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Link to this heading"></a></h2>
+<p>The dataLoader utility is designed to ingest specifically formatted
+files that define a graph data structure.</p>
+</section>
+<section id="input-format">
+<h2>Input Format<a class="headerlink" href="#input-format" title="Link to this heading"></a></h2>
+<p>To be ingested by the dataloader the input format needs to be as
+follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#TITLE: **title of the file**</span>
+<span class="c1">#SOURCE: **reference to any source files. If no external source, can be safely omitted but consider putting author attribution on this line**</span>
+<span class="c1">#NODES:</span>
+<span class="n">node1</span>
+<span class="n">node2</span>
+<span class="n">node3</span>
+<span class="o">...</span>
+<span class="n">nodeN</span>
+<span class="c1">#EDGES:</span>
+<span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The parser looks for the #TITLE: and #SOURCE: tags to omit those files.
+It uses the NODES: line to activate the “node processing mode” and
+remains in that mode until it hits an #EDGES at which point it swaps to
+edge processing mode.</p>
+<p>The code is still quite brittle, so this input format must be covered
+exactly.</p>
+<p>Another <strong>GOTCHA</strong> to be aware of: the edge definitions are created by
+the nodeID, not the name. The nodeID is dynamically calculated by the
+graph library based on the order of ingestion. So, in the above file,
+<strong>(0,1)</strong> is a link from <strong>node1</strong> to <strong>node2</strong>; and <strong>(1,2)</strong> is a link
+from <strong>node2</strong> to <strong>node3</strong>, NOT node 1 to node 2.</p>
+</section>
+<section id="known-issues-future-work">
+<h2>Known Issues / Future Work<a class="headerlink" href="#known-issues-future-work" title="Link to this heading"></a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">ISSUE1</span><span class="p">:</span> <span class="n">Currently</span> <span class="n">only</span> <span class="n">able</span> <span class="n">to</span> <span class="n">create</span> <span class="n">edges</span> <span class="n">based</span> <span class="n">on</span> <span class="n">the</span> <span class="n">index</span> <span class="n">of</span> <span class="n">the</span> <span class="n">node</span><span class="p">,</span> <span class="n">rather</span> <span class="n">than</span> <span class="n">its</span> <span class="n">metadata</span> <span class="s1">&#39;name&#39;</span>
+    <span class="o">-</span> <span class="n">TODO1</span><span class="p">:</span> <span class="n">Implement</span> <span class="n">searching</span> <span class="k">for</span> <span class="n">node</span> <span class="n">by</span> <span class="n">Metadata</span> <span class="k">for</span> <span class="n">edge</span> <span class="n">creation</span><span class="o">.</span>
+<span class="o">-</span> <span class="n">ISSUE2</span><span class="p">:</span> <span class="n">Minimal</span> <span class="nb">input</span> <span class="n">sanitization</span><span class="p">,</span> <span class="n">very</span> <span class="n">brittle</span> <span class="n">to</span> <span class="n">expected</span> <span class="n">file</span> <span class="nb">format</span>
+    <span class="o">-</span> <span class="n">TODO2</span><span class="p">:</span> <span class="n">Implement</span> <span class="nb">input</span> <span class="n">sanitization</span>
+<span class="o">-</span> <span class="n">ISSUE3</span><span class="p">:</span> <span class="n">Only</span> <span class="n">able</span> <span class="n">to</span> <span class="n">create</span> <span class="n">directed</span> <span class="n">graphs</span>
+    <span class="o">-</span> <span class="n">TODO3</span><span class="p">:</span> <span class="n">Add</span> <span class="n">support</span> <span class="k">for</span> <span class="n">createing</span> <span class="n">undirected</span> <span class="n">graphs</span>
+</pre></div>
+</div>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph_t</span> <span class="n">loadGraph</span><span class="p">(</span><span class="n">char</span> <span class="o">*</span><span class="n">fileName</span><span class="p">,</span> <span class="n">graph_t</span> <span class="n">g</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The loadGraph function accepts two parameters: <strong>fileName</strong> and <strong>g</strong>. -
+<strong>fileName</strong> is the path to the data file you wish to ingest. - <strong>g</strong> is
+the initialized graph that dataLoader should insert the nodes and edges
+into</p>
+<p>The loadGraph function returns a graph data structure</p>
+</section>
+<section id="tests">
+<h2>Tests<a class="headerlink" href="#tests" title="Link to this heading"></a></h2>
+<p>to run the tests:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">test</span>
+
+<span class="o">./</span><span class="n">test</span><span class="o">.</span><span class="n">o</span>
+</pre></div>
+</div>
+</section>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Link to this heading"></a></h2>
+<p>If I were using this from another c file it might look something like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span><span class="n">printGraphStats</span><span class="o">.</span><span class="n">c</span>
+
+<span class="c1">#include &quot;summer2023/Code/Utilities/c-utils/graph.h&quot;</span>
+<span class="c1">#include &quot;summer2023/Code/Utilities/dataLoader/dataLoader.h&quot;</span>
+
+<span class="n">graph_t</span> <span class="n">graph_to_populate_from_file</span> <span class="o">=</span> <span class="n">g_init</span><span class="p">();</span>
+<span class="n">char</span> <span class="o">*</span><span class="n">inputFile</span> <span class="o">=</span> <span class="s2">&quot;summer2023/Data/bfs/toy/toyTree.in&quot;</span><span class="p">;</span>
+
+<span class="n">graph_to_populate_from_file</span> <span class="o">=</span> <span class="n">loadGraph</span><span class="p">(</span><span class="n">inputFile</span><span class="p">,</span><span class="n">graph_to_populate_from_file</span><span class="p">);</span>
+
+<span class="n">printf</span><span class="p">(</span><span class="s2">&quot;The number of nodes in the graph is </span><span class="si">%d</span><span class="s2">, and the number of edges is </span><span class="si">%d</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">g_num_vertices</span><span class="p">(</span><span class="n">graph_to_populate_from_file</span><span class="p">),</span> <span class="n">g_num_edges</span><span class="p">(</span><span class="n">graph_to_populate_from_file</span><span class="p">))</span>
+
+<span class="n">g_free_alt</span><span class="p">(</span><span class="n">graph_to_populate_from_file</span><span class="p">,</span> <span class="n">FALSE</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Which we would of course need to compile by passing the correct files to
+the compiler (here assuming GCC)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcc</span> <span class="n">printGraphStats</span><span class="o">.</span><span class="n">c</span> <span class="n">summer2023</span><span class="o">/</span><span class="n">Code</span><span class="o">/</span><span class="n">Utilities</span><span class="o">/</span><span class="n">c</span><span class="o">-</span><span class="n">utils</span><span class="o">/</span><span class="n">graph</span><span class="o">.</span><span class="n">c</span> <span class="n">summer2023</span><span class="o">/</span><span class="n">Code</span><span class="o">/</span><span class="n">Utilities</span><span class="o">/</span><span class="n">dataLoader</span><span class="o">/</span><span class="n">dataLoader</span><span class="o">.</span><span class="n">c</span> <span class="o">-</span><span class="n">o</span> <span class="n">printGraphStats</span><span class="o">.</span><span class="n">o</span>
+</pre></div>
+</div>
+<p>which you could then run from the command line with something like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">printGraphStats</span><span class="o">.</span><span class="n">o</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="c_utils.html" class="btn btn-neutral float-left" title="C-Utils" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sets.html" class="btn btn-neutral float-right" title="Set Utility" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, UMD ARLIS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

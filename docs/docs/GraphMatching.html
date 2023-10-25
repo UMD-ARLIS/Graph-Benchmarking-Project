@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Graph Matching &mdash; Graph Benchmarking Project  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Telemetry" href="Telemetry.html" />
+    <link rel="prev" title="Updated_GPU_Script.Py" href="CommunityDetection/Louvian.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Graph Benchmarking Project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="Code.html">Code</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Data%20Analysis.html">Data Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Dataset%20Creation.html">Dataset Creation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Experiment%20Framework.html">Experiment Framework</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="Graph%20Problems.html">Graph Problems</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="CommunityDetection/Louvian.html">Updated_GPU_Script.Py</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Graph Matching</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#experiments-cpu">Experiments - CPU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#experiments-gpu">Experiments - GPU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#related-works">Related Works:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Telemetry.html">Telemetry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Utilities.html">Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Data.html">Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="System%20Configurations.html">System Configurations</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Graph Benchmarking Project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="Code.html">Code</a></li>
+          <li class="breadcrumb-item"><a href="Graph%20Problems.html">Graph Problems</a></li>
+      <li class="breadcrumb-item active">Graph Matching</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/GraphMatching.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="graph-matching">
+<h1>Graph Matching<a class="headerlink" href="#graph-matching" title="Link to this heading"></a></h1>
+<section id="experiments-cpu">
+<h2>Experiments - CPU<a class="headerlink" href="#experiments-cpu" title="Link to this heading"></a></h2>
+<p>To run each dataset, assuming you are in the /vf3lib directory, and that
+you have populated the datasets as outlined in <a class="reference external" href="https://github.com/osullik/summer2023/edit/main/Data/subgraph_matching/README.MD">The SGM Dataset
+Readme</a></p>
+<p>Further, it assumes you have activated the virtual environment
+<em>hive_env</em> using something like</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">../../../../</span><span class="n">hive_env</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+</pre></div>
+</div>
+<p>If not yet created, you can create the venv in the root directory with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">venv</span> <span class="n">hive_env</span>
+<span class="n">source</span> <span class="n">hive_env</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<section id="toy-test">
+<h3>Toy / Test<a class="headerlink" href="#toy-test" title="Link to this heading"></a></h3>
+<p>This runs on the provided file from the VF3Lib Code</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="nb">bin</span><span class="o">/</span><span class="n">vf3</span> <span class="n">test</span><span class="o">/</span><span class="n">bvg1</span><span class="o">.</span><span class="n">sub</span><span class="o">.</span><span class="n">grf</span> <span class="n">test</span><span class="o">/</span><span class="n">bvg1</span><span class="o">.</span><span class="n">grf</span>
+</pre></div>
+</div>
+<p>output should be something like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">8</span> <span class="mf">3.07613e-06</span> <span class="mf">8.3829e-06</span>
+</pre></div>
+</div>
+<p>Indicating 8 Matches in the time stipulated</p>
+</section>
+<section id="small">
+<h3>Small<a class="headerlink" href="#small" title="Link to this heading"></a></h3>
+<p>First we need to convert the TARGET GRAPH File into the Correct format
+using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">../../../</span><span class="n">Data_Analysis</span><span class="o">/</span><span class="n">grf_converter</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="o">../../../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">SMALL_A</span><span class="mf">.01</span><span class="o">/</span><span class="n">target</span> <span class="o">-</span><span class="n">o</span> <span class="o">../../../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">SMALL_A</span><span class="mf">.01</span><span class="o">/</span><span class="n">target</span><span class="o">.</span><span class="n">grf</span> <span class="o">-</span><span class="n">t</span> <span class="n">subgraphFormat</span>
+</pre></div>
+</div>
+<p>Which if successful should give us:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Converted</span> <span class="n">to</span><span class="p">:</span> <span class="n">Graph</span> <span class="k">with</span> <span class="mi">200</span> <span class="n">nodes</span> <span class="ow">and</span> <span class="mi">3043</span> <span class="n">edges</span>
+</pre></div>
+</div>
+<p>We then need to create a subgraph with our subgra[h generator:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">../../../</span><span class="n">Data_Analysis</span><span class="o">/</span><span class="n">generate_subgraphs</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="o">../../../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">SMALL_A</span><span class="mf">.01</span><span class="o">/</span><span class="n">pattern</span> <span class="o">-</span><span class="n">o</span> <span class="o">../../../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">SMALL_A</span><span class="mf">.01</span><span class="o">/</span><span class="n">SMALL_SUB_pattern</span><span class="o">.</span><span class="n">grf</span> <span class="o">-</span><span class="n">t</span> <span class="n">other</span> <span class="o">-</span><span class="n">s</span> <span class="mi">2</span> <span class="o">-</span><span class="n">l</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>If successful it should output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Need</span> <span class="n">to</span> <span class="n">add</span> <span class="n">more</span> <span class="n">nodes</span> <span class="n">to</span> <span class="n">reach</span> <span class="n">walk</span> <span class="n">length</span>
+<span class="n">Subgraph</span> <span class="n">Large</span> <span class="n">Enough</span>
+<span class="n">Subgraph</span> <span class="ow">is</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span> <span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>We then convert that subgraph to a .grf file with our conversion tool:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">../../../</span><span class="n">Data_Analysis</span><span class="o">/</span><span class="n">grf_converter</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="o">../../../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">SMALL_A</span><span class="mf">.01</span><span class="o">/</span><span class="n">SMALL_SUB_pattern</span><span class="o">.</span><span class="n">txt</span> <span class="o">-</span><span class="n">o</span> <span class="o">../../../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">SMALL_A</span><span class="mf">.01</span><span class="o">/</span><span class="n">SMALL_SUB_pattern</span><span class="o">.</span><span class="n">grf</span> <span class="o">-</span><span class="n">t</span> <span class="n">AL</span>
+</pre></div>
+</div>
+<p>Giving us an output of:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Converted</span> <span class="n">to</span><span class="p">:</span> <span class="n">Graph</span> <span class="k">with</span> <span class="mi">3</span> <span class="n">nodes</span> <span class="ow">and</span> <span class="mi">3</span> <span class="n">edges</span>
+</pre></div>
+</div>
+<p>We can now run the matching program in serial with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="nb">bin</span><span class="o">/</span><span class="n">vf3</span> <span class="o">../../../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">SMALL_A</span><span class="mf">.01</span><span class="o">/</span><span class="n">SMALL_SUB_pattern</span><span class="o">.</span><span class="n">grf</span> <span class="o">../../../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">SMALL_A</span><span class="mf">.01</span><span class="o">/</span><span class="n">SMALL_target</span><span class="o">.</span><span class="n">grf</span>
+</pre></div>
+</div>
+<p>Which should give us an output of something like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">47676</span> <span class="mf">1.03636e-05</span> <span class="mf">0.0991161</span>
+</pre></div>
+</div>
+<p>We can now run the matching program in parallel on 2 threads with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="nb">bin</span><span class="o">/</span><span class="n">vf3p</span> <span class="o">../../../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">SMALL_A</span><span class="mf">.01</span><span class="o">/</span><span class="n">SMALL_SUB_pattern</span><span class="o">.</span><span class="n">grf</span> <span class="o">../../../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">SMALL_A</span><span class="mf">.01</span><span class="o">/</span><span class="n">SMALL_target</span><span class="o">.</span><span class="n">grf</span> <span class="o">-</span><span class="n">a</span> <span class="mi">1</span> <span class="o">-</span><span class="n">t</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>Giving an output of something like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">47675</span> <span class="mf">0.000324</span> <span class="mf">0.10275</span>
+</pre></div>
+</div>
+</section>
+<section id="medium">
+<h3>Medium<a class="headerlink" href="#medium" title="Link to this heading"></a></h3>
+<p>First we need to convert the TARGET GRAPH File into the Correct format
+using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">../../../</span><span class="n">Data_Analysis</span><span class="o">/</span><span class="n">grf_converter</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="o">../../../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">MEDIUM_email</span><span class="o">-</span><span class="n">Enron</span><span class="o">.</span><span class="n">txt</span> <span class="o">-</span><span class="n">o</span> <span class="o">../../../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">SMALL_A</span><span class="mf">.01</span><span class="o">/</span><span class="n">MEDIUM_email</span><span class="o">-</span><span class="n">Enron</span><span class="o">.</span><span class="n">grf</span> <span class="o">-</span><span class="n">t</span> <span class="n">AL</span>
+</pre></div>
+</div>
+<p>Which should give us an output of:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Converted</span> <span class="n">to</span><span class="p">:</span> <span class="n">Graph</span> <span class="k">with</span> <span class="mi">36692</span> <span class="n">nodes</span> <span class="ow">and</span> <span class="mi">183831</span> <span class="n">edges</span>
+</pre></div>
+</div>
+<p>THEN we can generate a subgraph file using our random walk subgraph
+generator with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">../../../</span><span class="n">Data_Analysis</span><span class="o">/</span><span class="n">generate_subgraphs</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="o">../../../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">MEDIUM_email</span><span class="o">-</span><span class="n">Enron</span><span class="o">.</span><span class="n">txt</span> <span class="o">-</span><span class="n">o</span> <span class="o">../../../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">MEDIUM_SUB_email</span><span class="o">-</span><span class="n">Enron</span><span class="o">.</span><span class="n">txt</span> <span class="o">-</span><span class="n">t</span> <span class="n">AL</span> <span class="o">-</span><span class="n">s</span> <span class="mi">2</span> <span class="o">-</span><span class="n">l</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>Which generates a subgraph of 3 nodes using a random seed of 2,
+outputting:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Need</span> <span class="n">to</span> <span class="n">add</span> <span class="n">more</span> <span class="n">nodes</span> <span class="n">to</span> <span class="n">reach</span> <span class="n">walk</span> <span class="n">length</span>
+<span class="n">Subgraph</span> <span class="n">Large</span> <span class="n">Enough</span>
+<span class="n">Subgraph</span> <span class="ow">is</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>Then we convert that file into a grf file with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">../../../</span><span class="n">Data_Analysis</span><span class="o">/</span><span class="n">grf_converter</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="o">../../../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">MEDIUM_SUB_email</span><span class="o">-</span><span class="n">Enron</span><span class="o">.</span><span class="n">txt</span> <span class="o">-</span><span class="n">o</span> <span class="o">../../../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">MEDIUM_SUB_email</span><span class="o">-</span><span class="n">Enron</span><span class="o">.</span><span class="n">grf</span> <span class="o">-</span><span class="n">t</span> <span class="n">AL</span>
+</pre></div>
+</div>
+<p>Giving a successful output of:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Converted</span> <span class="n">to</span><span class="p">:</span> <span class="n">Graph</span> <span class="k">with</span> <span class="mi">3</span> <span class="n">nodes</span> <span class="ow">and</span> <span class="mi">3</span> <span class="n">edges</span>
+</pre></div>
+</div>
+<p>To then Run the graph matching, we use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="nb">bin</span><span class="o">/</span><span class="n">vf3</span> <span class="o">../../../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">MEDIUM_SUB_email</span><span class="o">-</span><span class="n">Enron</span><span class="o">.</span><span class="n">grf</span> <span class="o">../../../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">MEDIUM_email</span><span class="o">-</span><span class="n">Enron</span><span class="o">.</span><span class="n">grf</span>
+</pre></div>
+</div>
+<p>Which should give us an output of something like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">4362264</span> <span class="mf">0.001068</span> <span class="mf">38.8512</span>
+</pre></div>
+</div>
+<p>being: [number of solutions found] [time to find the first solution]
+[time to find all the solutions]</p>
+<p>To run in parallel on 2 threads we would use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="nb">bin</span><span class="o">/</span><span class="n">vf3p</span> <span class="o">../../../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">MEDIUM_SUB_email</span><span class="o">-</span><span class="n">Enron</span><span class="o">.</span><span class="n">grf</span> <span class="o">../../../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">MEDIUM_email</span><span class="o">-</span><span class="n">Enron</span><span class="o">.</span><span class="n">grf</span> <span class="o">-</span><span class="n">a</span> <span class="mi">1</span> <span class="o">-</span><span class="n">t</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>also giving an output of the form:</p>
+<p>[number of solutions found] [time to find the first solution] [time to
+find all the solutions]</p>
+</section>
+<section id="large">
+<h3>LARGE<a class="headerlink" href="#large" title="Link to this heading"></a></h3>
+<p>1- Convert the Input TSV to a .grf file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">../../../</span><span class="n">Data_Analysis</span><span class="o">/</span><span class="n">grf_converter</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="o">../../../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">LARGE_201512012345</span><span class="o">.</span><span class="n">v18571154_e38040320</span><span class="o">.</span><span class="n">tsv</span> <span class="o">-</span><span class="n">o</span> <span class="o">../../../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">LARGE_201512012345</span><span class="o">.</span><span class="n">v18571154_e38040320</span><span class="o">.</span><span class="n">grf</span> <span class="o">-</span><span class="n">t</span> <span class="n">TSV</span>
+</pre></div>
+</div>
+<p>which (after potentially several minutes) should give output like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Converted</span> <span class="n">to</span><span class="p">:</span> <span class="n">Graph</span> <span class="k">with</span> <span class="mi">18571154</span> <span class="n">nodes</span> <span class="ow">and</span> <span class="mi">19020160</span> <span class="n">edges</span>
+</pre></div>
+</div>
+<p><strong>note</strong> While the number of nodes are the same, the number of edges
+here indicate it is saving it as a directed rathern than an undirected
+graph</p>
+<p>2- Generate a subgraph of the Large file to match on:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">../../../</span><span class="n">Data_Analysis</span><span class="o">/</span><span class="n">generate_subgraphs</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="o">../../../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">LARGE_201512012345</span><span class="o">.</span><span class="n">v18571154_e38040320</span><span class="o">.</span><span class="n">tsv</span> <span class="o">-</span><span class="n">o</span> <span class="o">../../../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">LARGE_SUB_201512012345</span><span class="o">.</span><span class="n">v18571154_e38040320</span><span class="o">.</span><span class="n">txt</span> <span class="o">-</span><span class="n">t</span> <span class="n">other</span> <span class="o">-</span><span class="n">s</span> <span class="mi">2</span> <span class="o">-</span><span class="n">l</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>Which will generate a subgraph of 3 nodes using the random seed of 2 and
+produce something like the following output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Need</span> <span class="n">to</span> <span class="n">add</span> <span class="n">more</span> <span class="n">nodes</span> <span class="n">to</span> <span class="n">reach</span> <span class="n">walk</span> <span class="n">length</span>
+<span class="n">Subgraph</span> <span class="n">Large</span> <span class="n">Enough</span>
+<span class="n">Subgraph</span> <span class="ow">is</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">12427667</span><span class="p">),</span> <span class="p">(</span><span class="mi">12427667</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>3- Convert the subgraph file to a .grf file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">../../../</span><span class="n">Data_Analysis</span><span class="o">/</span><span class="n">grf_converter</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="o">../../../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">LARGE_SUB_201512012345</span><span class="o">.</span><span class="n">v18571154_e38040320</span><span class="o">.</span><span class="n">txt</span> <span class="o">-</span><span class="n">o</span> <span class="o">../../../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">LARGE_SUB_201512012345</span><span class="o">.</span><span class="n">v18571154_e38040320</span><span class="o">.</span><span class="n">grf</span> <span class="o">-</span><span class="n">t</span> <span class="n">AL</span>
+</pre></div>
+</div>
+<p>Expect a return like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Converted</span> <span class="n">to</span><span class="p">:</span> <span class="n">Graph</span> <span class="k">with</span> <span class="mi">3</span> <span class="n">nodes</span> <span class="ow">and</span> <span class="mi">2</span> <span class="n">edges</span>
+</pre></div>
+</div>
+<p>4- Run VF3 Serial:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="nb">bin</span><span class="o">/</span><span class="n">vf3</span> <span class="o">../../../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">LARGE_SUB_201512012345</span><span class="o">.</span><span class="n">v18571154_e38040320</span><span class="o">.</span><span class="n">grf</span> <span class="o">../../../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">LARGE_201512012345</span><span class="o">.</span><span class="n">v18571154_e38040320</span><span class="o">.</span><span class="n">grf</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="experiments-gpu">
+<h2>Experiments - GPU<a class="headerlink" href="#experiments-gpu" title="Link to this heading"></a></h2>
+<p>These assume execution from within the
+<a class="reference external" href="https://github.com/osullik/summer2023/tree/main/Code/Experiment_Framework">Code/Experiment_Framework</a>
+directory</p>
+<section id="small-1">
+<span id="id1"></span><h3>Small<a class="headerlink" href="#small-1" title="Link to this heading"></a></h3>
+<p>First, convert the dataset to the mtx file using the mtx converter tool</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">../</span><span class="n">Data_Analysis</span><span class="o">/</span><span class="n">mtx_converter_script</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="o">../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">SMALL_A</span><span class="mf">.01</span><span class="o">/</span><span class="n">target</span> <span class="o">-</span><span class="n">o</span> <span class="o">../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">SMALL_target</span><span class="o">.</span><span class="n">mtx</span> <span class="o">-</span><span class="n">t</span> <span class="n">other</span>
+</pre></div>
+</div>
+<p>Then, create a subgraph using the subgraph creation tool:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">../</span><span class="n">Data_Analysis</span><span class="o">/</span><span class="n">generate_subgraphs</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="o">../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">SMALL_A</span><span class="mf">.01</span><span class="o">/</span><span class="n">target</span> <span class="o">-</span><span class="n">o</span> <span class="o">../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">SMALL_SUB_target</span><span class="o">.</span><span class="n">txt</span> <span class="o">-</span><span class="n">t</span> <span class="n">other</span> <span class="o">-</span><span class="n">l</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>Then convert the subgraph to the mtx format</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">../</span><span class="n">Data_Analysis</span><span class="o">/</span><span class="n">mtx_converter_script</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="o">../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">SMALL_SUB_target</span><span class="o">.</span><span class="n">txt</span> <span class="o">-</span><span class="n">o</span> <span class="o">../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">SMALL_SUB_target</span><span class="o">.</span><span class="n">mtx</span> <span class="o">-</span><span class="n">t</span> <span class="n">AL</span>
+</pre></div>
+</div>
+<p>Finally, Run the code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">NANDINI</span> <span class="n">TO</span> <span class="n">COMPLETE</span> <span class="n">HERE</span> <span class="o">&lt;&lt;</span>
+</pre></div>
+</div>
+</section>
+<section id="medium-1">
+<span id="id2"></span><h3>Medium<a class="headerlink" href="#medium-1" title="Link to this heading"></a></h3>
+<p>First, convert the dataset to the mtx file using the mtx converter tool</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">../</span><span class="n">Data_Analysis</span><span class="o">/</span><span class="n">mtx_converter_script</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="o">../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">MEDIUM_email</span><span class="o">-</span><span class="n">Enron</span><span class="o">.</span><span class="n">txt</span> <span class="o">-</span><span class="n">o</span> <span class="o">../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">MEDIUM_email</span><span class="o">-</span><span class="n">enron</span><span class="o">.</span><span class="n">mtx</span> <span class="o">-</span><span class="n">t</span> <span class="n">AL</span>
+</pre></div>
+</div>
+<p>Then create a subgraph:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">../</span><span class="n">Data_Analysis</span><span class="o">/</span><span class="n">generate_subgraphs</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="o">../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">MEDIUM_email</span><span class="o">-</span><span class="n">Enron</span><span class="o">.</span><span class="n">txt</span> <span class="o">-</span><span class="n">o</span> <span class="o">../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">MEDIUM_SUB_email</span><span class="o">-</span><span class="n">Enron</span><span class="o">.</span><span class="n">txt</span> <span class="o">-</span><span class="n">t</span> <span class="n">AL</span> <span class="o">-</span><span class="n">l</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>Convert that subgraph to a mtx format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">../</span><span class="n">Data_Analysis</span><span class="o">/</span><span class="n">mtx_converter_script</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="o">../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">MEDIUM_SUB_email</span><span class="o">-</span><span class="n">Enron</span><span class="o">.</span><span class="n">txt</span> <span class="o">-</span><span class="n">o</span> <span class="o">../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">MEDIUM_SUB_email</span><span class="o">-</span><span class="n">Enron</span><span class="o">.</span><span class="n">mtx</span> <span class="o">-</span><span class="n">t</span> <span class="n">AL</span>
+</pre></div>
+</div>
+<p>Finally, Run the code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">NANDINI</span> <span class="n">TO</span> <span class="n">COMPLETE</span> <span class="n">HERE</span> <span class="o">&lt;&lt;</span>
+</pre></div>
+</div>
+</section>
+<section id="large-1">
+<span id="id3"></span><h3>Large<a class="headerlink" href="#large-1" title="Link to this heading"></a></h3>
+<p>First, convert the dataset to the mtx file using the mtx converter tool</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">../</span><span class="n">Data_Analysis</span><span class="o">/</span><span class="n">mtx_converter_script</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="o">../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">LARGE_201512012345</span><span class="o">.</span><span class="n">v18571154_e38040320</span><span class="o">.</span><span class="n">tsv</span> <span class="o">-</span><span class="n">o</span> <span class="o">../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">LARGE_201512012345</span><span class="o">.</span><span class="n">v18571154_e38040320</span><span class="o">.</span><span class="n">mtx</span> <span class="o">-</span><span class="n">t</span> <span class="n">TSV</span>
+</pre></div>
+</div>
+<p>Then create a subgraph:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">../</span><span class="n">Data_Analysis</span><span class="o">/</span><span class="n">generate_subgraphs</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="o">../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">LARGE_201512012345</span><span class="o">.</span><span class="n">v18571154_e38040320</span><span class="o">.</span><span class="n">tsv</span> <span class="o">-</span><span class="n">o</span> <span class="o">../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">LARGE_SUB_201512012345</span><span class="o">.</span><span class="n">v18571154_e38040320</span><span class="o">.</span><span class="n">txt</span> <span class="o">-</span><span class="n">t</span> <span class="n">TSV</span> <span class="o">-</span><span class="n">l</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>Then convert the subgraph into an MTX format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">../</span><span class="n">Data_Analysis</span><span class="o">/</span><span class="n">mtx_converter_script</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="o">../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">LARGE_SUB_201512012345</span><span class="o">.</span><span class="n">v18571154_e38040320</span><span class="o">.</span><span class="n">txt</span> <span class="o">-</span><span class="n">o</span> <span class="o">../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">LARGE_SUB_201512012345</span><span class="o">.</span><span class="n">v18571154_e38040320</span><span class="o">.</span><span class="n">mtx</span> <span class="o">-</span><span class="n">t</span> <span class="n">AL</span>
+</pre></div>
+</div>
+<p>Finally, Run the code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">NANDINI</span> <span class="n">TO</span> <span class="n">COMPLETE</span> <span class="n">HERE</span> <span class="o">&lt;&lt;</span>
+</pre></div>
+</div>
+</section>
+<section id="huge">
+<h3>Huge<a class="headerlink" href="#huge" title="Link to this heading"></a></h3>
+<p>First, convert the dataset to the mtx file using the mtx converter tool</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">../</span><span class="n">Data_Analysis</span><span class="o">/</span><span class="n">mtx_converter_script</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="o">../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">HUGE_201512020330</span><span class="o">.</span><span class="n">v226196185_e480047894</span><span class="o">.</span><span class="n">tsv</span> <span class="o">-</span><span class="n">o</span> <span class="o">../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">HUGE_201512020330</span><span class="o">.</span><span class="n">v226196185_e480047894</span><span class="o">.</span><span class="n">mtx</span> <span class="o">-</span><span class="n">t</span> <span class="n">TSV</span>
+</pre></div>
+</div>
+<p>Then create a subgraph:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">../</span><span class="n">Data_Analysis</span><span class="o">/</span><span class="n">generate_subgraphs</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="o">../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">HUGE_201512020330</span><span class="o">.</span><span class="n">v226196185_e480047894</span><span class="o">.</span><span class="n">tsv</span> <span class="o">-</span><span class="n">o</span> <span class="o">../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">HUGE_SUB_201512020330</span><span class="o">.</span><span class="n">v226196185_e480047894</span><span class="o">.</span><span class="n">txt</span> <span class="o">-</span><span class="n">t</span> <span class="n">TSV</span> <span class="o">-</span><span class="n">l</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>Then convert the subgraph into an MTX format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">../</span><span class="n">Data_Analysis</span><span class="o">/</span><span class="n">mtx_converter_script</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="o">../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">HUGE_SUB_201512020330</span><span class="o">.</span><span class="n">v226196185_e480047894</span><span class="o">.</span><span class="n">txt</span> <span class="o">-</span><span class="n">o</span> <span class="o">../../</span><span class="n">Data</span><span class="o">/</span><span class="n">subgraph_matching</span><span class="o">/</span><span class="n">HUGE_SUB_201512020330</span><span class="o">.</span><span class="n">v226196185_e480047894</span><span class="o">.</span><span class="n">mtx</span> <span class="o">-</span><span class="n">t</span> <span class="n">AL</span>
+</pre></div>
+</div>
+<p>Finally, Run the code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">NANDINI</span> <span class="n">TO</span> <span class="n">COMPLETE</span> <span class="n">HERE</span> <span class="o">&lt;&lt;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="related-works">
+<h2>Related Works:<a class="headerlink" href="#related-works" title="Link to this heading"></a></h2>
+<p>Box to be checked when read and italics summary inserted.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="p">[</span><span class="n">X</span><span class="p">]</span> <span class="p">[</span><span class="n">A</span> <span class="n">Comparative</span> <span class="n">Study</span> <span class="n">of</span> <span class="n">Graph</span> <span class="n">Matching</span> <span class="n">Algorithms</span> <span class="ow">in</span> <span class="n">Computer</span> <span class="n">Vision</span> <span class="p">(</span><span class="n">website</span><span class="p">)](</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">vislearn</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">gmbench</span><span class="o">/</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>_The article titled “A Comparative Study of Graph Matching Algorithms
+in Computer Vision” provides a comprehensive analysis and evaluation of
+various graph matching algorithms used in the field of computer vision.
+The authors address the crucial task of matching graphs, which involves
+finding correspondences between nodes and edges in different graphs, and
+discuss the significance of this problem in applications like object
+recognition and image retrieval. The study compares multiple
+state-of-the-art graph matching algorithms, including spectral methods,
+approximate methods, and deep learning-based approaches, highlighting
+their strengths and limitations.</p>
+<p>Through extensive experiments and evaluations on benchmark datasets, the
+researchers assess the performance of each algorithm in terms of
+accuracy, efficiency, and robustness. They also consider factors such as
+computational complexity and scalability. The findings shed light on the
+relative strengths of different algorithms, providing valuable insights
+for practitioners in the computer vision community. This comparative
+study serves as a valuable resource for researchers and engineers
+working in the field of computer vision, aiding them in selecting
+appropriate graph matching algorithms for their specific applications
+and highlighting areas that require further research and improvement._</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="p">[</span><span class="n">X</span><span class="p">]</span> <span class="p">[</span><span class="n">A</span> <span class="n">Comparative</span> <span class="n">Study</span> <span class="n">of</span> <span class="n">Graph</span> <span class="n">Matching</span> <span class="n">Algorithms</span> <span class="ow">in</span> <span class="n">Computer</span> <span class="n">Vision</span> <span class="p">(</span><span class="n">paper</span><span class="p">)](</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">arxiv</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">pdf</span><span class="o">/</span><span class="mf">2207.00291</span><span class="o">.</span><span class="n">pdf</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>_The article titled “A Comparative Study of Graph Matching Algorithms
+in Computer Vision” presents a comprehensive analysis of various graph
+matching algorithms used in the field of computer vision. The study aims
+to assess the performance and efficiency of different algorithms in
+solving the challenging task of graph matching. The authors compare
+several state-of-the-art algorithms, including graph edit distance,
+spectral graph matching, and graph neural networks, among others, and
+evaluate them on multiple benchmark datasets. The experiments reveal
+important insights into the strengths and weaknesses of each algorithm,
+shedding light on their suitability for different types of graph
+matching problems. The findings of this study contribute to advancing
+the field of computer vision and assist researchers in selecting
+appropriate algorithms for their specific applications.</p>
+<p>In summary, the article provides an in-depth comparative analysis of
+graph matching algorithms in computer vision. By evaluating the
+performance and efficiency of various state-of-the-art approaches, the
+study offers valuable insights into their strengths and limitations.
+This research serves as a valuable resource for researchers and
+practitioners in the field, aiding them in making informed decisions
+when choosing graph matching algorithms for their specific
+applications._</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="p">[</span><span class="n">X</span><span class="p">]</span> <span class="p">[</span><span class="n">DARPA</span> <span class="n">Modeling</span> <span class="n">Adversarial</span> <span class="n">Activity</span> <span class="n">Program</span><span class="p">:</span> <span class="n">Team</span> <span class="n">UMass</span><span class="o">/</span><span class="n">UMD</span><span class="p">,</span> <span class="n">JHU</span><span class="p">,</span> <span class="n">BU</span><span class="p">](</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">umd</span><span class="o">.</span><span class="n">edu</span><span class="o">/~</span><span class="n">vlyzinsk</span><span class="o">/</span><span class="n">maa_umd</span><span class="o">.</span><span class="n">html</span><span class="p">)</span> <span class="o">-</span> <span class="n">Links</span> <span class="n">to</span> <span class="n">many</span> <span class="n">papers</span> <span class="n">on</span> <span class="n">approaches</span> <span class="n">to</span> <span class="n">graph</span> <span class="n">matching</span> <span class="n">problems</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>_DARPA Modeling Adversarial Activity Program: Team UMass/UMD, JHU, BU
+discusses a collaborative research effort between several universities
+as part of the DARPA Modeling Adversarial Activity Program. The program
+focuses on developing advanced models and algorithms to effectively
+predict and counter adversarial activities in various domains. The
+team’s research combines expertise from different fields such as
+mathematics, statistics, computer science, and data analysis to tackle
+the challenges of modeling and predicting adversarial behaviors.</p>
+<p>In the chosen paper, “Generative Adversarial Network-based Anomaly
+Detection and Diagnosis in Dynamic Systems,” the authors present a novel
+approach for detecting and diagnosing anomalies in dynamic systems using
+Generative Adversarial Networks (GANs). They propose a GAN-based
+architecture that leverages the discriminative power of the
+discriminator network to identify abnormal behaviors in dynamic systems.
+The proposed method is capable of detecting both point anomalies and
+contextual anomalies, and it outperforms existing anomaly detection
+techniques in terms of accuracy and efficiency. The paper highlights the
+potential of GANs for anomaly detection and provides valuable insights
+for developing advanced anomaly detection systems in various domains._</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="p">[</span><span class="n">X</span><span class="p">]</span> <span class="p">[</span><span class="n">iGraphMatch</span><span class="p">:</span> <span class="n">Tools</span> <span class="k">for</span> <span class="n">Graph</span> <span class="n">Matching</span><span class="p">](</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">cran</span><span class="o">.</span><span class="n">r</span><span class="o">-</span><span class="n">project</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">package</span><span class="o">=</span><span class="n">iGraphMatch</span><span class="p">)</span> <span class="o">-</span> <span class="n">an</span> <span class="n">R</span> <span class="n">package</span> <span class="k">for</span> <span class="n">graph</span> <span class="n">matching</span> <span class="n">problems</span><span class="o">.</span> <span class="n">May</span> <span class="n">be</span> <span class="n">able</span> <span class="n">to</span> <span class="n">take</span> <span class="n">algo</span><span class="s1">&#39;s from here and re-implement them in C for our purposes.</span>
+</pre></div>
+</div>
+<p>_The article introduces iGraphMatch, an R package designed to tackle
+graph matching problems. Graph matching involves finding correspondences
+between the nodes of two or more graphs. iGraphMatch offers a
+comprehensive set of tools and algorithms to aid in solving these
+problems efficiently. The package provides functionalities for both
+exact and approximate graph matching, enabling researchers and
+practitioners to apply different strategies based on their specific
+requirements.</p>
+<p>With iGraphMatch, users can leverage various algorithms implemented in R
+to address graph matching challenges. The package offers potential
+opportunities for further development by allowing the extraction of
+algorithms that could be re-implemented in other programming languages,
+such as C, to optimize performance or integrate with existing systems.
+iGraphMatch provides a valuable resource for researchers and developers
+working on graph matching problems, offering a robust set of tools and a
+platform for algorithm exploration and implementation._</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="p">[</span><span class="n">X</span><span class="p">]</span> <span class="p">[</span><span class="n">Ullman</span><span class="s1">&#39;s Subgraph Isomporphosm Algorithm](https://adriann.github.io/Ullman</span><span class="si">%20s</span><span class="s1">ubgraph</span><span class="si">%20i</span><span class="s1">somorphism.html). Could be a good start point for our implementation of subgraph matching. [Link to paper Here](https://dl.acm.org/doi/pdf/10.1145/321921.321925)</span>
+</pre></div>
+</div>
+<p>_The article discusses Ullman’s subgraph isomorphism algorithm, which
+is considered a valuable resource for implementing subgraph matching.
+The algorithm, proposed by J.R. Ullman, aims to determine if a smaller
+graph, referred to as the “pattern graph,” exists within a larger graph,
+known as the “target graph.” Subgraph isomorphism is a fundamental
+problem in graph theory and finding efficient algorithms for this task
+is crucial in various fields such as data mining, image recognition, and
+bioinformatics.</p>
+<p>Ullman’s algorithm employs a depth-first search approach coupled with
+backtracking to explore all possible mappings between vertices in the
+pattern graph and the target graph. It employs several pruning
+techniques to reduce the search space and improve efficiency. The
+article provides a detailed explanation of the algorithm’s steps and
+complexity analysis, making it a useful starting point for anyone
+interested in implementing subgraph matching in their own projects. The
+paper linked in the article provides a more in-depth exploration of
+Ullman’s algorithm, offering additional insights and mathematical proofs
+for those seeking a comprehensive understanding of the topic._</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="p">[</span><span class="n">X</span><span class="p">]</span> <span class="p">[</span><span class="n">InnoFang</span><span class="s1">&#39;s Java Subgraph Isomorphism Github page](https://github.com/InnoFang/subgraph-isomorphism). Might be a good startpoint to reverse-engineer the code implementation.</span>
+</pre></div>
+</div>
+<p>_The article discusses the Java implementation of subgraph isomorphism
+by InnoFang, which is available on their Github page. Subgraph
+isomorphism is a fundamental problem in graph theory that involves
+finding a subgraph within a larger graph that is isomorphic to another
+given graph. InnoFang’s Java implementation provides a potential
+starting point for reverse-engineering the code and understanding the
+underlying algorithms used in solving this problem.</p>
+<p>The Github page offers a comprehensive codebase that can be explored and
+analyzed by researchers or developers interested in subgraph
+isomorphism. By examining the implementation, one can gain insights into
+the techniques and data structures employed to efficiently solve the
+subgraph isomorphism problem. This resource provides a valuable
+opportunity for those looking to understand, modify, or build upon
+existing code for subgraph isomorphism in the Java programming
+language._</p>
+<p>—– ADDITIONAL INFORMATION ——</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="p">[</span><span class="n">X</span><span class="p">]</span> <span class="n">Define</span> <span class="n">Subgraph</span> <span class="n">Matching</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>_Subgraph matching, also known as subgraph isomorphism, is a
+fundamental problem in graph theory and computer science. It involves
+determining whether a given smaller graph, called the query graph or
+pattern, can be found as a subgraph within a larger graph, called the
+target graph or data graph. The goal is to identify all occurrences or
+instances of the query graph within the target graph.</p>
+<p>In subgraph matching, the query graph represents a specific pattern or
+structure that we are interested in finding within the larger target
+graph. The query graph can be a simple graph or a more complex one,
+consisting of nodes (vertices) connected by edges. The target graph, on
+the other hand, represents a larger dataset or network where we want to
+search for the occurrences of the query graph. The problem is to
+determine if there exists a one-to-one correspondence between the nodes
+and edges of the query graph and a subgraph in the target graph, such
+that the structure and connectivity of the query graph are preserved.</p>
+<p>Subgraph matching has various applications in different domains,
+including bioinformatics, social network analysis, image processing, and
+graph database querying. It is a computationally challenging problem due
+to the need to consider all possible combinations of nodes and edges in
+the target graph. Efficient algorithms and data structures are developed
+to solve subgraph matching, employing techniques such as backtracking,
+graph traversal, and pruning strategies to optimize the search process.
+The output of a subgraph matching algorithm is a set of subgraphs that
+match the query graph, providing valuable insights into the structural
+similarities and relationships within the target graph._</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="p">[</span><span class="n">X</span><span class="p">]</span> <span class="n">Define</span> <span class="n">expected</span> <span class="n">results</span> <span class="k">for</span> <span class="n">Sequential</span> <span class="n">Implementation</span> <span class="n">of</span> <span class="n">SGM</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>_Expected SGM behaviors for Sequential Implementation are defined in
+the context of subgraph isomorphism algorithms that are executed in a
+sequential or single-threaded manner. Subgraph isomorphism refers to the
+problem of determining if a given pattern graph exists within a larger
+target graph and identifying the mapping of vertices and edges between
+them.</p>
+<p>In a sequential implementation, certain behaviors are expected to ensure
+the correctness and efficiency of the subgraph isomorphism algorithm.
+Firstly, the algorithm should traverse the target graph and exhaustively
+explore all possible subgraphs to check for isomorphism. This involves
+considering different combinations of vertices and edges in the target
+graph and comparing them with the pattern graph. The algorithm should
+ensure that no potential subgraph is overlooked during this process.</p>
+<p>Secondly, the sequential implementation should maintain the order in
+which the subgraphs are examined to avoid duplication or redundancy. By
+carefully organizing the search space, the algorithm can eliminate
+redundant computations and focus on exploring unique and promising
+subgraphs. This can significantly enhance the efficiency of the subgraph
+isomorphism algorithm.</p>
+<p>In summary, an expected behavior for sequential implementations of
+subgraph isomorphism algorithms includes thorough exploration of the
+target graph to identify all possible subgraphs that are isomorphic to
+the pattern graph. Additionally, the algorithm should follow an
+organized and efficient search strategy to avoid redundant computations
+and improve performance. These behaviors contribute to the accurate and
+efficient detection of subgraph isomorphism in a sequential
+implementation._</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="p">[</span><span class="n">X</span><span class="p">]</span> <span class="n">Define</span> <span class="n">expected</span> <span class="n">results</span> <span class="k">for</span> <span class="n">Parallel</span> <span class="n">Implementation</span> <span class="n">of</span> <span class="n">SGM</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>_Expected SGM (Subgraph Matching) behaviors for parallel implementation
+refer to the anticipated outcomes and characteristics when implementing
+subgraph matching algorithms in a parallel computing environment.
+Parallel implementation involves executing multiple computational tasks
+simultaneously, which can significantly improve the performance and
+efficiency of subgraph matching algorithms by leveraging the power of
+multiple processing units.</p>
+<p>In parallel implementations of SGM algorithms, there are several
+expected behaviors. Firstly, there is an expectation of improved
+scalability, where the algorithm’s performance should scale with the
+number of available processing units. As more resources are allocated,
+the subgraph matching process should exhibit faster execution times,
+enabling larger and more complex graphs to be processed within a
+reasonable time frame.</p>
+<p>Secondly, parallel implementations are expected to exhibit load
+balancing, ensuring that the computational workload is evenly
+distributed across the available processing units. This allows for
+efficient utilization of resources and prevents individual units from
+becoming bottlenecks. Load balancing also helps to minimize idle time
+and maximize overall throughput by keeping all processing units actively
+engaged in the subgraph matching task.</p>
+<p>Furthermore, parallel implementations should exhibit synchronization and
+communication behaviors. Synchronization mechanisms are necessary to
+coordinate and manage the parallel execution of tasks, ensuring proper
+data consistency and integrity. Communication mechanisms, such as
+inter-process communication or shared memory, may be employed to
+exchange information and intermediate results between different
+processing units, enabling collaborative computations and efficient
+coordination of subgraph matching tasks.</p>
+<p>In summary, expected SGM behaviors for parallel implementation include
+improved scalability, load balancing, synchronization, and
+communication. These behaviors aim to enhance the performance and
+efficiency of subgraph matching algorithms by leveraging parallel
+computing resources, enabling faster processing of larger and more
+complex graphs._</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="CommunityDetection/Louvian.html" class="btn btn-neutral float-left" title="Updated_GPU_Script.Py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Telemetry.html" class="btn btn-neutral float-right" title="Telemetry" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, UMD ARLIS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

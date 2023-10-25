@@ -16,6 +16,7 @@
         <script src="_static/documentation_options.js?v=5929fcd5"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -49,7 +50,26 @@
 <li class="toctree-l2"><a class="reference internal" href="Experiment%20Framework.html">Experiment Framework</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Graph%20Problems.html">Graph Problems</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Telemetry</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#example-text">Example Text</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#definitions-of-metrics-we-will-use-and-methods-to-measure-them">Definitions of Metrics we will use, and methods to measure them.</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#timing">Timing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#memory">Memory</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#survey-of-metrics">Survey of Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#telemetry-tools">Telemetry Tools</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#perf">PERF</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gnu-gprof">GNU GPROF</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#valgrind">VALGRIND</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#oprofile">OPROFILE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#intel-vtune-profiler">Intel VTUNE Profiler</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#simulators">Simulators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#other-piuma-specific">Other (PiUMA Specific)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gasct">GASCT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#piuma-analytic-performance-model">Piuma Analytic Performance Model</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Utilities.html">Utilities</a></li>
@@ -86,9 +106,326 @@
              
   <section id="telemetry">
 <h1>Telemetry<a class="headerlink" href="#telemetry" title="Link to this heading"></a></h1>
-<section id="example-text">
-<h2>Example Text<a class="headerlink" href="#example-text" title="Link to this heading"></a></h2>
-<p><strong>This is an example text</strong></p>
+<p>All files relating to the measurement of performance of each Graph
+Problem against each Dataset</p>
+<section id="definitions-of-metrics-we-will-use-and-methods-to-measure-them">
+<h2>Definitions of Metrics we will use, and methods to measure them.<a class="headerlink" href="#definitions-of-metrics-we-will-use-and-methods-to-measure-them" title="Link to this heading"></a></h2>
+<p>Populate once we decide what to do</p>
+<section id="timing">
+<h3>Timing<a class="headerlink" href="#timing" title="Link to this heading"></a></h3>
+<p><strong>ETL Time</strong> - Instrumented in the code by adding the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span><span class="n">In</span> <span class="n">the</span> <span class="n">Preamble</span>
+<span class="c1">#include &lt;time.h&gt;                      //Added by osullik for Milisecond Telemetry</span>
+<span class="n">struct</span> <span class="n">timespec</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">;</span>  <span class="o">//</span><span class="n">Added</span> <span class="n">by</span> <span class="n">osullik</span> <span class="k">for</span> <span class="n">milisecond</span> <span class="n">Telemetry</span>
+
+<span class="o">//</span><span class="n">At</span> <span class="n">the</span> <span class="n">start</span> <span class="n">of</span> <span class="n">main</span><span class="p">:</span>
+<span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;Starting Timer&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>     <span class="o">//</span> <span class="n">Added</span> <span class="n">by</span> <span class="n">osullik</span> <span class="k">for</span> <span class="n">ETL</span> <span class="n">Telemetry</span>
+<span class="n">clock_gettime</span><span class="p">(</span><span class="n">CLOCK_MONOTONIC_RAW</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">start_time</span><span class="p">);</span>
+
+<span class="o">//</span><span class="n">At</span> <span class="n">the</span> <span class="n">end</span> <span class="n">of</span> <span class="n">main</span><span class="p">:</span>
+<span class="n">clock_gettime</span><span class="p">(</span><span class="n">CLOCK_MONOTONIC_RAW</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">end_time</span><span class="p">);</span>              <span class="o">//</span> <span class="n">Added</span> <span class="n">by</span> <span class="n">osullik</span> <span class="k">for</span> <span class="n">ETL</span> <span class="n">Telemetry</span>
+<span class="n">u_int64_t</span> <span class="n">delta_s</span> <span class="o">=</span> <span class="p">(</span><span class="n">end_time</span><span class="o">.</span><span class="n">tv_sec</span> <span class="o">-</span> <span class="n">start_time</span><span class="o">.</span><span class="n">tv_sec</span><span class="p">);</span>    <span class="o">//</span> <span class="n">Added</span> <span class="n">by</span> <span class="n">osullik</span> <span class="k">for</span> <span class="n">ETL</span> <span class="n">Telemetry</span>
+<span class="n">u_int64_t</span> <span class="n">delta_us</span> <span class="o">=</span> <span class="p">(</span><span class="n">end_time</span><span class="o">.</span><span class="n">tv_sec</span> <span class="o">-</span> <span class="n">start_time</span><span class="o">.</span><span class="n">tv_sec</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000000</span> <span class="o">+</span> <span class="p">(</span><span class="n">end_time</span><span class="o">.</span><span class="n">tv_nsec</span> <span class="o">-</span> <span class="n">start_time</span><span class="o">.</span><span class="n">tv_nsec</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">;</span>  <span class="o">//</span> <span class="n">Added</span> <span class="n">by</span> <span class="n">osullik</span> <span class="k">for</span> <span class="n">ETL</span> <span class="n">Telemetry</span>
+<span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;Total duration: &quot;</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">delta_us</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot; ms&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>   <span class="o">//</span> <span class="n">Added</span> <span class="n">by</span> <span class="n">osullik</span> <span class="k">for</span> <span class="n">ETL</span> <span class="n">Telemetry</span>
+<span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;Total duration: &quot;</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">delta_s</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot; s&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>     <span class="o">//</span> <span class="n">Added</span> <span class="n">by</span> <span class="n">osullik</span> <span class="k">for</span> <span class="n">ETL</span> <span class="n">Telemetry</span>
+</pre></div>
+</div>
+<p><strong>Execution Time</strong> Instrumented in the code by adding the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span><span class="n">In</span> <span class="n">the</span> <span class="n">Preamble</span>
+<span class="c1">#include &lt;time.h&gt;                      //Added by osullik for Milisecond Telemetry</span>
+<span class="n">struct</span> <span class="n">timespec</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">;</span>  <span class="o">//</span><span class="n">Added</span> <span class="n">by</span> <span class="n">osullik</span> <span class="k">for</span> <span class="n">milisecond</span> <span class="n">Telemetry</span>
+
+<span class="o">//</span><span class="n">At</span> <span class="n">the</span> <span class="n">start</span> <span class="n">of</span> <span class="n">main</span><span class="p">:</span>
+<span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;Starting Timer&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>     <span class="o">//</span> <span class="n">Added</span> <span class="n">by</span> <span class="n">osullik</span> <span class="k">for</span> <span class="n">ETL</span> <span class="n">Telemetry</span>
+<span class="n">clock_gettime</span><span class="p">(</span><span class="n">CLOCK_MONOTONIC_RAW</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">start_time</span><span class="p">);</span>
+
+<span class="o">//</span><span class="n">At</span> <span class="n">the</span> <span class="n">end</span> <span class="n">of</span> <span class="n">main</span><span class="p">:</span>
+<span class="n">clock_gettime</span><span class="p">(</span><span class="n">CLOCK_MONOTONIC_RAW</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">end_time</span><span class="p">);</span>              <span class="o">//</span> <span class="n">Added</span> <span class="n">by</span> <span class="n">osullik</span> <span class="k">for</span> <span class="n">ETL</span> <span class="n">Telemetry</span>
+<span class="n">u_int64_t</span> <span class="n">delta_s</span> <span class="o">=</span> <span class="p">(</span><span class="n">end_time</span><span class="o">.</span><span class="n">tv_sec</span> <span class="o">-</span> <span class="n">start_time</span><span class="o">.</span><span class="n">tv_sec</span><span class="p">);</span>    <span class="o">//</span> <span class="n">Added</span> <span class="n">by</span> <span class="n">osullik</span> <span class="k">for</span> <span class="n">ETL</span> <span class="n">Telemetry</span>
+<span class="n">u_int64_t</span> <span class="n">delta_us</span> <span class="o">=</span> <span class="p">(</span><span class="n">end_time</span><span class="o">.</span><span class="n">tv_sec</span> <span class="o">-</span> <span class="n">start_time</span><span class="o">.</span><span class="n">tv_sec</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000000</span> <span class="o">+</span> <span class="p">(</span><span class="n">end_time</span><span class="o">.</span><span class="n">tv_nsec</span> <span class="o">-</span> <span class="n">start_time</span><span class="o">.</span><span class="n">tv_nsec</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">;</span>  <span class="o">//</span> <span class="n">Added</span> <span class="n">by</span> <span class="n">osullik</span> <span class="k">for</span> <span class="n">ETL</span> <span class="n">Telemetry</span>
+<span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;Total duration: &quot;</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">delta_us</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot; ms&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>   <span class="o">//</span> <span class="n">Added</span> <span class="n">by</span> <span class="n">osullik</span> <span class="k">for</span> <span class="n">ETL</span> <span class="n">Telemetry</span>
+<span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;Total duration: &quot;</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">delta_s</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot; s&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>     <span class="o">//</span> <span class="n">Added</span> <span class="n">by</span> <span class="n">osullik</span> <span class="k">for</span> <span class="n">ETL</span> <span class="n">Telemetry</span>
+</pre></div>
+</div>
+</section>
+<section id="memory">
+<h3>Memory<a class="headerlink" href="#memory" title="Link to this heading"></a></h3>
+<p><strong>Total Memory Usage</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">valgrind</span> <span class="o">--</span><span class="n">log</span><span class="o">-</span><span class="n">file</span><span class="o">=</span><span class="s2">&quot;valgrind.out&quot;</span> <span class="o">./</span><span class="n">louvain</span> <span class="n">graph</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="mi">1</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">q</span> <span class="n">id_qual</span><span class="p">;</span> <span class="n">grep</span> <span class="n">total</span> <span class="n">valgrind</span><span class="o">.</span><span class="n">out</span> <span class="o">|</span> <span class="n">sed</span> <span class="o">-</span><span class="n">E</span> <span class="s1">&#39;s/.*: ([0-9,]+) allocs, ([0-9,]+) frees, ([0-9,]+) bytes allocated/</span><span class="se">\1</span><span class="s1"> allocs</span><span class="se">\n\2</span><span class="s1"> frees</span><span class="se">\n\3</span><span class="s1"> bytes allocated/&#39;</span>
+</pre></div>
+</div>
+<p><strong>Peak memory Usage</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">valgrind</span> <span class="o">--</span><span class="n">tool</span><span class="o">=</span><span class="n">massif</span> <span class="o">--</span><span class="n">pages</span><span class="o">-</span><span class="k">as</span><span class="o">-</span><span class="n">heap</span><span class="o">=</span><span class="n">yes</span> <span class="o">--</span><span class="n">massif</span><span class="o">-</span><span class="n">out</span><span class="o">-</span><span class="n">file</span><span class="o">=</span><span class="n">massif</span><span class="o">.</span><span class="n">out</span> <span class="o">./&lt;</span><span class="n">exe</span> <span class="n">name</span><span class="o">&gt;</span> <span class="p">;</span> <span class="n">grep</span> <span class="n">mem_heap_B</span> <span class="n">massif</span><span class="o">.</span><span class="n">out</span> <span class="o">|</span> <span class="n">sed</span> <span class="o">-</span><span class="n">e</span> <span class="s1">&#39;s/mem_heap_B=\(.*\)/</span><span class="se">\1</span><span class="s1">/&#39;</span> <span class="o">|</span> <span class="n">sort</span> <span class="o">-</span><span class="n">g</span> <span class="o">|</span> <span class="n">tail</span> <span class="o">-</span><span class="n">n</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p><strong>Performance</strong> Measured in Giga Traversed Edges Per Second <a class="reference external" href="https://drive.google.com/file/d/1qM5POYo0vB9p-QKb88oNzzED2a7cJdW_/view?usp=drive_link">Source:
+HIVE Workload Analysis Report pg
+15</a></p>
+<p><strong>Efficency</strong> Measured in Giga Traversed Edges Per Second Per Watt
+<a class="reference external" href="https://drive.google.com/file/d/1qM5POYo0vB9p-QKb88oNzzED2a7cJdW_/view?usp=drive_link">Source: HIVE Workload Analysis Report pg
+15</a></p>
+</section>
+</section>
+<section id="survey-of-metrics">
+<h2>Survey of Metrics<a class="headerlink" href="#survey-of-metrics" title="Link to this heading"></a></h2>
+<p>Add in links / descriptions of metrics we can / should use. Sourcing
+essential. You can add a hyperlink in Markdown by using squarebrackets
+and parentheses: “[]()” Where the text to display is in the brackets and
+the link is in the parentheses.</p>
+</section>
+<section id="telemetry-tools">
+<h2>Telemetry Tools<a class="headerlink" href="#telemetry-tools" title="Link to this heading"></a></h2>
+<section id="perf">
+<h3>PERF<a class="headerlink" href="#perf" title="Link to this heading"></a></h3>
+<p>NOTE: Requires Linux to run:</p>
+<p><a class="reference external" href="https://perf.wiki.kernel.org/index.php/Main_Page">perf</a> is powerful:
+it can instrument CPU performance counters, tracepoints, kprobes, and
+uprobes (dynamic tracing). It is capable of lightweight profiling.</p>
+<p>Performance counters are CPU hardware registers that count hardware
+events such as instructions executed, cache-misses suffered, or branches
+mispredicted. They form a basis for profiling applications to trace
+dynamic control flow and identify hotspots. <em>perf</em> provides rich
+generalized abstractions over hardware specific capabilities. Among
+others, it provides per task, per CPU and per-workload counters,
+sampling on top of these and source code event annotation.</p>
+<p>Tracepoints are instrumentation points placed at logical locations in
+code, such as for system calls, TCP/IP events, file system operations,
+etc. These have negligible overhead when not in use, and can be enabled
+by the perf command to collect information including timestamps and
+stack traces. perf can also dynamically create tracepoints using the
+kprobes and uprobes frameworks, for kernel and userspace dynamic tracing</p>
+<p>To use perf on your linux machine, assuming we are working with
+<em>myCode.c</em>:</p>
+<ol class="arabic">
+<li><p>Compile the code (note that the -g flag tells the compiler to compile
+with debugging information):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcc</span> <span class="o">-</span><span class="n">g</span> <span class="o">-</span><span class="n">c</span> <span class="n">myCode</span><span class="o">.</span><span class="n">c</span> <span class="o">-</span><span class="n">o</span> <span class="n">myCode</span><span class="o">.</span><span class="n">o</span>
+</pre></div>
+</div>
+</li>
+<li><p>Invoke perf to instrument the code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">perf</span> <span class="n">record</span> <span class="o">./</span><span class="n">myCode</span><span class="o">.</span><span class="n">o</span>
+</pre></div>
+</div>
+</li>
+<li><p>Access the report in the directory that you ran perf record (accesses
+the outputted <em>perf.data</em> file):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">perf</span> <span class="n">report</span>
+</pre></div>
+</div>
+</li>
+<li><p>More can be viewed using the annotated viewer in the same directory
+with</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">perf</span> <span class="n">annotate</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>If in doubt, use the included manual to figure out what to do, from the
+command line run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">man</span> <span class="n">perf</span>
+</pre></div>
+</div>
+</section>
+<section id="gnu-gprof">
+<h3>GNU GPROF<a class="headerlink" href="#gnu-gprof" title="Link to this heading"></a></h3>
+<p>NOTE: Requires Linux to Run</p>
+<p><a class="reference external" href="http://web.archive.org/web/20141129061523/http://www.cs.utah.edu/dept/old/texinfo/as/gprof.html#SEC2">The GNU Profiler
+(GPROF)</a>
+can be used to determine which parts of a program are taking most of the
+execution time.</p>
+<p>To use it, all we do is add some additional flags to the compiler,
+whether we are using CC or GCC both should work. Assuming that we’re
+working with a file called <em>myCode.c</em> we would use it as follows:</p>
+<ol class="arabic">
+<li><p>Compile the code</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcc</span> <span class="o">-</span><span class="n">g</span> <span class="o">-</span><span class="n">c</span> <span class="n">myCode</span><span class="o">.</span><span class="n">c</span> <span class="o">-</span><span class="n">o</span> <span class="n">myCode_profile</span><span class="o">.</span><span class="n">o</span> <span class="o">-</span><span class="n">pg</span>
+</pre></div>
+</div>
+</li>
+<li><p>We then need to run the program that has been instrumented by GPROF:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">myCode_profile</span><span class="o">.</span><span class="n">o</span>
+</pre></div>
+</div>
+</li>
+<li><p>Running the code should output a file called <em>gmon.out</em> to the
+directory that you ran the above code in. To analyze the outputs we
+would use something like the following (noting that routing the
+output to a file called report.txt is optional:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gprof</span> <span class="n">myCode_profile</span><span class="o">.</span><span class="n">o</span> <span class="n">gmon</span><span class="o">.</span><span class="n">out</span> <span class="o">&gt;</span> <span class="n">report</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p><strong>SO WHAT?</strong> Pending further experimentation, this looks like it will be
+useful for understanding the efficency of the code that we run, and some
+of the temporal aspects, but will be less useful for the memory and
+power analysis aspects of the code.</p>
+</section>
+<section id="valgrind">
+<h3>VALGRIND<a class="headerlink" href="#valgrind" title="Link to this heading"></a></h3>
+<p>NOTE: Requires Linux to Run:</p>
+<p><a class="reference external" href="https://valgrind.org/docs/manual/quick-start.html">VALGRIND</a> is a
+suite of debugging and profiling tools.</p>
+<p><strong>MEMCHECK</strong></p>
+<p>The most popular of the VALGRIND tools is called Memcheck. It can detect
+many memory-related errors that are common in C and C++ programs and
+that can lead to crashes and unpredictable behaviour.</p>
+<p>To use it on your linux machine, assuming we are working with
+<em>myCode.c</em>:</p>
+<ol class="arabic">
+<li><p>Compile the code (note that the -g flag tells the compiler to compile
+with debugging information):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcc</span> <span class="o">-</span><span class="n">g</span> <span class="o">-</span><span class="n">c</span> <span class="n">myCode</span><span class="o">.</span><span class="n">c</span> <span class="o">-</span><span class="n">o</span> <span class="n">myCode</span><span class="o">.</span><span class="n">o</span>
+</pre></div>
+</div>
+</li>
+<li><p>Invoke Valgrind memCheck:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">valgrind</span> <span class="o">--</span><span class="n">leak</span><span class="o">-</span><span class="n">check</span><span class="o">=</span><span class="n">yes</span> <span class="o">./</span><span class="n">myCode</span><span class="o">.</span><span class="n">o</span>
+</pre></div>
+</div>
+</li>
+<li><p>Read through the results!</p></li>
+</ol>
+<p>There’s plenty more information in the <a class="reference external" href="https://valgrind.org/docs/manual/manual.html">Valgrind
+Manual</a></p>
+<p><strong>CACHEGRIND</strong></p>
+<p><a class="reference external" href="https://valgrind.org/docs/manual/cg-manual.html">Cachegrind and
+cgannotate</a>
+Cachegrind is a high-precision tracing profiler. It runs slowly, but
+collects precise and reproducible profiling data. It can merge and diff
+data from different runs.</p>
+<p>To use Cachegrind, assuming we are interested in the file myCode.c:</p>
+<ol class="arabic">
+<li><p>Compile the code (note that the -g flag tells the compiler to compile
+with debugging information):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcc</span> <span class="o">-</span><span class="n">g</span> <span class="o">-</span><span class="n">c</span> <span class="n">myCode</span><span class="o">.</span><span class="n">c</span> <span class="o">-</span><span class="n">o</span> <span class="n">myCode</span><span class="o">.</span><span class="n">o</span>
+</pre></div>
+</div>
+</li>
+<li><p>Invoke Valgrind CacheGrind:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">valgrind</span> <span class="o">--</span><span class="n">tool</span><span class="o">=</span><span class="n">cachegrind</span> <span class="o">--</span><span class="n">cachegrind</span><span class="o">-</span><span class="n">out</span><span class="o">-</span><span class="n">file</span><span class="o">=</span><span class="n">myCode_cg</span><span class="o">.</span><span class="n">out</span> <span class="o">./</span><span class="n">myCode</span><span class="o">.</span><span class="n">o</span>
+</pre></div>
+</div>
+</li>
+<li><p>Feed the results into cg_annotate and read the report:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cg_annotate</span> <span class="n">myCode_cg</span><span class="o">.</span><span class="n">out</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="oprofile">
+<h3>OPROFILE<a class="headerlink" href="#oprofile" title="Link to this heading"></a></h3>
+<p><a class="reference external" href="https://oprofile.sourceforge.io/faq/">OPROFILE</a> is an open source
+project that includes a statistical profiler for Linux systems, capable
+of profiling all running code at low overhead.</p>
+<p>OProfile leverages the hardware performance counters of the CPU to
+enable profiling of a wide variety of interesting statistics, which can
+also be used for basic time-spent profiling. All code is profiled:
+hardware and software interrupt handlers, kernel modules, the kernel,
+shared libraries, and applications. Several post-profiling tools for
+turning profile data into human readable information are available.</p>
+<p>OProfile is one of the tools google reported that they use in their
+datacentre performance profiling in <a class="reference external" href="https://github.com/osullik/summer2023/blob/main/Papers/bibliography/reference_papers/Ren2010.pd">Their 2010
+Paper</a></p>
+<p>Kent has not yet tested OPROFILE</p>
+</section>
+<section id="intel-vtune-profiler">
+<h3>Intel VTUNE Profiler<a class="headerlink" href="#intel-vtune-profiler" title="Link to this heading"></a></h3>
+<p>Requires Linux to Run</p>
+<p><a class="reference external" href="https://www.intel.com/content/www/us/en/developer/tools/oneapi/vtune-profiler.html#gs.11c0nr">VTUNE</a>
+Profiler optimizes application performance, system performance, and
+system configuration across CPU, GPU, and FPGA. It is capable of
+profiling SYCL<em>, C, C++, C#, Fortran, OpenCL™ code, Python</em>, Google
+Go* programming language, Java*, .NET, Assembly, or any combination of
+languages. It can be used for System or Application settings to get
+coarse-grained system data for an extended period or detailed results
+mapped to source code. it can be used to optimize performance while
+avoiding power and thermal-related throttling.</p>
+<p>It appears to have a GUI and some pretty hefty monitoring functions,
+this one will be worth exploring further.</p>
+<p>Kent has not yet tested VTUNE</p>
+</section>
+</section>
+<section id="simulators">
+<h2>Simulators<a class="headerlink" href="#simulators" title="Link to this heading"></a></h2>
+<p><a class="reference external" href="https://snipersim.org/w/The_Sniper_Multi-Core_Simulator">SNIPER</a> is
+a next generation parallel, high-speed and accurate x86 simulator
+allowing for fast and accurate simulation and for trading off simulation
+speed for accuracy to allow a range of flexible simulation options when
+exploring architectures.</p>
+<p>The Sniper simulator allows one to perform timing simulations for both
+multi-program workloads and multi-threaded, shared-memory applications
+with 10s to 100+ cores, at a high speed when compared to existing
+simulators. Sniper has been validated against multi-socket Intel Core2
+and Nehalem systems and provides average performance prediction errors
+within 25% at a simulation speed of up to several MIPS.</p>
+<p>This simulator, and the interval core model, is useful for uncore and
+system-level studies that require more detail than the typical one-IPC
+models, but for which cycle-accurate simulators are too slow to allow
+workloads of meaningful sizes to be simulated. As an added benefit, the
+interval core model allows the generation of CPI stacks, which show the
+number of cycles lost due to different characteristics of the system,
+like the cache hierarchy or branch predictor, and leads to a better
+understanding of each component’s effect on total system performance.
+This extends the use for Sniper to application characterization and
+hardware/software co-design.</p>
+</section>
+<section id="other-piuma-specific">
+<h2>Other (PiUMA Specific)<a class="headerlink" href="#other-piuma-specific" title="Link to this heading"></a></h2>
+<section id="gasct">
+<h3>GASCT<a class="headerlink" href="#gasct" title="Link to this heading"></a></h3>
+<p>Intel’s Gather, Apply, Scatter, Compute-on-Target performance model
+extends the Bulk Synchronous Parallel (BSP) model of computation to
+support both pull and push based algorithms. It is what intel uses in
+their projections of PiUMA performance. <a class="reference external" href="https://drive.google.com/file/d/1qM5POYo0vB9p-QKb88oNzzED2a7cJdW_/view?usp=drive_link">Source: HIVE Workload Analysis
+Report pg
+18</a></p>
+</section>
+<section id="piuma-analytic-performance-model">
+<h3>Piuma Analytic Performance Model<a class="headerlink" href="#piuma-analytic-performance-model" title="Link to this heading"></a></h3>
+<p><a class="reference external" href="https://drive.google.com/file/d/1qM5POYo0vB9p-QKb88oNzzED2a7cJdW_/view?usp=drive_link">Source: HIVE Workload Analysis Report pgs
+20-22</a>
+The PiUMA analytic performance model seeks to determine the limiting
+resource. It uses the <span class="math notranslate nohighlight">\(MAX\)</span> operation because the implementation
+does not follow a bulk-synchronous model. PiUMA is a global memory
+access machine, and so accesses over the network are just accesses to
+memory, resulting in an overlap between then <span class="math notranslate nohighlight">\(T_{net}\)</span> and
+<span class="math notranslate nohighlight">\(T_{comp}\)</span> (and hence drives use of the MAX value).</p>
+<div class="math notranslate nohighlight">
+\[T_{estimate} = MAX(T_{mem},T_{comp},T_{net}) + T_{barrier}\]</div>
+<p><strong>Memory Access Time Calculation</strong> <span class="math notranslate nohighlight">\(T_{mem}\)</span> is the time taken to
+access memory assuming that memory is being driven at peak bandwidth. If
+it’s not at peak, then it will not be the limiting component of the
+system. Note that while simple kernels (i.e. one task at a time) only
+need one calculation, complex tasks that occur in multiple phases, and
+are a sequence of multiple kernels. As a result, <span class="math notranslate nohighlight">\(T_{mem}\)</span> will be
+the sum of each of the component phases.</p>
+<div class="math notranslate nohighlight">
+\[T_{mem}={Bytes Accessed Mem \over mem_{bw}}\]</div>
+<p><strong>Network Access Time Calculation</strong> <span class="math notranslate nohighlight">\(T_{net}\)</span> is the amount of
+traffic crossing the bisection of the network.</p>
+<div class="math notranslate nohighlight">
+\[T_{net}={BytesThroughBisection \over netBisection_{bw}}\]</div>
+<p><strong>Compute Time</strong> <span class="math notranslate nohighlight">\(T_{comp}\)</span> is modelled on the effective
+instructions per cycle (IPC) &amp; is measured from real code executed in
+the PiUMA simulators. Effective IPC depends on how well the memory
+access latency is hidden from the core. For a memory access to stall the
+pipeline, its average latency needs to be greater than the number of
+threads in each of the MTPs. In PiuMA the number of threads is 16, so
+the average latency needs to be &lt; 16 cycles. <span class="math notranslate nohighlight">\(n_iter\)</span> here is the
+number of times a loop body is executed</p>
+<div class="math notranslate nohighlight">
+\[T_{comp}={nIter * avgInstructionsPerIter \over IPC_{effective}}\]</div>
+<p><strong>Barrier Time</strong> estimated using the span of the PIUMA system at each
+level of the hierarchy. It is assumed that the barrier will be performed
+through the memory, with each thread first completing a barrier within a
+core by performing atomic operations on the core-local scratchpad
+memory. Once the threads inside the cores complete the barrier, one
+thread from each core performs the same operation across all cores in a
+die and consecutively across the dies in a socket.</p>
+</section>
 </section>
 </section>
 
