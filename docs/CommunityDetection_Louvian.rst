@@ -1,5 +1,12 @@
+=====================================================
 Community Detection Problems - The Louvian Algorithm
 =====================================================
+
+.. toctree::
+   :maxdepth: 2
+
+   GPU_gunrock_louvain
+
 
 This Readme contains general information on the algorithms and links to useful resources. Details of the implementations are in the child sequential and parallel folders respectively.
 
