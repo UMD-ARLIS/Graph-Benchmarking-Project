@@ -11,3 +11,5 @@ GPU Gunrock Louvain
    examples
    gunrock
    tools
+   unittests
+   
