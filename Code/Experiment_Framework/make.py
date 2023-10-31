@@ -2,7 +2,7 @@ import subprocess
 
 # Function to build using CMake
 def cmake_build():
-    subprocess.run('cd ../Graph_Problems/Louvain/GPU/gunrock_louvain', shell=True)
+    subprocess.run('cd ../Graph_Problems/CommunityDetection/Louvian/GPU/gunrock_louvain', shell=True)
     subprocess.run('mkdir -p build', shell=True)
     subprocess.run('cd build && cmake ..', shell=True)
 
