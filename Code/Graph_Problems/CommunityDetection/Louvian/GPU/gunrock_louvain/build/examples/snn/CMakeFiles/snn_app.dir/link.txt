@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../lib/libsnn_app.a CMakeFiles/snn_app.dir/__/__/gunrock/app/snn/snn_app_generated_snn_app.cu.o CMakeFiles/snn_app.dir/snn_app_intermediate_link.o
-/usr/bin/ranlib ../../lib/libsnn_app.a

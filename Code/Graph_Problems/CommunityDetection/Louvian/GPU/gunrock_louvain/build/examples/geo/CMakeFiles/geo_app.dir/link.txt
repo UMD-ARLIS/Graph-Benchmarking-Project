@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../lib/libgeo_app.a CMakeFiles/geo_app.dir/__/__/gunrock/app/geo/geo_app_generated_geo_app.cu.o CMakeFiles/geo_app.dir/geo_app_intermediate_link.o
-/usr/bin/ranlib ../../lib/libgeo_app.a

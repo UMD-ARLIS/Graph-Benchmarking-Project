@@ -1,1 +1,0 @@
-/usr/bin/c++  -w --std=c++14 -fPIC -fopenmp -march=native -Wall -Wextra -Werror -pthread -O2 -g -DNDEBUG -rdynamic CMakeFiles/simpledom.dir/simpledom/simpledom.cpp.o -o ../../../bin/simpledom 

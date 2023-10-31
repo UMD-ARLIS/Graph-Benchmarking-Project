@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../lib/libpr_nibble_app.a CMakeFiles/pr_nibble_app.dir/__/__/gunrock/app/pr_nibble/pr_nibble_app_generated_pr_nibble_app.cu.o CMakeFiles/pr_nibble_app.dir/pr_nibble_app_intermediate_link.o
-/usr/bin/ranlib ../../lib/libpr_nibble_app.a

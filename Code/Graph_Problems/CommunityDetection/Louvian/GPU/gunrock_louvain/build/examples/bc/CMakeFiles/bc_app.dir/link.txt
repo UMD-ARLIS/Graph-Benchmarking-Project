@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../lib/libbc_app.a CMakeFiles/bc_app.dir/__/__/gunrock/app/bc/bc_app_generated_bc_app.cu.o CMakeFiles/bc_app.dir/bc_app_intermediate_link.o
-/usr/bin/ranlib ../../lib/libbc_app.a

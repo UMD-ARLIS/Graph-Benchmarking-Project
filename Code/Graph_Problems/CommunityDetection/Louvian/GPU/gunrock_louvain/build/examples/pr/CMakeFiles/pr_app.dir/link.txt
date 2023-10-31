@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../lib/libpr_app.a CMakeFiles/pr_app.dir/__/__/gunrock/app/pr/pr_app_generated_pr_app.cu.o CMakeFiles/pr_app.dir/pr_app_intermediate_link.o
-/usr/bin/ranlib ../../lib/libpr_app.a

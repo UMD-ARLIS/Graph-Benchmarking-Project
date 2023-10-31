@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../lib/libsm_app.a CMakeFiles/sm_app.dir/__/__/gunrock/app/sm/sm_app_generated_sm_app.cu.o CMakeFiles/sm_app.dir/sm_app_intermediate_link.o
-/usr/bin/ranlib ../../lib/libsm_app.a

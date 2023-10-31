@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../lib/liblcc_app.a CMakeFiles/lcc_app.dir/__/__/gunrock/app/lcc/lcc_app_generated_lcc_app.cu.o CMakeFiles/lcc_app.dir/lcc_app_intermediate_link.o
-/usr/bin/ranlib ../../lib/liblcc_app.a

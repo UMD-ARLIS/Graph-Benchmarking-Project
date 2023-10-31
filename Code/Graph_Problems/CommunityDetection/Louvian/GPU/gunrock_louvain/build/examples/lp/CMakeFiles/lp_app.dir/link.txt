@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../lib/liblp_app.a CMakeFiles/lp_app.dir/__/__/gunrock/app/lp/lp_app_generated_lp_app.cu.o CMakeFiles/lp_app.dir/lp_app_intermediate_link.o
-/usr/bin/ranlib ../../lib/liblp_app.a

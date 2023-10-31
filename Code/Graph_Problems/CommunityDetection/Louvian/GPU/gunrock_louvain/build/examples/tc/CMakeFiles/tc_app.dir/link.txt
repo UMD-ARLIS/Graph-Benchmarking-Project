@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../lib/libtc_app.a CMakeFiles/tc_app.dir/__/__/gunrock/app/tc/tc_app_generated_tc_app.cu.o CMakeFiles/tc_app.dir/tc_app_intermediate_link.o
-/usr/bin/ranlib ../../lib/libtc_app.a

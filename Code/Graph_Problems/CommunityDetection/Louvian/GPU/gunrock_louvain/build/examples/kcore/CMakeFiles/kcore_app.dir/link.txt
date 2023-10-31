@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../lib/libkcore_app.a CMakeFiles/kcore_app.dir/__/__/gunrock/app/kcore/kcore_app_generated_kcore_app.cu.o CMakeFiles/kcore_app.dir/kcore_app_intermediate_link.o
-/usr/bin/ranlib ../../lib/libkcore_app.a

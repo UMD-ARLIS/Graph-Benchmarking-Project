@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../lib/libbfs_app.a CMakeFiles/bfs_app.dir/__/__/gunrock/app/bfs/bfs_app_generated_bfs_app.cu.o CMakeFiles/bfs_app.dir/bfs_app_intermediate_link.o
-/usr/bin/ranlib ../../lib/libbfs_app.a
