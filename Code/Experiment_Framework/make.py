@@ -2,17 +2,11 @@ import subprocess
 
 # Function to build using CMake
 def cmake_build():
-    subprocess.run('cd ../Graph_Problems/CommunityDetection/Louvian/GPU/gunrock_louvain', shell=True)
-    subprocess.run('mkdir -p build', shell=True)
-    subprocess.run('cd build && cmake ..', shell=True)
+    subprocess.run('cd ../Graph_Problems/CommunityDetection/Louvian/GPU/gunrock_louvain && mkdir -p build && cd build && cmake ..', shell=True)
 
-# Function to run regression tests
-def regression_tests():
-    subprocess.run('cd ../examples/louvain', shell=True)
-
-# Function to perform code coverage
-def make_louvain():
-    subprocess.run('make', shell=True)
+# Function to make louvain tests
+def louvain_test():
+    subprocess.run('cd ../Graph_Problems/CommunityDetection/Louvian/GPU/gunrock_louvain/examples/louvain && make', shell=True)
 
 # Function to simulate deployment
 def deploy():
@@ -21,6 +15,5 @@ def deploy():
 
 # Execute the functions
 cmake_build()
-regression_tests()
-make_louvain()
+louvain_test()
 deploy()
