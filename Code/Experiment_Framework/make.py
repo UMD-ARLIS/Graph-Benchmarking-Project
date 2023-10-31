@@ -1,4 +1,12 @@
 import subprocess
+import os
+
+def change_directory_and_permissions():
+    # Change directory to gunrock_louvain
+    os.chdir('../Graph_Problems/CommunityDetection/Louvian/GPU/gunrock_louvain')
+
+    # Change permissions in the build directory
+    subprocess.run('chmod -R u+w build', shell=True)
 
 # Function to build using CMake
 def cmake_build():
@@ -14,6 +22,7 @@ def deploy():
     print('Pipeline finished.')
 
 # Execute the functions
+change_directory_and_permissions()
 cmake_build()
 louvain_test()
 deploy()
