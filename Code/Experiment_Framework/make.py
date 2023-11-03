@@ -1,8 +1,12 @@
 import subprocess
 import os
 
+
+
+
 def change_directory_and_permissions():
     # Change permissions in the build directory
+    subprocess.run("ps -p $$")
     subprocess.run('chmod -R u+w ../Graph_Problems/CommunityDetection/Louvian/GPU/gunrock_louvain/build', shell=True)
 
 # Function to build using CMake
