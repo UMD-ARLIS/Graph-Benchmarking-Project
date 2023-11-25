@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C-Utils &mdash; Graph Benchmarking Project  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Dataloader" href="dataLoader.html" />
+    <link rel="prev" title="Utilities" href="Utilities.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Graph Benchmarking Project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="Code.html">Code</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Data%20Analysis.html">Data Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Dataset%20Creation.html">Dataset Creation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Experiment%20Framework.html">Experiment Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Graph%20Problems.html">Graph Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Telemetry.html">Telemetry</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="Utilities.html">Utilities</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">C-Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#recommended-external-libraries">Recommended External Libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#unit-tests">Unit Tests</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dataLoader.html">Dataloader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sets.html">Set Utility</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Data.html">Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="System%20Configurations.html">System Configurations</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Graph Benchmarking Project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="Code.html">Code</a></li>
+          <li class="breadcrumb-item"><a href="Utilities.html">Utilities</a></li>
+      <li class="breadcrumb-item active">C-Utils</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/c_utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="c-utils">
+<h1>C-Utils<a class="headerlink" href="#c-utils" title="Link to this heading"></a></h1>
+<p>Taken directly from <a class="reference external" href="https://github.com/barrust/c-utils/tree/master">barrust’s c-util library</a> under an MIT License.</p>
+<p>His project provides a collection of utility libraries to help reduce the need to write similar code for each project on an ad-hoc basis. It also has pretty good coverage of the code with unit tests.</p>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">stringlib</span></code>: C-string utilities</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fileutils</span></code>: File system utilities</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bitarray</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">linked</span> <span class="pre">list</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">doubly</span> <span class="pre">linked</span> <span class="pre">list</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stack</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">queue</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">graph</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">permutations</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">timing-c</span></code>: Code timing utility</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">minunit</span></code>: Unit testing</p></li>
+</ul>
+</section>
+<section id="recommended-external-libraries">
+<h2>Recommended External Libraries<a class="headerlink" href="#recommended-external-libraries" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">set</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hashmap</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bloom</span> <span class="pre">filter</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">kseq</span></code>: A fasta/fastq parser library</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">utf-8</span></code>: Single header UTF-8 string functions for C and C++</p></li>
+</ul>
+</section>
+<section id="unit-tests">
+<h2>Unit Tests<a class="headerlink" href="#unit-tests" title="Link to this heading"></a></h2>
+<p>Unit tests are provided using the minunit library. Each function is, hopefully, fully covered.</p>
+<p>To run the unit-test suite, simply compile the test files using the provided Makefile with the command:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span><span class="nb">test</span>
+</pre></div>
+</div>
+<p>Note you’ll need to create the <code class="docutils literal notranslate"><span class="pre">/libs</span></code> and <code class="docutils literal notranslate"><span class="pre">/dist</span></code> directories first in the c-utils root folder, using something like:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>libs
+mkdir<span class="w"> </span>dist
+</pre></div>
+</div>
+<p>Then you can execute the tests using the executables:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./dist/bitarray
+./dist/strlib
+./dist/fileutils
+./dist/graph
+./dist/linkedlist
+./dist/doublylinkedlist
+./dist/stack
+./dist/queue
+./dist/permutations
+./dist/minunit
+./dist/timing
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Utilities.html" class="btn btn-neutral float-left" title="Utilities" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="dataLoader.html" class="btn btn-neutral float-right" title="Dataloader" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, UMD ARLIS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

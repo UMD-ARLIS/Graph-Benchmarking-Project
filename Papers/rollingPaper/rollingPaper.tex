@@ -1,0 +1,153 @@
+%To be used with Bibtex files
+%May 2022 - This template was prepared by Dorothea F. Brosius of the
+%Institute for Electronics and Applied Physics, University of Maryland, College Park, MD
+
+%Thesis Main Page used with thesis.sty based on the
+%University of Maryland Electronic Thesis and Dissertation (ETD) Style Guide, 2021 Edition
+
+% Select the version that fits how you are making this LaTeX document (its driver).
+% The first two are the most likely ones to be needed.
+
+ \newcommand{\mydriver}{pdflatex} %Making a PDF directly using pdflatex.
+%\newcommand{\mydriver}{dvipdfmx} %Making a DVI and converting that to PDF using dvipdfmx.
+%\newcommand{\mydriver}{dvipdfm} %Making a DVI and converting that to PDF using dvipdfm.
+%\newcommand{\mydriver}{dvips} %Making a DVI and converting that to PS using dvips (may later be converted to PDF).
+%\newcommand{\mydriver}{dvipsone} %Making a DVI and converting that to PS using dvipsone (may later be converted to PDF).
+%\newcommand{\mydriver}{ps2pdf} %Same as the one for dvips except it is compatible with Ghostscript's PDF writer.
+
+%%%%%%%%%%%%%%%%%%%%%%
+% Kent Custom Commands:
+%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\include}[1]{\input{sections/#1}} %Tells the include command where to find the document sections.
+%
+%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt,\mydriver]{Style/thesis}  %12pt is larger than 11pt
+
+%%%%%%%%%%%%%%%%%%%%%%
+% Package Imports:
+%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{titlesec}
+   \titleformat{\chapter}
+      {\normalfont\large}{Chapter \thechapter:}{1em}{}
+\usepackage{tikz}
+\usepackage{times}
+\usepackage[english]{babel}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage{cite}
+\usepackage{lscape}
+\usepackage{indentfirst}
+\usepackage{latexsym}
+\usepackage{multirow}
+\usepackage{epstopdf}
+\usepackage{tabls}
+\usepackage{wrapfig}
+\usepackage{Style/slashbox}
+\usepackage{subeqn}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{supertabular}
+\usepackage[onehalfspacing]{setspace} %used for footnote spacing
+
+%hyperref
+\usepackage[colorlinks=true,urlcolor=black,linkcolor=blue,citecolor=blue]{hyperref}
+
+\usepackage{tocloft,calc}
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+% Template Custom Commands:
+%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\cftlottitlefont}{\hspace*{\fill}\large}
+\renewcommand{\cftafterlottitle}{\hspace*{\fill}}
+\renewcommand{\cftloftitlefont}{\hspace*{\fill}\large}
+\renewcommand{\cftafterloftitle}{\hspace*{\fill}}
+\renewcommand{\cftchapaftersnum}{:\ }
+\renewcommand{\cftchappresnum}{\chaptername\space}
+\setlength{\cftchapnumwidth}{\widthof{\textbf{Appendix\ }}}
+\makeatletter
+\g@addto@macro\appendix{%
+  \addtocontents{toc}{%
+    \protect\renewcommand{\protect\cftchappresnum}{\appendixname\space}%
+  }%
+}
+\setlength{\cftchapnumwidth}{6em} %adds space between chapter/appendix and title in toc
+
+\newcommand{\tbsp}{\rule{0pt}{18pt}} %used to get a vertical distance after \hline
+\renewcommand{\baselinestretch}{2}
+\setlength{\textwidth}{6.4in} \setlength{\textheight}{9in}
+\setlength{\topmargin}{-.55in}
+% \setlength{\topmargin}{0in}    % use this setting if the printer makes
+                                 % the top margin 1/2 inch instead of 1 inch
+\setlength{\oddsidemargin}{.1in}   % sets left margin to 1 inch
+\setlength{\parindent}{.4in}
+\pagestyle{empty}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% Document Content:
+%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\graphicspath{ {figures/}{auto_commit_fig/}{auto_fig/} } %Kent custom, allow images to be in own directory.
+
+\pagestyle{empty}
+\include{00_Abstract} %(must be first, required, non-numbered)
+\include{01_Titlepage} %(must follow Abstract, required, non-numbered)
+\include{02_Copyright} %(highly recommended, non-numbered)
+
+%Pages from this point start at lower-case Roman number ii)
+\pagestyle{plain} \pagenumbering{roman} \setcounter{page}{2}
+\addcontentsline{toc}{chapter}{Preface}
+\include{03_Preface}  %(if present, start at lower-case Roman number ii)
+\addcontentsline{toc}{chapter}{Foreword}
+\include{04_Foreword} %(if present, lower-case Roman)
+\addcontentsline{toc}{chapter}{Dedication}
+\include{05_Dedication} %(if present, lower-case Roman)
+\addcontentsline{toc}{chapter}{Acknowledgements}
+\include{06_Acknowledgements} %(if present, lower-case Roman)
+    \cleardoublepage
+    \phantomsection
+    \addcontentsline{toc}{chapter}{Table of Contents}
+    \renewcommand{\contentsname}{Table of Contents}
+\renewcommand{\baselinestretch}{1}
+\small\normalsize
+\tableofcontents %(required, lower-case Roman)
+\newpage
+\addcontentsline{toc}{chapter}{List of Tables}
+    \renewcommand{\contentsname}{List of Tables}
+\listoftables %(if present, lower-case Roman)
+\newpage
+\addcontentsline{toc}{chapter}{List of Figures}
+    \renewcommand{\contentsname}{List of Figures}
+\listoffigures %(if present, lower-case Roman)
+\newpage
+% LIST OF ABBREVIATIONS
+\addcontentsline{toc}{chapter}{List of Abbreviations}
+\include{07_Abbreviations-supertabular}
+
+\newpage
+\setlength{\parskip}{0em}
+\renewcommand{\baselinestretch}{2}
+\small\normalsize
+
+%Pages from this point start at Arabic numeral 1
+\setcounter{page}{1}
+\pagenumbering{arabic}
+\include{10_Chapter1}
+%\include{20_Chapter2}
+\titleformat{\chapter}
+{\normalfont\large}{Appendix \thechapter:}{1em}{}
+%\include{AppendixA}
+
+\renewcommand{\baselinestretch}{1}
+\small\normalsize
+
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliographystyle{unsrt}
+\bibliography{../bibliography/graph_benchmarking.bib} %replace "Galactic,Dottie" with the
+%                 file name(s) of your bib file(s)
+%Use \cite when referencing bibtex files
+
+\end{document}

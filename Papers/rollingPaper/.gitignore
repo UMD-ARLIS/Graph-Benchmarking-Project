@@ -1,0 +1,21 @@
+#Ignore MacOS files
+*.DS_Store
+*.vscode
+
+# LaTeX Intermediary Files:
+*.aux 
+*.dvi 
+*.log 
+*.bbl 
+*.out 
+*.blg 
+*.nav 
+*.toc 
+*.snm 
+*.fdb_latexmk 
+*.fls 
+*.synctex.gz 
+*.xmpi
+*.lot 
+*.lof
+*.tgz

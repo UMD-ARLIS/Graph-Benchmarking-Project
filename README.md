@@ -1,3 +1,8 @@
+# ReadTheDocs Page
+Here is the ReadTheDocs Page for this repo:
+[Graph Benchmarking Project ReadTheDocs](https://graph-benchmarking.readthedocs.io/en/latest/)
+
+
 # Overview
 This repository contains work towards creating a comprehensive cross-platform graph processing benchmark for Community Detection and Subgraph Isomorphism problems. 
 
@@ -7,7 +12,7 @@ For information about the work being undertaken here, please contact [osullik@um
 
 ## Useful Links:
 
-[Project Github](https://github.com/osullik)
+[Project Github](https://github.com/UMD-ARLIS/Graph-Benchmarking-Project)
 
 [Project Google Drive](https://drive.google.com/drive/folders/19-CboH6ZahDUuIYqDbroJ4DJIftPY_6s?usp=sharing)
 

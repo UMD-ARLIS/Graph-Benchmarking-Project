@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sequential GPU &mdash; Graph Benchmarking Project  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Graph Matching Gunrock" href="GraphMatching_Gunrock.html" />
+    <link rel="prev" title="Sequential CPU" href="Sequential_CPU.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Graph Benchmarking Project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="Code.html">Code</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Data%20Analysis.html">Data Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Dataset%20Creation.html">Dataset Creation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Experiment%20Framework.html">Experiment Framework</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="Graph%20Problems.html">Graph Problems</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="CommunityDetection_Louvian.html">Community Detection Problems - The Louvian Algorithm</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="GraphMatching.html">Graph Matching</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="Parallel.html">Parallel</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="Sequential.html">Sequential</a></li>
+<li class="toctree-l4"><a class="reference internal" href="GraphMatching_Gunrock.html">Graph Matching Gunrock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="VF3Lib.html">Graph Matching VF3Lib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="GraphMatching.html#experiments-cpu">Experiments - CPU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="GraphMatching.html#experiments-gpu">Experiments - GPU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="GraphMatching.html#related-works">Related Works:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Telemetry.html">Telemetry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Utilities.html">Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Data.html">Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="System%20Configurations.html">System Configurations</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Graph Benchmarking Project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="Code.html">Code</a></li>
+          <li class="breadcrumb-item"><a href="Graph%20Problems.html">Graph Problems</a></li>
+          <li class="breadcrumb-item"><a href="GraphMatching.html">Graph Matching</a></li>
+          <li class="breadcrumb-item"><a href="Sequential.html">Sequential</a></li>
+      <li class="breadcrumb-item active">Sequential GPU</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Sequential_GPU.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sequential-gpu">
+<h1>Sequential GPU<a class="headerlink" href="#sequential-gpu" title="Link to this heading"></a></h1>
+<section id="gunrock-gpu-implementation-of-subgraph-matching-vf2-algorithm">
+<h2>Gunrock GPU Implementation of Subgraph Matching VF2 Algorithm<a class="headerlink" href="#gunrock-gpu-implementation-of-subgraph-matching-vf2-algorithm" title="Link to this heading"></a></h2>
+<section id="ssh-into-the-ubuntu-user-on-aws-ec2-instance">
+<h3>SSH into the Ubuntu user on AWS EC2 Instance<a class="headerlink" href="#ssh-into-the-ubuntu-user-on-aws-ec2-instance" title="Link to this heading"></a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>-i<span class="w"> </span>&lt;keyName&gt;.pem<span class="w"> </span>&lt;username&gt;@##.##.##.##
+</pre></div>
+</div>
+</section>
+<section id="change-into-the-gunrock-directory">
+<h3>Change into the Gunrock directory<a class="headerlink" href="#change-into-the-gunrock-directory" title="Link to this heading"></a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>gunrock
+</pre></div>
+</div>
+</section>
+<section id="running-the-algorithm">
+<h3>Running the Algorithm<a class="headerlink" href="#running-the-algorithm" title="Link to this heading"></a></h3>
+<section id="format">
+<h4>Format<a class="headerlink" href="#format" title="Link to this heading"></a></h4>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./examples/sm/bin/test_sm_12.2_x86_64<span class="w"> </span>--pattern-graph-type<span class="o">=</span>market<span class="w"> </span>--pattern-graph-file<span class="o">=[</span>FILE_PATH<span class="o">]</span><span class="w"> </span>--undirected<span class="o">=</span><span class="m">1</span><span class="w"> </span>--pattern-undirected<span class="o">=</span><span class="m">1</span><span class="w"> </span>--num-runs<span class="o">=</span><span class="m">1</span><span class="w"> </span>--graph-type<span class="o">=</span>market<span class="w"> </span>--graph-file<span class="o">=[</span>FILE_PATH<span class="o">]</span>
+</pre></div>
+</div>
+<p>Replace [FILE_PATH] with the path to the specified dataset file:</p>
+<ol class="arabic">
+<li><p>Use your dataset (must be a Market file .mtx).</p></li>
+<li><p>Use existing available datasets as instructed below:</p>
+<p>Gunrock provides small and large datasets. You can familiarize yourself with them <a class="reference external" href="https://github.com/gunrock/gunrock/tree/master/dataset">here</a>.</p>
+<ul>
+<li><p>For small datasets, simply the name of the .mtx file is needed:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">FILE_PATH</span> <span class="pre">=</span> <span class="pre">dataset/small/[FILE_NAME].mtx</span></code></p></li>
+</ul>
+</li>
+<li><p>For large datasets, follow the procedure below:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>gunrock/dataset/large
+make<span class="w"> </span>recurse
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">FILE_PATH</span> <span class="pre">=</span> <span class="pre">dataset/large/[FILE_NAME]/[FILE_NAME].mtx</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>For example, when CATEGORY = small and FILE_NAME = tri_sm, the FILE_PATH is:</p>
+<p><code class="docutils literal notranslate"><span class="pre">dataset/small/tri_sm.mtx</span></code></p>
+</section>
+<section id="example">
+<h4>Example<a class="headerlink" href="#example" title="Link to this heading"></a></h4>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./examples/sm/bin/test_sm_12.2_x86_64<span class="w"> </span>--pattern-graph-type<span class="o">=</span>market<span class="w"> </span>--pattern-graph-file<span class="o">=</span>dataset/small/tri_sm.mtx<span class="w"> </span>--undirected<span class="o">=</span><span class="m">1</span><span class="w"> </span>--pattern-undirected<span class="o">=</span><span class="m">1</span><span class="w"> </span>--num-runs<span class="o">=</span><span class="m">1</span><span class="w"> </span>--graph-type<span class="o">=</span>market<span class="w"> </span>--graph-file<span class="o">=</span>dataset/small/tri_sm.mtx
+</pre></div>
+</div>
+</section>
+<section id="output">
+<h4>Output<a class="headerlink" href="#output" title="Link to this heading"></a></h4>
+<p>The output should appear immediately. For the example above, check out <a class="reference external" href="https://github.com/osullik/summer2023/main/Code/Graph_Problems/GraphMatching/Sequential/GPU/sample_output.txt">sample_output.txt</a>.</p>
+</section>
+<section id="proof-using-gpu-power">
+<h4>Proof using GPU Power<a class="headerlink" href="#proof-using-gpu-power" title="Link to this heading"></a></h4>
+<p>This is the proof using GPU power.</p>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Sequential_CPU.html" class="btn btn-neutral float-left" title="Sequential CPU" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="GraphMatching_Gunrock.html" class="btn btn-neutral float-right" title="Graph Matching Gunrock" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, UMD ARLIS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gunrock: GPU Graph Analytics &mdash; Graph Benchmarking Project  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="cmake" href="cmake.html" />
+    <link rel="prev" title="Community Detection Problems - The Louvian Algorithm" href="CommunityDetection_Louvian.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Graph Benchmarking Project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="Code.html">Code</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Data%20Analysis.html">Data Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Dataset%20Creation.html">Dataset Creation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Experiment%20Framework.html">Experiment Framework</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="Graph%20Problems.html">Graph Problems</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="CommunityDetection_Louvian.html">Community Detection Problems - The Louvian Algorithm</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Gunrock: GPU Graph Analytics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="CommunityDetection_Louvian.html#background-on-community-detection-problems">Background on Community Detection Problems</a></li>
+<li class="toctree-l4"><a class="reference internal" href="CommunityDetection_Louvian.html#louvian-algorithm-sequential">Louvian Algorithm (Sequential)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="CommunityDetection_Louvian.html#louvian-algorithm-parallel">Louvian Algorithm (Parallel)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="CommunityDetection_Louvian.html#alternatives">Alternatives</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="GraphMatching.html">Graph Matching</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Telemetry.html">Telemetry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Utilities.html">Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Data.html">Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="System%20Configurations.html">System Configurations</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Graph Benchmarking Project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="Code.html">Code</a></li>
+          <li class="breadcrumb-item"><a href="Graph%20Problems.html">Graph Problems</a></li>
+          <li class="breadcrumb-item"><a href="CommunityDetection_Louvian.html">Community Detection Problems - The Louvian Algorithm</a></li>
+      <li class="breadcrumb-item active">Gunrock: GPU Graph Analytics</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/GPU_gunrock_louvain.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="gunrock-gpu-graph-analytics">
+<h1>Gunrock: GPU Graph Analytics<a class="headerlink" href="#gunrock-gpu-graph-analytics" title="Link to this heading"></a></h1>
+<img alt="https://github.com/gunrock/docs/raw/master/docs/_media/logo.png" class="align-center" src="https://github.com/gunrock/docs/raw/master/docs/_media/logo.png" />
+<a class="reference external image-reference" href="https://github.com/gunrock/gunrock/blob/master/LICENSE.TXT"><img alt="Apache 2" src="https://img.shields.io/github/license/gunrock/gunrock.svg" /></a>
+<a class="reference external image-reference" href="https://github.com/gunrock/gunrock/issues"><img alt="Issues Open" src="https://img.shields.io/github/issues/gunrock/gunrock.svg" /></a>
+<img alt="https://codecov.io/gh/gunrock/gunrock/branch/master/graph/badge.svg" src="https://codecov.io/gh/gunrock/gunrock/branch/master/graph/badge.svg" /><a class="reference external image-reference" href="https://developer.nvidia.com/gpu-accelerated-libraries"><img alt="https://img.shields.io/badge/nvidia-accelerated%20library-green.svg?logo=nvidia" src="https://img.shields.io/badge/nvidia-accelerated%20library-green.svg?logo=nvidia" /></a>
+<a class="reference external image-reference" href="https://rapids.ai/community.html"><img alt="https://img.shields.io/badge/rapids-contributor-%237400ff.svg" src="https://img.shields.io/badge/rapids-contributor-%237400ff.svg" /></a>
+<p>⚡**This version of Gunrock is deprecated, please use <cite>main</cite> or <cite>develop</cite> branch for new features. Some of the algorithms from <cite>1.x.x</cite> still need to be ported, for those, please use <cite>master</cite> or <cite>dev</cite> branch.**</p>
+<p><strong>Gunrock</strong> is a CUDA library for graph-processing designed specifically for the GPU. It uses a <strong>high-level</strong>, <strong>bulk-synchronous</strong>, <strong>data-centric abstraction</strong> focused on operations on vertex or edge frontiers. Gunrock achieves a balance between performance and expressiveness by coupling high-performance GPU computing primitives and optimization strategies, particularly in the area of fine-grained load balancing, with a high-level programming model that allows programmers to quickly develop new graph primitives that scale from one to many GPUs on a node with small code size and minimal GPU programming knowledge. For more details, see <a class="reference external" href="https://gunrock.github.io/docs/#/gunrock/overview">Gunrock’s Overview</a>.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cmake.html">cmake</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cmake.html#example-text">Example Text</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dataset.html">dataset</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dataset.html#example-text">Example Text</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#getting-started">Getting started</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gunrock.html">gunrock</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gunrock.html#example-text">Example Text</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">Tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tools.html#example-text">Example Text</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="unittests.html">Unit Tests</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="unittests.html#example-text">Example Text</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="quick-start-guide">
+<h2>Quick Start Guide<a class="headerlink" href="#quick-start-guide" title="Link to this heading"></a></h2>
+<p>Before building Gunrock make sure you have <strong>CUDA Toolkit 10.2 or higher</strong> installed on your Linux system. We also support building Gunrock on docker images using the provided docker files under <cite>docker</cite> subdirectory. For complete build guide, see <a class="reference external" href="https://gunrock.github.io/docs/#/gunrock/building_gunrock">Building Gunrock</a>.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>--recursive<span class="w"> </span>https://github.com/gunrock/gunrock/
+<span class="nb">cd</span><span class="w"> </span>gunrock
+mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+cmake<span class="w"> </span>..<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span>
+make<span class="w"> </span><span class="nb">test</span>
+</pre></div>
+</div>
+</section>
+<section id="getting-started-with-gunrock">
+<h2>Getting Started with Gunrock<a class="headerlink" href="#getting-started-with-gunrock" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>To learn more about Gunrock and its programming model, see <a class="reference external" href="https://gunrock.github.io/docs/#/gunrock/overview">Gunrock’s Overview</a>.</p></li>
+<li><p>For information on building Gunrock, see <a class="reference external" href="https://gunrock.github.io/docs/#/gunrock/building_gunrock">Building Gunrock</a>.</p></li>
+<li><p>Tutorial: <a class="reference external" href="https://gunrock.github.io/docs/#/devs/">How to write a graph primitive within Gunrock?</a></p></li>
+<li><p>Comprehensive <a class="reference external" href="https://gunrock.github.io/docs/#/gunrock/gunrock_applications">list</a> of test applications and primitives for most the functionality of Gunrock.</p></li>
+<li><p><a class="reference external" href="https://gunrock.github.io/gunrock">API Reference documentation</a> (generated using doxygen).</p></li>
+<li><p>Find our <a class="reference external" href="https://gunrock.github.io/docs/#/gunrock/publications_and_presentations">publications</a>, <a class="reference external" href="https://gunrock.github.io/docs/#/gunrock/publications_and_presentations?id=presentations">presentations</a>, and <a class="reference external" href="https://gunrock.github.io/docs/#/analysis/results">performance analysis</a>.</p></li>
+</ul>
+</section>
+<section id="copyright-and-license">
+<h2>Copyright and License<a class="headerlink" href="#copyright-and-license" title="Link to this heading"></a></h2>
+<p>Gunrock is copyright The Regents of the University of California, 2013&amp;ndash;2019. The library, examples, and all source code are released under <a class="reference external" href="https://github.com/gunrock/gunrock/blob/master/LICENSE.TXT">Apache 2.0</a>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="CommunityDetection_Louvian.html" class="btn btn-neutral float-left" title="Community Detection Problems - The Louvian Algorithm" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cmake.html" class="btn btn-neutral float-right" title="cmake" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, UMD ARLIS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

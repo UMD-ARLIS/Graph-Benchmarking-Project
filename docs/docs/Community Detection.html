@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Community Detection Datasets &mdash; Graph Benchmarking Project  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Subgraph Matching Datasets" href="Subgraph%20Matching.html" />
+    <link rel="prev" title="BFS Datasets" href="BFS.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Graph Benchmarking Project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Code.html">Code</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="Data.html">Data</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="BFS.html">BFS Datasets</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Community Detection Datasets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#small-dataset">Small Dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#medium-dataset">Medium Dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#large-dataset">Large Dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#huge-dataset">Huge Dataset</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Subgraph%20Matching.html">Subgraph Matching Datasets</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="System%20Configurations.html">System Configurations</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Graph Benchmarking Project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="Data.html">Data</a></li>
+      <li class="breadcrumb-item active">Community Detection Datasets</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Community Detection.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="community-detection-datasets">
+<h1>Community Detection Datasets<a class="headerlink" href="#community-detection-datasets" title="Link to this heading"></a></h1>
+<p>Due to the sizes of these files, we include here the sources of the datasets we use, rather than the full dataset.</p>
+<section id="small-dataset">
+<h2>Small Dataset<a class="headerlink" href="#small-dataset" title="Link to this heading"></a></h2>
+<p>The Small Dataset is derived from the Chesepeake dataset:</p>
+<ul class="simple">
+<li><p><strong>Name:</strong> Chesepeake</p></li>
+<li><p><strong>Nodes:</strong> 39</p></li>
+<li><p><strong>Edges:</strong> 170</p></li>
+<li><p><strong>SOD:</strong> 22 Kb</p></li>
+<li><p><strong>Source:</strong> <a class="reference external" href="https://github.com/gunrock/gunrock/tree/main/datasets/chesapeake">Gunrock Benchmark</a></p></li>
+</ul>
+<p>To download the dataset:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>https://github.com/gunrock/gunrock/blob/main/datasets/chesapeake/chesapeake.mtx
+mv<span class="w"> </span>chesapeake.mtx<span class="w"> </span>SMALL_chesapeake.mtx
+</pre></div>
+</div>
+<p><strong>Format:</strong> MTX file (the <cite>Matrix Market Format &lt;https://people.sc.fsu.edu/~jburkardt/data/mm/mm.html&gt;</cite>). It will work with GUNROCK GPU implementations out-of-the-box but needs reformatting to work with CPU implementations.</p>
+</section>
+<section id="medium-dataset">
+<h2>Medium Dataset<a class="headerlink" href="#medium-dataset" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Name:</strong> email-EU-Core</p></li>
+<li><p><strong>Nodes:</strong> 1,005</p></li>
+<li><p><strong>Edges:</strong> 25,571</p></li>
+<li><p><strong>SOD:</strong> 189 Kb</p></li>
+<li><p><strong>Source:</strong> <a class="reference external" href="https://snap.stanford.edu/data/email-Eu-core.html">The Stanford Network Analysis Project</a></p></li>
+</ul>
+<p>To download the dataset:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>https://snap.stanford.edu/data/email-Eu-core.txt.gz
+gunzip<span class="w"> </span>email-Eu-core.txt.gz
+mv<span class="w"> </span>email-Eu-core.txt<span class="w"> </span>MEDIUM_email-Eu-core.txt
+</pre></div>
+</div>
+<p><strong>Format:</strong> .txt adjacency list. It will work out-of-the-box with sequential Louvain but will require conversion to MTX format for GPU.</p>
+</section>
+<section id="large-dataset">
+<h2>Large Dataset<a class="headerlink" href="#large-dataset" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Name:</strong> wiki-talk</p></li>
+<li><p><strong>Nodes:</strong> 2,394,385</p></li>
+<li><p><strong>Edges:</strong> 4,659,565</p></li>
+<li><p><strong>SOD:</strong> 64,911 Kb</p></li>
+<li><p><strong>Source:</strong> <a class="reference external" href="https://snap.stanford.edu/data/wiki-Talk.html">Stanford Network Analysis Project</a></p></li>
+</ul>
+<p>To download the dataset:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>https://snap.stanford.edu/data/wiki-Talk.txt.gz
+gunzip<span class="w"> </span>wiki-Talk.txt.gz
+mv<span class="w"> </span>wiki-Talk.txt<span class="w"> </span>LARGE_wiki-Talk.txt
+</pre></div>
+</div>
+<p><strong>Format:</strong> .txt adjacency list with # prepended comments. It will need to be transformed into MTX format to work with GPU implementations.</p>
+</section>
+<section id="huge-dataset">
+<h2>Huge Dataset<a class="headerlink" href="#huge-dataset" title="Link to this heading"></a></h2>
+<p>The huge dataset is derived from the Twitter benchmark dataset used by the UC Berkeley GAP benchmark.</p>
+<ul class="simple">
+<li><p><strong>Name:</strong> Twitter RV</p></li>
+<li><p><strong>Nodes:</strong> 61,578,415</p></li>
+<li><p><strong>Edges:</strong> 2,405,026,930</p></li>
+<li><p><strong>SOD:</strong> 25,558,868 Kb</p></li>
+<li><p><strong>Source:</strong> <a class="reference external" href="https://github.com/ANLAB-KAIST/traces/releases/tag/twitter_rv.net">ANLAB KAIST Twitter Dataset</a></p></li>
+</ul>
+<p>To download the dataset:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>https://github.com/ANLAB-KAIST/traces/releases/download/twitter_rv.net/twitter_rv.net.00.gz
+wget<span class="w"> </span>https://github.com/ANLAB-KAIST/traces/releases/download/twitter_rv.net/twitter_rv.net.01.gz
+wget<span class="w"> </span>https://github.com/ANLAB-KAIST/traces/releases/download/twitter_rv.net/twitter_rv.net.02.gz
+wget<span class="w"> </span>https://github.com/ANLAB-KAIST/traces/releases/download/twitter_rv.net/twitter_rv.net.03.gz
+gunzip<span class="w"> </span>-c<span class="w"> </span>twitter_rv.net.00<span class="w"> </span>twitter_rv.net.01<span class="w"> </span>twitter_rv.net.02<span class="w"> </span>twitter_rv.net.03<span class="w"> </span>&gt;<span class="w"> </span>HUGE_twitter_rv.net
+</pre></div>
+</div>
+<p><strong>Format:</strong> .txt Adjacency List</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="BFS.html" class="btn btn-neutral float-left" title="BFS Datasets" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Subgraph%20Matching.html" class="btn btn-neutral float-right" title="Subgraph Matching Datasets" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, UMD ARLIS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

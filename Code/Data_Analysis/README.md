@@ -9,6 +9,7 @@ If you are running this on your local computer make sure to change into the Data
 To run on a test graph it must be a graph uploaded to the gunrock directory in .mtx format
 
 ```
+
 python output_to_json_script.py <algo> <filename.mtx> <exec-type> --ssh-key-path /path/to/your/key.pem --ec2-instance-ip 54.84.25.80 --ec2-instance-username ubuntu
 ```
 example:
