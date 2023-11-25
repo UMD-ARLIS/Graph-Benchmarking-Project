@@ -41,6 +41,16 @@ class LFR_generator():
         self._dataset_number = dataset_number
         self._G = None
 
+        self._output_dir = os.path.join("..","..","Data","community_detection","gclr")
+        if not os.path.exists(self._output_dir):
+            print(f"{bcolors.WARNING}\t WARNING: Output Directory Not Found... Creating...{bcolors.ENDC}")
+            try:
+                os.makedirs(self._output_dir)
+                print(f"{bcolors.OKGREEN}\t SUCCESS{bcolors.ENDC}")
+            except:
+                print(f"{bcolors.FAIL}\t FAILED{bcolors.ENDC}")
+
+
     def generate_dataset(self):
         self._G = LFR_benchmark_graph(n=self._n, 
                             tau1=self._tau1, 
@@ -53,6 +63,8 @@ class LFR_generator():
     
         print(self._G)
 
+        
+
         #Get the communities
         communities = {frozenset(self._G.nodes[v]["community"]) for v in self._G}
 
@@ -63,7 +75,7 @@ class LFR_generator():
 
         print("Writing Json...")
         try:
-            with open(os.path.join("data","CD_DATASET_{num}.json".format(num=self._dataset_number)),"w") as f:
+            with open(os.path.join(self._output_dir,"CD_DATASET_{num}.json".format(num=self._dataset_number)),"w") as f:
                 json.dump(data,f, default=set_default)
                 print(f"{bcolors.OKGREEN}\t SUCCESS{bcolors.ENDC}")
         except:
@@ -72,7 +84,7 @@ class LFR_generator():
 
         print("Writing adj list...")
         try:
-            nx.write_adjlist(self._G, os.path.join("data","CD_DATASET_{num}.txt".format(num=self._dataset_number)), delimiter=",")
+            nx.write_adjlist(self._G, os.path.join(self._output_dir,"CD_DATASET_{num}.txt".format(num=self._dataset_number)), delimiter=",")
             print(f"{bcolors.OKGREEN}\t SUCCESS{bcolors.ENDC}")
         except:
             print(f"{bcolors.FAIL}\t FAILED{bcolors.ENDC}")
