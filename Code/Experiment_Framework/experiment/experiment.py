@@ -150,4 +150,7 @@ class Experiment():
         
         self._timings['metadata_dumped'] = datetime.now()
 
+#Argument parser: 
+
 #Main Method
+
