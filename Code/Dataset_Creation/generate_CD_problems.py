@@ -11,6 +11,7 @@ import networkx as nx
 #import matplotlib.pyplot as plt
 from networkx.generators.community import LFR_benchmark_graph
 from networkx.readwrite import json_graph
+import scipy as sp
 
 #User Imports
 
@@ -84,10 +85,21 @@ class LFR_generator():
 
         print("Writing adj list...")
         try:
-            nx.write_adjlist(self._G, os.path.join(self._output_dir,"CD_DATASET_{num}.txt".format(num=self._dataset_number)), delimiter=",")
+            nx.write_adjlist(self._G, os.path.join(self._output_dir,"CD_DATASET_{num}.txt".format(num=self._dataset_number)), delimiter=" ")
             print(f"{bcolors.OKGREEN}\t SUCCESS{bcolors.ENDC}")
         except:
             print(f"{bcolors.FAIL}\t FAILED{bcolors.ENDC}")
+
+        print("Writing Matrix Market Format...")
+        try:
+            a = nx.to_scipy_sparse_array(self._G)
+            with open(os.path.join(self._output_dir,"CD_DATASET_{num}.mtx".format(num=self._dataset_number)),"wb") as f:
+                sp.io.mmwrite(f, a)
+            print(f"{bcolors.OKGREEN}\t SUCCESS{bcolors.ENDC}")
+        except:
+            print(f"{bcolors.FAIL}\t FAILED{bcolors.ENDC}")
+
+
 
 
 #Turns sets into lists
