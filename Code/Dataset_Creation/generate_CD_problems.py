@@ -7,8 +7,8 @@ import os
 
 #Library Imports
 import networkx as nx
-import pygraphviz
-import matplotlib.pyplot as plt
+#import pygraphviz
+#import matplotlib.pyplot as plt
 from networkx.generators.community import LFR_benchmark_graph
 from networkx.readwrite import json_graph
 
