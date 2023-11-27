@@ -4,24 +4,30 @@ import sys
 import argparse
 
 def modify_makefile_nvcc_values(NVCC, NVCC_VERSION):
-        with open('/home/test-gunrock/Graph-Benchmarking-Project/Code/Graph_Problems/CommunityDetection/Louvian/CPU/vite_louvain/BaseMakefile.mk', 'r') as file:
+        #@vlad - Changing hard coded files to relative pathing
+        with open(os.path.join("..","Graph_Problems","CommunityDetection","Louvian","CPU","vite_louvain","BaseMakefile.mk"), 'r') as file:
             filedata = file.read()
 
     # Replace NVCC and NVCC_VERSION values
         filedata = filedata.replace('NVCC = "/usr/local/cuda-12.2/bin/nvcc"', f'NVCC = "{NVCC}"')
         filedata = filedata.replace('NVCC_VERSION = 12.2', f'NVCC_VERSION = {NVCC_VERSION}')
 
-        with open('/home/test-gunrock/Graph-Benchmarking-Project/Code/Graph_Problems/CommunityDetection/Louvian/CPU/vite_louvain/BaseMakefile.mk', 'w') as file:
+        with open(os.path.join("..","Graph_Problems","CommunityDetection","Louvian","CPU","vite_louvain","BaseMakefile.mk"), 'w') as file:
             file.write(filedata)
 
 # Function to build using CMake
 def cmake_build():
-    subprocess.run('cd /home/test-gunrock/Graph-Benchmarking-Project/Code/Graph_Problems/CommunityDetection/Louvian/CPU/vite_louvain && mkdir -p build && cd build && cmake -D CUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-12.2 ..', shell=True, executable="/usr/bin/bash")
+    #@vlad - Updated to use relative pathing rather than hard-coding (note: need to tighten this up, doesn't work for direct and relative compilation)
+    #Also - why do you need to pass it the CUDA version... this shouldnt' be touching the GPU...
+    tgt_dir = os.path.join("..","..","Graph_Problems","CommunityDetection","Louvian","CPU","vite_louvain")
+    subprocess.run(f'cd {tgt_dir} && mkdir -p build && cd build && cmake -D CUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-12.2 ..', shell=True, executable="/usr/bin/bash")
     print(os.getcwd())
 
 # Function to make louvain tests
 def louvain_test():
-    subprocess.run('cd /home/test-gunrock/Graph-Benchmarking-Project/Code/Graph_Problems/CommunityDetection/Louvian/CPU/vite_louvain && make clean && make', shell=True, executable="/usr/bin/bash")
+    #@vlad - Updated to use relative pathing rather than hard-coding
+    tgt_dir = os.path.join("..","..","Graph_Problems","CommunityDetection","Louvian","CPU","vite_louvain")
+    subprocess.run(f'cd {tgt_dir} && make clean && make', shell=True, executable="/usr/bin/bash")
 
 # Function to simulate deployment
 def deploy():

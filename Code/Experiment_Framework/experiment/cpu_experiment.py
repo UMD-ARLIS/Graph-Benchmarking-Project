@@ -8,17 +8,15 @@ VITE_DIRECTORY = os.path.join(EXPERIMENT_DIRECTORY,"..","..","Graph_Problems","C
 
 # add functionality to activate virtual environment
 class CPUExperiment(Experiment):
-    def __init__(self, name: str, num_workers: int, algorithm: str, graph_file: str):
+    def __init__(self, name: str, num_workers: int, algorithm: str, graph_file: str, username:str):
         super().__init__(name, algorithm, num_workers)
         self._graph_file = graph_file
+        self._user = username
 
     def compile_code(self):
         # @Vlad - below is Hard coded to test environment, changing to be generic
             #make_file_path = "/home/test-gunrock/Graph-Benchmarking-Project/Code/Experiment_Framework/make_cpu.py"
-        print("CURRENTLY IN", os.getcwd())
         make_file_path = os.path.join(EXPERIMENT_DIRECTORY,"..", "make_cpu.py")
-
-        print("MAKE FILE", make_file_path)
         """ if os.path.isfile(self._graph_file):
             self.load_graph(self._graph_file) """
 
@@ -32,15 +30,7 @@ class CPUExperiment(Experiment):
         prefix,postfix = os.path.splitext(base) # "<prefix>" or "chesapeake"
 
         dest = os.path.split(data_path)[0]
-
-        print("BASE", base)
-        print("PREFIX", prefix)
-        print("DEST", dest)
-
         destFile = os.path.join(dest, f"{prefix}.bin")
-
-        print("DESTFILE", destFile)
-
 
         # How would I define the arguments acording to the postfix (.txt or whatever)?
         command = f"{VITE_DIRECTORY}/bin/./fileConvert -s -z -w -f {data_path} -o {destFile}"
@@ -56,9 +46,11 @@ class CPUExperiment(Experiment):
 
         base = os.path.basename(dataset_path) # "<prefix>.txt" or "chesapeake.txt"
         prefix,postfix = os.path.splitext(base) # "<prefix>" or "chesapeake"
+        data_dir = os.path.dirname(self._graph_file)
 
         # How would I define the arguments acording to the user preferences?
-        command = f"mpiexec -n {num_workers} ./bin/./graphClustering -f {prefix}.bin"
+        
+        command = f"mpiexec -n {num_workers} ./bin/./graphClustering -f {data_dir}/{prefix}.bin"
 
         # Store the current directory
         current_directory = os.getcwd()
@@ -68,7 +60,7 @@ class CPUExperiment(Experiment):
             #@vlad - this is hard-coded to the test env. I'm being lazy and using a constant to make it more generic, but needs to be refactored
                 #os.chdir("/home/test-gunrock/Graph-Benchmarking-Project/Code/Graph_Problems/CommunityDetection/Louvian/CPU/vite_louvain")
             os.chdir(os.path.join(EXPERIMENT_DIRECTORY,"..","..","Graph_Problems","CommunityDetection","Louvian","CPU","vite_louvain"))
-            subprocess.run(command, user="osullik", shell=True) #hard-coding user to try and get past OpenMPI blocks
+            subprocess.run(command, user=self._user, shell=True) #hard-coding user to try and get past OpenMPI blocks
 
         finally:
             # Change back to the original directory
@@ -103,6 +95,12 @@ argparser.add_argument("--input_graph_file",
                     type=str,
                     default=None)
 
+argparser.add_argument("--username",
+                       help="username that is not root to be used by MPIExec",
+                       type=str,
+                       required=True,
+                       default=None)
+
 if __name__ == "__main__":
     flags =argparser.parse_args()
 
@@ -111,7 +109,8 @@ if __name__ == "__main__":
     cpu_exp = CPUExperiment(name=flags.exp_name, 
                             algorithm=flags.algorithm,
                             num_workers=flags.num_workers,
-                            graph_file=data_path)
+                            graph_file=data_path,
+                            username=flags.username)
     #cpu_exp = CPUExperiment(name="cpu001", algorithm="louvain", num_workers=16, graph_file="/home/test-gunrock/Graph-Benchmarking-Project/Data_Analysis/chesapeake.txt")
     # nvcc_path = "/usr/local/cuda-12.2/bin/nvcc"  # Set your NVCC path
     # nvcc_version = "12.2"  # Set your NVCC version
