@@ -68,8 +68,11 @@ class CPUExperiment(Experiment):
 
     def run_experiment(self):
         #self.compile_code()
+        self.get_os_detail()
+        #self.load_graph()
         self.bin_convert(self._graph_file)
         self.run_command(self._graph_file, self._num_workers, self._algorithm)
+        self.dump_experiment_metadata()
 
 #Argument parser
 argparser = argparse.ArgumentParser()
