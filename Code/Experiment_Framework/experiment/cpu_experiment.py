@@ -2,6 +2,7 @@ import os
 from experiment import Experiment
 import subprocess
 import argparse
+import glob
 
 EXPERIMENT_DIRECTORY = os.getcwd()
 VITE_DIRECTORY = os.path.join(EXPERIMENT_DIRECTORY,"..","..","Graph_Problems","CommunityDetection","Louvian","CPU","vite_louvain")
@@ -21,7 +22,10 @@ class CPUExperiment(Experiment):
             self.load_graph(self._graph_file) """
 
         # Compile the code using make.py script with parameters
-        subprocess.run(f"sudo python {make_file_path}", shell=True)
+        if os.name == 'posix':
+            subprocess.run(f"sudo python {make_file_path}", shell=True)
+        elif os.name == 'nt':
+            subprocess.run(f"python {make_file_path}", shell=True)
 
     def bin_convert(self, dataset_path):
         # In our case, dataset_path="/home/test-gunrock/Graph-Benchmarking-Project/Data_Analysis/chesapeake.txt"
@@ -33,9 +37,13 @@ class CPUExperiment(Experiment):
         destFile = os.path.join(dest, f"{prefix}.bin")
 
         # How would I define the arguments acording to the postfix (.txt or whatever)?
-        command = f"{VITE_DIRECTORY}/bin/./fileConvert -s -z -w -f {data_path} -o {destFile}"
+        command_arg = os.path.join(VITE_DIRECTORY, "bin", ".", "fileConvert")
+        command = f"{command_arg} -s -z -w -f {data_path} -o {destFile}"
 
-        subprocess.run(command, shell=True)
+        if os.name == 'posix':
+            subprocess.run(command, shell=True)
+        if os.name == 'nt':
+            subprocess.run(command)
 
     def run_command(self, dataset_path, num_workers, algorithm):
         # louvain_executable = f"./examples/{algorithm}/bin/test_{algorithm}_{nvcc_version}_x86_64"
@@ -60,14 +68,19 @@ class CPUExperiment(Experiment):
             #@vlad - this is hard-coded to the test env. I'm being lazy and using a constant to make it more generic, but needs to be refactored
                 #os.chdir("/home/test-gunrock/Graph-Benchmarking-Project/Code/Graph_Problems/CommunityDetection/Louvian/CPU/vite_louvain")
             os.chdir(os.path.join(EXPERIMENT_DIRECTORY,"..","..","Graph_Problems","CommunityDetection","Louvian","CPU","vite_louvain"))
-            subprocess.run(command, user=self._user, shell=True) #hard-coding user to try and get past OpenMPI blocks
+            if os.name == 'posix':
+                subprocess.run(command, user=self._user, shell=True) #hard-coding user to try and get past OpenMPI blocks
+            elif os.name == 'nt':
+                subprocess.run(command, shell=True)
 
         finally:
             # Change back to the original directory
             os.chdir(current_directory)
 
     def run_experiment(self):
-        #self.compile_code()
+        # Dynamically check to see if compilation is necesary
+        if not glob.glob(os.path.join(VITE_DIRECTORY, "*.o")):
+            self.compile_code()
         self.get_os_detail()
         #self.load_graph()
         self.bin_convert(self._graph_file)

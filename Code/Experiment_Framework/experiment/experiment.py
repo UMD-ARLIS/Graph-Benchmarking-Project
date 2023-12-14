@@ -10,6 +10,10 @@ import json
 #Library Imports
 import networkx as nx
 
+import platform
+import subprocess
+import psutil
+
 
 #User File Imports
 
@@ -76,20 +80,35 @@ class Experiment():
     def set_num_workers(self, num_workers:int)->None:
         self._num_workers = num_workers
 
-    def get_os_detail(self)->dict:
-        os_detail = os.uname()
-        self._os_detail['sysname'] = os_detail.sysname
-        self._os_detail['nodename'] = os_detail.nodename
-        self._os_detail['release'] = os_detail.release
-        self._os_detail['version'] = os_detail.version
-        self._os_detail['machine'] = os_detail.machine
-        self._os_detail['cpu_count'] = os.cpu_count()
-        
-        process = os.popen("sysctl -n hw.memsize")
-        self._os_detail['total_memory_bytes'] = process.read().strip()
+    def get_os_detail(self) -> dict:
+        self._os_detail = {}
 
-        process.close()
-        del(os_detail)
+        # Using platform module for cross-platform compatibility
+        if os.name == 'posix':
+            os_detail = os.uname()
+            self._os_detail['sysname'] = os_detail.sysname
+            self._os_detail['nodename'] = os_detail.nodename
+            self._os_detail['release'] = os_detail.release
+            self._os_detail['version'] = os_detail.version
+            self._os_detail['machine'] = os_detail.machine
+
+            # Getting total memory for MacOS/Linux
+            process = os.popen("sysctl -n hw.memsize")
+            self._os_detail['total_memory_bytes'] = process.read().strip()
+            process.close()
+        elif os.name == 'nt':
+            self._os_detail['sysname'] = platform.system()
+            self._os_detail['nodename'] = platform.node()
+            self._os_detail['release'] = platform.release()
+            self._os_detail['version'] = platform.version()
+            self._os_detail['machine'] = platform.machine()
+
+            # Getting total memory for Windows
+            self._os_detail['total_memory_bytes'] = str(psutil.virtual_memory().total)
+
+        # Common detail for both platforms
+        self._os_detail['cpu_count'] = os.cpu_count()
+
         return self._os_detail
     
     def get_timings(self)->dict:

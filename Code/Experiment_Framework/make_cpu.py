@@ -27,7 +27,10 @@ def cmake_build():
 def louvain_test():
     #@vlad - Updated to use relative pathing rather than hard-coding
     tgt_dir = os.path.join("..","..","Graph_Problems","CommunityDetection","Louvian","CPU","vite_louvain")
-    subprocess.run(f'cd {tgt_dir} && make clean && make', shell=True, executable="/usr/bin/bash")
+    if os.name == 'posix':
+        subprocess.run(f'cd {tgt_dir} && make clean && make', shell=True, executable="/usr/bin/bash")
+    if os.name == 'nt':
+        subprocess.run(f'cd {tgt_dir} && make clean && make', shell=True)
 
 # Function to simulate deployment
 def deploy():

@@ -1,0 +1,20 @@
+{
+  "name": "TEST",
+  "system_information": {
+    "sysname": "Windows",
+    "nodename": "DESKTOP-KI9796J",
+    "release": "10",
+    "version": "10.0.19045",
+    "machine": "AMD64",
+    "total_memory_bytes": "34244702208",
+    "cpu_count": 20
+  },
+  "dataset_information": {
+    "source_file": "C:\\Users\\Vladimir\\Desktop\\Everything\\Work\\ARLIS\\HIVE\\Graph-Benchmarking-Project\\Code\\data\\community_detection\\SMALL_chesapeake.mtx",
+    "graph_summary": {}
+  },
+  "experiment_information": {
+    "algorithm": "louvain",
+    "num_workers": 1
+  }
+}
