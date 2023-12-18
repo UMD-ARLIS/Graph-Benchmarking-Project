@@ -1,0 +1,65 @@
+\documentclass[letterpaper, 10pt]{article}
+
+% % % % % % % % % % % % % %
+% Preamble
+% % % % % % % % % % % % % %
+ 
+%Get all the formatting details from preamble.tex
+\input{Style/preamble.tex}
+\input{Scripts/macros.tex}
+
+\begin{document}
+\pagestyle{empty}
+
+%Make the title block
+\title{\color{arlisRed}{
+    \LARGE{Benchmarking Hardware for Accelerating Intelligence and Security Graph Problems}}}
+
+\author{
+    \color{arlisRed}{
+        Kent O'Sullivan, {\small University of Maryland, osullik@umd.edu}\\
+        Amir Ghaemi, {\small Applied Research Laboratory for Intelligence and Security, aghaemi@arlis.umd.edu} \\
+        Nandini Ramachandran, {\small University of Maryland, nandinir@umd.edu} \\
+        Vladimir Rife, {\small Applied Research Laboratory for Intelligence and Security, vrife@umd.edu} \\
+        William Regli, {\small University of Maryland, regli@umd.edu}\\}
+    \small{\color{black}{                                           %Add as many POCs / mentors as you like on new lines
+        \textbf{Project Github:} \href{https://github.com/UMD-ARLIS/Graph-Benchmarking-Project}{https://github.com/UMD-ARLIS/Graph-Benchmarking-Project}\\
+        \textbf{ReadTheDocs:} \href{ReadTheDocs}{https://graph-benchmarking.readthedocs.io/en/latest/}
+    }} 
+}
+
+% % % % % % % % % % % % % %
+% Headers and footers
+% % % % % % % % % % % % % %
+\pagestyle{fancy}
+\fancyhead{}        %Flush the header and footer
+\fancyfoot{}
+%Header
+\fancyhead[C]{\small{\textbf{UNCLASSIFIED}}\vspace{55pt}}
+%Footer
+\fancyfoot[C]{\thepage \\ Approved for public release: distribution is unlimited.\\ © 2023 UMD/ARLIS. All Rights Reserved. Proprietary Information. \textbf{\\UNCLASSIFIED} }
+
+
+% % % % % % % % % % % % % %
+% Document Content
+% % % % % % % % % % % % % %
+
+\maketitle
+\latexfile{00_abstract}
+
+\begin{multicols}{2}    
+    
+    \latexfile{10_introduction}
+    \latexfile{20_architecture}
+    \latexfile{30_datasets}
+    \latexfile{40_implementations}
+    \latexfile{50_telemetry}
+    \latexfile{60_example}
+    \latexfile{70_contributing}
+    \section{References}
+        \printbibliography[heading=none]
+
+    \latexfile{99_glossary}
+    \end{multicols}
+    \newpage
+\end{document}
