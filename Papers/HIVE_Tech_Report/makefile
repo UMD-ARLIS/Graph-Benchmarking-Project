@@ -6,15 +6,16 @@ list:
 	@$(MAKE) -pRrq -f $(lastword $(MAKEFILE_LIST)) : 2>/dev/null | awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | sort | egrep -v -e '^[^[:alnum:]]' -e '^$@$$'
 
 clean:
-	rm -f *.aux *.dvi *.log *.bbl /*.pdf *~ *.out *.blg *.nav *.toc *.snm *.fdb_latexmk *.fls *.synctex.gz *.xmpi
+	rm -f *.aux *.dvi *.log *.bbl /*.pdf *~ *.out *.blg *.nav *.toc *.snm *.fdb_latexmk *.fls *.synctex.gz *.xmpi *.xml *.bcf
 	rm -f */*.aux */*.dvi */*.log */*.bbl */*~ */*.out */*.blg */*/*~
 	rm -fR auto_commit_fig
 	rm -fR auto_fig
 	rm -fR *.tgz
 	rm -f *.pdf
+	
 
 publish:
-	rm -f *.aux *.dvi *.log *.bbl /*.pdf *~ *.out *.blg *.nav *.toc *.snm *.fdb_latexmk *.fls *.synctex.gz *.xmpi
+	rm -f *.aux *.dvi *.log *.bbl /*.pdf *~ *.out *.blg *.nav *.toc *.snm *.fdb_latexmk *.fls *.synctex.gz *.xmpi *.xml *.bcf
 	rm -f */*.aux */*.dvi */*.log */*.bbl */*~ */*.out */*.blg */*/*~
 	rm -fR auto_commit_fig
 	rm -fR auto_fig
@@ -38,6 +39,7 @@ scripts/hunspell_dictionary.dic: scripts/dictionary.txt
 
 #%.pdf: %.tex auto_fig/res.txt $(TEX) $(BIB)
  %.pdf: %.tex $(TEX) $(BIB)
+	cp ../../../RollingLitReview/rollingPaper/bibliography/graph_benchmarking.bib Bibliography/hive.bib
 	latexmk --shell-escape -pdf -pv $*				#If fails to compile, try removing --shell-escape argument. Is required on MacOS. 
 	cp $@ ~/public_html/temp || true
 	./scripts/style-check.rb *.tex Sections/*.tex
