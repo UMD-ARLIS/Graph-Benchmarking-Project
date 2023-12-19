@@ -1,1 +1,30 @@
 \section{Benchmark Architecture}\label{section:architecture}
+Our benchmark consists of \textit{Datasets} specific to I\&S problem domains, \textit{Reference Implementations} of graph processing algorithms useful to the I\&S community and a suite of tools to collect the \textit{Telemetry} required to determine whether a given hardware platform is better suited for a specific graph processing task. 
+
+\subsection{Design Philosophy}
+The AGHAB is driven by empirical methods in computer science~\cite{Hooker1994,Hooker1995,Mcgeoch1996}.
+Broadly, rather than developing a `leaderboard' to identify which particular hardware accelerator is `best', we aim to develop a platform to facilitate research exploring how the interactions of the problem datasets, reference implementations and hardware accelerators relate to the \textit{effectiveness} and \textit{efficency} of a problem. 
+Here, \textit{effectiveness} is the fitness for solving a problem and measures the correctness and quality of the solution produced by the reference implementation. 
+The \textit{efficency} measures the throughput, resource consumption, and execution speed.
+An optimal solution is efficient and effective, but most approaches accept degradation in one for improvement in the other. 
+The AGHAB is designed to be transparent, reproducible and portable.
+
+\subsection{Operational View 1}
+Figure~\ref{figure:ov1} shows the high-level use case for the AGHAB. 
+An evaluation using AGHAB begins with downloading the benchmark from the ARLIS GitHub. 
+They unpack the benchmark datasets, reference implementations and telemetry suite, and define experiments to run.
+An \textit{experiment} is a single run combining a dataset, reference implementation and hardware platform.
+The experiment specification drives the experiment framework, controlling the compilation, dataset generation, instrumentation, execution, telemetry and reporting of the benchmark system.
+Related experiments are collected into an \textit{experiment suite}.
+An evaluator can define their own compiler and other external dependencies in the experiment specification to facilitate deploying the benchmark on their hardware. 
+Once the experiment suite is complete, the evaluator receives a report created from the collected telemetry, and the system adds the results to the records. 
+
+\subsection{Operational View 2}
+The three components of the AGHAB shown in figure~\ref{figure:ov2} control variance in the datasets, implementation and measurement so that the focus of the variable under exam remains the hardware platform. 
+The experiment defines the dataset(s) to be tested against.
+The datasets are usually pre-generated but may be dynamically generated if required. 
+The experiment defines the reference implementation to use, and facilitates compilation where required.
+If passes the dataset to the reference implementation, and evaluates the output against the ground-truth to generate the measures of \textit{effectiveness}.
+The experiment framework initializes the telemetry suite, and controls the collection, fusion and analysis of telemetry. 
+The results of the analysis are passed to the reporting module, which generates reports for the evaluator, and posts results to the system for tracking. 
+
