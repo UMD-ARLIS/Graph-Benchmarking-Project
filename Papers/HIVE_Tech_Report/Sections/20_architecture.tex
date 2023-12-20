@@ -18,6 +18,11 @@ The experiment specification drives the experiment framework, controlling the co
 Related experiments are collected into an \textit{experiment suite}.
 An evaluator can define their own compiler and other external dependencies in the experiment specification to facilitate deploying the benchmark on their hardware. 
 Once the experiment suite is complete, the evaluator receives a report created from the collected telemetry, and the system adds the results to the records. 
+\begin{figure*}
+    \includesvg[width=\textwidth]{ov1}
+    \label{figure:ov1}
+    \caption{A user of the AGHAB provides their hardware, optionally any required compiler and a specification of the experiments to run.}
+\end{figure*}
 
 \subsection{Operational View 2}
 The three components of the AGHAB shown in figure~\ref{figure:ov2} control variance in the datasets, implementation and measurement so that the focus of the variable under exam remains the hardware platform. 
