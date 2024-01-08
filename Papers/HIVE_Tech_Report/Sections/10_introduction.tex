@@ -4,44 +4,50 @@
     \textbf{Purpose.}The purpose of this technical report is to describe the design and implementation of the \textit{ARLIS Graph Hardware Acceleration Benchmark} (AGHAB).
 }
 
-\par{\textbf{Motivation.} A recent analysis of the computing requirements of the United States (US) intelligence and Security (I\&S) community shows that many of the core analytic problems are formulated as graph processing problems~\cite{Regli2022a}.
-Formally, a Graph $\mathcal{G}$ is a data structure with a set of nodes (vertexes) $V$ and a set of connections between those nodes (edges) $E$ such that $\mathcal{G} = \{V,E\}$.
-A common problem that the I\&S community may use graphs to model is a social network graph, where each vertex is a person, and each node represents a social relationship between the two people (nodes) it connects.
-Intelligence graph datasets like social network graphs quickly grow to billions of edges. 
-The worst-case performance of many graph processing algorithms is quadratic in the number of edges, meaning that the larger a graph becomes, the slower it is to process it. 
+\par{
+    \textbf{Motivation.} A recent analysis of the computing requirements of the United States (US) Intelligence and Security (I\&S) community shows that many of the core analytic problems are formulated as graph processing problems~\cite{Regli2022a}.
+    Formally, a Graph $\mathcal{G}$ is a data structure with a set of nodes (vertexes) $V$ and a set of connections between those nodes (edges) $E$ such that $\mathcal{G} = \{V,E\}$.
+    A common problem that the I\&S community may use graphs to model is a social network graph, where each vertex is a person, and each node represents a social relationship between the two people (nodes) it connects.
+    Intelligence graph datasets like social network graphs quickly grow to billions of edges. 
+    The worst-case performance of many graph processing algorithms is quadratic in the number of edges, meaning that the larger a graph becomes, the slower it is to process it.} 
 
-In an environment where collection streams are constant, a \textit{streaming graph} is continuously updated with new information.
-Additionally, to maintain compliance with legislative requirements, collected information may need to be purged after some time has passed.
-With new data changing the shape of a graph, and the requirement to delete data, the graph analysis becomes temporally bound, so timely graph processing of streaming graphs is critical. 
+\par{
+    In an environment where collection streams are constant, a \textit{streaming graph} is continuously updated with new information.
+    Additionally, to maintain compliance with legislative requirements, collected information may need to be purged after some time has passed.
+    With new data changing the shape of a graph, and the requirement to delete data, the graph analysis becomes temporally bound, so timely graph processing of streaming graphs is critical.} 
 
-The traditional approach to reduce the time required to compute large datasets is to parallelize them. 
-Graph algorithms are difficult to parallelize, and in particular, are poorly suited for the distributed parallelism favoured for processing very large datasets because of the difficulty of selecting partition points, and the lack of spatial locality in graph data structures~\cite{Beamer2015}.
-Shared memory parallelism approaches have been shown as viable on very large graphs for a wide collection of algorithms~\cite{Dhulipala2021}, but still perform suboptimally compared to other data structures of similar size because of their irregular structure, which manifests as memory-boundedness.
-That is, operations on graphs themselves are computationally simple, but because the information being processed is not necessarily proximal in memory traditional optimization approaches like caching and branch prediction are ineffective~\cite{Aananthakrishnan2020}.
-If caching is problematic, it follows that a processor that makes limited use of caching like a Graphic Processing Unit (GPU) should be a better choice for graph processing. 
-However, GPUs are poorly suited for many graph problems because of the \textit{sparsity} of graphs.
-\textit{Sparsity} here means that when the graph is stored in memory (particularly as an adjacency matrix) there is a lot of `empty space'. 
-% Empty space occurs because most graphs reflecting real-world phenomena are irregularly shaped, while our way of storing them expects regularity. 
-% More precisely, the distribution of edges follows a power-law distribution, where a small number of nodes have the majority of edges. 
-% In a social network graph described above, a high-profile individual might have many `friends', but most average individuals only have a small group of people whom they interact with.
-% To store the graph, we need to track who knows who, and so if there are a million individuals in the graph we must explicitly track the few dozen people they know (the edges connecting them to their friends) and implicitly track the almost million others they don't know
-GPUs in particular are optimized for dense-matrix multiplication operations, so processing these graphs with a lot of `empty space' means the matrices that represent them are sparse, not dense and so have a lot of wasted computation.
-The GUNROCK approach in particular is notable in GPU-based graph processing~\cite{Wang2016} but still suffers from resource under-utilization compared to operations on natively dense data structures, like images. 
+\par{
+    The traditional approach to reduce the time required to compute large datasets is to parallelize them. 
+    Graph algorithms are difficult to parallelize, and in particular, are poorly suited for the distributed parallelism favoured for processing very large datasets because of the difficulty of selecting partition points, and the lack of spatial locality in graph data structures~\cite{Beamer2015}.
+    Shared memory parallelism approaches have been shown as viable on very large graphs for a wide collection of algorithms~\cite{Dhulipala2021}, but still perform suboptimally compared to other data structures of similar size because of their irregular structure, which manifests as memory-boundedness.
+    That is, operations on graphs themselves are computationally simple, but because the information being processed is not necessarily proximal in memory traditional optimization approaches like caching and branch prediction are ineffective~\cite{Aananthakrishnan2020}.
+    If caching is problematic, it follows that a processor that makes limited use of caching like a Graphic Processing Unit (GPU) should be a better choice for graph processing. 
+    However, GPUs are poorly suited for many graph problems because of the \textit{sparsity} of graphs.
+        \textit{Sparsity} here means that when the graph is stored in memory (particularly as an adjacency matrix) there is a lot of `empty space'. 
+    % Empty space occurs because most graphs reflecting real-world phenomena are irregularly shaped, while our way of storing them expects regularity. 
+    % More precisely, the distribution of edges follows a power-law distribution, where a small number of nodes have the majority of edges. 
+    % In a social network graph described above, a high-profile individual might have many `friends', but most average individuals only have a small group of people whom they interact with.
+    % To store the graph, we need to track who knows who, and so if there are a million individuals in the graph we must explicitly track the few dozen people they know (the edges connecting them to their friends) and implicitly track the almost million others they don't know
+    GPUs in particular are optimized for dense-matrix multiplication operations, so processing these graphs with a lot of `empty space' means the matrices that represent them are sparse, not dense and so have a lot of wasted computation.
+    The GUNROCK approach in particular is notable in GPU-based graph processing~\cite{Wang2016} but still suffers from resource under-utilization compared to operations on natively dense data structures, like images.} 
+\par{
+    If the representation of graphs is the issue degrading performance, changing that representation to a more efficient one appears wise. 
+    The Graph Basic Linear Algebra Subprogram (GraphBLAS) project is an effort to evolve the representation of Graphs and implementations of graph processing algorithms to leverage linear algebraic representations and primitive operations to improve the consistency, effectiveness and efficiency of graph processing~\cite{Mattson2013, Mattson2019, Kepner2015, Kepner2016, Brock2021}.
+    Benchmarking of GraphBLAS against other approaches has shown it to execute slower than other approaches, likely due to the computational cost of the abstraction layer that makes it such an attractive option~\cite{Azad2020}.
+} 
 
-If the representation of graphs is the issue degrading performance, changing that representation to a more efficient one appears wise. 
-The Graph Basic Linear Algebra Subprogram (GraphBLAS) project is an effort to evolve the representation of Graphs and implementations of graph processing algorithms to leverage linear algebraic representations and primitive operations to improve the consistency, effectiveness and efficiency of graph processing~\cite{Mattson2013,Mattson2019,Kepner2015,Kepner2016,Brock2021}.
-Benchmarking of GraphBLAS against other approaches has shown it to execute slower than other approaches, likely due to the computational cost of the abstraction layer that makes it such an attractive option~\cite{Azad2020}. 
-
-Related work comparing the original BLAS performance across different hardware systems suggests that Field Programmable Gate Arrays (FPGA) and Application Specific Integrated Circuits (ASIC) can significantly accelerate linear algebraic operations~\cite{Kestur2010,Xiong2020}.
-
-Exploring how to accelerate the processing of these large streaming graphs is one of the core goals of the Defense Advanced Research Projects Agency (DARPA) Hierarchical Identify Verify Exploit (HIVE) program, and relates to work undertaken in the DARPA Software Defined Hardware (SDH) program~\cite{Regli2022b}.
-Many emerging hardware architectures optimized for graph processing are emerging, like EMU~\cite{Dysart2016}, Graphicianado~\cite{Ham2016}, the Lincoln Labs architecture~\cite{Song2016} and PiUMA~\cite{Aananthakrishnan2020} among others~\cite{Peccerillo2022} will be similarly limited.
-
-The proliferation of new hardware options presents an imperative for those acquiring and integrating graph hardware accelerators to select the best processor for the task at hand. 
-There is currently no benchmark designed to enable the comparison of relevant I\&S algorithms across hardware architectures, on graph problems that reflect the real-world problems that they will be expected to process. 
-The AGHAB aims to fill the gap. 
-
-The remainder of this report outlines the architecture of the AGHAB (section~\ref{section:architecture}), describes the benchmarks, reference implementations and telemetry in sections ~\ref{section:datasets},~\ref{section:implementations} and \ref{section:telemetry} before providing an example usage of the benchmark (section~\ref{section:example}) and summarizing contribution guidelines in section~\ref{section:contributing}.
-
-}
-
+\par{
+    Related work comparing the original BLAS performance across different hardware systems suggests that Field Programmable Gate Arrays (FPGA) and Application Specific Integrated Circuits (ASIC) can significantly accelerate linear algebraic operations~\cite{Kestur2010,Xiong2020}.
+    }
+\par{
+    Exploring how to accelerate the processing of these large streaming graphs is one of the core goals of the Defense Advanced Research Projects Agency (DARPA) Hierarchical Identify Verify Exploit (HIVE) program, and relates to work undertaken in the DARPA Software Defined Hardware (SDH) program~\cite{Regli2022b}.
+    Many emerging hardware architectures optimized for graph processing are emerging, like EMU~\cite{Dysart2016}, Graphicianado~\cite{Ham2016}, the Lincoln Labs architecture~\cite{Song2016} and PiUMA~\cite{Aananthakrishnan2020} among others~\cite{Peccerillo2022} will be similarly limited.
+    }
+\par{
+    The proliferation of new hardware options presents an imperative for those acquiring and integrating graph hardware accelerators to select the best processor for the task at hand. 
+    There is currently no benchmark designed to enable the comparison of relevant I\&S algorithms across hardware architectures, on graph problems that reflect the real-world problems that they will be expected to process. 
+    The AGHAB aims to fill the gap. 
+    }
+\par{
+    The remainder of this report outlines the architecture of the AGHAB (section~\ref{section:architecture}), describes the benchmarks, reference implementations and telemetry in sections ~\ref{section:datasets},~\ref{section:implementations} and \ref{section:telemetry} before providing an example usage of the benchmark (section~\ref{section:example}) and summarizing contribution guidelines in section~\ref{section:contributing}.
+    }
