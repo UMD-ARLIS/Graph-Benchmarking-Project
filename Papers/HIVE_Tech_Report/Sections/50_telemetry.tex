@@ -31,7 +31,7 @@
     AGHAB currently uses a mix of instruction counting and in-code counters to track the node `traversals'. 
     AGHAB uses Valgrind to measure a workload's peak and total memory consumption. Because of the substantial degradation to execution time introduced by Valgrind, it has proven infeasible for us to profile memory consumption above the \textit{Medium} size datasets. 
     We initially intended to measure the spatial and temporal locality of memory. We discovered that these factors are highly dataset-dependent. Still, we believe that characterizing the locality of a given workload remains important to quantifying potential performance differences between the hardware architectures. 
-    To measure power we \osullikomment{Add here}
+    To measure power we are implementing the Open-Source PowerAPI to measure the power consumption of the benchmark tests\footnote{\url{https://powerapi.org/}}
     To measure network we \osullikomment{Add here}
 
     \subsection{Reporting}

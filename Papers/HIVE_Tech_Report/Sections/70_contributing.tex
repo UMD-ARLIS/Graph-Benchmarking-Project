@@ -1,1 +1,17 @@
 \section{Contributing}\label{section:contributing}
+The AGHAB is designed as an extensible framework for benchmarking graph hardware accelerators. 
+The reference CPU and GPU implementations are designed to provide points of reference for an accelerator device under test (DUT). 
+We envision contributions in two forms. 
+First, is deploying the AGHAB on different CPU and GPU baseline hardware, using the datasets and reference implementations provided. 
+Second is adding a graph hardware accelerator to the AGHAB. 
+
+\subsection{Baseline Hardware Extension}
+Each deployment of AGHAB requires CPU and GPU available to generate the relevant baselines. 
+To port between hardware, the experimenter need only provide the relevant compiler for their hardware as a parameter for the experiment framework. 
+Currently, the GPU code from the Gunrock project is in CUDA, so is limited to NVIDIA devices.
+
+\subsection{Graph Hardware Accelerator Extension}
+To add a new hardware accelerator to the AGHAB, the experimenter will need to create a new subclass of the \textit{Experiment} class in the Experiment Framework. 
+The \textit{Experiment} class structure automates the inclusion of hardware into the experiment pipeline, and requires detail about the location of compilers, translating the experiment parameters into the parameters expected by the DUT and routing any internal telemetry back to the reporting functions. 
+Detail on constructing a new \textit{Experiment} subclass is in the ReadTheDocs for the project.
+Should the Graph Hardware Accelerator require a reference implementation distinct from the provided reference implementations, it will also have to be provided by the experimenter and placed in the \textit{graph\_problems} directory and included in the new experiment subclass.
