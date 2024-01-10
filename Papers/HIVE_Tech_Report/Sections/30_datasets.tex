@@ -2,15 +2,15 @@
 Benchmark datasets are the `problems' that must be solved.
 Problems should vary in complexity and cover the range of tasks expected of the accelerators `in the real world'.
 Datasets can be synthetic, real-world or somewhere in between.
-Previaling wisdom says that real-world datasets shold be used for graph problems, because of the intrinsic relationship between the shape of the input graph and the computational complexity of the problem~\cite{Beamer2017}.
+Prevailing wisdom says that real-world datasets should be used for graph problems, because of the intrinsic relationship between the shape of the input graph and the computational complexity of the problem~\cite{Beamer2017}.
 Most of these datasets are sourced from the Stanford Network Analysis Project (SNAP)~\cite{Leskovec2014}, an excellent resource for general-purpose graph datasets.
-Ideally, we would use real I\&S datasets, however classification and privacy concerns preclude the use of real data. 
-The best alternative sees us distil I\&S datasets to their statistical properties and using those properties to generate graphs that mimic the properties of the original graph while enforcing confidentiality of the source data. 
-Research in generating graphs from statistical properties is ongoing~\osullikomment{cite} as are other privacy-preserving techniques~\osullikomment{cite}.
-Without access to real data, or a realistic proxy, we must decide whether to use synthetic graphs, general-purpose graph datasets or both. 
-The advantage of synthetically generated datasets is that, carefully designed, they offer a controlled environment for testing the various structural, algorithmic and computational stressors, while preventing the inadvertant over-fitting of solutions to benchmark problems~\cite{Hooker1994,Hooker1995}. 
-Random graphs like \osullikomment{Erdos-R{`e}nyi} are used extensively for theoretical analysis of graph algorithims, but typically generate results inconsistent with real-world datasets where factors like mean degree, degree skew and diameter. 
-Many synthetic graphs generators exist, but because of the varying requirements of the algorithms that they test, they are typically domain-constrained. 
+Ideally, we would use real I\&S datasets, however, classification and privacy concerns preclude the use of real data. 
+The best alternative sees us distilling I\&S datasets to their statistical properties and using those properties to generate graphs that mimic the properties of the original graph while enforcing the confidentiality of the source data. 
+Research in generating graphs from statistical properties is ongoing~\cite{Zahirnia2023} as are other privacy-preserving techniques in the geospatial computing domain.
+Without access to real data or a realistic proxy, we must decide whether to use synthetic graphs, general-purpose graph datasets or both. 
+The advantage of synthetically generated datasets is that carefully designed, they offer a controlled environment for testing the various structural, algorithmic and computational stressors while preventing the inadvertent over-fitting of solutions to benchmark problems~\cite{Hooker1994, Hooker1995}. 
+Random graphs like Erd\H{o}s-R\'enyi are used extensively for theoretical analysis of graph algorithms but typically generate results inconsistent with real-world datasets where factors like mean degree, degree skew and diameter. 
+Many synthetic graph generators exist, but because of the varying requirements of the algorithms that they test, they are typically domain-constrained. 
 That is, there is no general-purpose generator that can create graphs suitable to evaluate the \textit{effectiveness} and \textit{efficency} of all graph algorithms. 
 So, we must generate graphs specific to the problem being solved to evaluate the effectiveness of the solution. 
 The two problems we examine are \textit{Community Detection} and \textit{Subgraph Matching}.
@@ -21,26 +21,28 @@ The difficulty range applies to both the \textit{effectiveness} and \textit{effi
 While they often overlap, they are sometimes disjoint. 
 
 Based on a review of the community detection literature over the last three decades, we identify the features of a community detection problem that make them `easy' or `hard'.
-Some reflect general graph properties, others are domain specific. 
+Some reflect general graph properties, others are domain-specific. 
 
 `Easier' graphs have smaller node counts, are sparser and communities are well-defined cliques. 
 `Harder' graphs have larger node counts, are denser and have `fuzzy' communities. 
-`Harder' graphs have heterogeneous communities where both the number and size of communities follow power-law distriibutions.
-`Harder' graphs have overlapping communties, are dynamic and feature no further information beyond the topology of the graph.
-Many of the newer approaches use additional information sources like edge weights, node labels or external constriants to improve community detection results. 
+`Harder' graphs have heterogeneous communities where both the number and size of communities follow power-law distributions.
+`Harder' graphs have overlapping communities, are dynamic and feature no further information beyond the topology of the graph.
+Many of the newer approaches use additional information sources like edge weights, node labels or external constraints to improve community detection results. 
 
-So, when paramaterized, we need to be able to control the number of nodes, the mean degree density, the distribution of community size, the fuzziness of communities and the inclusion of metadata.
+So, when parameterized, we need to be able to control the number of nodes, the mean degree density, the distribution of community size, the fuzziness of communities and the inclusion of metadata.
 
 Several community detection dataset generators exist, with the Girvan-Newman Generator~\cite{Girvan2002} originating the idea of community detection problems. 
-It is limited in only producing random graphs. 
-The Lancichinetti Fortunato Radicchi (LFR) generator remains the defacto standard for generating community detection problems~\cite{Lancichinetti2008}. 
-The Advantage of LFR is that it is available in common graph libraries, but it is brittle to variance in parameters when solving a graph structure, making automated paramaterization difficult and is not able to include metadata used by many newer approaches. 
+It is limited to only producing random graphs. 
+The Lancichinetti Fortunato Radicchi (LFR) generator remains the de facto standard for generating community detection problems~\cite{Lancichinetti2008}. 
+The Advantage of LFR is that it is available in common graph libraries, but it is brittle to variance in parameters when solving a graph structure, making automated parameterization difficult and unable to include metadata used by many newer approaches. 
 The newer acMark~\cite{Maekawa2019} and GenCAT~\cite{Maekawa2023} generators offer control over these metadata additions but are brittle in their implementation, mostly only available as jupyter notebooks. 
 
-\osullikomment{our approach takes...}
-
+We use the LFR generator for the initial version of the AGHAB, supplemented with the canonical community detection datasets: Zachary's Karate Club~\cite{Zachary1977}, Polbooks \& Polblogs~\cite{Newman2006} and DBLP~\cite{Yang2012}.
+Future releases will integrate the GenCAT generator. 
 
 \subsection{Subgraph Matching}
-
+For initial testing, we develop a small subgraph-matching problem generator that walks an input graph until a cycle is detected, then uses a random walk to generate a subgraph of the desired size.
+It is suited for existence testing, but not counting.
+Future releases will include a deeper review of subgraph matching problem definitions and a generator that parameterizes the difficulty factors, similar to the community detection examples. 
 
 

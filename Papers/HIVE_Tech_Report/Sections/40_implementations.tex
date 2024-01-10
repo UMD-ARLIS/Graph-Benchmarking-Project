@@ -14,7 +14,7 @@
     
 \subsection{Problem Domains}
     Two problem sets, community detection and subgraph matching are the chosen graph problems relevant to the I\&S domain. 
-    Both are NP-Complete problems with real-world applications, and so balance the complexity and utility for a useful benchmark.    
+    Both are NP-complete problems with real-world applications so balance the complexity and utility for a useful benchmark.    
 
     \subsubsection{Community Detection}
         The Community Detection problem asks: given a graph, are there elements of that graph more tightly connected than other parts? 
@@ -32,7 +32,7 @@
 
 \subsection{Reference Implementations}\label{subsection:reference_implementations}
 
-Ideally, a single code base will be recompiled to automatically optimize for each hardware architecture -- the GraphBLAS suite offers this layer of abstraction as it reaches maturity and porting the implementations to GraphBLAS is important future work. 
+Ideally, a single code base will be recompiled to automatically optimize for each hardware architecture -- the GraphBLAS suite offers this layer of abstraction as it reaches maturity and porting the implementations to GraphBLAS is important for future work. 
 
 Currently, the AGHAB uses widely accepted parallel implementations specific to each architecture (CPU, GPU, etc), aiming to identify where the same algorithm is optimized to run on different hardware, rather than forcing all hardware to run the same code.
 The serial performance is derived by running the parallel implementation with a single worker node.
@@ -44,7 +44,7 @@ Instead, an experimenter specifies the number of workers, the datasets to use, t
 
 The Louvain algorithm is a widely used heuristic approach for community detection with numerous implementations available~\cite{Blondel2008}. 
 It optimizes modularity, a metric that quantifies the quality of community assignments based on the density of connections within communities compared to those between communities~\cite{Newman2004a}. 
-The Vite~\cite{Ghosh2018,Ghosh2018a,Ghosh2019} (CPU) and Gunrock~\cite{Wang2016} (GPU) implement The Louvain algorithm in AGHAB, with minor changes.
+The Vite~\cite{Ghosh2018, Ghosh2018a, Ghosh2019} (CPU) and Gunrock~\cite{Wang2016} (GPU) implement The Louvain algorithm in AGHAB, with minor changes.
 
     \underline{\textbf{Vite}}
         Vite is a Message Passing Interface (MPI)+Open Multi-Processing (OpenMP) distributed memory parallel implementation of the Louvain method for community detection developed by Washington State University and the Pacific Northwest National Laboratory\footnote{\url{https://github.com/ECP-ExaGraph/vite}}.
@@ -56,11 +56,11 @@ The Vite~\cite{Ghosh2018,Ghosh2018a,Ghosh2019} (CPU) and Gunrock~\cite{Wang2016}
         % Gunrock's performance has been extensively evaluated across various GPU architectures and graph primitives, including traversal-based and ranking algorithms, as well as triangle counting and bipartite-graph-based algorithms. 
         % Gunrock is tailored for parallel GPU architectures, making it well-suited for handling large-scale networks efficiently and measuring performance across the GPU. 
         % Gunrock`s data-centric programming model is targeted at GPUs and offers advantages over other programming models. 
-        % Gunrock`s programming model is a better fit to high-performance GPU implementations than traditional programming models adapted from CPUs. 
+        % Gunrock`s programming model is a better fit for high-performance GPU implementations than traditional programming models adapted from CPUs. 
         % It is important to note that Gunrock does no preprocessing on its datasets and that its default parameters run the simplest possible configurations.
         We use the Gunrock implementation of the Louvain algorithm from the dev branch of version $1.2$ of the Gunrock library\footnote{\url{https://github.com/gunrock/gunrock/tree/dev/examples/louvain}}. It was not part of the stable release, so the AGHAB version has minor modifications to support compilation and execution. 
         The Gunrock library expects the Matrix Market Graph Format (MTX) as input, and graphs stored in other formats are converted to MTX before processing.  
-        % To run the implementation the following parameterized information is needed: input graph file name, path to the file, number of threads. 
+        % To run the implementation the following parameterized information is needed: input graph file name, path to the file, and number of threads. 
         % For testing, we ran Gunrock on an NVIDIA Tesla GPU using a remote Amazon EC2 server. 
         The process of cloning the original Gunrock repository, compiling it, gathering data input, running the algorithm, and extracting metrics has been automated and abstracted using the benchmarking framework.
 
@@ -78,7 +78,7 @@ The Vite~\cite{Ghosh2018,Ghosh2018a,Ghosh2019} (CPU) and Gunrock~\cite{Wang2016}
     \underline{\textbf{Gunrock Subgraph Matching}}
         GSM is BFS-based, allowing it to leverage the parallel processing capabilities of the GPU.
         We use the implementation from the dev branch of version $1.2$ of Gunrock\footnote{\url{https://github.com/gunrock/gunrock/tree/dev/examples/sm}} in AGHAB 
-        % Using the standard DFS approach is difficult to parallelize because it is recursive and needs extra scheduling in order to make use of many parallel cores, making it a non GPU-friendly approach. 
+        % Using the standard DFS approach is difficult to parallelize because it is recursive and needs extra scheduling in order to make use of many parallel cores, making it a non-GPU-friendly approach. 
         GSM borrows ideas from VF3, specifically during preprocessing when precomputing the query nodes` order based on the Maximum Likelihood Estimation (MLE) method. 
         % GSM was therefore a suitable choice to use as a reference implementation given its convenience as an already established tool part of the Gunrock library and its relevance and efficiency as a subgraph matching algorithm. 
         % A similar approach to the Gunrock Louvain implementation was repeated here to benchmark test datasets on the GPU. 

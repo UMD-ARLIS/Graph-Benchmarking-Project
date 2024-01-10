@@ -5,13 +5,13 @@
 
     \subsection{Metrics}
     \subsubsection{Temporal Metrics}
-    The \textit{time} dimension should cover both execution time for the algorithm, as well as the Extract-Transform-Load (ETL) time required to prepare the input graph for analysis. 
+    The \textit{time} dimension covers both the execution time for the algorithm, as well as the Extract-Transform-Load (ETL) time required to prepare the input graph for analysis. 
     
     \subsubsection{Throughput Metrics}
-    Throughput counts the number of graph nodes that can be processed in a given time box, and is measured as Traversed Edges Per Second (TEPS)
+    Throughput counts the number of graph nodes that can be processed in a given time box and is measured as Traversed Edges Per Second (TEPS)
 
     \subsubsection{Memory Measurement}
-    Many graph applications are memory-bound~\cite{Aananthakrishnan2020,Beamer2015} and so understanding memory latency, Last Level Cache (LLC) miss rates, peak memory usage, spatial locality and temporal locality offer important insights into the operation of the underlying hardware given a dataset and algorithm, helping to describe whether memory acceleration is required and useful.
+    Many graph applications are memory-bound~\cite{Aananthakrishnan2020, Beamer2015} and so understanding memory latency, Last Level Cache (LLC) miss rates, peak memory usage, spatial locality and temporal locality offer important insights into the operation of the underlying hardware given a dataset and algorithm, helping to describe whether memory acceleration is required and useful.
     
     \subsubsection{Network Metrics}
     In a distributed setting the bottleneck in performance may be the latency sending messages between worker nodes across the network. 
@@ -22,7 +22,7 @@
     Perhaps a system is limited to a small form factor, and so can only access a limited amount of power, and weight when processing graph data. 
     Alternately, power is an ongoing sustainment cost. 
     Budgetary constraints and fiscal responsibility encourage us to minimize the amount of power used to complete a task. 
-    The measure of consumed Watts (W) is a leveling metric that is used in conjunction with other metrics to estimate the hardware efficiency (e.g. TEPS per Watt, Watts per minute).
+    The measure of consumed Watts (W) is a leveling metric that is used in conjunction with other metrics to estimate the hardware efficiency (e.g. TEPS per watt, Watts per minute).
 
     \subsection{Measurement}
 
@@ -31,8 +31,8 @@
     AGHAB currently uses a mix of instruction counting and in-code counters to track the node `traversals'. 
     AGHAB uses Valgrind to measure a workload's peak and total memory consumption. Because of the substantial degradation to execution time introduced by Valgrind, it has proven infeasible for us to profile memory consumption above the \textit{Medium} size datasets. 
     We initially intended to measure the spatial and temporal locality of memory. We discovered that these factors are highly dataset-dependent. Still, we believe that characterizing the locality of a given workload remains important to quantifying potential performance differences between the hardware architectures. 
-    To measure power we are implementing the Open-Source PowerAPI to measure the power consumption of the benchmark tests\footnote{\url{https://powerapi.org/}}
-    To measure network we \osullikomment{Add here}
+    To measure power we are currently extending the benchmark to use the Open-Source PowerAPI to measure the power consumption of the benchmark tests\footnote{\url{https://powerapi.org/}}. 
+    Measuring network latency will be implemented in a future release.
 
     \subsection{Reporting}
     The AGHAB produces reports on a per-experiment basis and can generate comprehensive reports across multiple experiments. 

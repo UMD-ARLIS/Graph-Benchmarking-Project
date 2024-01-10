@@ -16,28 +16,29 @@ They unpack the benchmark datasets, reference implementations and telemetry suit
 An \textit{experiment} is a single run combining a dataset, reference implementation and hardware platform.
 The experiment specification drives the experiment framework, controlling the compilation, dataset generation, instrumentation, execution, telemetry and reporting of the benchmark system.
 Related experiments are collected into an \textit{experiment suite}.
-An evaluator can define their own compiler and other external dependencies in the experiment specification to facilitate deploying the benchmark on their hardware. 
+An evaluator can define their compiler and other external dependencies in the experiment specification to facilitate deploying the benchmark on their hardware.
 Once the experiment suite is complete, the evaluator receives a report created from the collected telemetry, and the system adds the results to the records. 
 \begin{figure*}
     \centering
     \includesvg[width=0.8\textwidth]{ov1}
+    \caption{A user of the AGHAB provides their hardware, compiler and a specification of the experiments to run. They may optionally define a new experiment subclass if required to integrate their hardware into the experiment framework.}
     \label{figure:ov1}
-    \caption{A user of the AGHAB provides their hardware, optionally any required compiler and a specification of the experiments to run.}
 \end{figure*}
+
 \begin{figure*}
     \centering
     \includesvg[width=0.8\textwidth]{ov2}
+    \caption{The Experiment Framework reads the experiment specification, collects the specified datasets, and reference implementations and creates an experiment to task the baseline CPU, GPU and Graph Hardware Accelerators (GHA). It controls the data collection and report generation.}
     \label{figure:ov2}
-    \caption{The Experiment Framework reads the experiment specification and collects the specified datasets, the reference implementations and creates an experiment to task the baseline CPU, GPU and Graph Hardware Accelerators (GHA). It controls the data collection and report generation.}
 \end{figure*}
 
 \subsection{Operational View 2}
-The three components of the AGHAB shown in figure~\ref{figure:ov2} control variance in the datasets, implementation and measurement so that the focus of the variable under exam remains the hardware platform. 
+The components of the AGHAB shown in figure~\ref{figure:ov2} control variance in the datasets, implementation and measurement so that the focus of the variable under exam remains the hardware platform. 
 The experiment defines the dataset(s) to be tested against.
 The datasets are usually pre-generated but may be dynamically generated if required. 
-The experiment defines the reference implementation to use, and facilitates compilation where required.
+The experiment defines the reference implementation to use and facilitates compilation where required.
 If passes the dataset to the reference implementation, and evaluates the output against the ground-truth to generate the measures of \textit{effectiveness}.
-The experiment framework initializes the telemetry suite, and controls the collection, fusion and analysis of telemetry. 
+The experiment framework initializes the telemetry suite and controls the collection, fusion and analysis of telemetry. 
 The results of the analysis are passed to the reporting module, which generates reports for the evaluator, and posts results to the system for tracking. 
 
 

@@ -1,12 +1,12 @@
 \section{Introduction}\label{section:introduction}
 
 \par{
-    \textbf{Purpose.}The purpose of this technical report is to describe the design and implementation of the \textit{ARLIS Graph Hardware Acceleration Benchmark} (AGHAB).
+    \textbf{Purpose.} The purpose of this technical report is to describe the design and implementation of the \textit{ARLIS Graph Hardware Acceleration Benchmark} (AGHAB).
 }
 
 \par{
     \textbf{Motivation.} A recent analysis of the computing requirements of the United States (US) Intelligence and Security (I\&S) community shows that many of the core analytic problems are formulated as graph processing problems~\cite{Regli2022a}.
-    Formally, a Graph $\mathcal{G}$ is a data structure with a set of nodes (vertexes) $V$ and a set of connections between those nodes (edges) $E$ such that $\mathcal{G} = \{V,E\}$.
+    Formally, a Graph $\mathcal{G}$ is a data structure with a set of nodes (vertexes) $V$ and a set of connections between those nodes (edges) $E$ such that $\mathcal{G} = \{V, E\}$.
     A common problem that the I\&S community may use graphs to model is a social network graph, where each vertex is a person, and each node represents a social relationship between the two people (nodes) it connects.
     Intelligence graph datasets like social network graphs quickly grow to billions of edges. 
     The worst-case performance of many graph processing algorithms is quadratic in the number of edges, meaning that the larger a graph becomes, the slower it is to process it.} 
@@ -37,11 +37,11 @@
 } 
 
 \par{
-    Related work comparing the original BLAS performance across different hardware systems suggests that Field Programmable Gate Arrays (FPGA) and Application Specific Integrated Circuits (ASIC) can significantly accelerate linear algebraic operations~\cite{Kestur2010,Xiong2020}.
+    Related work comparing the original BLAS performance across different hardware systems suggests that Field Programmable Gate Arrays (FPGA) and Application Specific Integrated Circuits (ASIC) can significantly accelerate linear algebraic operations~\cite{Kestur2010, Xiong2020}.
     }
 \par{
     Exploring how to accelerate the processing of these large streaming graphs is one of the core goals of the Defense Advanced Research Projects Agency (DARPA) Hierarchical Identify Verify Exploit (HIVE) program, and relates to work undertaken in the DARPA Software Defined Hardware (SDH) program~\cite{Regli2022b}.
-    Many emerging hardware architectures optimized for graph processing are emerging, like EMU~\cite{Dysart2016}, Graphicianado~\cite{Ham2016}, the Lincoln Labs architecture~\cite{Song2016} and PiUMA~\cite{Aananthakrishnan2020} among others~\cite{Peccerillo2022} will be similarly limited.
+    Many emerging hardware architectures optimized for graph processing are emerging, like EMU~\cite{Dysart2016}, Graphicianado~\cite{Ham2016}, the Lincoln Labs architecture~\cite{Song2016} and PiUMA~\cite{Aananthakrishnan2020} among others~\cite{Peccerillo2022}.
     }
 \par{
     The proliferation of new hardware options presents an imperative for those acquiring and integrating graph hardware accelerators to select the best processor for the task at hand. 
@@ -49,5 +49,5 @@
     The AGHAB aims to fill the gap. 
     }
 \par{
-    The remainder of this report outlines the architecture of the AGHAB (section~\ref{section:architecture}), describes the benchmarks, reference implementations and telemetry in sections ~\ref{section:datasets},~\ref{section:implementations} and \ref{section:telemetry} before providing an example usage of the benchmark (section~\ref{section:example}) and summarizing contribution guidelines in section~\ref{section:contributing}.
+    The remainder of this report outlines the architecture of the AGHAB (section~\ref{section:architecture}), describes the benchmarks, reference implementations and telemetry in sections ~\ref{section:implementations},~\ref{section:datasets} and \ref{section:telemetry} and summarizing contribution guidelines in section~\ref{section:contributing}.
     }
